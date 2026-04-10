@@ -68,7 +68,7 @@ export default function Preview() {
   const clip = clips[clipIndex];
 
   return (
-    <section id="preview" className="relative py-24 px-6 bg-cream overflow-hidden md:px-12">
+    <section id="preview" className="relative py-24 px-6 bg-paper overflow-hidden md:px-12 border-y border-ink/6">
       <div className="relative max-w-[800px] mx-auto">
         {/* Section header */}
         <div className="mb-16">
