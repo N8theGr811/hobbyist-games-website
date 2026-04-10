@@ -28,16 +28,17 @@ export default function Trailer() {
           ref={videoRef}
           src="/media/trailers/walkthrough.mp4"
           preload="metadata"
+          playsInline
           className="w-full h-full object-cover"
         />
         {!isPlaying && (
           <button
             onClick={handlePlay}
-            className="absolute inset-0 flex items-center justify-center bg-ink/40 hover:bg-ink/25 transition-colors cursor-pointer"
+            className="group absolute inset-0 flex items-center justify-center bg-ink/40 hover:bg-ink/25 transition-colors cursor-pointer"
             aria-label="Play video"
           >
-            <div className="w-16 h-16 border-2 border-cream rounded-full flex items-center justify-center hover:scale-110 hover:border-belt-gold transition-all">
-              <div className="w-0 h-0 border-l-[20px] border-l-cream border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent ml-1" />
+            <div className="w-16 h-16 border-2 border-cream rounded-full flex items-center justify-center group-hover:scale-110 group-hover:border-belt-gold transition-all">
+              <div className="w-0 h-0 border-l-[20px] border-l-cream group-hover:border-l-belt-gold border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent ml-1 transition-colors" />
             </div>
           </button>
         )}
