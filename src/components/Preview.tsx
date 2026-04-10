@@ -51,7 +51,7 @@ function ArrowButton({
       onClick={onClick}
       disabled={disabled}
       aria-label={direction === "prev" ? "Previous" : "Next"}
-      className="w-10 h-10 border border-ink/10 flex items-center justify-center text-ink/30 hover:text-ink hover:border-ink/25 hover:bg-ink/5 disabled:opacity-20 disabled:cursor-not-allowed transition-all cursor-pointer"
+      className="w-10 h-10 border-2 border-ink/30 flex items-center justify-center text-ink/60 hover:text-ink hover:border-ink/50 hover:bg-ink/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
     >
       <span className="text-sm font-mono">
         {direction === "prev" ? "←" : "→"}
@@ -72,7 +72,7 @@ export default function Preview() {
       <div className="relative max-w-[800px] mx-auto">
         {/* Section header */}
         <div className="mb-16">
-          <p className="font-mono text-[0.6rem] font-bold tracking-[0.25em] uppercase text-ink/25 mb-3">
+          <p className="font-mono text-[0.6rem] font-bold tracking-[0.25em] uppercase text-ink/40 mb-3">
             Preview
           </p>
           <h2 className="font-display text-3xl text-ink">
@@ -91,12 +91,12 @@ export default function Preview() {
               <h3 className="font-display text-xl text-ink leading-tight">
                 {shot.title}
               </h3>
-              <p className="text-sm text-ink/40 mt-1">
+              <p className="text-sm text-ink/50 mt-1">
                 {shot.description}
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <span className="font-mono text-[0.55rem] text-ink/20 mr-2">
+              <span className="font-mono text-[0.55rem] text-ink/40 mr-2">
                 {shotIndex + 1}/{screenshots.length}
               </span>
               <ArrowButton
@@ -127,7 +127,7 @@ export default function Preview() {
         </div>
 
         {/* Divider */}
-        <div className="w-16 h-px bg-ink/8 mx-auto mb-20" />
+        <div className="w-16 h-px bg-ink/15 mx-auto mb-20" />
 
         {/* ─── Video Clips Carousel ─── */}
         <div>
@@ -140,12 +140,12 @@ export default function Preview() {
               <h3 className="font-display text-xl text-ink leading-tight">
                 {clip.title}
               </h3>
-              <p className="text-sm text-ink/40 mt-1">
+              <p className="text-sm text-ink/50 mt-1">
                 {clip.description}
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <span className="font-mono text-[0.55rem] text-ink/20 mr-2">
+              <span className="font-mono text-[0.55rem] text-ink/40 mr-2">
                 {clipIndex + 1}/{clips.length}
               </span>
               <ArrowButton
