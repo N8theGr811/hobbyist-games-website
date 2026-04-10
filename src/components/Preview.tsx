@@ -51,7 +51,7 @@ function ArrowButton({
       onClick={onClick}
       disabled={disabled}
       aria-label={direction === "prev" ? "Previous" : "Next"}
-      className="w-10 h-10 border-2 border-ink/30 flex items-center justify-center text-ink/60 hover:text-ink hover:border-ink/50 hover:bg-ink/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
+      className="w-10 h-10 border-2 border-cream/20 flex items-center justify-center text-cream/50 hover:text-cream hover:border-cream/40 hover:bg-cream/5 disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
     >
       <span className="text-sm font-mono">
         {direction === "prev" ? "←" : "→"}
@@ -68,14 +68,14 @@ export default function Preview() {
   const clip = clips[clipIndex];
 
   return (
-    <section id="preview" className="relative py-24 px-6 bg-paper overflow-hidden md:px-12 border-y border-ink/6">
+    <section id="preview" className="relative py-24 px-6 bg-espresso overflow-hidden md:px-12">
       <div className="relative max-w-[800px] mx-auto">
         {/* Section header */}
         <div className="mb-16">
-          <p className="font-mono text-[0.6rem] font-bold tracking-[0.25em] uppercase text-ink/40 mb-3">
+          <p className="font-mono text-[0.6rem] font-bold tracking-[0.25em] uppercase text-cream/40 mb-3">
             Preview
           </p>
-          <h2 className="font-display text-3xl text-ink">
+          <h2 className="font-display text-3xl text-cream">
             A glimpse of the world
           </h2>
         </div>
@@ -85,18 +85,18 @@ export default function Preview() {
           {/* Title bar */}
           <div className="flex items-end justify-between mb-5">
             <div>
-              <p className="font-mono text-[0.55rem] font-bold tracking-[0.2em] uppercase text-mat-red mb-1.5">
+              <p className="font-mono text-[0.55rem] font-bold tracking-[0.2em] uppercase text-belt-gold mb-1.5">
                 Screenshots
               </p>
-              <h3 className="font-display text-xl text-ink leading-tight">
+              <h3 className="font-display text-xl text-cream leading-tight">
                 {shot.title}
               </h3>
-              <p className="text-sm text-ink/50 mt-1">
+              <p className="text-sm text-cream/45 mt-1">
                 {shot.description}
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <span className="font-mono text-[0.55rem] text-ink/40 mr-2">
+              <span className="font-mono text-[0.55rem] text-cream/35 mr-2">
                 {shotIndex + 1}/{screenshots.length}
               </span>
               <ArrowButton
@@ -113,7 +113,7 @@ export default function Preview() {
           </div>
 
           {/* Screenshot frame */}
-          <div className="relative aspect-video border-2 border-ink/10 overflow-hidden bg-ink/5 shadow-[0_8px_30px_rgba(27,22,18,0.08)]">
+          <div className="relative aspect-video border-2 border-cream/10 overflow-hidden bg-ink/30 shadow-[0_8px_30px_rgba(0,0,0,0.2)]">
             <Image
               key={shot.src}
               src={shot.src}
@@ -127,25 +127,25 @@ export default function Preview() {
         </div>
 
         {/* Divider */}
-        <div className="w-16 h-px bg-ink/15 mx-auto mb-20" />
+        <div className="w-16 h-px bg-cream/15 mx-auto mb-20" />
 
         {/* ─── Video Clips Carousel ─── */}
         <div>
           {/* Title bar */}
           <div className="flex items-end justify-between mb-5">
             <div>
-              <p className="font-mono text-[0.55rem] font-bold tracking-[0.2em] uppercase text-mat-red mb-1.5">
+              <p className="font-mono text-[0.55rem] font-bold tracking-[0.2em] uppercase text-belt-gold mb-1.5">
                 Gameplay Clips
               </p>
-              <h3 className="font-display text-xl text-ink leading-tight">
+              <h3 className="font-display text-xl text-cream leading-tight">
                 {clip.title}
               </h3>
-              <p className="text-sm text-ink/50 mt-1">
+              <p className="text-sm text-cream/45 mt-1">
                 {clip.description}
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <span className="font-mono text-[0.55rem] text-ink/40 mr-2">
+              <span className="font-mono text-[0.55rem] text-cream/35 mr-2">
                 {clipIndex + 1}/{clips.length}
               </span>
               <ArrowButton
@@ -162,7 +162,7 @@ export default function Preview() {
           </div>
 
           {/* Video frame */}
-          <div className="relative aspect-video border-2 border-ink/10 overflow-hidden bg-ink/5 shadow-[0_8px_30px_rgba(27,22,18,0.08)]">
+          <div className="relative aspect-video border-2 border-cream/10 overflow-hidden bg-ink/30 shadow-[0_8px_30px_rgba(0,0,0,0.2)]">
             <video
               key={clip.src}
               src={clip.src}
