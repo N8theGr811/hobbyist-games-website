@@ -15,9 +15,7 @@ export default function Trailer() {
   }
 
   return (
-    <section className="relative py-28 px-6 bg-paper text-center md:px-12 overflow-hidden">
-      {/* Subtle top border accent */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-ink/8 to-transparent" />
+    <section className="relative py-28 px-6 bg-cream text-center md:px-12 overflow-hidden">
 
       <p className="font-mono text-[0.6rem] font-bold tracking-[0.25em] uppercase text-ink/25 mb-4">
         Gameplay

@@ -68,7 +68,7 @@ export default function Preview() {
   const clip = clips[clipIndex];
 
   return (
-    <section id="preview" className="relative py-24 px-6 bg-ink overflow-hidden md:px-12">
+    <section id="preview" className="relative pt-12 pb-32 px-6 bg-ink overflow-hidden md:px-12">
       {/* Radial accent */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_50%,rgba(30,53,83,0.3)_0%,transparent_60%)] pointer-events-none" />
 
@@ -175,6 +175,9 @@ export default function Preview() {
           </div>
         </div>
       </div>
+
+      {/* Bottom gradient transition to cream */}
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-cream to-transparent pointer-events-none" />
     </section>
   );
 }
