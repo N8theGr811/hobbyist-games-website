@@ -1,7 +1,7 @@
 const socials = [
-  { label: "X", href: "#" },
-  { label: "YT", href: "#" },
-  { label: "DC", href: "#" },
+  { label: "X", href: "#", aria: "X (Twitter)" },
+  { label: "YT", href: "#", aria: "YouTube" },
+  { label: "DC", href: "#", aria: "Discord" },
 ];
 
 export default function Footer() {
@@ -15,7 +15,10 @@ export default function Footer() {
           <a
             key={s.label}
             href={s.href}
-            className="w-9 h-9 flex items-center justify-center border border-ink/10 text-ink text-[0.7rem] font-semibold opacity-40 hover:opacity-100 hover:bg-ink hover:text-cream hover:border-ink transition-all"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={s.aria}
+            className="w-9 h-9 flex items-center justify-center border border-ink/10 text-ink text-[0.7rem] font-semibold opacity-40 hover:opacity-100 hover:bg-ink hover:text-cream hover:border-ink transition-all cursor-pointer"
           >
             {s.label}
           </a>
