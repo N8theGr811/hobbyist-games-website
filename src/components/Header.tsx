@@ -10,6 +10,7 @@ export default function Header() {
           width={160}
           height={32}
           priority
+          style={{ height: "auto" }}
         />
       </a>
       <nav className="flex items-center gap-6">
