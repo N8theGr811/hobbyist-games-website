@@ -18,8 +18,8 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 transition-all duration-500 md:px-12 ${
         scrolled
-          ? "bg-cream/90 backdrop-blur-xl border-b border-ink/5"
-          : "bg-transparent border-b border-transparent"
+          ? "bg-cream/95 backdrop-blur-xl border-b border-ink/8 shadow-[0_1px_8px_rgba(27,22,18,0.06)]"
+          : "bg-cream/70 backdrop-blur-md border-b border-ink/8 shadow-[0_1px_4px_rgba(27,22,18,0.04)]"
       }`}
     >
       <a href="#" className="block">
