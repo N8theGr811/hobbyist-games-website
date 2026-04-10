@@ -39,7 +39,7 @@ export default function Preview() {
           {screenshots.map((shot) => (
             <div
               key={shot.label}
-              className="group relative aspect-video bg-cream/5 border border-cream/5 overflow-hidden cursor-pointer hover:border-cream/10 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)] transition-all duration-400"
+              className="group relative aspect-video bg-cream/5 border border-cream/5 overflow-hidden cursor-pointer hover:border-cream/10 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)] transition-all duration-300"
             >
               <Image
                 src={shot.src}
@@ -58,7 +58,7 @@ export default function Preview() {
           {clips.map((clip, i) => (
             <div
               key={clip.label}
-              className={`group relative aspect-video bg-cream/5 border border-cream/5 overflow-hidden cursor-pointer hover:border-cream/10 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)] transition-all duration-400 ${
+              className={`group relative aspect-video bg-cream/5 border border-cream/5 overflow-hidden cursor-pointer hover:border-cream/10 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)] transition-all duration-300 ${
                 i === 1 ? "sm:col-span-2" : ""
               }`}
             >

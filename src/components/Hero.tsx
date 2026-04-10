@@ -42,7 +42,7 @@ export default function Hero() {
       {/* CTA */}
       <a
         href="#signup"
-        className="group inline-flex items-center gap-2.5 font-mono text-[0.7rem] font-bold tracking-[0.12em] uppercase px-10 py-4 bg-ink text-cream hover:bg-mat-red hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(200,55,45,0.2)] transition-all duration-400"
+        className="group inline-flex items-center gap-2.5 font-mono text-[0.7rem] font-bold tracking-[0.12em] uppercase px-10 py-4 bg-ink text-cream hover:bg-mat-red hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(200,55,45,0.2)] transition-all duration-300"
       >
         Join the Beta
         <span className="transition-transform group-hover:translate-x-1">→</span>
