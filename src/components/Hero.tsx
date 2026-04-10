@@ -32,7 +32,7 @@ export default function Hero() {
 
       {/* Tagline */}
       <p className="font-display text-[clamp(1.2rem,3vw,1.6rem)] text-ink mt-8 mb-2">
-        Train. Fight. Build Your <em className="italic text-mat-red">Legacy.</em>
+        Train. Fight. Build Your <em className="text-mat-red">Legacy.</em>
       </p>
       <p className="text-base text-ink/50 max-w-md mb-10 leading-relaxed">
         A pixel-art RPG where Brazilian Jiu-Jitsu meets adventure. Rise from

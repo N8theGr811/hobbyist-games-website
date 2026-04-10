@@ -51,7 +51,7 @@ export default function EmailSignup() {
       <h2 className="font-display text-[clamp(1.8rem,4vw,2.4rem)] text-ink mb-3 leading-tight">
         Be the first
         <br />
-        to <em className="italic text-mat-red">step on the mat</em>
+        to <em className="text-mat-red">step on the mat</em>
       </h2>
 
       <p className="text-base text-ink/45 mb-10">
@@ -77,7 +77,7 @@ export default function EmailSignup() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
               disabled={state === "submitting"}
-              className="flex-1 px-5 py-4 bg-paper text-ink font-body text-sm outline-none placeholder:text-ink/25 disabled:opacity-50"
+              className="flex-1 px-5 py-4 bg-paper text-ink text-sm outline-none placeholder:text-ink/25 disabled:opacity-50"
             />
             <button
               type="submit"

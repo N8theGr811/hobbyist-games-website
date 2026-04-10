@@ -21,14 +21,14 @@ export default function Preview() {
         {/* Header */}
         <div className="flex justify-between items-end mb-12">
           <div>
-            <p className="font-mono text-[0.6rem] font-bold tracking-[0.2em] uppercase text-cream/30 mb-3">
+            <p className="font-mono text-[0.6rem] font-bold tracking-[0.25em] uppercase text-cream/30 mb-3">
               Preview
             </p>
             <h2 className="font-display text-3xl text-cream">
               A glimpse of the world
             </h2>
           </div>
-          <p className="font-mono text-[0.65rem] text-cream/25 tracking-wide">
+          <p className="hidden font-mono text-[0.65rem] text-cream/25 tracking-wide sm:block">
             More coming soon
           </p>
         </div>
@@ -39,14 +39,14 @@ export default function Preview() {
           {screenshots.map((shot) => (
             <div
               key={shot.label}
-              className="group relative aspect-video bg-cream/5 border border-cream/5 overflow-hidden cursor-pointer hover:border-cream/10 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)] transition-all duration-300"
+              className="group relative aspect-video bg-cream/5 border border-cream/5 overflow-hidden hover:border-cream/10 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)] transition-all duration-300"
             >
               <Image
                 src={shot.src}
                 alt={shot.alt}
                 fill
                 className="object-cover"
-                sizes="(max-width: 640px) 100vw, 33vw"
+                sizes="(max-width: 640px) 100vw, 300px"
               />
               <span className="absolute bottom-2 left-2 font-mono text-[0.5rem] tracking-[0.1em] uppercase text-cream bg-ink/70 backdrop-blur-sm px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
                 {shot.label}
@@ -58,7 +58,7 @@ export default function Preview() {
           {clips.map((clip, i) => (
             <div
               key={clip.label}
-              className={`group relative aspect-video bg-cream/5 border border-cream/5 overflow-hidden cursor-pointer hover:border-cream/10 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)] transition-all duration-300 ${
+              className={`group relative aspect-video bg-cream/5 border border-cream/5 overflow-hidden hover:border-cream/10 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)] transition-all duration-300 ${
                 i === 1 ? "sm:col-span-2" : ""
               }`}
             >

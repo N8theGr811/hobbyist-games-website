@@ -19,7 +19,7 @@ export default function GameInfo() {
       <h2 className="font-display text-[clamp(1.6rem,4vw,2.2rem)] text-ink leading-tight max-w-xl mx-auto mb-5">
         White belt to world champion.
         <br />
-        Every roll <em className="italic text-mat-red">matters.</em>
+        Every roll <em className="text-mat-red">matters.</em>
       </h2>
 
       <p className="text-base text-ink/50 max-w-md mx-auto mb-14 leading-relaxed">
