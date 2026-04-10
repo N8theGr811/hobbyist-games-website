@@ -20,6 +20,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://hobbyistgames.com"),
   title: "Hobbyist Games — Jiu-Jitsu RPG",
   description:
     "A pixel-art RPG where Brazilian Jiu-Jitsu meets adventure. Train, fight, and build your legacy. Coming soon.",
