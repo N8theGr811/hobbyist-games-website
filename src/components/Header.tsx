@@ -7,8 +7,8 @@ export default function Header() {
         <Image
           src="/brand/hobbyist-games-v1-hero-2048w.png"
           alt="Hobbyist Games"
-          width={200}
-          height={80}
+          width={240}
+          height={96}
           priority
           style={{ height: "auto" }}
         />
