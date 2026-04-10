@@ -88,7 +88,7 @@ export default function Hero() {
         >
           <a
             href="#signup"
-            className="group relative inline-flex items-center gap-3 font-mono text-[0.7rem] font-bold tracking-[0.15em] uppercase px-10 py-4 bg-ink text-cream hover:bg-mat-red transition-all duration-300 hover:shadow-[0_8px_30px_rgba(200,55,45,0.2)]"
+            className="group relative inline-flex items-center gap-3 font-mono text-[0.7rem] font-bold tracking-[0.15em] uppercase px-10 py-4 bg-espresso text-cream hover:bg-mat-red transition-all duration-300 hover:shadow-[0_8px_30px_rgba(200,55,45,0.2)]"
           >
             Join the Beta
             <span className="transition-transform duration-300 group-hover:translate-x-1.5">→</span>
