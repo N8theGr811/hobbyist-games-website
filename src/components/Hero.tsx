@@ -29,16 +29,16 @@ export default function Hero() {
           className="animate-fade-in flex items-center justify-center gap-4 mb-10"
           style={{ animationDelay: "0.2s" }}
         >
-          <span className="animate-line-expand w-10 h-px bg-mat-red/40" style={{ animationDelay: "0.8s" }} />
-          <span className="font-mono text-[0.6rem] font-bold tracking-[0.3em] uppercase text-mat-red">
+          <span className="animate-line-expand w-14 h-px bg-mat-red/40" style={{ animationDelay: "0.8s" }} />
+          <span className="font-mono text-[0.85rem] font-bold tracking-[0.3em] uppercase text-mat-red">
             Coming Soon
           </span>
-          <span className="animate-line-expand w-10 h-px bg-mat-red/40" style={{ animationDelay: "0.8s" }} />
+          <span className="animate-line-expand w-14 h-px bg-mat-red/40" style={{ animationDelay: "0.8s" }} />
         </div>
 
         {/* Studio credit */}
         <p
-          className="animate-fade-up font-mono text-[0.55rem] tracking-[0.2em] uppercase text-ink/25 mb-8"
+          className="animate-fade-up font-mono text-[0.75rem] tracking-[0.2em] uppercase text-ink/25 mb-8"
           style={{ animationDelay: "0.4s" }}
         >
           A Hobbyist Games Production
