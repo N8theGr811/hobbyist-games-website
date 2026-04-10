@@ -16,10 +16,10 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 transition-all duration-500 md:px-12 ${
+      className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-3.5 transition-all duration-500 md:px-12 ${
         scrolled
-          ? "bg-cream/95 backdrop-blur-xl border-b border-ink/8 shadow-[0_1px_8px_rgba(27,22,18,0.06)]"
-          : "bg-cream/70 backdrop-blur-md border-b border-ink/8 shadow-[0_1px_4px_rgba(27,22,18,0.04)]"
+          ? "bg-paper/95 backdrop-blur-xl border-b-2 border-ink/12 shadow-[0_2px_16px_rgba(27,22,18,0.1)]"
+          : "bg-paper/90 backdrop-blur-md border-b-2 border-ink/12 shadow-[0_2px_12px_rgba(27,22,18,0.08)]"
       }`}
     >
       <a href="#" className="block">
@@ -35,13 +35,13 @@ export default function Header() {
       <nav className="flex items-center gap-6">
         <a
           href="#preview"
-          className="hidden text-sm font-medium text-ink/50 hover:text-ink transition-colors sm:block"
+          className="hidden text-sm font-semibold text-ink/60 hover:text-ink transition-colors sm:block"
         >
           Preview
         </a>
         <a
           href="#about"
-          className="hidden text-sm font-medium text-ink/50 hover:text-ink transition-colors sm:block"
+          className="hidden text-sm font-semibold text-ink/60 hover:text-ink transition-colors sm:block"
         >
           About
         </a>
