@@ -5,10 +5,10 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-3.5 bg-espresso shadow-[0_2px_16px_rgba(59,42,31,0.25)] md:px-12">
       <a href="#" className="block">
         <Image
-          src="/brand/hobbyist-games-v4-working.svg"
+          src="/brand/hobbyist-games-v1-hero.svg"
           alt="Hobbyist Games"
-          width={180}
-          height={36}
+          width={120}
+          height={48}
           priority
           style={{ height: "auto" }}
         />
