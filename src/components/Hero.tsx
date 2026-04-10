@@ -103,15 +103,15 @@ export default function Hero() {
           {["white", "blue", "purple", "brown", "black"].map((belt, i) => (
             <div
               key={belt}
-              className="animate-gentle-pulse h-1 w-6 rounded-full"
+              className="animate-gentle-pulse h-1.5 w-7 rounded-full"
               style={{
                 animationDelay: `${1.8 + i * 0.15}s`,
                 backgroundColor:
-                  belt === "white" ? "rgba(27,22,18,0.15)" :
-                  belt === "blue" ? "rgba(59,130,246,0.5)" :
-                  belt === "purple" ? "rgba(147,51,234,0.5)" :
-                  belt === "brown" ? "rgba(161,98,7,0.5)" :
-                  "rgba(27,22,18,0.6)",
+                  belt === "white" ? "rgba(244,233,210,0.9)" :
+                  belt === "blue" ? "rgba(59,130,246,0.9)" :
+                  belt === "purple" ? "rgba(147,51,234,0.9)" :
+                  belt === "brown" ? "rgba(161,98,7,0.9)" :
+                  "rgba(27,22,18,0.85)",
               }}
             />
           ))}

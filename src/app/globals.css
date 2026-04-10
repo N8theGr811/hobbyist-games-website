@@ -47,8 +47,8 @@ body {
 }
 
 @keyframes gentlePulse {
-  0%, 100% { opacity: 0.2; }
-  50% { opacity: 0.6; }
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
 }
 
 @keyframes scrollLine {
