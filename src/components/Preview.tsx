@@ -51,7 +51,7 @@ function ArrowButton({
       onClick={onClick}
       disabled={disabled}
       aria-label={direction === "prev" ? "Previous" : "Next"}
-      className="w-10 h-10 border border-cream/15 flex items-center justify-center text-cream/40 hover:text-cream hover:border-cream/30 hover:bg-cream/5 disabled:opacity-20 disabled:cursor-not-allowed transition-all cursor-pointer"
+      className="w-10 h-10 border border-ink/10 flex items-center justify-center text-ink/30 hover:text-ink hover:border-ink/25 hover:bg-ink/5 disabled:opacity-20 disabled:cursor-not-allowed transition-all cursor-pointer"
     >
       <span className="text-sm font-mono">
         {direction === "prev" ? "←" : "→"}
@@ -68,17 +68,14 @@ export default function Preview() {
   const clip = clips[clipIndex];
 
   return (
-    <section id="preview" className="relative pt-12 pb-32 px-6 bg-ink overflow-hidden md:px-12">
-      {/* Radial accent */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_50%,rgba(30,53,83,0.3)_0%,transparent_60%)] pointer-events-none" />
-
+    <section id="preview" className="relative py-24 px-6 bg-cream overflow-hidden md:px-12">
       <div className="relative max-w-[800px] mx-auto">
         {/* Section header */}
         <div className="mb-16">
-          <p className="font-mono text-[0.6rem] font-bold tracking-[0.25em] uppercase text-cream/30 mb-3">
+          <p className="font-mono text-[0.6rem] font-bold tracking-[0.25em] uppercase text-ink/25 mb-3">
             Preview
           </p>
-          <h2 className="font-display text-3xl text-cream">
+          <h2 className="font-display text-3xl text-ink">
             A glimpse of the world
           </h2>
         </div>
@@ -88,18 +85,18 @@ export default function Preview() {
           {/* Title bar */}
           <div className="flex items-end justify-between mb-5">
             <div>
-              <p className="font-mono text-[0.55rem] font-bold tracking-[0.2em] uppercase text-cream/25 mb-1.5">
+              <p className="font-mono text-[0.55rem] font-bold tracking-[0.2em] uppercase text-mat-red mb-1.5">
                 Screenshots
               </p>
-              <h3 className="font-display text-xl text-cream leading-tight">
+              <h3 className="font-display text-xl text-ink leading-tight">
                 {shot.title}
               </h3>
-              <p className="text-sm text-cream/35 mt-1">
+              <p className="text-sm text-ink/40 mt-1">
                 {shot.description}
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <span className="font-mono text-[0.55rem] text-cream/20 mr-2">
+              <span className="font-mono text-[0.55rem] text-ink/20 mr-2">
                 {shotIndex + 1}/{screenshots.length}
               </span>
               <ArrowButton
@@ -116,7 +113,7 @@ export default function Preview() {
           </div>
 
           {/* Screenshot frame */}
-          <div className="relative aspect-video border border-cream/10 overflow-hidden bg-gi-navy/20">
+          <div className="relative aspect-video border-2 border-ink/10 overflow-hidden bg-ink/5 shadow-[0_8px_30px_rgba(27,22,18,0.08)]">
             <Image
               key={shot.src}
               src={shot.src}
@@ -129,23 +126,26 @@ export default function Preview() {
           </div>
         </div>
 
+        {/* Divider */}
+        <div className="w-16 h-px bg-ink/8 mx-auto mb-20" />
+
         {/* ─── Video Clips Carousel ─── */}
         <div>
           {/* Title bar */}
           <div className="flex items-end justify-between mb-5">
             <div>
-              <p className="font-mono text-[0.55rem] font-bold tracking-[0.2em] uppercase text-cream/25 mb-1.5">
+              <p className="font-mono text-[0.55rem] font-bold tracking-[0.2em] uppercase text-mat-red mb-1.5">
                 Gameplay Clips
               </p>
-              <h3 className="font-display text-xl text-cream leading-tight">
+              <h3 className="font-display text-xl text-ink leading-tight">
                 {clip.title}
               </h3>
-              <p className="text-sm text-cream/35 mt-1">
+              <p className="text-sm text-ink/40 mt-1">
                 {clip.description}
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <span className="font-mono text-[0.55rem] text-cream/20 mr-2">
+              <span className="font-mono text-[0.55rem] text-ink/20 mr-2">
                 {clipIndex + 1}/{clips.length}
               </span>
               <ArrowButton
@@ -162,7 +162,7 @@ export default function Preview() {
           </div>
 
           {/* Video frame */}
-          <div className="relative aspect-video border border-cream/10 overflow-hidden bg-gi-navy/20">
+          <div className="relative aspect-video border-2 border-ink/10 overflow-hidden bg-ink/5 shadow-[0_8px_30px_rgba(27,22,18,0.08)]">
             <video
               key={clip.src}
               src={clip.src}
@@ -175,9 +175,6 @@ export default function Preview() {
           </div>
         </div>
       </div>
-
-      {/* Bottom gradient transition to cream */}
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-cream to-transparent pointer-events-none" />
     </section>
   );
 }

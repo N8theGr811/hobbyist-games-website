@@ -24,11 +24,7 @@ export default function Header() {
     >
       <a href="#" className="block">
         <Image
-          src={
-            scrolled
-              ? "/brand/hobbyist-games-v4-working.svg"
-              : "/brand/hobbyist-games-v4-working-reverse.svg"
-          }
+          src="/brand/hobbyist-games-v4-working.svg"
           alt="Hobbyist Games"
           width={140}
           height={28}
@@ -39,23 +35,19 @@ export default function Header() {
       <nav className="flex items-center gap-6">
         <a
           href="#preview"
-          className={`hidden text-sm font-medium transition-colors sm:block ${
-            scrolled ? "text-ink/50 hover:text-ink" : "text-cream/40 hover:text-cream"
-          }`}
+          className="hidden text-sm font-medium text-ink/50 hover:text-ink transition-colors sm:block"
         >
           Preview
         </a>
         <a
           href="#about"
-          className={`hidden text-sm font-medium transition-colors sm:block ${
-            scrolled ? "text-ink/50 hover:text-ink" : "text-cream/40 hover:text-cream"
-          }`}
+          className="hidden text-sm font-medium text-ink/50 hover:text-ink transition-colors sm:block"
         >
           About
         </a>
         <a
           href="#signup"
-          className="font-mono text-[0.65rem] font-bold tracking-widest uppercase px-5 py-2.5 bg-mat-red text-cream hover:bg-cream hover:text-ink transition-colors"
+          className="font-mono text-[0.65rem] font-bold tracking-widest uppercase px-5 py-2.5 bg-ink text-cream hover:bg-mat-red transition-colors"
         >
           Get Early Access
         </a>
