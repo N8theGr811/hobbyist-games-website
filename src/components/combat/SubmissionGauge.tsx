@@ -31,7 +31,7 @@ export function SubmissionGauge({ submissionAttacker, baseSubChance, onResult }:
   const needleStoppedRef = useRef(false);
   const needlePosRef = useRef(0);
 
-  const config = createGaugeConfig();
+  const [config] = useState(() => createGaugeConfig());
   const isPlayerAttacking = submissionAttacker === "player";
 
   // Struggle phase -> gauge phase
@@ -44,7 +44,7 @@ export function SubmissionGauge({ submissionAttacker, baseSubChance, onResult }:
   }, []);
 
   const handleStop = useCallback(() => {
-    if (needleStoppedRef.current && gaugeResult) return;
+    if (needleStoppedRef.current) return;
     needleStoppedRef.current = true;
     cancelAnimationFrame(animFrameRef.current);
 
@@ -54,7 +54,7 @@ export function SubmissionGauge({ submissionAttacker, baseSubChance, onResult }:
 
     // Notify parent after brief display
     setTimeout(() => onResult(result), 1500);
-  }, [baseSubChance, config, onResult, gaugeResult]);
+  }, [baseSubChance, config, onResult]);
 
   // Canvas rendering loop
   useEffect(() => {

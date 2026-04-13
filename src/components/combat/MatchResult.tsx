@@ -11,7 +11,6 @@ interface MatchResultProps {
   playerScore: number;
   opponentScore: number;
   onPlayAgain: () => void;
-  onSignup?: () => void;
 }
 
 export default function MatchResult({

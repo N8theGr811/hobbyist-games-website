@@ -2,14 +2,13 @@
 // Top-level combat demo section — manages game state with useReducer.
 "use client";
 
-import { useReducer, useCallback } from "react";
+import { useReducer, useCallback, useRef, useEffect } from "react";
 import {
   type GameState,
   type Move,
   type TurnResult,
   type GaugeResult,
   type Fighter,
-  type FighterState,
 } from "@/lib/combat/types";
 import {
   PLAYER_FIGHTER,
@@ -199,10 +198,14 @@ export default function CombatDemo() {
     dispatch({ type: "START_MATCH" });
   }, []);
 
+  const restartTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    return () => { if (restartTimerRef.current) clearTimeout(restartTimerRef.current); };
+  }, []);
   const handleRestart = useCallback(() => {
     dispatch({ type: "RESTART" });
-    // Small delay then start
-    setTimeout(() => dispatch({ type: "START_MATCH" }), 100);
+    if (restartTimerRef.current) clearTimeout(restartTimerRef.current);
+    restartTimerRef.current = setTimeout(() => dispatch({ type: "START_MATCH" }), 100);
   }, []);
 
   return (

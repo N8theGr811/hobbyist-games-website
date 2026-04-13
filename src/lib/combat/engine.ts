@@ -352,6 +352,15 @@ export function checkWinCondition(state: GameState): GameState {
  */
 export function getTimeoutMove(fighter: Fighter, fighterState: FighterState, rng: RNG = Math.random): Move {
   const available = getAvailableMoves(fighter, fighterState);
+  if (available.length === 0) {
+    // Fallback: return first DEF move ignoring stamina (stall/survive)
+    const anyDef = fighter.moves.find(
+      (m) => m.from_position === fighterState.position && m.type === MoveType.DEF
+    );
+    if (anyDef) return anyDef;
+    // Absolute fallback: first move for this position
+    return fighter.moves.find((m) => m.from_position === fighterState.position) ?? fighter.moves[0];
+  }
   const defMoves = available.filter((m) => m.type === MoveType.DEF);
   const pool = defMoves.length > 0 ? defMoves : available;
   return pool[Math.floor(rng() * pool.length)];
