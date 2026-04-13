@@ -268,8 +268,18 @@ const OPPONENT_EQUIPPED_IDS: string[] = [
   "rip_leg_out_saddle", "hide_heel_extract", "counter_back_take",
 ];
 
-function filterMovesByIds(ids: string[]): Move[] {
-  return ALL_MOVES.filter((m) => ids.includes(m.id));
+function filterMovesByIds(ids: string[], boostSubs: boolean = false): Move[] {
+  return ALL_MOVES
+    .filter((m) => ids.includes(m.id))
+    .map((m) => {
+      if (!boostSubs || m.type !== MoveType.SUB) return m;
+      // Boost player sub chances for demo purposes
+      return {
+        ...m,
+        base_chance: Math.min(0.95, m.base_chance + 0.15),
+        sub_chance: m.sub_chance ? Math.min(0.95, m.sub_chance + 0.20) : undefined,
+      };
+    });
 }
 
 export const PLAYER_FIGHTER: Fighter = {
@@ -284,7 +294,7 @@ export const PLAYER_FIGHTER: Fighter = {
     strength: 62,
     leg_entanglements: 55,
   },
-  moves: filterMovesByIds(PLAYER_EQUIPPED_IDS),
+  moves: filterMovesByIds(PLAYER_EQUIPPED_IDS, true), // boost subs for demo
 };
 
 export const OPPONENT_FIGHTER: Fighter = {

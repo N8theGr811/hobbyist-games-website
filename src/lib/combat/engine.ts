@@ -58,8 +58,6 @@ export function getAvailableMoves(
   return fighter.moves.filter((move) => {
     // Must be at the correct position
     if (move.from_position !== state.position) return false;
-    // Must have enough stamina
-    if (state.stamina < STAMINA_COSTS[move.type]) return false;
     // Chain moves require 3+ pips
     if (move.is_chain && state.advantage_pips < CHAIN_MOVE_PIP_THRESHOLD) return false;
     return true;
