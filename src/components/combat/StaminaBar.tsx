@@ -23,13 +23,6 @@ export default function StaminaBar({
   return (
     <div className="flex-1">
       <div
-        className="flex justify-between text-[10px] font-mono mb-0.5"
-        style={{ color: accentColor }}
-      >
-        <span>{side === "player" ? "You" : "Carlos"}</span>
-        <span>{Math.round(pct)}%</span>
-      </div>
-      <div
         className="h-2.5 rounded-full overflow-hidden relative"
         style={{ backgroundColor: COMBAT_COLORS.stamina_bg }}
       >

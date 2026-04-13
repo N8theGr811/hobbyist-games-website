@@ -31,7 +31,6 @@ import AdvantagePips from "./AdvantagePips";
 import PositionDisplay from "./PositionDisplay";
 import FighterSprite from "./FighterSprite";
 import MoveSelection from "./MoveSelection";
-import TurnTimer from "./TurnTimer";
 import { ResolveOverlay } from "./ResolveOverlay";
 import { SubmissionGauge } from "./SubmissionGauge";
 import MatchResult from "./MatchResult";
@@ -181,10 +180,6 @@ export default function CombatDemo() {
     dispatch({ type: "SELECT_MOVE", move });
   }, []);
 
-  const handleTimeout = useCallback(() => {
-    dispatch({ type: "TIMEOUT" });
-  }, []);
-
   const handleResolveComplete = useCallback(() => {
     dispatch({ type: "RESOLVE_COMPLETE" });
   }, []);
@@ -303,33 +298,28 @@ export default function CombatDemo() {
               <AdvantagePips count={game.opponent.advantage_pips} side="opponent" />
             </div>
 
-            {/* 5. Move selection at bottom */}
+            {/* 5. Move selection OR resolve result (inline, not overlay) */}
             {game.phase === "selecting" && (
-              <>
-                <MoveSelection
-                  moves={getAvailableMoves(playerFighter, game.player)}
-                  onSelect={handleMoveSelect}
-                  disabled={false}
-                  playerStamina={game.player.stamina}
-                  playerPips={game.player.advantage_pips}
-                />
-                <TurnTimer
-                  key={game.current_turn}
-                  onTimeout={handleTimeout}
-                  isActive={game.phase === "selecting"}
-                />
-              </>
+              <MoveSelection
+                moves={getAvailableMoves(playerFighter, game.player)}
+                onSelect={handleMoveSelect}
+                disabled={false}
+                playerStamina={game.player.stamina}
+                playerPips={game.player.advantage_pips}
+              />
+            )}
+
+            {/* Inline resolve result */}
+            {game.phase === "resolving" && showResolve && animatingResult && (
+              <ResolveOverlay
+                result={animatingResult}
+                onComplete={handleResolveComplete}
+              />
             )}
           </div>
         )}
 
-        {/* ─── Resolve Overlay ─── */}
-        {showResolve && animatingResult && (
-          <ResolveOverlay
-            result={animatingResult}
-            onComplete={handleResolveComplete}
-          />
-        )}
+        {/* Resolve overlay moved inline above */}
 
         {/* ─── Submission Gauge ─── */}
         {game.phase === "submission-gauge" && animatingResult && (
