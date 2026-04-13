@@ -232,22 +232,46 @@ export default function CombatDemo() {
   }, []);
 
   return (
-    <section
-      id="combat-demo"
-      className={`relative px-4 overflow-hidden md:px-8${shaking ? " combat-shake" : ""}`}
-      style={{ backgroundColor: COMBAT_COLORS.hud_bg, paddingTop: "2rem", paddingBottom: "2rem" }}
-    >
-      {/* Vignette overlay */}
+    <section id="combat-demo" className="py-20 px-6 bg-cream md:px-12">
+      {/* Section header — on the cream page */}
+      <div className="max-w-[850px] mx-auto mb-6 text-center">
+        <div className="flex items-center justify-center gap-3 mb-3 font-mono text-[0.6rem] font-bold tracking-[0.25em] uppercase text-mat-red">
+          <span className="w-6 h-px bg-mat-red/30" />
+          Combat Demo
+          <span className="w-6 h-px bg-mat-red/30" />
+        </div>
+        <h2 className="font-display text-[clamp(1.6rem,4vw,2.2rem)] text-ink">
+          Try the combat system
+        </h2>
+        <p className="text-sm text-ink/40 mt-2">
+          Play a full match right here in your browser
+        </p>
+      </div>
+
+      {/* Game screen frame */}
       <div
+        className="max-w-[850px] mx-auto rounded-lg overflow-hidden"
         style={{
-          position: "absolute",
-          inset: 0,
-          background: "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.3) 100%)",
-          pointerEvents: "none",
-          zIndex: 1,
+          border: "3px solid #3B2A1F",
+          boxShadow: "0 8px 32px rgba(27,22,18,0.15), 0 2px 8px rgba(27,22,18,0.1), inset 0 0 0 1px rgba(244,233,210,0.1)",
         }}
-      />
-      <div className="relative max-w-[800px] mx-auto" style={{ zIndex: 2 }}>
+      >
+        {/* Dark combat area inside the frame */}
+        <div
+          className={`relative overflow-hidden${shaking ? " combat-shake" : ""}`}
+          style={{ backgroundColor: COMBAT_COLORS.hud_bg, padding: "1.5rem 1rem" }}
+        >
+          {/* Vignette overlay */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.3) 100%)",
+              pointerEvents: "none",
+              zIndex: 1,
+            }}
+          />
+          <div className="relative max-w-[800px] mx-auto" style={{ zIndex: 2 }}>
         {/* ─── Pre-Match ─── */}
         {game.phase === "pre-match" && (
           <div className="text-center py-6">
@@ -396,25 +420,27 @@ export default function CombatDemo() {
             onPlayAgain={handleRestart}
           />
         )}
-      </div>
+          </div>
 
-      <style jsx>{`
-        @keyframes combat-shake {
-          0%, 100% { transform: translate(0, 0); }
-          20% { transform: translate(-3px, 2px); }
-          40% { transform: translate(3px, -2px); }
-          60% { transform: translate(-2px, -3px); }
-          80% { transform: translate(2px, 3px); }
-        }
-        .combat-shake {
-          animation: combat-shake 0.2s ease-in-out;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .combat-shake {
-            animation: none;
-          }
-        }
-      `}</style>
+          <style jsx>{`
+            @keyframes combat-shake {
+              0%, 100% { transform: translate(0, 0); }
+              20% { transform: translate(-3px, 2px); }
+              40% { transform: translate(3px, -2px); }
+              60% { transform: translate(-2px, -3px); }
+              80% { transform: translate(2px, 3px); }
+            }
+            .combat-shake {
+              animation: combat-shake 0.2s ease-in-out;
+            }
+            @media (prefers-reduced-motion: reduce) {
+              .combat-shake {
+                animation: none;
+              }
+            }
+          `}</style>
+        </div>
+      </div>
     </section>
   );
 }
