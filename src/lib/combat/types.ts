@@ -132,7 +132,7 @@ export interface GameState {
   opponent: FighterState;
   current_turn: number;
   max_turns: number;
-  phase: "pre-match" | "selecting" | "resolving" | "submission-gauge" | "post-match";
+  phase: "pre-match" | "selecting" | "resolving" | "submission-gauge" | "submission-cinematic" | "post-match";
   /** Last turn result for display */
   last_result: TurnResult | null;
   /** Winner at end of match */
@@ -193,6 +193,8 @@ export interface GaugeResult {
   zone_index: number;
   zone_label: string;
   modifier: number;
+  /** Final submission chance after zone modifier (0.0-1.0) */
+  final_chance: number;
   /** Final submission success after zone modifier */
   success: boolean;
 }

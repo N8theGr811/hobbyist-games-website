@@ -9,17 +9,17 @@ import { type GaugeZone, type GaugeConfig, type GaugeResult } from "./types";
 // Widths must sum to 1.0.
 
 const GAUGE_ZONES: GaugeZone[] = [
-  { label: "MISS",    width: 0.08, color: "#DB2626", alpha: 0.45, modifier: -1.0 },
-  { label: "POOR",    width: 0.09, color: "#EB5909", alpha: 0.50, modifier: -0.50 },
-  { label: "OK",      width: 0.10, color: "#CA8902", alpha: 0.55, modifier: -0.15 },
-  { label: "GOOD",    width: 0.10, color: "#66A40D", alpha: 0.55, modifier: 0.0 },
-  { label: "GREAT",   width: 0.09, color: "#178642", alpha: 0.60, modifier: 0.10 },
-  { label: "PERFECT", width: 0.08, color: "#4ADF80", alpha: 0.50, modifier: 0.25 },
-  { label: "GREAT",   width: 0.09, color: "#178642", alpha: 0.60, modifier: 0.10 },
-  { label: "GOOD",    width: 0.10, color: "#66A40D", alpha: 0.55, modifier: 0.0 },
-  { label: "OK",      width: 0.10, color: "#CA8902", alpha: 0.55, modifier: -0.15 },
-  { label: "POOR",    width: 0.09, color: "#EB5909", alpha: 0.50, modifier: -0.50 },
-  { label: "MISS",    width: 0.08, color: "#DB2626", alpha: 0.45, modifier: -1.0 },
+  { label: "MISS",    width: 0.08, color: "#666666", alpha: 0.45, modifier: -1.0 },
+  { label: "POOR",    width: 0.09, color: "#E64040", alpha: 0.50, modifier: -0.50 },
+  { label: "OK",      width: 0.10, color: "#E68C33", alpha: 0.55, modifier: -0.15 },
+  { label: "GOOD",    width: 0.10, color: "#E6D940", alpha: 0.55, modifier: 0.0 },
+  { label: "GREAT",   width: 0.09, color: "#66F266", alpha: 0.60, modifier: 0.10 },
+  { label: "PERFECT", width: 0.08, color: "#BF8CFF", alpha: 0.50, modifier: 0.25 },
+  { label: "GREAT",   width: 0.09, color: "#66F266", alpha: 0.60, modifier: 0.10 },
+  { label: "GOOD",    width: 0.10, color: "#E6D940", alpha: 0.55, modifier: 0.0 },
+  { label: "OK",      width: 0.10, color: "#E68C33", alpha: 0.55, modifier: -0.15 },
+  { label: "POOR",    width: 0.09, color: "#E64040", alpha: 0.50, modifier: -0.50 },
+  { label: "MISS",    width: 0.08, color: "#666666", alpha: 0.45, modifier: -1.0 },
 ];
 
 export function createGaugeConfig(): GaugeConfig {
@@ -118,6 +118,7 @@ export function resolveGauge(
     zone_index: index,
     zone_label: zone.label,
     modifier: zone.modifier,
+    final_chance: finalChance,
     success,
   };
 }
