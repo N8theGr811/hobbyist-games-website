@@ -83,6 +83,8 @@ export interface Fighter {
 export interface Move {
   id: string;
   name: string;
+  /** Past tense for result display, e.g. "hit a Single Leg" */
+  past_tense: string;
   type: MoveType;
   /** Which stat governs this move's success */
   stat: StatName;

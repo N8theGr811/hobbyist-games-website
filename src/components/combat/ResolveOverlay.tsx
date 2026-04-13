@@ -3,7 +3,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { type TurnResult, InteractionType } from "@/lib/combat/types";
+import { type TurnResult } from "@/lib/combat/types";
 import { COMBAT_COLORS, getMoveTypeColor } from "@/lib/combat/constants";
 
 interface ResolveOverlayProps {
@@ -11,34 +11,39 @@ interface ResolveOverlayProps {
   onComplete: () => void;
 }
 
-/** Friendly display names for interaction types. */
-const INTERACTION_LABELS: Record<InteractionType, string> = {
-  [InteractionType.CONTESTED]: "CONTESTED!",
-  [InteractionType.COUNTER]: "COUNTER!",
-  [InteractionType.SCRAMBLE]: "SCRAMBLE!",
-  [InteractionType.SUB_DEFENDED]: "SUB DEFENDED!",
-  [InteractionType.SUB_GAMBLE]: "SUB GAMBLE!",
-  [InteractionType.STALL]: "STALL",
-  [InteractionType.REPOSITION]: "REPOSITION",
-  [InteractionType.CAUGHT_TRANSITIONING]: "CAUGHT!",
-  [InteractionType.DOUBLE_SUB]: "DOUBLE SUB!",
-  [InteractionType.POSITIONAL_SCRAMBLE]: "SCRAMBLE!",
-};
+/** Derive result text and color from move outcomes using past_tense. */
+function getResultDisplay(result: TurnResult): { text: string; color: string } {
+  const { player_move, opponent_move, player_success, opponent_success, submission_triggered } = result;
 
-function getInteractionColor(interaction: InteractionType): string {
-  switch (interaction) {
-    case InteractionType.COUNTER:
-      return COMBAT_COLORS.success_green;
-    case InteractionType.CAUGHT_TRANSITIONING:
-    case InteractionType.SUB_GAMBLE:
-      return COMBAT_COLORS.fail_orange;
-    case InteractionType.SUB_DEFENDED:
-      return COMBAT_COLORS.def_blue;
-    case InteractionType.STALL:
-      return COMBAT_COLORS.secondary_text;
-    default:
-      return COMBAT_COLORS.title_gold;
+  // Submission locked in
+  if (submission_triggered && player_success) {
+    return { text: `You ${player_move.past_tense}!`, color: COMBAT_COLORS.sub_purple };
   }
+  if (submission_triggered && opponent_success) {
+    return { text: `Opponent ${opponent_move.past_tense}!`, color: COMBAT_COLORS.sub_purple };
+  }
+
+  // Player's move succeeded
+  if (player_success) {
+    return { text: `You ${player_move.past_tense}!`, color: COMBAT_COLORS.success_green };
+  }
+
+  // Opponent's move succeeded
+  if (opponent_success) {
+    return { text: `Opponent ${opponent_move.past_tense}!`, color: COMBAT_COLORS.fail_orange };
+  }
+
+  // Player's move failed but opponent didn't succeed either — stuffed
+  if (!player_success && !opponent_success) {
+    // Check if both essentially stalled (static defense vs static defense)
+    if (player_move.from_position === player_move.success_position &&
+        opponent_move.from_position === opponent_move.success_position) {
+      return { text: "Nothing happens", color: COMBAT_COLORS.secondary_text };
+    }
+    return { text: `${player_move.name} is stuffed!`, color: COMBAT_COLORS.secondary_text };
+  }
+
+  return { text: "Nothing happens", color: COMBAT_COLORS.secondary_text };
 }
 
 export function ResolveOverlay({ result, onComplete }: ResolveOverlayProps) {
@@ -65,7 +70,7 @@ export function ResolveOverlay({ result, onComplete }: ResolveOverlayProps) {
     return () => timers.forEach(clearTimeout);
   }, [onComplete]);
 
-  const interactionColor = getInteractionColor(result.interaction);
+  const resultDisplay = getResultDisplay(result);
 
   return (
     <div className="py-4 px-2 rounded" style={{ backgroundColor: COMBAT_COLORS.panel_bg }}>
@@ -137,9 +142,9 @@ export function ResolveOverlay({ result, onComplete }: ResolveOverlayProps) {
           >
             <p
               className="font-mono text-2xl font-bold uppercase tracking-wider"
-              style={{ color: interactionColor }}
+              style={{ color: resultDisplay.color }}
             >
-              {INTERACTION_LABELS[result.interaction]}
+              {resultDisplay.text}
             </p>
 
             {/* Points */}

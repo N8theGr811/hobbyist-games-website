@@ -15,6 +15,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "single_leg",
     name: "Single Leg",
+    past_tense: "hit a Single Leg",
     type: MoveType.ATK,
     stat: "wrestling",
     base_chance: 0.40,
@@ -27,6 +28,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "wrestle",
     name: "Shoot Double Leg",
+    past_tense: "hit a Double Leg",
     type: MoveType.ATK,
     stat: "wrestling",
     base_chance: 0.50,
@@ -39,6 +41,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "pull_guard",
     name: "Pull Guard",
+    past_tense: "Pulled Guard",
     type: MoveType.TRN,
     stat: "guard",
     base_chance: 0.60,
@@ -51,6 +54,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "snapdown",
     name: "Snapdown",
+    past_tense: "hit a Snapdown",
     type: MoveType.TRN,
     stat: "wrestling",
     base_chance: 0.40,
@@ -63,6 +67,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "throw",
     name: "Hip Throw",
+    past_tense: "hit a Hip Throw",
     type: MoveType.ATK,
     stat: "wrestling",
     base_chance: 0.45,
@@ -75,6 +80,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "knee_tap",
     name: "Knee Tap",
+    past_tense: "hit a Knee Tap",
     type: MoveType.ATK,
     stat: "wrestling",
     base_chance: 0.50,
@@ -87,6 +93,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "arm_drag",
     name: "Arm Drag",
+    past_tense: "hit an Arm Drag",
     type: MoveType.ATK,
     stat: "wrestling",
     base_chance: 0.60,
@@ -99,6 +106,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "footsweep_snapdown",
     name: "Footsweep Snapdown",
+    past_tense: "hit a Footsweep Snapdown",
     type: MoveType.TRN,
     stat: "wrestling",
     base_chance: 0.60,
@@ -115,6 +123,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "triangle",
     name: "Triangle Choke",
+    past_tense: "locked up a Triangle",
     type: MoveType.SUB,
     stat: "submissions",
     base_chance: 0.30,
@@ -128,6 +137,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "armbar_guard",
     name: "Armbar",
+    past_tense: "caught an Armbar",
     type: MoveType.SUB,
     stat: "submissions",
     base_chance: 0.25,
@@ -141,6 +151,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "sweep",
     name: "Hip Bump Sweep",
+    past_tense: "hit a Hip Bump Sweep",
     type: MoveType.ATK,
     stat: "guard",
     base_chance: 0.40,
@@ -153,6 +164,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "lumberjack_sweep",
     name: "Lumberjack Sweep",
+    past_tense: "hit a Lumberjack Sweep",
     type: MoveType.ATK,
     stat: "guard",
     base_chance: 0.35,
@@ -165,6 +177,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "stand_up",
     name: "Stand Up",
+    past_tense: "Stood Up",
     type: MoveType.TRN,
     stat: "cardio",
     base_chance: 0.50,
@@ -177,6 +190,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "heist_snapdown",
     name: "Heist and Snapdown",
+    past_tense: "hit a Heist and Snapdown",
     type: MoveType.TRN,
     stat: "wrestling",
     base_chance: 0.65,
@@ -193,6 +207,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "force_half_guard",
     name: "Force Half Guard",
+    past_tense: "Forced Half Guard",
     type: MoveType.ATK,
     stat: "passing",
     base_chance: 0.65,
@@ -205,6 +220,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "knee_slice_pass",
     name: "Knee Slice",
+    past_tense: "hit a Knee Slice Pass",
     type: MoveType.ATK,
     stat: "passing",
     base_chance: 0.50,
@@ -217,6 +233,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "double_under_pass",
     name: "Double Under Pass",
+    past_tense: "hit a Double Under Pass",
     type: MoveType.ATK,
     stat: "strength",
     base_chance: 0.35,
@@ -229,6 +246,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "torreando_pass",
     name: "Torreando Pass",
+    past_tense: "hit a Torreando Pass",
     type: MoveType.ATK,
     stat: "passing",
     base_chance: 0.60,
@@ -241,6 +259,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "fallback_to_slx",
     name: "Fall Back to Single Leg X",
+    past_tense: "fell back to Single Leg X",
     type: MoveType.TRN,
     stat: "guard",
     base_chance: 0.75,
@@ -257,6 +276,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "underhook_sweep",
     name: "Underhook Sweep",
+    past_tense: "hit an Underhook Sweep",
     type: MoveType.ATK,
     stat: "guard",
     base_chance: 0.40,
@@ -269,6 +289,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "recover_guard",
     name: "Recover Full Guard",
+    past_tense: "Recovered Full Guard",
     type: MoveType.TRN,
     stat: "guard",
     base_chance: 0.55,
@@ -281,6 +302,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "enter_single_leg_x",
     name: "Enter Single Leg X",
+    past_tense: "Entered Single Leg X",
     type: MoveType.TRN,
     stat: "guard",
     base_chance: 0.45,
@@ -293,6 +315,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "enter_saddle",
     name: "Enter Saddle",
+    past_tense: "Entered the Saddle",
     type: MoveType.TRN,
     stat: "guard",
     base_chance: 0.45,
@@ -305,6 +328,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "octopus_guard_sweep",
     name: "Octopus Guard Sweep",
+    past_tense: "hit an Octopus Guard Sweep",
     type: MoveType.ATK,
     stat: "guard",
     base_chance: 0.55,
@@ -321,6 +345,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "pummel_pass",
     name: "Pummel Leg Out to Pass",
+    past_tense: "Pummeled Leg Out to Pass",
     type: MoveType.ATK,
     stat: "passing",
     base_chance: 0.45,
@@ -333,6 +358,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "pass_to_side",
     name: "Crossface and Pressure Pass",
+    past_tense: "hit a Crossface and Pressure Pass",
     type: MoveType.ATK,
     stat: "passing",
     base_chance: 0.50,
@@ -345,6 +371,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "kimura_half",
     name: "Kimura",
+    past_tense: "locked up a Kimura",
     type: MoveType.SUB,
     stat: "submissions",
     base_chance: 0.30,
@@ -358,6 +385,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "backstep_to_saddle",
     name: "Backstep to Saddle",
+    past_tense: "Backstepped to Saddle",
     type: MoveType.TRN,
     stat: "leg_entanglements",
     base_chance: 0.45,
@@ -374,6 +402,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "throw_leg_mount",
     name: "Throw Leg Over to Mount",
+    past_tense: "Threw Leg Over to Mount",
     type: MoveType.ATK,
     stat: "passing",
     base_chance: 0.35,
@@ -386,6 +415,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "mount_transition",
     name: "KoB to Mount",
+    past_tense: "Used Knee on Belly to get to Mount",
     type: MoveType.ATK,
     stat: "passing",
     base_chance: 0.50,
@@ -398,6 +428,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "kimura_side",
     name: "Kimura",
+    past_tense: "locked up a Kimura",
     type: MoveType.SUB,
     stat: "submissions",
     base_chance: 0.35,
@@ -411,6 +442,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "take_back_side",
     name: "Expose Back and Throw in Hooks",
+    past_tense: "Exposed the Back and Threw in Hooks",
     type: MoveType.ATK,
     stat: "passing",
     base_chance: 0.35,
@@ -427,6 +459,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "escape_to_guard",
     name: "Hip Escape to Guard",
+    past_tense: "Escaped to Guard",
     type: MoveType.DEF,
     stat: "escapes",
     base_chance: 0.45,
@@ -439,6 +472,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "turtle_up_side_control",
     name: "Turtle Up",
+    past_tense: "Turtled Up",
     type: MoveType.DEF,
     stat: "strength",
     base_chance: 0.60,
@@ -451,6 +485,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "frame_defense",
     name: "Frame and Stall",
+    past_tense: "Framed and Stalled",
     type: MoveType.DEF,
     stat: "cardio",
     base_chance: 0.70,
@@ -463,6 +498,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "buggy_choke",
     name: "Buggy Choke",
+    past_tense: "locked up a Buggy Choke",
     type: MoveType.SUB,
     stat: "submissions",
     base_chance: 0.30,
@@ -480,6 +516,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "maintain_mount",
     name: "Apply Pressure",
+    past_tense: "Applied Pressure and Maintained Mount",
     type: MoveType.DEF,
     stat: "passing",
     base_chance: 0.65,
@@ -492,6 +529,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "head_arm_choke",
     name: "Head and Arm Choke",
+    past_tense: "locked up a Head and Arm Choke",
     type: MoveType.SUB,
     stat: "submissions",
     base_chance: 0.30,
@@ -505,6 +543,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "armbar_mount",
     name: "Armbar",
+    past_tense: "caught an Armbar",
     type: MoveType.SUB,
     stat: "submissions",
     base_chance: 0.40,
@@ -518,6 +557,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "smother_choke",
     name: "Smother Choke",
+    past_tense: "locked in a Smother Choke",
     type: MoveType.SUB,
     stat: "submissions",
     base_chance: 0.35,
@@ -531,6 +571,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "take_back_mount",
     name: "Gift Wrap Back Take",
+    past_tense: "hit a Gift Wrap Back Take",
     type: MoveType.ATK,
     stat: "passing",
     base_chance: 0.50,
@@ -547,6 +588,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "upa",
     name: "Trap & Roll (Upa)",
+    past_tense: "hit a Trap & Roll",
     type: MoveType.DEF,
     stat: "escapes",
     base_chance: 0.40,
@@ -559,6 +601,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "elbow_escape",
     name: "Elbow Escape to Half Guard",
+    past_tense: "Escaped to Half Guard",
     type: MoveType.DEF,
     stat: "escapes",
     base_chance: 0.45,
@@ -571,6 +614,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "survive_mount",
     name: "Protect & Survive",
+    past_tense: "Survived",
     type: MoveType.DEF,
     stat: "cardio",
     base_chance: 0.65,
@@ -587,6 +631,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "rnc",
     name: "Rear Naked Choke",
+    past_tense: "locked in a Rear Naked Choke",
     type: MoveType.SUB,
     stat: "submissions",
     base_chance: 0.45,
@@ -600,6 +645,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "armbar_back",
     name: "Armbar from Back",
+    past_tense: "caught an Armbar from Back",
     type: MoveType.SUB,
     stat: "submissions",
     base_chance: 0.30,
@@ -613,6 +659,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "mount_from_back",
     name: "Transition to Mount",
+    past_tense: "Transitioned to Mount",
     type: MoveType.ATK,
     stat: "passing",
     base_chance: 0.40,
@@ -625,6 +672,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "twister",
     name: "Twister",
+    past_tense: "locked in a Twister",
     type: MoveType.SUB,
     stat: "submissions",
     base_chance: 0.35,
@@ -642,6 +690,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "clear_hooks",
     name: "Clear Hooks and Get to Guard",
+    past_tense: "Cleared the Hooks and Got to Guard",
     type: MoveType.DEF,
     stat: "escapes",
     base_chance: 0.40,
@@ -654,6 +703,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "turtle_up",
     name: "Clear One Hook and Turtle Up",
+    past_tense: "Cleared One Hook and Turtled Up",
     type: MoveType.DEF,
     stat: "cardio",
     base_chance: 0.50,
@@ -666,6 +716,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "hand_fight",
     name: "Hand Fight Defense",
+    past_tense: "Fought the Hands",
     type: MoveType.DEF,
     stat: "escapes",
     base_chance: 0.60,
@@ -682,6 +733,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "hooks_aggressive",
     name: "Throw in Hooks Aggressively",
+    past_tense: "Threw in Hooks Aggressively",
     type: MoveType.ATK,
     stat: "wrestling",
     base_chance: 0.35,
@@ -694,6 +746,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "take_back_turtle",
     name: "Power Half Back Take",
+    past_tense: "Used Power Half to Take the Back",
     type: MoveType.ATK,
     stat: "passing",
     base_chance: 0.45,
@@ -706,6 +759,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "bulldog_choke",
     name: "Bulldog Choke",
+    past_tense: "locked in a Bulldog Choke",
     type: MoveType.SUB,
     stat: "submissions",
     base_chance: 0.25,
@@ -719,6 +773,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "front_headlock_snap",
     name: "Transition to Front Headlock",
+    past_tense: "Snapped Down to Front Headlock",
     type: MoveType.ATK,
     stat: "wrestling",
     base_chance: 0.40,
@@ -735,6 +790,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "break_grips_stand",
     name: "Break Grips and Stand Up",
+    past_tense: "Broke Grips and Stood Up",
     type: MoveType.TRN,
     stat: "escapes",
     base_chance: 0.40,
@@ -747,6 +803,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "break_grips_guard",
     name: "Break Grips and Sit to Guard",
+    past_tense: "Broke Grips and Sat to Guard",
     type: MoveType.TRN,
     stat: "escapes",
     base_chance: 0.40,
@@ -759,6 +816,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "granby_roll",
     name: "Granby Roll",
+    past_tense: "hit a Granby Roll",
     type: MoveType.DEF,
     stat: "wrestling",
     base_chance: 0.50,
@@ -771,6 +829,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "roll_to_saddle",
     name: "Roll to Saddle",
+    past_tense: "Rolled to the Saddle",
     type: MoveType.TRN,
     stat: "leg_entanglements",
     base_chance: 0.35,
@@ -787,6 +846,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "cow_catcher",
     name: "Cow Catcher",
+    past_tense: "hit a Cow Catcher",
     type: MoveType.ATK,
     stat: "wrestling",
     base_chance: 0.40,
@@ -799,6 +859,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "go_behind",
     name: "Go Behind",
+    past_tense: "Went Behind",
     type: MoveType.ATK,
     stat: "wrestling",
     base_chance: 0.50,
@@ -811,6 +872,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "high_wrist_guillotine",
     name: "High Wrist Guillotine",
+    past_tense: "locked in a Guillotine",
     type: MoveType.SUB,
     stat: "submissions",
     base_chance: 0.40,
@@ -824,6 +886,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "darce_choke",
     name: "D'Arce Choke",
+    past_tense: "locked in a D'Arce",
     type: MoveType.SUB,
     stat: "submissions",
     base_chance: 0.30,
@@ -841,6 +904,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "pull_guard_headlock",
     name: "Pull Guard",
+    past_tense: "Pulled Guard",
     type: MoveType.TRN,
     stat: "guard",
     base_chance: 0.40,
@@ -853,6 +917,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "handfight_stand",
     name: "Handfight and Stand Up",
+    past_tense: "Handfought and Stood Up",
     type: MoveType.TRN,
     stat: "wrestling",
     base_chance: 0.40,
@@ -865,6 +930,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "peek_out",
     name: "Peek Out",
+    past_tense: "Peeked Out",
     type: MoveType.DEF,
     stat: "escapes",
     base_chance: 0.45,
@@ -877,6 +943,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "sucker_drag",
     name: "Sucker Drag",
+    past_tense: "hit a Sucker Drag",
     type: MoveType.TRN,
     stat: "escapes",
     base_chance: 0.50,
@@ -893,6 +960,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "slx_sweep",
     name: "Sweep",
+    past_tense: "hit a Sweep",
     type: MoveType.ATK,
     stat: "leg_entanglements",
     base_chance: 0.40,
@@ -905,6 +973,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "slx_footlock",
     name: "Straight Footlock",
+    past_tense: "locked in a Straight Footlock",
     type: MoveType.SUB,
     stat: "leg_entanglements",
     base_chance: 0.35,
@@ -918,6 +987,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "slx_outside_heelhook",
     name: "Outside Heelhook",
+    past_tense: "locked in an Outside Heelhook",
     type: MoveType.SUB,
     stat: "leg_entanglements",
     base_chance: 0.30,
@@ -935,6 +1005,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "rip_leg_out",
     name: "Rip Leg Out Aggressively",
+    past_tense: "Ripped the Leg Out",
     type: MoveType.DEF,
     stat: "strength",
     base_chance: 0.35,
@@ -947,6 +1018,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "disentangle_step_out",
     name: "Disentangle and Step Out",
+    past_tense: "Disentangled and Stepped Out",
     type: MoveType.DEF,
     stat: "escapes",
     base_chance: 0.50,
@@ -959,6 +1031,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "strip_grip_pass",
     name: "Strip Grip and Pressure Pass",
+    past_tense: "Stripped the Grip and Passed",
     type: MoveType.DEF,
     stat: "passing",
     base_chance: 0.45,
@@ -975,6 +1048,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "ankle_lock_secondary",
     name: "Ankle Lock on Secondary Leg",
+    past_tense: "locked in an Ankle Lock on the Secondary Leg",
     type: MoveType.SUB,
     stat: "leg_entanglements",
     base_chance: 0.30,
@@ -988,6 +1062,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "saddle_inside_heelhook",
     name: "Inside Heelhook",
+    past_tense: "locked in an Inside Heelhook",
     type: MoveType.SUB,
     stat: "leg_entanglements",
     base_chance: 0.40,
@@ -1001,6 +1076,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "saddle_pass_heelhook",
     name: "Pass Across and Outside Heelhook",
+    past_tense: "locked in an Outside Heelhook",
     type: MoveType.SUB,
     stat: "leg_entanglements",
     base_chance: 0.40,
@@ -1014,6 +1090,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "saddle_to_back",
     name: "Transition to the Back",
+    past_tense: "Transitioned to the Back",
     type: MoveType.ATK,
     stat: "leg_entanglements",
     base_chance: 0.50,
@@ -1030,6 +1107,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "rip_leg_out_saddle",
     name: "Rip Leg Out Aggressively",
+    past_tense: "Ripped the Leg Out",
     type: MoveType.DEF,
     stat: "strength",
     base_chance: 0.30,
@@ -1042,6 +1120,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "hide_heel_extract",
     name: "Hide the Heel and Extract Leg",
+    past_tense: "Hid the Heel and Extracted",
     type: MoveType.DEF,
     stat: "escapes",
     base_chance: 0.50,
@@ -1054,6 +1133,7 @@ export const ALL_MOVES: Move[] = [
   {
     id: "counter_back_take",
     name: "Counter Back Take",
+    past_tense: "hit a Counter Back Take",
     type: MoveType.ATK,
     stat: "escapes",
     base_chance: 0.35,
