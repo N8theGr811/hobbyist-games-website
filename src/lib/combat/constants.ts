@@ -159,7 +159,7 @@ export const STAMINA_COSTS: Record<MoveType, number> = {
   [MoveType.ATK]: 10,
   [MoveType.DEF]: 5,
   [MoveType.TRN]: 5,
-  [MoveType.SUB]: 16,
+  [MoveType.SUB]: 8,
 };
 
 // ─── Purple Belt Config ───

@@ -40,9 +40,8 @@ export default function MoveSelection({
     <div className="flex flex-wrap justify-center gap-1.5">
       {moves.map((move) => {
         const staminaCost = STAMINA_COSTS[move.type];
-        const canAfford = playerStamina >= staminaCost;
         const chainLocked = move.is_chain && playerPips < CHAIN_MOVE_PIP_THRESHOLD;
-        const isDisabled = disabled || !canAfford || chainLocked;
+        const isDisabled = disabled || chainLocked;
         const isLegendary = move.rarity === MoveRarity.LEGENDARY;
         const typeColor = getMoveTypeColor(move.type);
         const borderColor = isLegendary ? COMBAT_COLORS.gold_border : typeColor;
@@ -130,7 +129,7 @@ export default function MoveSelection({
               </span>
               <span
                 className="text-[9px]"
-                style={{ color: canAfford ? COMBAT_COLORS.stamina_fill : COMBAT_COLORS.opponent_red }}
+                style={{ color: COMBAT_COLORS.stamina_fill }}
               >
                 -{staminaCost}
               </span>
