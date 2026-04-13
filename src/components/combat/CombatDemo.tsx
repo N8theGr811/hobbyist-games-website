@@ -27,6 +27,15 @@ import {
   getTimeoutMove,
 } from "@/lib/combat/engine";
 import { selectAIMove } from "@/lib/combat/ai";
+import Scoreboard from "./Scoreboard";
+import StaminaBar from "./StaminaBar";
+import AdvantagePips from "./AdvantagePips";
+import PositionDisplay from "./PositionDisplay";
+import FighterSprite from "./FighterSprite";
+
+// Sprite paths (served from public/)
+const PLAYER_SPRITE = "/media/Player Sprites/Purple1_Website_Sprite.png";
+const OPPONENT_SPRITE = "/media/Player Sprites/Purple2_Website_Sprite.png";
 
 // Build full fighter objects with moves
 const playerFighter: Fighter = { ...PLAYER_FIGHTER, moves: PLAYER_MOVES };
@@ -35,85 +44,7 @@ const opponentFighter: Fighter = { ...OPPONENT_FIGHTER, moves: OPPONENT_MOVES };
 // RNG — uses Math.random for the web demo
 const rng = () => Math.random();
 
-// ─── Placeholder Sub-Components (replaced in Tasks 7-12) ───
-
-function Scoreboard({ playerScore, opponentScore, currentTurn, maxTurns }: {
-  playerScore: number; opponentScore: number; currentTurn: number; maxTurns: number;
-}) {
-  return (
-    <div className="flex justify-between items-center font-mono text-sm px-2 py-2 rounded"
-      style={{ backgroundColor: COMBAT_COLORS.panel_bg, border: `1px solid ${COMBAT_COLORS.secondary_border}` }}>
-      <span style={{ color: COMBAT_COLORS.player_blue }}>You: {playerScore}</span>
-      <span style={{ color: COMBAT_COLORS.secondary_text }}>Turn {currentTurn}/{maxTurns}</span>
-      <span style={{ color: COMBAT_COLORS.opponent_red }}>Carlos: {opponentScore}</span>
-    </div>
-  );
-}
-
-function StaminaBar({ value, side }: { value: number; side: "player" | "opponent" }) {
-  const color = side === "player" ? COMBAT_COLORS.player_blue : COMBAT_COLORS.opponent_red;
-  return (
-    <div className="flex-1">
-      <div className="flex justify-between text-xs font-mono mb-1" style={{ color }}>
-        <span>{side === "player" ? "You" : "Carlos"}</span>
-        <span>{value}%</span>
-      </div>
-      <div className="h-2 rounded-full" style={{ backgroundColor: COMBAT_COLORS.stamina_bg }}>
-        <div className="h-full rounded-full transition-all duration-500"
-          style={{ width: `${value}%`, backgroundColor: value <= 30 ? COMBAT_COLORS.stamina_low_pulse : COMBAT_COLORS.stamina_fill }} />
-      </div>
-    </div>
-  );
-}
-
-function AdvantagePips({ pips, side }: { pips: number; side: "player" | "opponent" }) {
-  return (
-    <div className="flex-1 flex items-center gap-1" style={{ justifyContent: side === "opponent" ? "flex-end" : "flex-start" }}>
-      {Array.from({ length: 5 }).map((_, i) => (
-        <div key={i} className="w-2.5 h-2.5 rounded-full border"
-          style={{
-            backgroundColor: i < pips ? COMBAT_COLORS.momentum_gold : "transparent",
-            borderColor: COMBAT_COLORS.momentum_gold,
-            opacity: i < pips ? 1 : 0.3,
-          }} />
-      ))}
-    </div>
-  );
-}
-
-function PositionDisplay({ position }: { position: number }) {
-  // Inline position name lookup — placeholder until full component
-  const names: Record<number, string> = {
-    0: "Standing", 2: "Guard Top", 3: "Guard Bottom", 4: "Half Guard Top",
-    5: "Half Guard Bottom", 6: "Side Control Top", 7: "Side Control Bottom",
-    8: "Mount Top", 9: "Mount Bottom", 10: "Back Control", 11: "Back Exposed",
-    12: "Turtle Top", 13: "Turtle Bottom", 14: "Front Headlock Attack",
-    15: "Front Headlock Defend", 16: "Single Leg X Offense", 17: "Single Leg X Defense",
-    18: "Saddle Offense", 19: "Saddle Defense",
-  };
-  return (
-    <div className="text-center font-mono text-xs py-1" style={{ color: COMBAT_COLORS.secondary_text }}>
-      Position: {names[position] ?? "Unknown"}
-    </div>
-  );
-}
-
-function FighterSprite({ side, hurtPulse, maxPipGlow }: {
-  side: "player" | "opponent"; hurtPulse?: boolean; maxPipGlow?: boolean;
-}) {
-  const color = side === "player" ? COMBAT_COLORS.player_blue : COMBAT_COLORS.opponent_red;
-  return (
-    <div className="w-16 h-16 rounded-lg flex items-center justify-center font-mono text-2xl"
-      style={{
-        backgroundColor: COMBAT_COLORS.panel_bg,
-        border: `2px solid ${color}`,
-        opacity: hurtPulse ? 0.6 : 1,
-        boxShadow: maxPipGlow ? `0 0 12px ${COMBAT_COLORS.momentum_gold}` : "none",
-      }}>
-      {side === "player" ? "P" : "C"}
-    </div>
-  );
-}
+// ─── Placeholder Sub-Components (replaced in Tasks 9-12) ───
 
 function MoveSelection({ fighter, fighterState, onSelect }: {
   fighter: Fighter; fighterState: FighterState; onSelect: (move: Move) => void;
@@ -413,7 +344,7 @@ export default function CombatDemo() {
             {/* Sprites */}
             <div className="flex items-center justify-center gap-12 mb-8">
               <div className="text-center">
-                <FighterSprite side="player" />
+                <FighterSprite spriteSheet={PLAYER_SPRITE} side="player" />
                 <p className="mt-2 font-mono text-xs" style={{ color: COMBAT_COLORS.player_blue }}>
                   You
                 </p>
@@ -422,7 +353,7 @@ export default function CombatDemo() {
                 VS
               </p>
               <div className="text-center">
-                <FighterSprite side="opponent" />
+                <FighterSprite spriteSheet={OPPONENT_SPRITE} side="opponent" />
                 <p className="mt-2 font-mono text-xs" style={{ color: COMBAT_COLORS.opponent_red }}>
                   Carlos
                 </p>
@@ -448,6 +379,8 @@ export default function CombatDemo() {
         {(game.phase === "selecting" || game.phase === "resolving" || game.phase === "submission-gauge") && (
           <div className="space-y-3">
             <Scoreboard
+              playerName={PLAYER_FIGHTER.name}
+              opponentName={OPPONENT_FIGHTER.name}
               playerScore={game.player.score}
               opponentScore={game.opponent.score}
               currentTurn={game.current_turn}
@@ -460,23 +393,15 @@ export default function CombatDemo() {
             </div>
 
             <div className="flex justify-between gap-4">
-              <AdvantagePips pips={game.player.advantage_pips} side="player" />
-              <AdvantagePips pips={game.opponent.advantage_pips} side="opponent" />
+              <AdvantagePips count={game.player.advantage_pips} side="player" />
+              <AdvantagePips count={game.opponent.advantage_pips} side="opponent" />
             </div>
 
             <PositionDisplay position={game.player.position} />
 
             <div className="flex items-center justify-center gap-8 py-4">
-              <FighterSprite
-                side="player"
-                hurtPulse={game.player.stamina <= 30}
-                maxPipGlow={game.player.advantage_pips >= 5}
-              />
-              <FighterSprite
-                side="opponent"
-                hurtPulse={game.opponent.stamina <= 30}
-                maxPipGlow={game.opponent.advantage_pips >= 5}
-              />
+              <FighterSprite spriteSheet={PLAYER_SPRITE} side="player" />
+              <FighterSprite spriteSheet={OPPONENT_SPRITE} side="opponent" />
             </div>
 
             {game.phase === "selecting" && (
