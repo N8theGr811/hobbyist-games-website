@@ -271,25 +271,25 @@ export default function CombatDemo() {
               zIndex: 1,
             }}
           />
-          <div className="relative max-w-[800px] mx-auto" style={{ zIndex: 2, minHeight: "420px" }}>
+          <div className="relative max-w-[800px] mx-auto" style={{ zIndex: 2 }}>
         {/* ─── Pre-Match ─── */}
         {game.phase === "pre-match" && (
-          <div className="flex flex-col items-center justify-center text-center" style={{ minHeight: "420px" }}>
+          <div className="flex flex-col items-center justify-center text-center py-4">
             <p
-              className="font-mono text-[0.6rem] font-bold tracking-[0.25em] uppercase mb-3"
+              className="font-mono text-[0.5rem] font-bold tracking-[0.25em] uppercase mb-2"
               style={{ color: COMBAT_COLORS.title_gold, opacity: 0.5 }}
             >
               Interactive Demo
             </p>
             <h2
-              className="font-display text-xl md:text-2xl mb-4"
+              className="font-display text-lg mb-2"
               style={{ color: COMBAT_COLORS.body_text }}
             >
               Test out the game&apos;s combat system
             </h2>
             <ul
-              className="text-left max-w-md mx-auto mb-5 space-y-1 text-sm"
-              style={{ color: COMBAT_COLORS.body_text, opacity: 0.6 }}
+              className="text-left max-w-sm mx-auto mb-3 space-y-0.5 text-xs"
+              style={{ color: COMBAT_COLORS.body_text, opacity: 0.5 }}
             >
               <li>Choose attacks, defenses, transitions, or submissions each turn</li>
               <li>Manage your stamina — every move costs energy</li>
@@ -297,7 +297,7 @@ export default function CombatDemo() {
             </ul>
 
             {/* Sprites */}
-            <div className="flex items-center justify-center gap-8 mb-5">
+            <div className="flex items-center justify-center gap-6 mb-3">
               <div className="text-center">
                 <FighterSprite spriteSheet={PLAYER_SPRITE} side="player" />
                 <p className="mt-1 font-mono text-xs" style={{ color: COMBAT_COLORS.player_blue }}>
@@ -320,7 +320,7 @@ export default function CombatDemo() {
 
             <button
               onClick={handleStart}
-              className="px-8 py-2.5 font-mono text-base tracking-wide uppercase cursor-pointer transition-all duration-150 hover:scale-105 active:scale-95"
+              className="px-6 py-2 font-mono text-sm tracking-wide uppercase cursor-pointer transition-all duration-150 hover:scale-105 active:scale-95"
               style={{
                 backgroundColor: COMBAT_COLORS.panel_bg,
                 color: COMBAT_COLORS.button_text,
