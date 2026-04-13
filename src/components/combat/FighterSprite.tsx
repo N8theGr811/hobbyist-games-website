@@ -11,7 +11,7 @@ interface FighterSpriteProps {
 
 // Front idle: row 24 (y = 24 * 64 = 1536), columns 0–1, 2 frames at 5fps
 const FRAME_SIZE = 64;
-const SCALE = 4; // 64 -> 256px display
+const SCALE = 2; // 64 -> 128px display
 const DISPLAY_SIZE = FRAME_SIZE * SCALE;
 const ROW_Y = 1536; // row 24
 const FRAME_COUNT = 2;

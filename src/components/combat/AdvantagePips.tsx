@@ -14,7 +14,7 @@ export default function AdvantagePips({ count, side }: AdvantagePipsProps) {
 
   return (
     <div
-      className="flex-1 flex items-center gap-1.5"
+      className="flex-1 flex items-center gap-1"
       style={{
         justifyContent: side === "opponent" ? "flex-end" : "flex-start",
       }}
@@ -24,7 +24,7 @@ export default function AdvantagePips({ count, side }: AdvantagePipsProps) {
         return (
           <div
             key={i}
-            className="w-3 h-3 rounded-full"
+            className="w-2.5 h-2.5 rounded-full"
             style={{
               backgroundColor: filled
                 ? COMBAT_COLORS.momentum_gold

@@ -1,5 +1,5 @@
 // src/components/combat/MoveSelection.tsx
-// Move selection grid — shows available moves as styled buttons.
+// Move selection grid — shows available moves as compact styled buttons.
 "use client";
 
 import type { Move } from "@/lib/combat/types";
@@ -27,7 +27,7 @@ export default function MoveSelection({
   playerPips,
 }: MoveSelectionProps) {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1.5">
       {moves.map((move) => {
         const staminaCost = STAMINA_COSTS[move.type];
         const canAfford = playerStamina >= staminaCost;
@@ -43,16 +43,16 @@ export default function MoveSelection({
             key={move.id}
             onClick={() => !isDisabled && onSelect(move)}
             disabled={isDisabled}
-            className="relative px-3 py-2.5 font-mono text-xs text-left rounded-[6px] transition-all duration-100 select-none"
+            className="relative px-2 py-1.5 font-mono text-[11px] text-left rounded-[4px] transition-all duration-100 select-none"
             style={{
               backgroundColor: COMBAT_COLORS.button_bg,
               color: COMBAT_COLORS.button_text,
-              borderBottom: `3px solid ${borderColor}`,
+              borderBottom: `2px solid ${borderColor}`,
               opacity: isDisabled ? 0.4 : 1,
               cursor: isDisabled ? "not-allowed" : "pointer",
               ...(isLegendary && !isDisabled
                 ? {
-                    boxShadow: `0 0 8px ${COMBAT_COLORS.gold_border}44, inset 0 0 12px ${COMBAT_COLORS.gold_border}18`,
+                    boxShadow: `0 0 6px ${COMBAT_COLORS.gold_border}44, inset 0 0 8px ${COMBAT_COLORS.gold_border}18`,
                   }
                 : {}),
             }}
@@ -84,9 +84,9 @@ export default function MoveSelection({
             }}
           >
             {/* Row 1: type badge + name */}
-            <div className="flex items-center gap-1.5 mb-1">
+            <div className="flex items-center gap-1 mb-0.5">
               <span
-                className="inline-block px-1.5 py-0.5 text-[10px] font-bold rounded"
+                className="inline-block px-1 py-px text-[9px] font-bold rounded"
                 style={{
                   backgroundColor: typeColor + "22",
                   color: typeColor,
@@ -97,7 +97,7 @@ export default function MoveSelection({
               </span>
               {move.is_chain && (
                 <span
-                  className="inline-block px-1 py-0.5 text-[9px] font-bold rounded"
+                  className="inline-block px-1 py-px text-[8px] font-bold rounded"
                   style={{
                     backgroundColor: COMBAT_COLORS.momentum_gold + "22",
                     color: COMBAT_COLORS.momentum_gold,
@@ -107,29 +107,29 @@ export default function MoveSelection({
                   CHAIN
                 </span>
               )}
-              <span className="font-bold truncate">{move.name}</span>
+              <span className="font-bold truncate text-[11px] leading-tight">{move.name}</span>
             </div>
 
             {/* Row 2: success % + stamina cost */}
             <div className="flex items-center justify-between">
               <span
-                className="text-[10px]"
+                className="text-[9px]"
                 style={{ color: COMBAT_COLORS.secondary_text }}
               >
-                {successPct}% success
+                {successPct}%
               </span>
               <span
-                className="text-[10px]"
+                className="text-[9px]"
                 style={{ color: canAfford ? COMBAT_COLORS.stamina_fill : COMBAT_COLORS.opponent_red }}
               >
-                {staminaCost} stamina
+                -{staminaCost}
               </span>
             </div>
 
             {/* Legendary shimmer overlay */}
             {isLegendary && !isDisabled && (
               <div
-                className="absolute inset-0 rounded-[6px] pointer-events-none"
+                className="absolute inset-0 rounded-[4px] pointer-events-none"
                 style={{
                   background: `linear-gradient(105deg, transparent 40%, ${COMBAT_COLORS.gold_border}12 50%, transparent 60%)`,
                   backgroundSize: "200% 100%",

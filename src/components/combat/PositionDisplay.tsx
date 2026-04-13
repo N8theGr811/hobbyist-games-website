@@ -16,27 +16,19 @@ export default function PositionDisplay({ position }: PositionDisplayProps) {
   const domColor = getDominanceColor(dominance);
 
   return (
-    <div
-      className="text-center py-2 mx-auto"
-      style={{
-        borderTop: `1px solid ${COMBAT_COLORS.secondary_border}`,
-        borderBottom: `1px solid ${COMBAT_COLORS.secondary_border}`,
-        borderLeft: "none",
-        borderRight: "none",
-      }}
-    >
+    <div className="text-center px-3 py-1">
       <p
-        className="font-mono text-base font-bold tracking-wide"
+        className="font-mono text-sm font-bold tracking-wide whitespace-nowrap"
         style={{ color: COMBAT_COLORS.body_text }}
       >
         {name}
       </p>
       {/* Dominance color bar */}
       <div
-        className="mx-auto mt-1 rounded-full"
+        className="mx-auto mt-0.5 rounded-full"
         style={{
-          width: "120px",
-          height: "5px",
+          width: "80px",
+          height: "4px",
           backgroundColor: domColor,
           boxShadow: `0 0 6px ${domColor}40`,
           transition: "background-color 0.4s ease, box-shadow 0.4s ease",

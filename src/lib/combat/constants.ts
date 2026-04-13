@@ -180,8 +180,9 @@ export const CHAIN_MOVE_PIP_THRESHOLD = 3;
 // ─── Fighter Definitions ───
 
 import type { Fighter } from "./types";
+import { ALL_MOVES } from "./moves";
 
-export const PLAYER_FIGHTER: Omit<Fighter, "moves"> = {
+export const PLAYER_FIGHTER: Fighter = {
   name: "You",
   stats: {
     guard: 68,
@@ -193,9 +194,10 @@ export const PLAYER_FIGHTER: Omit<Fighter, "moves"> = {
     strength: 62,
     leg_entanglements: 55,
   },
+  moves: ALL_MOVES,
 };
 
-export const OPPONENT_FIGHTER: Omit<Fighter, "moves"> = {
+export const OPPONENT_FIGHTER: Fighter = {
   name: "Carlos",
   stats: {
     guard: 62,
@@ -207,6 +209,7 @@ export const OPPONENT_FIGHTER: Omit<Fighter, "moves"> = {
     strength: 70,
     leg_entanglements: 50,
   },
+  moves: ALL_MOVES,
 };
 
 // ─── Dominance Color Thresholds ───

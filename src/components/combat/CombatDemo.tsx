@@ -16,7 +16,6 @@ import {
   COMBAT_COLORS,
   PURPLE_BELT_CONFIG,
 } from "@/lib/combat/constants";
-import { PLAYER_MOVES, OPPONENT_MOVES } from "@/lib/combat/moves";
 import {
   createInitialState,
   resolveTurn,
@@ -41,9 +40,9 @@ import MatchResult from "./MatchResult";
 const PLAYER_SPRITE = "/media/Player Sprites/Purple1_Website_Sprite.png";
 const OPPONENT_SPRITE = "/media/Player Sprites/Purple2_Website_Sprite.png";
 
-// Build full fighter objects with moves
-const playerFighter: Fighter = { ...PLAYER_FIGHTER, moves: PLAYER_MOVES };
-const opponentFighter: Fighter = { ...OPPONENT_FIGHTER, moves: OPPONENT_MOVES };
+// Both fighters use the full move pool
+const playerFighter: Fighter = PLAYER_FIGHTER;
+const opponentFighter: Fighter = OPPONENT_FIGHTER;
 
 // RNG — uses Math.random for the web demo
 const rng = () => Math.random();
@@ -211,21 +210,21 @@ export default function CombatDemo() {
   return (
     <section
       id="combat-demo"
-      className="relative py-16 px-4 overflow-hidden md:px-8"
-      style={{ backgroundColor: COMBAT_COLORS.hud_bg }}
+      className="relative px-4 overflow-hidden md:px-8"
+      style={{ backgroundColor: COMBAT_COLORS.hud_bg, paddingTop: "2rem", paddingBottom: "2rem" }}
     >
       <div className="relative max-w-[800px] mx-auto">
         {/* ─── Pre-Match ─── */}
         {game.phase === "pre-match" && (
-          <div className="text-center py-12">
+          <div className="text-center py-6">
             <h2
-              className="font-display text-3xl md:text-4xl mb-6"
+              className="font-display text-2xl md:text-3xl mb-4"
               style={{ color: COMBAT_COLORS.title_gold }}
             >
               Think you can hang at purple belt?
             </h2>
             <ul
-              className="text-left max-w-md mx-auto mb-8 space-y-2 text-sm"
+              className="text-left max-w-md mx-auto mb-4 space-y-1 text-sm"
               style={{ color: COMBAT_COLORS.body_text }}
             >
               <li>Choose attacks, defenses, transitions, or submissions each turn</li>
@@ -234,10 +233,10 @@ export default function CombatDemo() {
             </ul>
 
             {/* Sprites */}
-            <div className="flex items-center justify-center gap-12 mb-8">
+            <div className="flex items-center justify-center gap-8 mb-4">
               <div className="text-center">
                 <FighterSprite spriteSheet={PLAYER_SPRITE} side="player" />
-                <p className="mt-2 font-mono text-xs" style={{ color: COMBAT_COLORS.player_blue }}>
+                <p className="mt-1 font-mono text-xs" style={{ color: COMBAT_COLORS.player_blue }}>
                   You
                 </p>
               </div>
@@ -246,7 +245,7 @@ export default function CombatDemo() {
               </p>
               <div className="text-center">
                 <FighterSprite spriteSheet={OPPONENT_SPRITE} side="opponent" />
-                <p className="mt-2 font-mono text-xs" style={{ color: COMBAT_COLORS.opponent_red }}>
+                <p className="mt-1 font-mono text-xs" style={{ color: COMBAT_COLORS.opponent_red }}>
                   Carlos
                 </p>
               </div>
@@ -254,7 +253,7 @@ export default function CombatDemo() {
 
             <button
               onClick={handleStart}
-              className="px-8 py-3 font-mono text-lg tracking-wide uppercase cursor-pointer transition-all duration-150 hover:scale-105 active:scale-95"
+              className="px-8 py-2.5 font-mono text-base tracking-wide uppercase cursor-pointer transition-all duration-150 hover:scale-105 active:scale-95"
               style={{
                 backgroundColor: COMBAT_COLORS.panel_bg,
                 color: COMBAT_COLORS.button_text,
@@ -269,7 +268,8 @@ export default function CombatDemo() {
 
         {/* ─── In-Match ─── */}
         {(game.phase === "selecting" || game.phase === "resolving" || game.phase === "submission-gauge") && (
-          <div className="space-y-3">
+          <div className="space-y-1.5">
+            {/* 1. Scoreboard at top */}
             <Scoreboard
               playerName={PLAYER_FIGHTER.name}
               opponentName={OPPONENT_FIGHTER.name}
@@ -279,23 +279,31 @@ export default function CombatDemo() {
               maxTurns={game.max_turns}
             />
 
-            <div className="flex justify-between gap-4">
+            {/* 2. Stamina bars */}
+            <div className="flex justify-between gap-3">
               <StaminaBar value={game.player.stamina} side="player" />
               <StaminaBar value={game.opponent.stamina} side="opponent" />
             </div>
 
-            <div className="flex justify-between gap-4">
-              <AdvantagePips count={game.player.advantage_pips} side="player" />
-              <AdvantagePips count={game.opponent.advantage_pips} side="opponent" />
-            </div>
-
-            <PositionDisplay position={game.player.position} />
-
-            <div className="flex items-center justify-center gap-8 py-4">
+            {/* 3. Fighter sprites in center with VS */}
+            <div className="flex items-center justify-center gap-6 py-1">
               <FighterSprite spriteSheet={PLAYER_SPRITE} side="player" />
+              <p className="font-mono text-sm" style={{ color: COMBAT_COLORS.title_gold, opacity: 0.6 }}>
+                VS
+              </p>
               <FighterSprite spriteSheet={OPPONENT_SPRITE} side="opponent" />
             </div>
 
+            {/* 4. Position bar + advantage pips (directly above move selection) */}
+            <div className="flex items-center gap-2">
+              <AdvantagePips count={game.player.advantage_pips} side="player" />
+              <div className="flex-shrink-0">
+                <PositionDisplay position={game.player.position} />
+              </div>
+              <AdvantagePips count={game.opponent.advantage_pips} side="opponent" />
+            </div>
+
+            {/* 5. Move selection at bottom */}
             {game.phase === "selecting" && (
               <>
                 <MoveSelection

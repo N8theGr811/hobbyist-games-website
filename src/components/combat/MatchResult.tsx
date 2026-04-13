@@ -46,7 +46,7 @@ export default function MatchResult({
 
   return (
     <div
-      className="text-center py-16 transition-all duration-500 ease-out"
+      className="text-center py-8 transition-all duration-500 ease-out"
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? "scale(1)" : "scale(0.92)",
