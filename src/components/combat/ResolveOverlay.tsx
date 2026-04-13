@@ -73,8 +73,8 @@ export function ResolveOverlay({ result, onComplete }: ResolveOverlayProps) {
   const resultDisplay = getResultDisplay(result);
 
   return (
-    <div className="py-4 px-2 rounded" style={{ backgroundColor: COMBAT_COLORS.panel_bg }}>
-      <div className="text-center space-y-3">
+    <div className="py-2 px-4">
+      <div className="text-center space-y-2">
         {/* Both moves */}
         {(phase === "moves" || phase === "dots" || phase === "result") && (
           <div className="flex items-center justify-center gap-8">

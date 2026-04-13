@@ -280,22 +280,29 @@ export default function CombatDemo() {
               <StaminaBar value={game.opponent.stamina} side="opponent" />
             </div>
 
-            {/* 3. Fighter sprites in center with VS */}
-            <div className="flex items-center justify-center gap-6 py-1">
-              <FighterSprite spriteSheet={PLAYER_SPRITE} side="player" />
-              <p className="font-mono text-sm" style={{ color: COMBAT_COLORS.title_gold, opacity: 0.6 }}>
-                VS
-              </p>
-              <FighterSprite spriteSheet={OPPONENT_SPRITE} side="opponent" />
-            </div>
+            {/* 3. Fighter sprites + resolve overlay on top */}
+            <div className="relative">
+              <div
+                className="flex items-center justify-center gap-6 py-1 transition-opacity duration-300"
+                style={{ opacity: game.phase === "resolving" && showResolve ? 0.3 : 1 }}
+              >
+                <FighterSprite spriteSheet={PLAYER_SPRITE} side="player" />
+                <p className="font-mono text-sm" style={{ color: COMBAT_COLORS.title_gold, opacity: 0.6 }}>
+                  VS
+                </p>
+                <FighterSprite spriteSheet={OPPONENT_SPRITE} side="opponent" />
+              </div>
 
-            {/* 3b. Resolve result — between sprites and position bar */}
-            {game.phase === "resolving" && showResolve && animatingResult && (
-              <ResolveOverlay
-                result={animatingResult}
-                onComplete={handleResolveComplete}
-              />
-            )}
+              {/* Resolve result overlaid on sprite area */}
+              {game.phase === "resolving" && showResolve && animatingResult && (
+                <div className="absolute inset-0 flex items-center justify-center z-10">
+                  <ResolveOverlay
+                    result={animatingResult}
+                    onComplete={handleResolveComplete}
+                  />
+                </div>
+              )}
+            </div>
 
             {/* 4. Position bar + advantage pips (directly above move selection) */}
             <div className="flex items-center gap-2">
