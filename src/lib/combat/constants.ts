@@ -179,8 +179,98 @@ export const CHAIN_MOVE_PIP_THRESHOLD = 3;
 
 // ─── Fighter Definitions ───
 
-import type { Fighter } from "./types";
+import type { Fighter, Move } from "./types";
 import { ALL_MOVES } from "./moves";
+
+// ─── Equipped Move Loadouts (3 per position, like the real game) ───
+
+/** Player equipped moves — a mix showing off variety + legendaries */
+const PLAYER_EQUIPPED_IDS: string[] = [
+  // Standing: ATK + TRN + legendary ATK
+  "single_leg", "pull_guard", "arm_drag",
+  // Guard Bottom: SUB + ATK + TRN
+  "triangle", "lumberjack_sweep", "stand_up",
+  // Guard Top: ATK + ATK + legendary ATK
+  "force_half_guard", "knee_slice_pass", "torreando_pass",
+  // Half Guard Bottom: ATK + TRN + legendary ATK
+  "underhook_sweep", "recover_guard", "octopus_guard_sweep",
+  // Half Guard Top: ATK + SUB + TRN
+  "pummel_pass", "kimura_half", "backstep_to_saddle",
+  // Side Control Top: ATK + SUB + legendary ATK
+  "throw_leg_mount", "kimura_side", "take_back_side",
+  // Side Control Bottom: DEF + DEF + SUB
+  "escape_to_guard", "frame_defense", "buggy_choke",
+  // Mount Top: DEF + SUB + legendary ATK
+  "maintain_mount", "armbar_mount", "take_back_mount",
+  // Mount Bottom: DEF + DEF + DEF
+  "upa", "elbow_escape", "survive_mount",
+  // Back Control: legendary SUB + SUB + ATK
+  "rnc", "twister", "mount_from_back",
+  // Back Exposed: DEF + DEF + DEF
+  "clear_hooks", "turtle_up", "hand_fight",
+  // Turtle Top: ATK + ATK + SUB
+  "hooks_aggressive", "take_back_turtle", "bulldog_choke",
+  // Turtle Bottom: TRN + DEF + TRN
+  "break_grips_stand", "granby_roll", "roll_to_saddle",
+  // Front Headlock Attack: ATK + SUB + SUB
+  "go_behind", "high_wrist_guillotine", "darce_choke",
+  // Front Headlock Defend: TRN + DEF + TRN
+  "pull_guard_headlock", "peek_out", "sucker_drag",
+  // SLX Offense: ATK + SUB + SUB
+  "slx_sweep", "slx_footlock", "slx_outside_heelhook",
+  // SLX Defense: DEF + DEF + DEF
+  "rip_leg_out", "disentangle_step_out", "strip_grip_pass",
+  // Saddle Offense: SUB + SUB + ATK
+  "saddle_inside_heelhook", "saddle_pass_heelhook", "saddle_to_back",
+  // Saddle Defense: DEF + DEF + ATK
+  "rip_leg_out_saddle", "hide_heel_extract", "counter_back_take",
+];
+
+/** Opponent equipped moves — more wrestling/pressure focused */
+const OPPONENT_EQUIPPED_IDS: string[] = [
+  // Standing
+  "wrestle", "snapdown", "knee_tap",
+  // Guard Bottom
+  "armbar_guard", "sweep", "heist_snapdown",
+  // Guard Top
+  "force_half_guard", "double_under_pass", "knee_slice_pass",
+  // Half Guard Bottom
+  "underhook_sweep", "recover_guard", "enter_single_leg_x",
+  // Half Guard Top
+  "pummel_pass", "pass_to_side", "kimura_half",
+  // Side Control Top
+  "mount_transition", "kimura_side", "throw_leg_mount",
+  // Side Control Bottom
+  "escape_to_guard", "turtle_up_side_control", "frame_defense",
+  // Mount Top
+  "maintain_mount", "head_arm_choke", "smother_choke",
+  // Mount Bottom
+  "upa", "elbow_escape", "survive_mount",
+  // Back Control
+  "armbar_back", "mount_from_back", "rnc",
+  // Back Exposed
+  "clear_hooks", "turtle_up", "hand_fight",
+  // Turtle Top
+  "hooks_aggressive", "front_headlock_snap", "take_back_turtle",
+  // Turtle Bottom
+  "break_grips_stand", "break_grips_guard", "granby_roll",
+  // Front Headlock Attack
+  "cow_catcher", "go_behind", "high_wrist_guillotine",
+  // Front Headlock Defend
+  "handfight_stand", "peek_out", "pull_guard_headlock",
+  // SLX Offense
+  "slx_sweep", "slx_footlock", "slx_outside_heelhook",
+  // SLX Defense
+  "rip_leg_out", "disentangle_step_out", "strip_grip_pass",
+  // Saddle Offense
+  "ankle_lock_secondary", "saddle_inside_heelhook", "saddle_to_back",
+  // Saddle Defense
+  "rip_leg_out_saddle", "hide_heel_extract", "counter_back_take",
+];
+
+function filterMovesByIds(ids: string[]): Move[] {
+  return ALL_MOVES.filter((m) => ids.includes(m.id));
+}
 
 export const PLAYER_FIGHTER: Fighter = {
   name: "You",
@@ -194,7 +284,7 @@ export const PLAYER_FIGHTER: Fighter = {
     strength: 62,
     leg_entanglements: 55,
   },
-  moves: ALL_MOVES,
+  moves: filterMovesByIds(PLAYER_EQUIPPED_IDS),
 };
 
 export const OPPONENT_FIGHTER: Fighter = {
@@ -209,7 +299,7 @@ export const OPPONENT_FIGHTER: Fighter = {
     strength: 70,
     leg_entanglements: 50,
   },
-  moves: ALL_MOVES,
+  moves: filterMovesByIds(OPPONENT_EQUIPPED_IDS),
 };
 
 // ─── Dominance Color Thresholds ───
