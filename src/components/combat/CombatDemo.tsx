@@ -2,13 +2,14 @@
 // Top-level combat demo section — manages game state with useReducer.
 "use client";
 
-import { useReducer, useCallback, useRef, useEffect } from "react";
+import { useReducer, useCallback, useRef, useEffect, useState } from "react";
 import {
   type GameState,
   type Move,
   type TurnResult,
   type GaugeResult,
   type Fighter,
+  InteractionType,
 } from "@/lib/combat/types";
 import {
   PLAYER_FIGHTER,
@@ -176,6 +177,27 @@ export default function CombatDemo() {
 
   const { game, showResolve, animatingResult } = state;
 
+  // Screen shake state
+  const [shaking, setShaking] = useState(false);
+  const shakeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Trigger shake when a resolve shows a successful hit (position change or points)
+  useEffect(() => {
+    if (showResolve && animatingResult) {
+      const r = animatingResult;
+      const hasImpact =
+        r.player_success || r.opponent_success ||
+        r.player_points > 0 || r.opponent_points > 0;
+      // Don't shake on stalls
+      const isStall = r.interaction === InteractionType.STALL;
+      if (hasImpact && !isStall) {
+        setShaking(true);
+        if (shakeTimeoutRef.current) clearTimeout(shakeTimeoutRef.current);
+        shakeTimeoutRef.current = setTimeout(() => setShaking(false), 200);
+      }
+    }
+  }, [showResolve, animatingResult]);
+
   const handleMoveSelect = useCallback((move: Move) => {
     dispatch({ type: "SELECT_MOVE", move });
   }, []);
@@ -205,10 +227,20 @@ export default function CombatDemo() {
   return (
     <section
       id="combat-demo"
-      className="relative px-4 overflow-hidden md:px-8"
+      className={`relative px-4 overflow-hidden md:px-8${shaking ? " combat-shake" : ""}`}
       style={{ backgroundColor: COMBAT_COLORS.hud_bg, paddingTop: "2rem", paddingBottom: "2rem" }}
     >
-      <div className="relative max-w-[800px] mx-auto">
+      {/* Vignette overlay */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.3) 100%)",
+          pointerEvents: "none",
+          zIndex: 1,
+        }}
+      />
+      <div className="relative max-w-[800px] mx-auto" style={{ zIndex: 2 }}>
         {/* ─── Pre-Match ─── */}
         {game.phase === "pre-match" && (
           <div className="text-center py-6">
@@ -235,9 +267,12 @@ export default function CombatDemo() {
                   You
                 </p>
               </div>
-              <p className="font-mono text-lg" style={{ color: COMBAT_COLORS.title_gold }}>
-                VS
-              </p>
+              <div className="flex flex-col items-center gap-1">
+                <div style={{ width: "1px", height: "20px", background: `linear-gradient(to bottom, transparent, ${COMBAT_COLORS.title_gold})` }} />
+                <div style={{ width: "12px", height: "12px", backgroundColor: COMBAT_COLORS.title_gold, transform: "rotate(45deg)", boxShadow: `0 0 8px ${COMBAT_COLORS.title_gold}40` }} />
+                <div style={{ width: "1px", height: "20px", background: `linear-gradient(to top, transparent, ${COMBAT_COLORS.title_gold})` }} />
+                <p className="font-mono text-xs" style={{ color: COMBAT_COLORS.title_gold, opacity: 0.5 }}>VS</p>
+              </div>
               <div className="text-center">
                 <FighterSprite spriteSheet={OPPONENT_SPRITE} side="opponent" />
                 <p className="mt-1 font-mono text-xs" style={{ color: COMBAT_COLORS.opponent_red }}>
@@ -287,9 +322,12 @@ export default function CombatDemo() {
                 style={{ opacity: game.phase === "resolving" && showResolve ? 0.3 : 1 }}
               >
                 <FighterSprite spriteSheet={PLAYER_SPRITE} side="player" />
-                <p className="font-mono text-sm" style={{ color: COMBAT_COLORS.title_gold, opacity: 0.6 }}>
-                  VS
-                </p>
+                <div className="flex flex-col items-center gap-0.5">
+                  <div style={{ width: "1px", height: "16px", background: `linear-gradient(to bottom, transparent, ${COMBAT_COLORS.title_gold}80)` }} />
+                  <div style={{ width: "10px", height: "10px", backgroundColor: COMBAT_COLORS.title_gold, transform: "rotate(45deg)", opacity: 0.6, boxShadow: `0 0 6px ${COMBAT_COLORS.title_gold}30` }} />
+                  <div style={{ width: "1px", height: "16px", background: `linear-gradient(to top, transparent, ${COMBAT_COLORS.title_gold}80)` }} />
+                  <p className="font-mono" style={{ fontSize: "8px", color: COMBAT_COLORS.title_gold, opacity: 0.4 }}>VS</p>
+                </div>
                 <FighterSprite spriteSheet={OPPONENT_SPRITE} side="opponent" />
               </div>
 
@@ -352,6 +390,24 @@ export default function CombatDemo() {
           />
         )}
       </div>
+
+      <style jsx>{`
+        @keyframes combat-shake {
+          0%, 100% { transform: translate(0, 0); }
+          20% { transform: translate(-3px, 2px); }
+          40% { transform: translate(3px, -2px); }
+          60% { transform: translate(-2px, -3px); }
+          80% { transform: translate(2px, 3px); }
+        }
+        .combat-shake {
+          animation: combat-shake 0.2s ease-in-out;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .combat-shake {
+            animation: none;
+          }
+        }
+      `}</style>
     </section>
   );
 }

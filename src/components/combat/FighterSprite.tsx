@@ -3,6 +3,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { COMBAT_COLORS } from "@/lib/combat/constants";
 
 interface FighterSpriteProps {
   spriteSheet: string;
@@ -35,17 +36,29 @@ export default function FighterSprite({ spriteSheet, side }: FighterSpriteProps)
   const bgY = -(ROW_Y * SCALE);
 
   return (
-    <div
-      style={{
-        width: `${DISPLAY_SIZE}px`,
-        height: `${DISPLAY_SIZE}px`,
-        backgroundImage: `url("${spriteSheet}")`,
-        backgroundPosition: `${bgX}px ${bgY}px`,
-        backgroundSize: `${FRAME_SIZE * SCALE * 13}px auto`, // 13 columns in the spritesheet
-        backgroundRepeat: "no-repeat",
-        imageRendering: "pixelated",
-        transform: side === "opponent" ? "scaleX(-1)" : "none",
-      }}
-    />
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <div
+        style={{
+          width: `${DISPLAY_SIZE}px`,
+          height: `${DISPLAY_SIZE}px`,
+          backgroundImage: `url("${spriteSheet}")`,
+          backgroundPosition: `${bgX}px ${bgY}px`,
+          backgroundSize: `${FRAME_SIZE * SCALE * 13}px auto`, // 13 columns in the spritesheet
+          backgroundRepeat: "no-repeat",
+          imageRendering: "pixelated",
+          transform: side === "opponent" ? "scaleX(-1)" : "none",
+        }}
+      />
+      {/* Platform */}
+      <div
+        style={{
+          width: `${DISPLAY_SIZE}px`,
+          height: "4px",
+          background: `linear-gradient(to right, transparent, ${COMBAT_COLORS.gold_border}4D, transparent)`,
+          boxShadow: `0 2px 8px ${COMBAT_COLORS.gold_border}20`,
+          marginTop: "-2px",
+        }}
+      />
+    </div>
   );
 }
