@@ -253,10 +253,10 @@ export const COMBAT_COLORS = {
   fail_orange: "#FB9238",
   momentum_gold: "#FFC00A",
 
-  atk_red: "#D93333",
-  def_blue: "#408CE0",
-  trn_blue: "#408CE0",
-  sub_purple: "#BF8CFF",
+  atk_red: "#E65940",
+  def_blue: "#4DA6E6",
+  trn_gold: "#D9BF40",
+  sub_purple: "#CC4DCC",
 
   stamina_fill: "#4CBE5C",
   stamina_bg: "#262832",
@@ -268,7 +268,7 @@ export function getMoveTypeColor(type: MoveType): string {
   switch (type) {
     case MoveType.ATK: return COMBAT_COLORS.atk_red;
     case MoveType.DEF: return COMBAT_COLORS.def_blue;
-    case MoveType.TRN: return COMBAT_COLORS.trn_blue;
+    case MoveType.TRN: return COMBAT_COLORS.trn_gold;
     case MoveType.SUB: return COMBAT_COLORS.sub_purple;
   }
 }
