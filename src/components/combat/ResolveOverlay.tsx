@@ -51,21 +51,21 @@ export function ResolveOverlay({ result, onComplete }: ResolveOverlayProps) {
   const [dotCount, setDotCount] = useState(0);
 
   useEffect(() => {
-    // Sequence: show moves (0.4s) → pulsing dots (1.4s) → result (0.5s) → done
+    // Sequence: show moves (0.6s) → pulsing dots (1.8s) → result (2s) → done
     const timers: ReturnType<typeof setTimeout>[] = [];
 
-    timers.push(setTimeout(() => setPhase("dots"), 400));
+    timers.push(setTimeout(() => setPhase("dots"), 600));
 
     // Pulsing dots
-    timers.push(setTimeout(() => setDotCount(1), 700));
-    timers.push(setTimeout(() => setDotCount(2), 1100));
-    timers.push(setTimeout(() => setDotCount(3), 1500));
+    timers.push(setTimeout(() => setDotCount(1), 1000));
+    timers.push(setTimeout(() => setDotCount(2), 1400));
+    timers.push(setTimeout(() => setDotCount(3), 1800));
 
-    timers.push(setTimeout(() => setPhase("result"), 1800));
+    timers.push(setTimeout(() => setPhase("result"), 2400));
     timers.push(setTimeout(() => {
       setPhase("done");
       onComplete();
-    }, 2300));
+    }, 4400));
 
     return () => timers.forEach(clearTimeout);
   }, [onComplete]);

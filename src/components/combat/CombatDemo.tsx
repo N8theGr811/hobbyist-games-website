@@ -289,6 +289,14 @@ export default function CombatDemo() {
               <FighterSprite spriteSheet={OPPONENT_SPRITE} side="opponent" />
             </div>
 
+            {/* 3b. Resolve result — between sprites and position bar */}
+            {game.phase === "resolving" && showResolve && animatingResult && (
+              <ResolveOverlay
+                result={animatingResult}
+                onComplete={handleResolveComplete}
+              />
+            )}
+
             {/* 4. Position bar + advantage pips (directly above move selection) */}
             <div className="flex items-center gap-2">
               <AdvantagePips count={game.player.advantage_pips} side="player" />
@@ -298,7 +306,7 @@ export default function CombatDemo() {
               <AdvantagePips count={game.opponent.advantage_pips} side="opponent" />
             </div>
 
-            {/* 5. Move selection OR resolve result (inline, not overlay) */}
+            {/* 5. Move selection */}
             {game.phase === "selecting" && (
               <MoveSelection
                 moves={getAvailableMoves(playerFighter, game.player)}
@@ -306,14 +314,6 @@ export default function CombatDemo() {
                 disabled={false}
                 playerStamina={game.player.stamina}
                 playerPips={game.player.advantage_pips}
-              />
-            )}
-
-            {/* Inline resolve result */}
-            {game.phase === "resolving" && showResolve && animatingResult && (
-              <ResolveOverlay
-                result={animatingResult}
-                onComplete={handleResolveComplete}
               />
             )}
           </div>
