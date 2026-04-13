@@ -34,6 +34,8 @@ import PositionDisplay from "./PositionDisplay";
 import FighterSprite from "./FighterSprite";
 import MoveSelection from "./MoveSelection";
 import TurnTimer from "./TurnTimer";
+import { ResolveOverlay } from "./ResolveOverlay";
+import { SubmissionGauge } from "./SubmissionGauge";
 
 // Sprite paths (served from public/)
 const PLAYER_SPRITE = "/media/Player Sprites/Purple1_Website_Sprite.png";
@@ -45,59 +47,6 @@ const opponentFighter: Fighter = { ...OPPONENT_FIGHTER, moves: OPPONENT_MOVES };
 
 // RNG — uses Math.random for the web demo
 const rng = () => Math.random();
-
-// ─── Placeholder Sub-Components (replaced in Tasks 11-12) ───
-
-function ResolveOverlay({ result, onComplete }: {
-  result: TurnResult; onComplete: () => void;
-}) {
-  // Auto-complete after brief delay — placeholder
-  return (
-    <div className="absolute inset-0 flex items-center justify-center z-10"
-      style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
-      onClick={onComplete}>
-      <div className="text-center font-mono p-6 rounded-lg"
-        style={{ backgroundColor: COMBAT_COLORS.panel_bg, border: `1px solid ${COMBAT_COLORS.gold_border}` }}>
-        <p style={{ color: COMBAT_COLORS.body_text }}>
-          {result.player_success ? "Your move succeeded!" : "Your move failed."}
-        </p>
-        <p className="text-xs mt-2" style={{ color: COMBAT_COLORS.secondary_text }}>
-          Tap to continue
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function SubmissionGauge({ submissionAttacker, baseSubChance, onResult }: {
-  submissionAttacker: "player" | "opponent"; baseSubChance: number; onResult: (result: GaugeResult) => void;
-}) {
-  // Placeholder — click to resolve with a random result
-  const handleClick = () => {
-    const roll = Math.random();
-    onResult({
-      zone_index: 5,
-      zone_label: "GOOD",
-      modifier: 0.0,
-      success: roll < baseSubChance,
-    });
-  };
-  return (
-    <div className="absolute inset-0 flex items-center justify-center z-10"
-      style={{ backgroundColor: "rgba(0,0,0,0.7)" }}>
-      <div className="text-center font-mono p-6 rounded-lg cursor-pointer"
-        style={{ backgroundColor: COMBAT_COLORS.gauge_bg, border: `1px solid ${COMBAT_COLORS.sub_purple}` }}
-        onClick={handleClick}>
-        <p style={{ color: COMBAT_COLORS.sub_purple }}>
-          {submissionAttacker === "player" ? "Your" : "Opponent's"} Submission!
-        </p>
-        <p className="text-xs mt-2" style={{ color: COMBAT_COLORS.secondary_text }}>
-          Click to resolve (gauge placeholder)
-        </p>
-      </div>
-    </div>
-  );
-}
 
 function MatchResult({ winner, winMethod, playerScore, opponentScore, onPlayAgain }: {
   winner: "player" | "opponent" | "draw" | null;
