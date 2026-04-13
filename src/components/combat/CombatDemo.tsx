@@ -271,19 +271,25 @@ export default function CombatDemo() {
               zIndex: 1,
             }}
           />
-          <div className="relative max-w-[800px] mx-auto" style={{ zIndex: 2 }}>
+          <div className="relative max-w-[800px] mx-auto" style={{ zIndex: 2, minHeight: "420px" }}>
         {/* ─── Pre-Match ─── */}
         {game.phase === "pre-match" && (
-          <div className="text-center py-6">
-            <h2
-              className="font-display text-2xl md:text-3xl mb-4"
-              style={{ color: COMBAT_COLORS.title_gold }}
+          <div className="flex flex-col items-center justify-center text-center" style={{ minHeight: "420px" }}>
+            <p
+              className="font-mono text-[0.6rem] font-bold tracking-[0.25em] uppercase mb-3"
+              style={{ color: COMBAT_COLORS.title_gold, opacity: 0.5 }}
             >
-              Think you can hang at purple belt?
+              Interactive Demo
+            </p>
+            <h2
+              className="font-display text-xl md:text-2xl mb-4"
+              style={{ color: COMBAT_COLORS.body_text }}
+            >
+              Test out the game&apos;s combat system
             </h2>
             <ul
-              className="text-left max-w-md mx-auto mb-4 space-y-1 text-sm"
-              style={{ color: COMBAT_COLORS.body_text }}
+              className="text-left max-w-md mx-auto mb-5 space-y-1 text-sm"
+              style={{ color: COMBAT_COLORS.body_text, opacity: 0.6 }}
             >
               <li>Choose attacks, defenses, transitions, or submissions each turn</li>
               <li>Manage your stamina — every move costs energy</li>
@@ -291,18 +297,18 @@ export default function CombatDemo() {
             </ul>
 
             {/* Sprites */}
-            <div className="flex items-center justify-center gap-8 mb-4">
+            <div className="flex items-center justify-center gap-8 mb-5">
               <div className="text-center">
                 <FighterSprite spriteSheet={PLAYER_SPRITE} side="player" />
                 <p className="mt-1 font-mono text-xs" style={{ color: COMBAT_COLORS.player_blue }}>
                   You
                 </p>
               </div>
-              <div className="flex flex-col items-center gap-1">
-                <div style={{ width: "1px", height: "20px", background: `linear-gradient(to bottom, transparent, ${COMBAT_COLORS.title_gold})` }} />
-                <div style={{ width: "12px", height: "12px", backgroundColor: COMBAT_COLORS.title_gold, transform: "rotate(45deg)", boxShadow: `0 0 8px ${COMBAT_COLORS.title_gold}40` }} />
-                <div style={{ width: "1px", height: "20px", background: `linear-gradient(to top, transparent, ${COMBAT_COLORS.title_gold})` }} />
-                <p className="font-mono text-xs" style={{ color: COMBAT_COLORS.title_gold, opacity: 0.5 }}>VS</p>
+              <div className="flex flex-col items-center gap-0.5">
+                <div style={{ width: "1px", height: "16px", background: `linear-gradient(to bottom, transparent, ${COMBAT_COLORS.title_gold}80)` }} />
+                <div style={{ width: "10px", height: "10px", backgroundColor: COMBAT_COLORS.title_gold, transform: "rotate(45deg)", opacity: 0.6, boxShadow: `0 0 6px ${COMBAT_COLORS.title_gold}30` }} />
+                <div style={{ width: "1px", height: "16px", background: `linear-gradient(to top, transparent, ${COMBAT_COLORS.title_gold}80)` }} />
+                <p className="font-mono" style={{ fontSize: "8px", color: COMBAT_COLORS.title_gold, opacity: 0.4 }}>VS</p>
               </div>
               <div className="text-center">
                 <FighterSprite spriteSheet={OPPONENT_SPRITE} side="opponent" />
