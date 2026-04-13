@@ -36,6 +36,7 @@ import MoveSelection from "./MoveSelection";
 import TurnTimer from "./TurnTimer";
 import { ResolveOverlay } from "./ResolveOverlay";
 import { SubmissionGauge } from "./SubmissionGauge";
+import MatchResult from "./MatchResult";
 
 // Sprite paths (served from public/)
 const PLAYER_SPRITE = "/media/Player Sprites/Purple1_Website_Sprite.png";
@@ -47,37 +48,6 @@ const opponentFighter: Fighter = { ...OPPONENT_FIGHTER, moves: OPPONENT_MOVES };
 
 // RNG — uses Math.random for the web demo
 const rng = () => Math.random();
-
-function MatchResult({ winner, winMethod, playerScore, opponentScore, onPlayAgain }: {
-  winner: "player" | "opponent" | "draw" | null;
-  winMethod: "submission" | "points" | "decision" | null;
-  playerScore: number; opponentScore: number;
-  onPlayAgain: () => void;
-}) {
-  const heading = winner === "player" ? "You Win!" : winner === "opponent" ? "You Lose" : "Draw";
-  const headingColor = winner === "player" ? COMBAT_COLORS.success_green : winner === "opponent" ? COMBAT_COLORS.opponent_red : COMBAT_COLORS.title_gold;
-  return (
-    <div className="text-center py-12">
-      <h3 className="font-display text-3xl mb-2" style={{ color: headingColor }}>{heading}</h3>
-      <p className="font-mono text-sm mb-1" style={{ color: COMBAT_COLORS.body_text }}>
-        {winMethod === "submission" ? "by Submission" : winMethod === "points" ? "by Points" : "by Decision"}
-      </p>
-      <p className="font-mono text-sm mb-6" style={{ color: COMBAT_COLORS.secondary_text }}>
-        {playerScore} - {opponentScore}
-      </p>
-      <button onClick={onPlayAgain}
-        className="px-8 py-3 font-mono text-lg tracking-wide uppercase cursor-pointer transition-all duration-150 hover:scale-105 active:scale-95"
-        style={{
-          backgroundColor: COMBAT_COLORS.panel_bg,
-          color: COMBAT_COLORS.button_text,
-          borderBottom: `3px solid ${COMBAT_COLORS.gold_border}`,
-          borderRadius: "6px",
-        }}>
-        Play Again
-      </button>
-    </div>
-  );
-}
 
 // ─── Reducer ───
 
