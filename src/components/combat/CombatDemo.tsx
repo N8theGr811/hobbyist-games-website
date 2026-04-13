@@ -32,6 +32,8 @@ import StaminaBar from "./StaminaBar";
 import AdvantagePips from "./AdvantagePips";
 import PositionDisplay from "./PositionDisplay";
 import FighterSprite from "./FighterSprite";
+import MoveSelection from "./MoveSelection";
+import TurnTimer from "./TurnTimer";
 
 // Sprite paths (served from public/)
 const PLAYER_SPRITE = "/media/Player Sprites/Purple1_Website_Sprite.png";
@@ -44,39 +46,7 @@ const opponentFighter: Fighter = { ...OPPONENT_FIGHTER, moves: OPPONENT_MOVES };
 // RNG — uses Math.random for the web demo
 const rng = () => Math.random();
 
-// ─── Placeholder Sub-Components (replaced in Tasks 9-12) ───
-
-function MoveSelection({ fighter, fighterState, onSelect }: {
-  fighter: Fighter; fighterState: FighterState; onSelect: (move: Move) => void;
-}) {
-  const available = getAvailableMoves(fighter, fighterState);
-  return (
-    <div className="grid grid-cols-2 gap-2">
-      {available.map((move) => (
-        <button key={move.id} onClick={() => onSelect(move)}
-          className="px-3 py-2 font-mono text-xs rounded cursor-pointer transition-colors duration-100"
-          style={{
-            backgroundColor: COMBAT_COLORS.button_bg,
-            color: COMBAT_COLORS.button_text,
-            borderBottom: `2px solid ${COMBAT_COLORS.gold_border}`,
-          }}>
-          <span className="font-bold">[{move.type}]</span> {move.name}
-        </button>
-      ))}
-    </div>
-  );
-}
-
-function TurnTimer({ onTimeout, active }: {
-  onTimeout: () => void; active: boolean;
-}) {
-  // Placeholder — full implementation in later task
-  return (
-    <div className="h-1 rounded-full mt-2" style={{ backgroundColor: COMBAT_COLORS.stamina_bg }}>
-      <div className="h-full rounded-full" style={{ width: "100%", backgroundColor: COMBAT_COLORS.title_gold }} />
-    </div>
-  );
-}
+// ─── Placeholder Sub-Components (replaced in Tasks 11-12) ───
 
 function ResolveOverlay({ result, onComplete }: {
   result: TurnResult; onComplete: () => void;
@@ -407,14 +377,16 @@ export default function CombatDemo() {
             {game.phase === "selecting" && (
               <>
                 <MoveSelection
-                  fighter={playerFighter}
-                  fighterState={game.player}
+                  moves={getAvailableMoves(playerFighter, game.player)}
                   onSelect={handleMoveSelect}
+                  disabled={false}
+                  playerStamina={game.player.stamina}
+                  playerPips={game.player.advantage_pips}
                 />
                 <TurnTimer
                   key={game.current_turn}
                   onTimeout={handleTimeout}
-                  active={game.phase === "selecting"}
+                  isActive={game.phase === "selecting"}
                 />
               </>
             )}
