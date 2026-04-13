@@ -26,8 +26,18 @@ export default function MoveSelection({
   playerStamina,
   playerPips,
 }: MoveSelectionProps) {
+  if (moves.length === 0) {
+    return (
+      <div className="text-center py-3">
+        <p className="font-mono text-sm" style={{ color: COMBAT_COLORS.body_text, opacity: 0.5 }}>
+          No stamina for any moves — resting this turn
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1.5">
+    <div className="flex flex-wrap justify-center gap-1.5">
       {moves.map((move) => {
         const staminaCost = STAMINA_COSTS[move.type];
         const canAfford = playerStamina >= staminaCost;
@@ -43,7 +53,7 @@ export default function MoveSelection({
             key={move.id}
             onClick={() => !isDisabled && onSelect(move)}
             disabled={isDisabled}
-            className="relative px-2 py-1.5 font-mono text-[11px] text-left rounded-[4px] transition-all duration-100 select-none"
+            className="relative px-2 py-1.5 font-mono text-[11px] text-left rounded-[4px] transition-all duration-100 select-none w-[200px]"
             style={{
               backgroundColor: COMBAT_COLORS.button_bg,
               color: COMBAT_COLORS.button_text,

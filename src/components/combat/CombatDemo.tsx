@@ -299,15 +299,42 @@ export default function CombatDemo() {
             </div>
 
             {/* 5. Move selection OR resolve result (inline, not overlay) */}
-            {game.phase === "selecting" && (
-              <MoveSelection
-                moves={getAvailableMoves(playerFighter, game.player)}
-                onSelect={handleMoveSelect}
-                disabled={false}
-                playerStamina={game.player.stamina}
-                playerPips={game.player.advantage_pips}
-              />
-            )}
+            {game.phase === "selecting" && (() => {
+              const availableMoves = getAvailableMoves(playerFighter, game.player);
+              if (availableMoves.length === 0) {
+                // Auto-resolve with a timeout/rest move
+                return (
+                  <div className="text-center py-3">
+                    <p className="font-mono text-sm mb-2" style={{ color: COMBAT_COLORS.body_text, opacity: 0.5 }}>
+                      Too exhausted to move — resting this turn
+                    </p>
+                    <button
+                      onClick={() => {
+                        const fallback = getTimeoutMove(playerFighter, game.player);
+                        handleMoveSelect(fallback);
+                      }}
+                      className="px-4 py-1.5 font-mono text-xs uppercase cursor-pointer rounded"
+                      style={{
+                        backgroundColor: COMBAT_COLORS.panel_bg,
+                        color: COMBAT_COLORS.button_text,
+                        borderBottom: `2px solid ${COMBAT_COLORS.gold_border}`,
+                      }}
+                    >
+                      Continue
+                    </button>
+                  </div>
+                );
+              }
+              return (
+                <MoveSelection
+                  moves={availableMoves}
+                  onSelect={handleMoveSelect}
+                  disabled={false}
+                  playerStamina={game.player.stamina}
+                  playerPips={game.player.advantage_pips}
+                />
+              );
+            })()}
 
             {/* Inline resolve result */}
             {game.phase === "resolving" && showResolve && animatingResult && (
