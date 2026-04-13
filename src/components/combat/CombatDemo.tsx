@@ -181,21 +181,28 @@ export default function CombatDemo() {
   const [shaking, setShaking] = useState(false);
   const shakeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Trigger shake when a resolve shows a successful hit (position change or points)
+  // Trigger shake when the result text appears (2.4s into resolve sequence)
+  const shakeDelayRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => {
     if (showResolve && animatingResult) {
       const r = animatingResult;
       const hasImpact =
         r.player_success || r.opponent_success ||
         r.player_points > 0 || r.opponent_points > 0;
-      // Don't shake on stalls
       const isStall = r.interaction === InteractionType.STALL;
       if (hasImpact && !isStall) {
-        setShaking(true);
-        if (shakeTimeoutRef.current) clearTimeout(shakeTimeoutRef.current);
-        shakeTimeoutRef.current = setTimeout(() => setShaking(false), 200);
+        // Delay shake to match when result text appears in ResolveOverlay
+        if (shakeDelayRef.current) clearTimeout(shakeDelayRef.current);
+        shakeDelayRef.current = setTimeout(() => {
+          setShaking(true);
+          if (shakeTimeoutRef.current) clearTimeout(shakeTimeoutRef.current);
+          shakeTimeoutRef.current = setTimeout(() => setShaking(false), 200);
+        }, 2400);
       }
     }
+    return () => {
+      if (shakeDelayRef.current) clearTimeout(shakeDelayRef.current);
+    };
   }, [showResolve, animatingResult]);
 
   const handleMoveSelect = useCallback((move: Move) => {

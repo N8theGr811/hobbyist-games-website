@@ -50,8 +50,10 @@ export function ResolveOverlay({ result, onComplete }: ResolveOverlayProps) {
   const [phase, setPhase] = useState<"moves" | "dots" | "result" | "done">("moves");
   const [dotCount, setDotCount] = useState(0);
 
+  const isSubmission = result.submission_triggered;
+
   useEffect(() => {
-    // Sequence: show moves (0.6s) → pulsing dots (1.8s) → result (2s) → done
+    // Sequence: show moves → pulsing dots → result → (sub pause if needed) → done
     const timers: ReturnType<typeof setTimeout>[] = [];
 
     timers.push(setTimeout(() => setPhase("dots"), 600));
@@ -62,13 +64,17 @@ export function ResolveOverlay({ result, onComplete }: ResolveOverlayProps) {
     timers.push(setTimeout(() => setDotCount(3), 1800));
 
     timers.push(setTimeout(() => setPhase("result"), 2400));
+
+    // Submission attempts get a dramatic extra pause before transitioning to gauge
+    const holdTime = isSubmission ? 3000 : 2000;
+
     timers.push(setTimeout(() => {
       setPhase("done");
       onComplete();
-    }, 4400));
+    }, 2400 + holdTime));
 
     return () => timers.forEach(clearTimeout);
-  }, [onComplete]);
+  }, [onComplete, isSubmission]);
 
   const resultDisplay = getResultDisplay(result);
 
@@ -166,10 +172,17 @@ export function ResolveOverlay({ result, onComplete }: ResolveOverlayProps) {
               )}
             </div>
 
-            {/* Submission trigger */}
+            {/* Submission trigger — dramatic pulsing message */}
             {result.submission_triggered && (
-              <p className="font-mono text-sm font-bold" style={{ color: COMBAT_COLORS.sub_purple }}>
-                SUBMISSION ATTEMPT!
+              <p
+                className="font-mono text-lg font-bold uppercase tracking-widest"
+                style={{
+                  color: COMBAT_COLORS.sub_purple,
+                  textShadow: `0 0 12px ${COMBAT_COLORS.sub_purple}, 0 0 24px ${COMBAT_COLORS.sub_purple}80`,
+                  animation: "subPulse 1s ease-in-out infinite",
+                }}
+              >
+                SUBMISSION LOCKED IN!
               </p>
             )}
           </div>
@@ -180,6 +193,10 @@ export function ResolveOverlay({ result, onComplete }: ResolveOverlayProps) {
         @keyframes popIn {
           from { transform: scale(1.5); opacity: 0; }
           to { transform: scale(1); opacity: 1; }
+        }
+        @keyframes subPulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.7; transform: scale(1.05); }
         }
       `}</style>
     </div>
