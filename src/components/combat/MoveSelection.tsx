@@ -37,7 +37,10 @@ export default function MoveSelection({
   }
 
   return (
-    <div className="flex flex-wrap justify-center gap-1.5">
+    <div
+      className="flex flex-wrap justify-center gap-1.5 transition-opacity duration-300"
+      style={{ opacity: disabled ? 0.35 : 1, pointerEvents: disabled ? "none" : "auto" }}
+    >
       {moves.map((move) => {
         const staminaCost = STAMINA_COSTS[move.type];
         const chainLocked = move.is_chain && playerPips < CHAIN_MOVE_PIP_THRESHOLD;

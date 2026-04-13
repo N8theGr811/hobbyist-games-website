@@ -382,16 +382,16 @@ export default function CombatDemo() {
               <AdvantagePips count={game.opponent.advantage_pips} side="opponent" />
             </div>
 
-            {/* 5. Move selection */}
-            {game.phase === "selecting" && (
+            {/* 5. Move selection — always visible, disabled during resolve/gauge */}
+            <div style={{ minHeight: "72px" }}>
               <MoveSelection
                 moves={getAvailableMoves(playerFighter, game.player)}
                 onSelect={handleMoveSelect}
-                disabled={false}
+                disabled={game.phase !== "selecting"}
                 playerStamina={game.player.stamina}
                 playerPips={game.player.advantage_pips}
               />
-            )}
+            </div>
           </div>
         )}
 
