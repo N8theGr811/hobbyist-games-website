@@ -65,6 +65,8 @@ type CombatAction =
 
 interface CombatState {
   game: GameState;
+  /** Snapshot of game state before resolve — used for display during animations */
+  displayGame: GameState | null;
   /** Whether we're showing the resolve animation */
   showResolve: boolean;
   /** The turn result currently being animated */
@@ -78,6 +80,7 @@ function combatReducer(state: CombatState, action: CombatAction): CombatState {
     case "START_MATCH": {
       return {
         game: { ...createInitialState(), phase: "selecting" },
+        displayGame: null,
         showResolve: false,
         animatingResult: null,
         gaugeResult: null,
@@ -86,6 +89,9 @@ function combatReducer(state: CombatState, action: CombatAction): CombatState {
 
     case "SELECT_MOVE": {
       if (state.game.phase !== "selecting") return state;
+
+      // Snapshot current state BEFORE resolving — this is what we display during animation
+      const preResolveSnapshot = { ...state.game };
 
       const aiMove = selectAIMove(opponentFighter, state.game.opponent, rng);
       const { newState, result } = resolveTurn(
@@ -100,6 +106,7 @@ function combatReducer(state: CombatState, action: CombatAction): CombatState {
       return {
         ...state,
         game: { ...newState, phase: "resolving" },
+        displayGame: preResolveSnapshot,
         showResolve: true,
         animatingResult: result,
       };
@@ -107,6 +114,8 @@ function combatReducer(state: CombatState, action: CombatAction): CombatState {
 
     case "TIMEOUT": {
       if (state.game.phase !== "selecting") return state;
+
+      const preResolveSnapshot = { ...state.game };
 
       const timeoutMove = getTimeoutMove(playerFighter, state.game.player, rng);
       const aiMove = selectAIMove(opponentFighter, state.game.opponent, rng);
@@ -122,6 +131,7 @@ function combatReducer(state: CombatState, action: CombatAction): CombatState {
       return {
         ...state,
         game: { ...newState, phase: "resolving" },
+        displayGame: preResolveSnapshot,
         showResolve: true,
         animatingResult: result,
       };
@@ -135,6 +145,7 @@ function combatReducer(state: CombatState, action: CombatAction): CombatState {
         return {
           ...state,
           game: { ...state.game, phase: "submission-gauge" },
+          displayGame: null,
           showResolve: false,
         };
       }
@@ -143,16 +154,17 @@ function combatReducer(state: CombatState, action: CombatAction): CombatState {
       return {
         ...state,
         game: { ...checked, phase: checked.phase === "post-match" ? "post-match" : "selecting" },
+        displayGame: null,
         showResolve: false,
         animatingResult: null,
       };
     }
 
     case "GAUGE_RESULT": {
-      // Gauge done — transition to cinematic phase (don't apply result yet)
       return {
         ...state,
         game: { ...state.game, phase: "submission-cinematic" },
+        displayGame: null,
         gaugeResult: action.result,
       };
     }
@@ -165,6 +177,7 @@ function combatReducer(state: CombatState, action: CombatAction): CombatState {
       const checked = updated.phase === "post-match" ? updated : checkWinCondition(updated);
       return {
         game: checked.phase === "post-match" ? checked : { ...checked, phase: "selecting" },
+        displayGame: null,
         showResolve: false,
         animatingResult: null,
         gaugeResult: null,
@@ -174,6 +187,7 @@ function combatReducer(state: CombatState, action: CombatAction): CombatState {
     case "RESTART": {
       return {
         game: createInitialState(),
+        displayGame: null,
         showResolve: false,
         animatingResult: null,
         gaugeResult: null,
@@ -190,12 +204,15 @@ function combatReducer(state: CombatState, action: CombatAction): CombatState {
 export default function CombatDemo() {
   const [state, dispatch] = useReducer(combatReducer, {
     game: createInitialState(),
+    displayGame: null,
     showResolve: false,
     animatingResult: null,
     gaugeResult: null,
   });
 
   const { game, showResolve, animatingResult } = state;
+  // Use the pre-resolve snapshot for display during animations, otherwise real state
+  const visibleGame = state.displayGame ?? game;
 
   // Screen shake state
   const [shakeIntensity, setShakeIntensity] = useState<"none" | "light" | "heavy">("none");
@@ -451,16 +468,16 @@ export default function CombatDemo() {
             <Scoreboard
               playerName={PLAYER_FIGHTER.name}
               opponentName={OPPONENT_FIGHTER.name}
-              playerScore={game.player.score}
-              opponentScore={game.opponent.score}
-              currentTurn={game.current_turn}
-              maxTurns={game.max_turns}
+              playerScore={visibleGame.player.score}
+              opponentScore={visibleGame.opponent.score}
+              currentTurn={visibleGame.current_turn}
+              maxTurns={visibleGame.max_turns}
             />
 
             {/* 2. Stamina bars */}
             <div className="flex justify-between gap-3">
-              <StaminaBar value={game.player.stamina} side="player" />
-              <StaminaBar value={game.opponent.stamina} side="opponent" />
+              <StaminaBar value={visibleGame.player.stamina} side="player" />
+              <StaminaBar value={visibleGame.opponent.stamina} side="opponent" />
             </div>
 
             {/* 3. Fighter sprites + resolve/gauge/cinematic overlays */}
@@ -541,11 +558,11 @@ export default function CombatDemo() {
 
             {/* 4. Position bar + advantage pips */}
             <div className="flex items-center gap-2">
-              <AdvantagePips count={game.player.advantage_pips} side="player" />
+              <AdvantagePips count={visibleGame.player.advantage_pips} side="player" />
               <div className="flex-shrink-0">
-                <PositionDisplay position={game.player.position} />
+                <PositionDisplay position={visibleGame.player.position} />
               </div>
-              <AdvantagePips count={game.opponent.advantage_pips} side="opponent" />
+              <AdvantagePips count={visibleGame.opponent.advantage_pips} side="opponent" />
             </div>
 
             {/* 5. Move selection */}
@@ -557,11 +574,11 @@ export default function CombatDemo() {
               }}
             >
               <MoveSelection
-                moves={getAvailableMoves(playerFighter, game.player)}
+                moves={getAvailableMoves(playerFighter, visibleGame.player)}
                 onSelect={handleMoveSelect}
                 disabled={game.phase !== "selecting"}
-                playerStamina={game.player.stamina}
-                playerPips={game.player.advantage_pips}
+                playerStamina={visibleGame.player.stamina}
+                playerPips={visibleGame.player.advantage_pips}
               />
             </div>
           </div>
