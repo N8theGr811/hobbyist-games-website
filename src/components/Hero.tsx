@@ -81,17 +81,28 @@ export default function Hero() {
           the adventure games you grew up with.
         </p>
 
-        {/* CTA */}
+        {/* CTAs */}
         <div
-          className="animate-fade-up"
+          className="animate-fade-up flex flex-col items-center gap-3"
           style={{ animationDelay: "1.3s" }}
         >
+          {/* Primary: Download Beta (disabled until build is ready) */}
+          <button
+            disabled
+            className="relative inline-flex items-center gap-3 font-mono text-[0.7rem] font-bold tracking-[0.15em] uppercase px-10 py-4 bg-espresso text-cream/50 cursor-not-allowed"
+          >
+            Download Beta
+            <span className="text-[0.55rem] tracking-[0.1em] normal-case font-normal text-cream/30 border border-cream/20 px-2 py-0.5 rounded ml-1">
+              Coming Soon
+            </span>
+          </button>
+
+          {/* Secondary: Mailing list link */}
           <a
             href="#signup"
-            className="group relative inline-flex items-center gap-3 font-mono text-[0.7rem] font-bold tracking-[0.15em] uppercase px-10 py-4 bg-espresso text-cream hover:bg-mat-red transition-all duration-300 hover:shadow-[0_8px_30px_rgba(200,55,45,0.2)]"
+            className="font-mono text-[0.6rem] tracking-[0.12em] uppercase text-ink/35 hover:text-mat-red transition-colors"
           >
-            Join the Beta
-            <span className="transition-transform duration-300 group-hover:translate-x-1.5">→</span>
+            Join the mailing list for updates →
           </a>
         </div>
 
