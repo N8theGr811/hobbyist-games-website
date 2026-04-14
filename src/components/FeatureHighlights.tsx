@@ -109,7 +109,7 @@ const FEATURES: Feature[] = [
   {
     title: "Custom Submission Creator",
     description:
-      "Design your own finishing moves. Combine positions, grips, and pressure angles to create signature submissions that only you can execute.",
+      "Create your own signature submission. Choose the position it's performed from, name it, and write its description — then use it in combat as a unique finishing move only you have.",
     icon: <GrappleIcon />,
   },
   {

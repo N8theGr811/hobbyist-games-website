@@ -34,12 +34,14 @@ export function createInitialState(): GameState {
       stamina: 100,
       score: 0,
       advantage_pips: 0,
+      lastFailedMoveId: null,
     },
     opponent: {
       position: Position.STANDING,
       stamina: 100,
       score: 0,
       advantage_pips: 0,
+      lastFailedMoveId: null,
     },
     current_turn: 1,
     max_turns: PURPLE_BELT_CONFIG.max_turns,
@@ -55,13 +57,20 @@ export function getAvailableMoves(
   fighter: Fighter,
   state: FighterState
 ): Move[] {
-  return fighter.moves.filter((move) => {
+  const moves = fighter.moves.filter((move) => {
     // Must be at the correct position
     if (move.from_position !== state.position) return false;
+    // Can't reuse a move that failed last turn
+    if (move.id === state.lastFailedMoveId) return false;
     // Chain moves require 3+ pips
     if (move.is_chain && state.advantage_pips < CHAIN_MOVE_PIP_THRESHOLD) return false;
     return true;
   });
+  // Safety: if filtering leaves no moves (e.g. only had 1 move and it failed), return all position moves
+  if (moves.length === 0) {
+    return fighter.moves.filter((m) => m.from_position === state.position);
+  }
+  return moves;
 }
 
 /**
@@ -261,12 +270,14 @@ export function resolveTurn(
       stamina: Math.max(0, state.player.stamina - playerStaminaDrain),
       score: state.player.score + playerPoints,
       advantage_pips: playerPips,
+      lastFailedMoveId: !playerSuccess ? playerMove.id : null,
     },
     opponent: {
       position: newOpponentPos,
       stamina: Math.max(0, state.opponent.stamina - opponentStaminaDrain),
       score: state.opponent.score + opponentPoints,
       advantage_pips: opponentPips,
+      lastFailedMoveId: !opponentSuccess ? opponentMove.id : null,
     },
     current_turn: state.current_turn + 1,
     last_result: result,

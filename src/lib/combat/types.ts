@@ -125,6 +125,8 @@ export interface FighterState {
   stamina: number;
   score: number;
   advantage_pips: number;
+  /** Move ID that failed last turn — can't be used again next turn */
+  lastFailedMoveId: string | null;
 }
 
 export interface GameState {
