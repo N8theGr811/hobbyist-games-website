@@ -226,19 +226,15 @@ export function resolveTurn(
   let submissionTriggered = false;
   let submissionAttacker: "player" | "opponent" | null = null;
 
+  // If a SUB move succeeds, the submission always locks in (triggers the gauge).
+  // The gauge then determines if the submission finishes or is escaped.
   if (playerMove.type === MoveType.SUB && playerSuccess && playerMove.sub_chance) {
-    const subChance = playerMove.sub_chance + mods.sub_chance_mod;
-    if (rng() < subChance) {
-      submissionTriggered = true;
-      submissionAttacker = "player";
-    }
+    submissionTriggered = true;
+    submissionAttacker = "player";
   }
   if (!submissionTriggered && opponentMove.type === MoveType.SUB && opponentSuccess && opponentMove.sub_chance) {
-    const subChance = opponentMove.sub_chance + mods.sub_chance_mod;
-    if (rng() < subChance) {
-      submissionTriggered = true;
-      submissionAttacker = "opponent";
-    }
+    submissionTriggered = true;
+    submissionAttacker = "opponent";
   }
 
   const result: TurnResult = {
