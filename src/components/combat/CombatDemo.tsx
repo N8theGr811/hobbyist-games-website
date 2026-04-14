@@ -339,7 +339,7 @@ export default function CombatDemo() {
       return { text: "SUBMISSION!", color: "#21C45E" };
     }
     // Defended
-    const defenderName = subAttacker === "player" ? "Carlos" : "You";
+    const defenderName = subAttacker === "player" ? "Opponent" : "You";
     return { text: `${defenderName} ESCAPED!`, color: "#F25A4D" };
   };
 
@@ -441,7 +441,7 @@ export default function CombatDemo() {
               <div className="text-center">
                 <FighterSprite spriteSheet={OPPONENT_SPRITE} side="opponent" />
                 <p className="mt-1 font-mono text-xs" style={{ color: COMBAT_COLORS.opponent_red }}>
-                  Carlos
+                  Opponent
                 </p>
               </div>
             </div>

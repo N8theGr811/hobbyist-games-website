@@ -298,7 +298,7 @@ export const PLAYER_FIGHTER: Fighter = {
 };
 
 export const OPPONENT_FIGHTER: Fighter = {
-  name: "Carlos",
+  name: "Opponent",
   stats: {
     guard: 62,
     passing: 70,

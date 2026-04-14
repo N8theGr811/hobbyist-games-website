@@ -106,7 +106,7 @@ export function ResolveOverlay({ result, onComplete }: ResolveOverlayProps) {
 
             <div>
               <p className="font-mono text-[0.55rem] uppercase mb-1" style={{ color: COMBAT_COLORS.opponent_red }}>
-                Carlos
+                Opponent
               </p>
               <p
                 className="font-mono text-sm font-bold px-3 py-1 rounded"
@@ -162,7 +162,7 @@ export function ResolveOverlay({ result, onComplete }: ResolveOverlayProps) {
               )}
               {result.opponent_points > 0 && (
                 <span className="font-mono text-sm" style={{ color: COMBAT_COLORS.fail_orange }}>
-                  Carlos +{result.opponent_points}pts
+                  Opponent +{result.opponent_points}pts
                 </span>
               )}
               {result.player_points === 0 && result.opponent_points === 0 && (
