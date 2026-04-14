@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Header() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-1.5 bg-espresso shadow-[0_2px_16px_rgba(59,42,31,0.25)] md:px-12">
+    <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-1.5 bg-espresso shadow-[0_2px_16px_rgba(59,42,31,0.25)] border-b-2 border-ink md:px-12">
       <a href="#" className="block -my-3">
         <Image
           src="/brand/hobbyist-games-v3-formal-2048w.png"
