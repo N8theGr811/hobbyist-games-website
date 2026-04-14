@@ -1,7 +1,7 @@
 const pillars = [
   { title: "Fight", description: "70+ real techniques across 19 positions" },
   { title: "Explore", description: "Cities, gyms, rivals, and secrets" },
-  { title: "Build", description: "Your skills, your academy, your legacy" },
+  { title: "Build", description: "Your academy, your business empire, your legacy" },
 ];
 
 export default function GameInfo() {

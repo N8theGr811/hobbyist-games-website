@@ -105,6 +105,33 @@ function SkillTreeIcon() {
 
 // ─── Feature Data ───
 
+function PetIcon() {
+  return (
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+      {/* Paw print */}
+      <ellipse cx="24" cy="30" rx="8" ry="6" stroke={BELT_GOLD} strokeWidth="2.5" fill="none" />
+      <circle cx="16" cy="20" r="3" fill={BELT_GOLD} />
+      <circle cx="22" cy="16" r="3" fill={BELT_GOLD} />
+      <circle cx="28" cy="16" r="3" fill={BELT_GOLD} />
+      <circle cx="34" cy="20" r="3" fill={BELT_GOLD} />
+    </svg>
+  );
+}
+
+function BusinessIcon() {
+  return (
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+      {/* Building */}
+      <rect x="10" y="16" width="28" height="22" rx="2" stroke={BELT_GOLD} strokeWidth="2.5" fill="none" />
+      <rect x="18" y="28" width="12" height="10" stroke={BELT_GOLD} strokeWidth="2" fill="none" />
+      <line x1="10" y1="16" x2="24" y2="8" stroke={BELT_GOLD} strokeWidth="2.5" />
+      <line x1="38" y1="16" x2="24" y2="8" stroke={BELT_GOLD} strokeWidth="2.5" />
+      <rect x="15" y="20" width="4" height="4" fill={BELT_GOLD} />
+      <rect x="29" y="20" width="4" height="4" fill={BELT_GOLD} />
+    </svg>
+  );
+}
+
 const FEATURES: Feature[] = [
   {
     title: "Custom Submission Creator",
@@ -135,6 +162,18 @@ const FEATURES: Feature[] = [
     description:
       "Shape your fighter\u2019s growth. Invest in 7 skill categories across 5 tiers to specialize your stats \u2014 become a guard specialist, wrestling powerhouse, or balanced all-rounder.",
     icon: <SkillTreeIcon />,
+  },
+  {
+    title: "Adopt a Pet Companion",
+    description:
+      "Adopt a pet that follows you on your journey. Choose from a loyal shiba, a curious cat, or a polar bear \u2014 each one joins you in the overworld and cheers you on during combat.",
+    icon: <PetIcon />,
+  },
+  {
+    title: "Own & Upgrade Businesses",
+    description:
+      "Build your empire off the mats. Purchase and upgrade businesses across the city \u2014 earn passive income, unlock new opportunities, and fund your path to the championship.",
+    icon: <BusinessIcon />,
   },
 ];
 
