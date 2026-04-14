@@ -1,19 +1,4 @@
-"use client";
-
-import { useRef, useState } from "react";
-
 export default function Trailer() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  function handlePlay() {
-    if (videoRef.current) {
-      videoRef.current.play();
-      videoRef.current.controls = true;
-      setIsPlaying(true);
-    }
-  }
-
   return (
     <section className="relative py-28 px-6 bg-cream text-center md:px-12 overflow-hidden">
       {/* Top divider */}
@@ -29,32 +14,16 @@ export default function Trailer() {
         Explore the world, train at gyms, and fight your way to the top.
       </p>
 
-      {/* Video frame */}
+      {/* YouTube embed */}
       <div className="relative max-w-[800px] mx-auto">
         <div className="relative border-2 border-ink/10 shadow-[0_12px_40px_rgba(27,22,18,0.1)] aspect-video bg-ink overflow-hidden">
-          <video
-            ref={videoRef}
-            src="/media/trailers/walkthrough.mp4"
-            preload="metadata"
-            playsInline
-            className="w-full h-full object-cover"
+          <iframe
+            src="https://www.youtube.com/embed/b0dxWsDm2xI?rel=0"
+            title="Jiu-Jitsu RPG Gameplay"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="absolute inset-0 w-full h-full"
           />
-          {!isPlaying && (
-            <button
-              onClick={handlePlay}
-              className="group absolute inset-0 flex items-center justify-center bg-ink/40 hover:bg-ink/25 transition-colors cursor-pointer"
-              aria-label="Play video"
-            >
-              <div className="flex flex-col items-center gap-4">
-                <div className="w-16 h-16 border-2 border-cream rounded-full flex items-center justify-center group-hover:scale-110 group-hover:border-belt-gold transition-all">
-                  <div className="w-0 h-0 border-l-[20px] border-l-cream group-hover:border-l-belt-gold border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent ml-1 transition-colors" />
-                </div>
-                <span className="font-mono text-[0.6rem] font-bold tracking-[0.2em] uppercase text-cream/50 group-hover:text-cream/80 transition-colors">
-                  Watch Gameplay
-                </span>
-              </div>
-            </button>
-          )}
         </div>
 
         {/* Bottom caption */}
