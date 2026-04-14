@@ -18,7 +18,7 @@ export default function Trailer() {
       <div className="relative max-w-[800px] mx-auto">
         <div className="relative border-2 border-ink/10 shadow-[0_12px_40px_rgba(27,22,18,0.1)] aspect-video bg-ink overflow-hidden">
           <iframe
-            src="https://www.youtube.com/embed/b0dxWsDm2xI?rel=0"
+            src="https://www.youtube.com/embed/QSPr11Yq3DE?rel=0"
             title="Jiu-Jitsu RPG Gameplay"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
