@@ -89,10 +89,10 @@ export default function Hero() {
           {/* Primary: Download Beta (disabled until build is ready) */}
           <button
             disabled
-            className="relative inline-flex items-center gap-3 font-mono text-[0.7rem] font-bold tracking-[0.15em] uppercase px-10 py-4 bg-espresso text-cream/50 cursor-not-allowed"
+            className="relative inline-flex items-center gap-3 font-mono text-[0.7rem] font-bold tracking-[0.15em] uppercase px-10 py-4 rounded-full border-2 border-ink/15 bg-espresso/80 text-cream/40 cursor-not-allowed shadow-[0_4px_20px_rgba(59,42,31,0.15)]"
           >
             Download Beta
-            <span className="text-[0.55rem] tracking-[0.1em] normal-case font-normal text-cream/30 border border-cream/20 px-2 py-0.5 rounded ml-1">
+            <span className="text-[0.5rem] tracking-[0.08em] normal-case font-semibold text-belt-gold/60 border border-belt-gold/25 bg-belt-gold/5 px-2.5 py-0.5 rounded-full">
               Coming Soon
             </span>
           </button>
