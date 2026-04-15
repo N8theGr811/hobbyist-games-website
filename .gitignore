@@ -47,5 +47,6 @@ next-env.d.ts
 # large video files (host externally or use Git LFS)
 public/media/trailers/
 
+
 # superpowers brainstorm artifacts
 .superpowers/

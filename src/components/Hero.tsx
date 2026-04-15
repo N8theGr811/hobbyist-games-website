@@ -86,16 +86,16 @@ export default function Hero() {
           className="animate-fade-up flex flex-col items-center gap-3"
           style={{ animationDelay: "1.3s" }}
         >
-          {/* Primary: Download Beta (disabled until build is ready) */}
-          <button
-            disabled
-            className="relative inline-flex items-center gap-3 font-mono text-[0.7rem] font-bold tracking-[0.15em] uppercase px-10 py-4 rounded-full border-2 border-ink/15 bg-espresso/80 text-cream/40 cursor-not-allowed shadow-[0_4px_20px_rgba(59,42,31,0.15)]"
+          {/* Primary: Download Beta */}
+          <a
+            href="https://github.com/N8theGr811/hobbyist-games-website/releases/download/v2.1-beta/JJRPGv2.1.zip"
+            className="group relative inline-flex items-center gap-3 font-mono text-[0.7rem] font-bold tracking-[0.15em] uppercase px-10 py-4 rounded-full border-2 border-espresso bg-espresso text-cream hover:bg-mat-red hover:border-mat-red transition-all duration-300 shadow-[0_4px_20px_rgba(59,42,31,0.2)] hover:shadow-[0_4px_24px_rgba(200,55,45,0.25)]"
           >
             Download Beta
-            <span className="text-[0.5rem] tracking-[0.08em] normal-case font-semibold text-belt-gold/60 border border-belt-gold/25 bg-belt-gold/5 px-2.5 py-0.5 rounded-full">
-              Coming Soon
+            <span className="text-[0.5rem] tracking-[0.08em] normal-case font-semibold text-belt-gold border border-belt-gold/30 bg-belt-gold/10 px-2.5 py-0.5 rounded-full">
+              v2.1 — Windows
             </span>
-          </button>
+          </a>
 
           {/* Secondary: Mailing list link */}
           <a
