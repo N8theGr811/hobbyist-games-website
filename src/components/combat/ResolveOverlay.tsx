@@ -4,7 +4,7 @@
 
 import { useEffect, useState } from "react";
 import { type TurnResult } from "@/lib/combat/types";
-import { COMBAT_COLORS, getMoveTypeColor } from "@/lib/combat/constants";
+import { COMBAT_COLORS } from "@/lib/combat/constants";
 
 interface ResolveOverlayProps {
   result: TurnResult;
@@ -47,31 +47,28 @@ function getResultDisplay(result: TurnResult): { text: string; color: string } {
 }
 
 export function ResolveOverlay({ result, onComplete }: ResolveOverlayProps) {
-  const [phase, setPhase] = useState<"moves" | "dots" | "result" | "done">("moves");
+  const [phase, setPhase] = useState<"dots" | "result" | "done">("dots");
   const [dotCount, setDotCount] = useState(0);
 
   const isSubmission = result.submission_triggered;
 
   useEffect(() => {
-    // Sequence: show moves → pulsing dots → result → (sub pause if needed) → done
     const timers: ReturnType<typeof setTimeout>[] = [];
 
-    timers.push(setTimeout(() => setPhase("dots"), 600));
+    // Dots appear quickly
+    timers.push(setTimeout(() => setDotCount(1), 200));
+    timers.push(setTimeout(() => setDotCount(2), 450));
+    timers.push(setTimeout(() => setDotCount(3), 700));
 
-    // Pulsing dots
-    timers.push(setTimeout(() => setDotCount(1), 1000));
-    timers.push(setTimeout(() => setDotCount(2), 1400));
-    timers.push(setTimeout(() => setDotCount(3), 1800));
+    // Show result
+    timers.push(setTimeout(() => setPhase("result"), 1000));
 
-    timers.push(setTimeout(() => setPhase("result"), 2400));
-
-    // Submission attempts get a dramatic extra pause before transitioning to gauge
-    const holdTime = isSubmission ? 3000 : 2000;
-
+    // Hold result then complete
+    const holdTime = isSubmission ? 2200 : 1500;
     timers.push(setTimeout(() => {
       setPhase("done");
       onComplete();
-    }, 2400 + holdTime));
+    }, 1000 + holdTime));
 
     return () => timers.forEach(clearTimeout);
   }, [onComplete, isSubmission]);
@@ -81,47 +78,6 @@ export function ResolveOverlay({ result, onComplete }: ResolveOverlayProps) {
   return (
     <div className="py-2 px-4">
       <div className="text-center space-y-2">
-        {/* Both moves */}
-        {(phase === "moves" || phase === "dots" || phase === "result") && (
-          <div className="flex items-center justify-center gap-8">
-            <div>
-              <p className="font-mono text-[0.55rem] uppercase mb-1" style={{ color: COMBAT_COLORS.player_blue }}>
-                You
-              </p>
-              <p
-                className="font-mono text-sm font-bold px-3 py-1 rounded"
-                style={{
-                  color: COMBAT_COLORS.button_text,
-                  backgroundColor: COMBAT_COLORS.panel_bg,
-                  borderBottom: `2px solid ${getMoveTypeColor(result.player_move.type)}`,
-                }}
-              >
-                {result.player_move.name}
-              </p>
-            </div>
-
-            <p className="font-mono text-xs" style={{ color: COMBAT_COLORS.body_text, opacity: 0.5 }}>
-              vs
-            </p>
-
-            <div>
-              <p className="font-mono text-[0.55rem] uppercase mb-1" style={{ color: COMBAT_COLORS.opponent_red }}>
-                Opponent
-              </p>
-              <p
-                className="font-mono text-sm font-bold px-3 py-1 rounded"
-                style={{
-                  color: COMBAT_COLORS.button_text,
-                  backgroundColor: COMBAT_COLORS.panel_bg,
-                  borderBottom: `2px solid ${getMoveTypeColor(result.opponent_move.type)}`,
-                }}
-              >
-                {result.opponent_move.name}
-              </p>
-            </div>
-          </div>
-        )}
-
         {/* Pulsing dots */}
         {phase === "dots" && (
           <div className="flex items-center justify-center gap-2 h-8">
