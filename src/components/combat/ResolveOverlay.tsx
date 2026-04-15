@@ -40,7 +40,7 @@ function getResultDisplay(result: TurnResult): { text: string; color: string } {
         opponent_move.from_position === opponent_move.success_position) {
       return { text: "Nothing happens", color: COMBAT_COLORS.secondary_text };
     }
-    return { text: `${player_move.name} is stuffed!`, color: COMBAT_COLORS.secondary_text };
+    return { text: `${player_move.name} was defended!`, color: COMBAT_COLORS.secondary_text };
   }
 
   return { text: "Nothing happens", color: COMBAT_COLORS.secondary_text };
