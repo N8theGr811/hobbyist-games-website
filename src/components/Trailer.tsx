@@ -1,6 +1,6 @@
 export default function Trailer() {
   return (
-    <section className="relative py-28 px-6 bg-cream text-center md:px-12 overflow-hidden">
+    <section className="relative py-20 px-6 bg-cream text-center md:px-12 overflow-hidden">
       {/* Top divider */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-px bg-ink/8" />
 
@@ -10,7 +10,7 @@ export default function Trailer() {
       <h2 className="font-display text-3xl text-ink mb-4">
         See it in action
       </h2>
-      <p className="text-sm text-ink/40 mb-12 max-w-md mx-auto leading-relaxed">
+      <p className="text-sm text-ink/40 mb-8 max-w-md mx-auto leading-relaxed">
         Explore the world, train at gyms, and fight your way to the top.
       </p>
 

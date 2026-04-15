@@ -181,9 +181,9 @@ const FEATURES: Feature[] = [
 
 export default function FeatureHighlights() {
   return (
-    <section className="relative py-28 px-6 bg-espresso md:px-12">
+    <section className="relative py-16 px-6 bg-espresso md:px-12">
       {/* Section header */}
-      <div className="max-w-3xl mx-auto text-center mb-16">
+      <div className="max-w-3xl mx-auto text-center mb-10">
         <div className="flex items-center justify-center gap-3 mb-6 font-mono text-[0.6rem] font-bold tracking-[0.25em] uppercase text-belt-gold">
           <span className="w-6 h-px bg-belt-gold/30" />
           Features
@@ -194,27 +194,21 @@ export default function FeatureHighlights() {
         </h2>
       </div>
 
-      {/* Feature list */}
-      <div className="max-w-2xl mx-auto">
-        {FEATURES.map((feature, i) => (
-          <div key={feature.title}>
-            <div className="flex gap-6 items-start py-8">
-              {/* Icon */}
-              <div className="shrink-0 mt-1">{feature.icon}</div>
-              {/* Text */}
-              <div>
-                <h3 className="font-mono text-sm font-bold uppercase tracking-widest text-cream mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-cream/50">
-                  {feature.description}
-                </p>
-              </div>
+      {/* Feature grid */}
+      <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+        {FEATURES.map((feature) => (
+          <div key={feature.title} className="flex gap-6 items-start py-5">
+            {/* Icon */}
+            <div className="shrink-0 mt-1">{feature.icon}</div>
+            {/* Text */}
+            <div>
+              <h3 className="font-mono text-sm font-bold uppercase tracking-widest text-cream mb-2">
+                {feature.title}
+              </h3>
+              <p className="text-sm leading-relaxed text-cream/50">
+                {feature.description}
+              </p>
             </div>
-            {/* Divider (skip after last) */}
-            {i < FEATURES.length - 1 && (
-              <div className="h-px bg-cream/10" />
-            )}
           </div>
         ))}
       </div>

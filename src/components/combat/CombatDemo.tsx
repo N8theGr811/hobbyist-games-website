@@ -344,9 +344,9 @@ export default function CombatDemo() {
   };
 
   return (
-    <section id="combat-demo" className="py-20 px-6 bg-cream md:px-12">
+    <section id="combat-demo" className="py-16 px-6 bg-cream md:px-12">
       {/* Section header */}
-      <div className="max-w-[850px] mx-auto mb-6 text-center">
+      <div className="max-w-[850px] mx-auto mb-4 text-center">
         <div className="flex items-center justify-center gap-3 mb-3 font-mono text-[0.6rem] font-bold tracking-[0.25em] uppercase text-mat-red">
           <span className="w-6 h-px bg-mat-red/30" />
           Combat Demo

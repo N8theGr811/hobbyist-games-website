@@ -6,7 +6,7 @@ const pillars = [
 
 export default function GameInfo() {
   return (
-    <section id="about" className="relative py-28 px-6 text-center">
+    <section id="about" className="relative py-20 px-6 text-center">
       {/* Vertical connector line */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-transparent to-ink/10" />
 
@@ -22,12 +22,12 @@ export default function GameInfo() {
         Every roll <em className="text-mat-red">matters.</em>
       </h2>
 
-      <p className="text-base text-ink/50 max-w-md mx-auto mb-14 leading-relaxed">
+      <p className="text-base text-ink/50 max-w-md mx-auto mb-8 leading-relaxed">
         A pixel-art RPG where real Brazilian Jiu-Jitsu strategy meets the
         adventure games you grew up with.
       </p>
 
-      <div className="flex flex-col items-center gap-10 sm:flex-row sm:justify-center sm:gap-14 max-w-[700px] mx-auto">
+      <div className="flex flex-col items-center gap-8 sm:flex-row sm:justify-center sm:gap-10 max-w-[700px] mx-auto">
         {pillars.map((pillar) => (
           <div key={pillar.title} className="flex-1 text-center">
             <div className="w-7 h-0.5 bg-belt-gold mx-auto mb-4" />

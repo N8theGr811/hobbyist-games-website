@@ -38,7 +38,7 @@ export default function EmailSignup() {
   }
 
   return (
-    <section id="signup" className="relative py-32 px-6 text-center bg-espresso">
+    <section id="signup" className="relative py-20 px-6 text-center bg-espresso">
       <div className="flex items-center justify-center gap-3 mb-6 font-mono text-[0.6rem] font-bold tracking-[0.25em] uppercase text-belt-gold">
         <span className="w-6 h-px bg-belt-gold/30" />
         Early Access
@@ -51,7 +51,7 @@ export default function EmailSignup() {
         to <em className="text-belt-gold">step on the mat</em>
       </h2>
 
-      <p className="text-base text-cream/50 mb-10">
+      <p className="text-base text-cream/50 mb-8">
         Sign up for beta testing updates and early access.
       </p>
 

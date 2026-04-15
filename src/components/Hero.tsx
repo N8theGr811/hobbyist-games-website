@@ -23,7 +23,7 @@ export default function Hero() {
       />
 
       {/* ─── Content ─── */}
-      <div className="relative z-20 text-center px-6 pt-24 pb-32">
+      <div className="relative z-20 text-center px-6 pt-24 pb-24">
         {/* Coming Soon badge */}
         <div
           className="animate-fade-in flex items-center justify-center gap-4 mb-10"
@@ -74,7 +74,7 @@ export default function Hero() {
         </p>
 
         <p
-          className="animate-fade-up text-[0.9rem] text-ink/40 max-w-sm mx-auto mb-14 leading-relaxed"
+          className="animate-fade-up text-[0.9rem] text-ink/40 max-w-sm mx-auto mb-10 leading-relaxed"
           style={{ animationDelay: "1.1s" }}
         >
           A pixel-art RPG where Brazilian Jiu-Jitsu meets
@@ -108,7 +108,7 @@ export default function Hero() {
 
         {/* Belt rank decorative element */}
         <div
-          className="animate-fade-in flex items-center justify-center gap-2 mt-16"
+          className="animate-fade-in flex items-center justify-center gap-2 mt-10"
           style={{ animationDelay: "1.6s" }}
         >
           {["white", "blue", "purple", "brown", "black"].map((belt, i) => (
