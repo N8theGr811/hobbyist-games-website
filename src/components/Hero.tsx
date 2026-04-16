@@ -70,7 +70,7 @@ export default function Hero() {
           className="animate-fade-up font-display text-[clamp(1.1rem,2.5vw,1.5rem)] text-ink/70 mb-3"
           style={{ animationDelay: "0.9s" }}
         >
-          Train. Fight. Build Your <em className="text-mat-red">Legacy.</em>
+          From white belt to <em className="text-mat-red">world champion.</em>
         </p>
 
         <p
