@@ -86,16 +86,33 @@ export default function Hero() {
           className="animate-fade-up flex flex-col items-center gap-3"
           style={{ animationDelay: "1.3s" }}
         >
-          {/* Primary: Download Beta */}
-          <a
-            href="https://github.com/N8theGr811/hobbyist-games-website/releases/download/v2.1-beta/JJRPGv2.1.zip"
-            className="group relative inline-flex items-center gap-3 font-mono text-[0.7rem] font-bold tracking-[0.15em] uppercase px-10 py-4 rounded-full border-2 border-espresso bg-espresso text-cream hover:bg-mat-red hover:border-mat-red transition-all duration-300 shadow-[0_4px_20px_rgba(59,42,31,0.2)] hover:shadow-[0_4px_24px_rgba(200,55,45,0.25)]"
-          >
-            Download Beta
-            <span className="text-[0.5rem] tracking-[0.08em] normal-case font-semibold text-belt-gold border border-belt-gold/30 bg-belt-gold/10 px-2.5 py-0.5 rounded-full">
-              v2.1 — Windows
-            </span>
-          </a>
+          {/* Primary: Download Beta heading */}
+          <p className="font-mono text-[0.55rem] tracking-[0.25em] uppercase text-ink/40">
+            Download the Beta
+          </p>
+
+          {/* Download buttons: Windows + Mac */}
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <a
+              href="https://github.com/N8theGr811/hobbyist-games-website/releases/download/v2.1-beta/JJRPGv2.1.zip"
+              className="group relative inline-flex items-center gap-2.5 font-mono text-[0.7rem] font-bold tracking-[0.15em] uppercase px-7 py-3.5 rounded-full border-2 border-espresso bg-espresso text-cream hover:bg-mat-red hover:border-mat-red transition-all duration-300 shadow-[0_4px_20px_rgba(59,42,31,0.2)] hover:shadow-[0_4px_24px_rgba(200,55,45,0.25)]"
+            >
+              <span>Windows</span>
+              <span className="text-[0.5rem] tracking-[0.08em] normal-case font-semibold text-belt-gold border border-belt-gold/30 bg-belt-gold/10 px-2 py-0.5 rounded-full">
+                v2.1
+              </span>
+            </a>
+
+            <a
+              href="https://github.com/N8theGr811/hobbyist-games-website/releases/download/v2.1-beta/JJRPGv2.1.mac.zip"
+              className="group relative inline-flex items-center gap-2.5 font-mono text-[0.7rem] font-bold tracking-[0.15em] uppercase px-7 py-3.5 rounded-full border-2 border-espresso bg-espresso text-cream hover:bg-mat-red hover:border-mat-red transition-all duration-300 shadow-[0_4px_20px_rgba(59,42,31,0.2)] hover:shadow-[0_4px_24px_rgba(200,55,45,0.25)]"
+            >
+              <span>macOS</span>
+              <span className="text-[0.5rem] tracking-[0.08em] normal-case font-semibold text-belt-gold border border-belt-gold/30 bg-belt-gold/10 px-2 py-0.5 rounded-full">
+                v2.1
+              </span>
+            </a>
+          </div>
 
           {/* Secondary: Mailing list link */}
           <a
