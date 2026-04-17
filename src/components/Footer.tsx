@@ -7,9 +7,17 @@ const socials = [
 export default function Footer() {
   return (
     <footer className="max-w-[900px] mx-auto px-6 py-10 flex items-center justify-between border-t border-ink/8 md:px-12">
-      <span className="font-mono text-[0.6rem] tracking-[0.08em] text-ink/25">
-        © 2026 Hobbyist Games
-      </span>
+      <div className="flex items-center gap-4">
+        <span className="font-mono text-[0.6rem] tracking-[0.08em] text-ink/25">
+          © 2026 Hobbyist Games
+        </span>
+        <a
+          href="/credits"
+          className="font-mono text-[0.6rem] tracking-[0.08em] text-ink/25 hover:text-mat-red transition-colors"
+        >
+          Credits
+        </a>
+      </div>
       <div className="flex gap-2">
         {socials.map((s) => (
           <a
