@@ -161,8 +161,26 @@ export function resolveTurn(
   );
 
   // Roll for success
-  const playerSuccess = rng() < playerChance;
-  const opponentSuccess = rng() < opponentChance;
+  const playerRoll = rng();
+  const opponentRoll = rng();
+  let playerSuccess = playerRoll < playerChance;
+  let opponentSuccess = opponentRoll < opponentChance;
+
+  // SCRAMBLE/POSITIONAL_SCRAMBLE: only ONE winner (margin comparison, like the real game)
+  const isScramble =
+    interaction === InteractionType.SCRAMBLE ||
+    interaction === InteractionType.POSITIONAL_SCRAMBLE;
+
+  if (isScramble && playerSuccess && opponentSuccess) {
+    // Compare margins — who succeeded by more?
+    const playerMargin = playerChance - playerRoll;
+    const opponentMargin = opponentChance - opponentRoll;
+    if (playerMargin >= opponentMargin) {
+      opponentSuccess = false; // Player wins the exchange
+    } else {
+      playerSuccess = false; // Opponent wins the exchange
+    }
+  }
 
   // Apply stamina drain
   let playerStaminaDrain = STAMINA_COSTS[playerMove.type];
@@ -175,18 +193,15 @@ export function resolveTurn(
   }
 
   // Determine new positions
-  let newPlayerPos = playerSuccess ? playerMove.success_position : playerMove.fail_position;
-  let newOpponentPos = opponentSuccess ? opponentMove.success_position : opponentMove.fail_position;
+  let newPlayerPos: Position;
+  let newOpponentPos: Position;
 
-  // Ensure opposing positions stay paired
-  // The "winner" of the position exchange sets both positions
   if (playerSuccess && !opponentSuccess) {
+    newPlayerPos = playerMove.success_position;
     newOpponentPos = getOpposingPosition(newPlayerPos);
   } else if (opponentSuccess && !playerSuccess) {
+    newOpponentPos = opponentMove.success_position;
     newPlayerPos = getOpposingPosition(newOpponentPos);
-  } else if (playerSuccess && opponentSuccess) {
-    // Both succeed — player's move takes priority (attacker advantage)
-    newOpponentPos = getOpposingPosition(newPlayerPos);
   } else {
     // Both fail — positions stay as they are
     newPlayerPos = state.player.position;
