@@ -50,13 +50,21 @@ export default function Hero() {
             className="animate-title-reveal font-display leading-[0.85] relative"
             style={{ animationDelay: "0.5s" }}
           >
-            <span className="block text-[clamp(3.5rem,12vw,7rem)] text-ink tracking-tight">
-              Jiu-Jitsu
+            <span className="block text-[clamp(2.8rem,10vw,6rem)] text-ink tracking-tight">
+              Submission
             </span>
-            <span className="block text-[clamp(3rem,10vw,6.5rem)] text-mat-red tracking-tight mt-[-0.05em]">
-              RPG
+            <span className="block text-[clamp(2.8rem,10vw,6rem)] text-mat-red tracking-tight mt-[-0.05em]">
+              Saga
             </span>
           </h1>
+
+          {/* Subtitle */}
+          <p
+            className="animate-fade-up mt-3 font-mono text-[clamp(0.7rem,1.4vw,0.95rem)] tracking-[0.2em] uppercase text-ink/50"
+            style={{ animationDelay: "1.0s" }}
+          >
+            The Jiu-Jitsu RPG
+          </p>
 
           {/* Decorative line under title */}
           <div

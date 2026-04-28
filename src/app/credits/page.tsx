@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Credits & Attribution — Hobbyist Games",
-  description: "Credits and attribution for Jiu-Jitsu RPG assets, music, and tools.",
+  description: "Credits and attribution for Submission Saga assets, music, and tools.",
 };
 
 interface Credit {
@@ -110,7 +110,7 @@ export default function CreditsPage() {
               Credits
             </h1>
             <p className="text-sm text-ink/40">
-              Jiu-Jitsu RPG is made possible by these incredible creators and tools.
+              Submission Saga is made possible by these incredible creators and tools.
             </p>
           </div>
 

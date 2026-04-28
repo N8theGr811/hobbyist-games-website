@@ -21,7 +21,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://hobbyistgames.com"),
-  title: "Hobbyist Games — Jiu-Jitsu RPG",
+  title: "Submission Saga — Hobbyist Games",
   description:
     "A pixel-art RPG where Brazilian Jiu-Jitsu meets adventure. Train, fight, and build your legacy. Coming soon.",
   icons: {
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     apple: "/brand/favicon-180.png",
   },
   openGraph: {
-    title: "Hobbyist Games — Jiu-Jitsu RPG",
+    title: "Submission Saga — Hobbyist Games",
     description:
       "A pixel-art RPG where Brazilian Jiu-Jitsu meets adventure. Coming soon.",
     images: [{ url: "/brand/og-image.png", width: 1200, height: 630 }],
