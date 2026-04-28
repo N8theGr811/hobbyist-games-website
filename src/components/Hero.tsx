@@ -60,10 +60,10 @@ export default function Hero() {
 
           {/* Subtitle */}
           <p
-            className="animate-fade-up mt-3 font-mono text-[clamp(0.7rem,1.4vw,0.95rem)] tracking-[0.2em] uppercase text-ink/50"
+            className="animate-fade-up mt-6 font-mono text-[clamp(0.7rem,1.4vw,0.95rem)] font-bold tracking-[0.2em] uppercase text-ink/70"
             style={{ animationDelay: "1.0s" }}
           >
-            The Jiu-Jitsu RPG
+            The Jiu Jitsu RPG
           </p>
 
           {/* Decorative line under title */}
