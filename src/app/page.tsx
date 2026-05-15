@@ -1,6 +1,5 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import CombatDemo from "@/components/combat/CombatDemo";
 import FeatureHighlights from "@/components/FeatureHighlights";
 import Trailer from "@/components/Trailer";
 import GameInfo from "@/components/GameInfo";
@@ -13,7 +12,6 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <CombatDemo />
         <FeatureHighlights />
         <Trailer />
         <GameInfo />
