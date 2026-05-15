@@ -32,13 +32,22 @@ export default function Hero() {
         className="hidden xl:block absolute top-1/2 -translate-y-1/2 z-10 animate-fade-in pointer-events-none"
         style={{ left: "14%", animationDelay: "0.6s" }}
       >
-        <HeroSprite spriteSheet={PLAYER_SPRITE} size={320} />
+        <HeroSprite
+          spriteSheet={PLAYER_SPRITE}
+          size={320}
+          glowColor="rgba(200,55,45,0.18)"
+        />
       </div>
       <div
         className="hidden xl:block absolute top-1/2 -translate-y-1/2 z-10 animate-fade-in pointer-events-none"
         style={{ right: "14%", animationDelay: "0.6s" }}
       >
-        <HeroSprite spriteSheet={OPPONENT_SPRITE} flip size={320} />
+        <HeroSprite
+          spriteSheet={OPPONENT_SPRITE}
+          flip
+          size={320}
+          glowColor="rgba(30,53,83,0.18)"
+        />
       </div>
 
       {/* ─── Content ─── */}
