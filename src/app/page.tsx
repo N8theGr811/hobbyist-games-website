@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import FeatureHighlights from "@/components/FeatureHighlights";
+import VsScreen from "@/components/VsScreen";
 import Trailer from "@/components/Trailer";
 import GameInfo from "@/components/GameInfo";
 import EmailSignup from "@/components/EmailSignup";
@@ -13,6 +14,7 @@ export default function Home() {
       <main>
         <Hero />
         <FeatureHighlights />
+        <VsScreen />
         <Trailer />
         <GameInfo />
         <EmailSignup />
