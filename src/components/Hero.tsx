@@ -1,3 +1,8 @@
+import HeroSprite from "./HeroSprite";
+
+const PLAYER_SPRITE = "/media/Player Sprites/Purple1_Website_Sprite.png";
+const OPPONENT_SPRITE = "/media/Player Sprites/Purple2_Website_Sprite.png";
+
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-cream">
@@ -21,6 +26,20 @@ export default function Hero() {
           backgroundSize: "80px 80px",
         }}
       />
+
+      {/* ─── Flanking sprites (hidden on smaller screens to avoid overlap) ─── */}
+      <div
+        className="hidden xl:block absolute top-1/2 -translate-y-1/2 z-10 animate-fade-in pointer-events-none"
+        style={{ left: "5%", animationDelay: "0.6s" }}
+      >
+        <HeroSprite spriteSheet={PLAYER_SPRITE} size={320} />
+      </div>
+      <div
+        className="hidden xl:block absolute top-1/2 -translate-y-1/2 z-10 animate-fade-in pointer-events-none"
+        style={{ right: "5%", animationDelay: "0.6s" }}
+      >
+        <HeroSprite spriteSheet={OPPONENT_SPRITE} flip size={320} />
+      </div>
 
       {/* ─── Content ─── */}
       <div className="relative z-20 text-center px-6 pt-24 pb-24">
