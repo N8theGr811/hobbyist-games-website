@@ -1,7 +1,19 @@
 const socials = [
-  { label: "X", href: "#", aria: "X (Twitter)" },
-  { label: "YT", href: "#", aria: "YouTube" },
-  { label: "DC", href: "#", aria: "Discord" },
+  {
+    label: "YT",
+    href: "https://www.youtube.com/@Submission_Saga",
+    aria: "YouTube — Submission Saga",
+  },
+  {
+    label: "JJ",
+    href: "https://www.youtube.com/@natemarkhamjj",
+    aria: "YouTube — Nate Markham BJJ",
+  },
+  {
+    label: "IG",
+    href: "https://www.instagram.com/submission_saga/",
+    aria: "Instagram — Submission Saga",
+  },
 ];
 
 export default function Footer() {
