@@ -100,16 +100,28 @@ export default function Hero() {
           From white belt to <span className="text-steam-gold font-semibold">world champion</span>.
         </p>
 
-        {/* CTA */}
+        {/* CTAs */}
         <div
-          className="animate-fade-up flex justify-center mb-10"
+          className="animate-fade-up flex flex-col items-center gap-3 mb-10 sm:flex-row sm:justify-center sm:gap-4"
           style={{ animationDelay: "1.4s" }}
         >
+          {/* Primary: Wishlist on Steam */}
+          <a
+            href="https://store.steampowered.com/app/4690760"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative inline-flex items-center gap-3 font-pixel text-[0.65rem] tracking-[0.1em] uppercase px-8 py-4 rounded-md border-2 border-steam-gold bg-steam-gold text-steam-navy hover:bg-steam-gold-2 hover:border-steam-gold-2 transition-all duration-200 shadow-[0_4px_0_rgba(0,0,0,0.4),0_8px_24px_rgba(212,165,60,0.35)] hover:shadow-[0_2px_0_rgba(0,0,0,0.4),0_4px_16px_rgba(212,165,60,0.55)] hover:-translate-y-px active:translate-y-px active:shadow-[0_0_0_rgba(0,0,0,0.4)]"
+          >
+            Wishlist on Steam
+            <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
+          </a>
+
+          {/* Secondary: Mailing list */}
           <a
             href="#signup"
-            className="group relative inline-flex items-center gap-3 font-pixel text-[0.65rem] tracking-[0.1em] uppercase px-8 py-4 rounded-md border-2 border-steam-gold bg-steam-navy-3 text-steam-gold hover:bg-steam-gold hover:text-steam-navy transition-all duration-200 shadow-[0_4px_0_rgba(0,0,0,0.4),0_8px_24px_rgba(212,165,60,0.2)] hover:shadow-[0_2px_0_rgba(0,0,0,0.4),0_4px_16px_rgba(212,165,60,0.4)] hover:-translate-y-px active:translate-y-px active:shadow-[0_0_0_rgba(0,0,0,0.4)]"
+            className="group relative inline-flex items-center gap-3 font-pixel text-[0.6rem] tracking-[0.1em] uppercase px-6 py-3.5 rounded-md border border-steam-gold/40 bg-steam-navy-3/60 text-cream/75 hover:border-steam-gold hover:text-steam-gold transition-colors duration-200"
           >
-            Join the Mailing List
+            Mailing List
             <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
           </a>
         </div>

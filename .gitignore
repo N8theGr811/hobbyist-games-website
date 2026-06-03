@@ -46,6 +46,20 @@ next-env.d.ts
 
 # large video files (host externally or use Git LFS)
 public/media/trailers/
+public/media/*.avi
+
+# Steam store source assets — kept local, not needed for the website
+public/brand/SteamworksAssets/
+
+# Game build downloads (host on GitHub Releases instead)
+public/Game/
+
+# Loose source assets in Player Sprites folder (fonts, resumes, zips, extras)
+public/media/Player Sprites/*.zip
+public/media/Player Sprites/*.pdf
+public/media/Player Sprites/DepartureMono-1.500/
+public/media/Player Sprites/JetBrains_Mono/
+public/media/Player Sprites/JetBrainsMono-2.304/
 
 
 # superpowers brainstorm artifacts

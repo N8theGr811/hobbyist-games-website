@@ -22,10 +22,12 @@ export default function Header() {
           About
         </a>
         <a
-          href="#signup"
+          href="https://store.steampowered.com/app/4690760"
+          target="_blank"
+          rel="noopener noreferrer"
           className="font-pixel text-[0.55rem] tracking-[0.15em] uppercase px-5 py-2.5 bg-steam-gold/15 text-steam-gold border border-steam-gold/50 hover:bg-steam-gold hover:text-steam-navy transition-colors rounded-md"
         >
-          Get Early Access
+          Wishlist on Steam
         </a>
       </nav>
     </header>
