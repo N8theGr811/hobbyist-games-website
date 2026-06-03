@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Serif_Display, Outfit, JetBrains_Mono } from "next/font/google";
+import { DM_Serif_Display, Outfit, JetBrains_Mono, Press_Start_2P } from "next/font/google";
 import "./globals.css";
 
 const dmSerif = DM_Serif_Display({
@@ -17,6 +17,12 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["500", "700"],
   variable: "--font-mono",
+});
+
+const pixelFont = Press_Start_2P({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-pixel",
 });
 
 export const metadata: Metadata = {
@@ -44,7 +50,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${dmSerif.variable} ${outfit.variable} ${jetbrainsMono.variable}`}
+      className={`${dmSerif.variable} ${outfit.variable} ${jetbrainsMono.variable} ${pixelFont.variable}`}
     >
       <body>{children}</body>
     </html>

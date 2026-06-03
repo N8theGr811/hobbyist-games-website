@@ -8,10 +8,17 @@
   --color-gi-navy: #1E3553;
   --color-belt-gold: #E8B339;
   --color-espresso: #3B2A1F;
+  /* Steam-style deep navy palette */
+  --color-steam-navy: #0E1530;
+  --color-steam-navy-2: #131A38;
+  --color-steam-navy-3: #1B2444;
+  --color-steam-gold: #D4A53C;
+  --color-steam-gold-2: #E8C25C;
 
   --font-display: "DM Serif Display", serif;
   --font-body: "Outfit", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
+  --font-pixel: "Press Start 2P", "VT323", monospace;
 }
 
 html {
@@ -19,10 +26,49 @@ html {
 }
 
 body {
-  background: var(--color-cream);
-  color: var(--color-ink);
+  background: var(--color-steam-navy);
+  color: var(--color-cream);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
+}
+
+/* Pixel-art dot grid texture (overlay on dark sections) */
+.bg-pixel-grid {
+  background-color: var(--color-steam-navy);
+  background-image:
+    radial-gradient(circle, rgba(212,165,60,0.07) 1px, transparent 1px),
+    radial-gradient(circle, rgba(244,233,210,0.04) 1px, transparent 1px);
+  background-size: 16px 16px, 8px 8px;
+  background-position: 0 0, 4px 4px;
+}
+
+/* Gold-bordered Steam-style panel */
+.steam-panel {
+  background: linear-gradient(180deg, var(--color-steam-navy-2) 0%, var(--color-steam-navy) 100%);
+  border: 2px solid var(--color-steam-gold);
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.4),
+    0 12px 40px rgba(0,0,0,0.5),
+    inset 0 1px 0 rgba(232,194,92,0.2);
+  border-radius: 8px;
+}
+
+/* Belt-rank gradient strip (white → blue → purple → brown → black) */
+.belt-strip {
+  background: linear-gradient(90deg,
+    #F4E9D2 0%,           /* white */
+    #F4E9D2 20%,
+    #4A86E0 20%,          /* blue */
+    #4A86E0 40%,
+    #8B4FB8 40%,          /* purple */
+    #8B4FB8 60%,
+    #7A4A1F 60%,          /* brown */
+    #7A4A1F 80%,
+    #050505 80%,          /* black (pure, for contrast vs brown) */
+    #050505 100%
+  );
+  height: 8px;
+  border-radius: 9999px;
 }
 
 /* ─── Hero reveal animations ─── */

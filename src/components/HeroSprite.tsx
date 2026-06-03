@@ -14,10 +14,12 @@ interface HeroSpriteProps {
   glowColor?: string;
 }
 
-// Front idle: row 24 (y = 24 * 64 = 1536), columns 0–1, 2 frames at 5fps
+// Spritesheet: 832×3456, 13 columns × 54 rows of 64×64 frames.
+// Front idle: row 24 (y = 24 * 64 = 1536), columns 0–1, 2 frames at 5fps.
 const FRAME_SIZE = 64;
 const COLUMNS = 13;
-const ROW_Y = 1536;
+const ROWS = 54;
+const ROW_INDEX = 24;
 const FRAME_COUNT = 2;
 const FPS = 5;
 
@@ -41,15 +43,18 @@ export default function HeroSprite({
   }, []);
 
   const scale = size / FRAME_SIZE;
-  const bgX = -(frame * FRAME_SIZE * scale);
-  const bgY = -(ROW_Y * scale);
+  // Position the sheet so the right frame in the right row is visible inside the clip box
+  const offsetX = -(frame * FRAME_SIZE * scale);
+  const offsetY = -(ROW_INDEX * FRAME_SIZE * scale);
+  const sheetWidth = FRAME_SIZE * COLUMNS * scale;
+  const sheetHeight = FRAME_SIZE * ROWS * scale;
 
   return (
     <div
       style={{
         position: "relative",
         width: `${size}px`,
-        height: `${size + 24}px`, // a bit of extra room for the floor shadow
+        height: `${size + 24}px`, // extra room for the floor shadow
       }}
     >
       {/* Colored glow behind sprite */}
@@ -68,34 +73,50 @@ export default function HeroSprite({
         }}
       />
 
-      {/* Sprite */}
+      {/* Sprite clip box — renders the spritesheet as an <img>, offset into view */}
       <div
         style={{
           position: "relative",
           zIndex: 1,
           width: `${size}px`,
           height: `${size}px`,
-          backgroundImage: `url("${spriteSheet}")`,
-          backgroundPosition: `${bgX}px ${bgY}px`,
-          backgroundSize: `${FRAME_SIZE * scale * COLUMNS}px auto`,
-          backgroundRepeat: "no-repeat",
-          imageRendering: "pixelated",
+          overflow: "hidden",
           transform: flip ? "scaleX(-1)" : "none",
         }}
-      />
+      >
+        {/* Use a plain <img>; Next/Image would optimize and break the spritesheet offset math */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={spriteSheet}
+          alt=""
+          aria-hidden="true"
+          draggable={false}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: `${sheetWidth}px`,
+            height: `${sheetHeight}px`,
+            maxWidth: "none", // override any global img max-width
+            transform: `translate(${offsetX}px, ${offsetY}px)`,
+            imageRendering: "pixelated",
+            userSelect: "none",
+          }}
+        />
+      </div>
 
       {/* Floor shadow (elliptical, beneath the sprite) */}
       <div
         style={{
           position: "absolute",
-          bottom: "0",
+          bottom: 0,
           left: "50%",
           transform: "translateX(-50%)",
           width: `${size * 0.55}px`,
           height: "18px",
           borderRadius: "50%",
           background:
-            "radial-gradient(ellipse, rgba(27,22,18,0.32) 0%, rgba(27,22,18,0.18) 40%, transparent 75%)",
+            "radial-gradient(ellipse, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.3) 40%, transparent 75%)",
           pointerEvents: "none",
           zIndex: 0,
         }}

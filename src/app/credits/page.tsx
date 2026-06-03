@@ -93,23 +93,26 @@ export default function CreditsPage() {
   return (
     <>
       {/* Header bar */}
-      <header className="bg-espresso border-b-2 border-ink px-6 py-4 md:px-12">
-        <Link href="/" className="font-mono text-sm text-cream/60 hover:text-cream transition-colors">
+      <header className="bg-steam-navy border-b-2 border-steam-gold/40 px-6 py-4 md:px-12">
+        <Link
+          href="/"
+          className="font-pixel text-[0.55rem] tracking-[0.1em] uppercase text-cream/60 hover:text-steam-gold transition-colors"
+        >
           ← Back to Hobbyist Games
         </Link>
       </header>
 
-      <main className="bg-cream min-h-screen px-6 py-16 md:px-12">
+      <main className="bg-pixel-grid min-h-screen px-6 py-16 md:px-12">
         <div className="max-w-2xl mx-auto">
           {/* Page heading */}
           <div className="text-center mb-16">
-            <p className="font-mono text-[0.6rem] font-bold tracking-[0.25em] uppercase text-mat-red mb-3">
+            <p className="font-pixel text-[0.55rem] tracking-[0.2em] uppercase text-steam-gold mb-4">
               Attribution
             </p>
-            <h1 className="font-display text-3xl text-ink mb-3">
+            <h1 className="font-pixel text-2xl text-cream mb-4">
               Credits
             </h1>
-            <p className="text-sm text-ink/40">
+            <p className="text-sm text-cream/55">
               Submission Saga is made possible by these incredible creators and tools.
             </p>
           </div>
@@ -118,32 +121,32 @@ export default function CreditsPage() {
           <div className="space-y-12">
             {SECTIONS.map((section) => (
               <div key={section.title}>
-                <p className="font-mono text-[0.55rem] font-bold tracking-[0.2em] uppercase text-mat-red mb-1.5">
+                <p className="font-pixel text-[0.5rem] tracking-[0.15em] uppercase text-steam-gold mb-2">
                   {section.label}
                 </p>
-                <h2 className="font-display text-lg text-ink mb-3">
+                <h2 className="font-pixel text-sm text-cream mb-4 tracking-wider">
                   {section.title}
                 </h2>
 
-                <div className="space-y-1">
+                <div className="space-y-1.5">
                   {section.entries.map((entry) => (
                     <div key={entry.name} className="flex items-baseline gap-2">
-                      <div className="w-5 h-px bg-belt-gold/40 mt-2 shrink-0" />
+                      <div className="w-5 h-px bg-steam-gold/40 mt-2 shrink-0" />
                       <div>
                         {entry.url ? (
                           <a
                             href={entry.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-sm text-ink hover:text-mat-red transition-colors underline underline-offset-2 decoration-ink/20 hover:decoration-mat-red"
+                            className="text-sm text-cream hover:text-steam-gold transition-colors underline underline-offset-2 decoration-cream/20 hover:decoration-steam-gold"
                           >
                             {entry.name}
                           </a>
                         ) : (
-                          <span className="text-sm text-ink">{entry.name}</span>
+                          <span className="text-sm text-cream">{entry.name}</span>
                         )}
                         {entry.role && (
-                          <span className="text-sm text-ink/40 ml-1.5">— {entry.role}</span>
+                          <span className="text-sm text-cream/40 ml-1.5">— {entry.role}</span>
                         )}
                       </div>
                     </div>
@@ -151,22 +154,22 @@ export default function CreditsPage() {
                 </div>
 
                 {section.note && (
-                  <p className="text-xs text-ink/30 mt-2 ml-7">{section.note}</p>
+                  <p className="text-xs text-cream/35 mt-2 ml-7 italic">{section.note}</p>
                 )}
               </div>
             ))}
           </div>
 
           {/* Licenses footer */}
-          <div className="mt-16 pt-8 border-t border-ink/8">
-            <p className="font-mono text-[0.55rem] font-bold tracking-[0.2em] uppercase text-ink/30 mb-3">
+          <div className="mt-16 pt-8 border-t border-steam-gold/15">
+            <p className="font-pixel text-[0.5rem] tracking-[0.15em] uppercase text-cream/35 mb-3">
               Licenses
             </p>
             <div className="flex flex-wrap gap-2">
               {["CC-BY-SA 3.0", "OGA-BY 3.0", "GPL 3.0", "MIT"].map((license) => (
                 <span
                   key={license}
-                  className="font-mono text-[0.6rem] text-ink/40 border border-ink/10 px-2.5 py-1 rounded"
+                  className="font-mono text-[0.6rem] text-cream/55 border border-steam-gold/25 bg-steam-navy-2 px-2.5 py-1 rounded"
                 >
                   {license}
                 </span>
@@ -178,7 +181,7 @@ export default function CreditsPage() {
           <div className="mt-12 text-center">
             <Link
               href="/"
-              className="font-mono text-[0.6rem] tracking-[0.12em] uppercase text-ink/35 hover:text-mat-red transition-colors"
+              className="font-pixel text-[0.55rem] tracking-[0.12em] uppercase text-cream/35 hover:text-steam-gold transition-colors"
             >
               ← Back to Hobbyist Games
             </Link>
