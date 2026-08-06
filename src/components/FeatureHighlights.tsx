@@ -36,8 +36,8 @@ const MOMENTS: Moment[] = [
     line: "An 11-zone gauge decides the squeeze. Miss it and they escape.",
     media: {
       kind: "video",
-      src: "/media/clips/submission-clip.mp4",
-      label: "Submission gauge gameplay",
+      src: "/media/clips/submission-gauge.mp4",
+      label: "Submission gauge resolving to a Great finish and a match victory",
     },
   },
   {
