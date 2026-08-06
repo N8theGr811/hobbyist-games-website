@@ -24,7 +24,7 @@ interface Moment {
 const MOMENTS: Moment[] = [
   {
     headline: "Every position plays differently",
-    line: "70+ techniques across 19 positions, and you choose which ones you bring to each.",
+    line: "90+ techniques across 19 positions, and you choose which ones you bring to each.",
     media: {
       kind: "image",
       src: "/media/screenshots/combat-position-odds.jpg",

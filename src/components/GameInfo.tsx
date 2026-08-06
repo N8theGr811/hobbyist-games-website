@@ -9,7 +9,7 @@ interface Pillar {
 }
 
 const pillars: Pillar[] = [
-  { title: "Fight", description: "70+ real techniques across 19 positions", stat: "submissions" },
+  { title: "Fight", description: "90+ real techniques across 19 positions", stat: "submissions" },
   { title: "Explore", description: "Cities, gyms, rivals, and secrets", stat: "wrestling" },
   { title: "Build", description: "Your academy, your business empire, your legacy", stat: "strength" },
 ];
