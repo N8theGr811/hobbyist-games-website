@@ -169,7 +169,7 @@ export default function CreditsPage() {
               {["CC-BY-SA 3.0", "OGA-BY 3.0", "GPL 3.0", "MIT"].map((license) => (
                 <span
                   key={license}
-                  className="font-mono text-xs text-cream/55 border border-steam-gold/25 bg-steam-navy-2 px-2.5 py-1 rounded"
+                  className="font-mono text-xs text-cream/55 border border-steam-gold/25 bg-steam-navy-2 px-2.5 py-1 rounded-sm"
                 >
                   {license}
                 </span>

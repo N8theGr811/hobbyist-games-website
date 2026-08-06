@@ -51,18 +51,18 @@ export default function Hero() {
 
       {/* ─── Content ─── */}
       <div className="relative z-20 text-center px-6 pt-24 pb-16">
-        {/* Release date badge. The rules shrink on narrow screens: the date is
-            longer than the "Coming Soon" it replaced and would otherwise push
-            the row past the viewport on mobile. */}
+        {/* Release date badge. The flanking rules are desktop-only: at the
+            larger date size they would push the row past a 375px viewport,
+            and the date carries the line on its own without them. */}
         <div
-          className="animate-fade-in flex items-center justify-center gap-3 mb-8 sm:gap-4"
+          className="animate-fade-in flex items-center justify-center gap-4 mb-8"
           style={{ animationDelay: "0.2s" }}
         >
-          <span className="animate-line-expand w-6 h-px bg-steam-gold/50 sm:w-14" style={{ animationDelay: "0.8s" }} />
-          <span className="font-pixel text-pixel-xs tracking-[0.2em] uppercase text-steam-gold whitespace-nowrap">
+          <span className="animate-line-expand hidden h-px w-14 bg-steam-gold/50 sm:block" style={{ animationDelay: "0.8s" }} />
+          <span className="font-pixel text-pixel-md tracking-[0.2em] uppercase text-steam-gold whitespace-nowrap">
             September 17, 2026
           </span>
-          <span className="animate-line-expand w-6 h-px bg-steam-gold/50 sm:w-14" style={{ animationDelay: "0.8s" }} />
+          <span className="animate-line-expand hidden h-px w-14 bg-steam-gold/50 sm:block" style={{ animationDelay: "0.8s" }} />
         </div>
 
         {/* Studio credit. Body face, not pixel: this is metadata, and set in
