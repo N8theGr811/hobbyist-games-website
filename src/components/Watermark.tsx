@@ -14,7 +14,8 @@ export type WatermarkName =
   | "kimura"
   | "uchimata"
   | "doubleleg"
-  | "granbyroll";
+  | "granbyroll"
+  | "standing";
 
 interface WatermarkProps {
   name: WatermarkName;

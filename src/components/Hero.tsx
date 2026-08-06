@@ -2,6 +2,7 @@ import Image from "next/image";
 import HeroSprite from "./HeroSprite";
 import BeltStrip from "./BeltStrip";
 import StatIcon, { type StatName } from "./StatIcon";
+import Watermark from "./Watermark";
 
 const PLAYER_SPRITE = "/sprites/purple1.png";
 const OPPONENT_SPRITE = "/sprites/purple2.png";
@@ -20,7 +21,16 @@ const STAT_RING: StatName[] = [
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-pixel-grid">
+    <section className="relative isolate min-h-screen flex flex-col items-center justify-center overflow-hidden bg-pixel-grid">
+      {/* Standing position wash. Centred so the gap between the two figures
+          sits behind the VS badge and they bracket it, echoing the flanking
+          sprites. `isolate` on the section is what lets the wash's negative
+          z-index land above the background but under the z-10/z-20 layers. */}
+      <Watermark
+        name="standing"
+        className="left-1/2 top-1/2 h-[600px] w-[800px] -translate-x-1/2 -translate-y-1/2"
+      />
+
       {/* ─── Atmospheric glows ─── */}
       <div className="absolute top-[-20%] right-[-10%] w-[700px] h-[700px] rounded-full bg-[radial-gradient(circle,rgba(212,165,60,0.10)_0%,transparent_65%)] pointer-events-none" />
       <div className="absolute bottom-[-15%] left-[-10%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(74,134,224,0.08)_0%,transparent_60%)] pointer-events-none" />
