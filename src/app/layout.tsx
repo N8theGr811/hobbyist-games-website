@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://hobbyistgames.com"),
   title: "Submission Saga — Hobbyist Games",
   description:
-    "A pixel-art RPG where Brazilian Jiu-Jitsu meets adventure. Train, fight, and build your legacy. Coming soon.",
+    "A pixel-art RPG where Brazilian Jiu-Jitsu meets adventure. Train, fight, and build your legacy. Out September 17, 2026.",
   icons: {
     icon: "/brand/favicon-32.png",
     apple: "/brand/favicon-180.png",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Submission Saga — Hobbyist Games",
     description:
-      "A pixel-art RPG where Brazilian Jiu-Jitsu meets adventure. Coming soon.",
+      "A pixel-art RPG where Brazilian Jiu-Jitsu meets adventure. Out September 17, 2026.",
     images: [{ url: "/brand/og-image.png", width: 1200, height: 630 }],
   },
 };
