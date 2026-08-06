@@ -92,7 +92,12 @@ export default function Hero() {
             width={1280}
             height={720}
             priority
-            className="w-auto h-auto max-w-[520px] max-h-[200px] mx-auto"
+            /* max-height is the binding constraint, not max-width: the source
+               is 640x360, so height drives the rendered width. Held at 200px
+               on mobile, where 200 already renders 356px wide inside a 375px
+               viewport and anything larger clips against the section's
+               overflow-hidden. */
+            className="w-auto h-auto max-w-[520px] max-h-[200px] sm:max-h-[220px] md:max-h-[240px] mx-auto"
             style={{ imageRendering: "pixelated" }}
           />
         </div>
