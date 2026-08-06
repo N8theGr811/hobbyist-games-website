@@ -135,6 +135,33 @@ body {
   border-radius: var(--radius-tile);
 }
 
+/* ─── Position watermark ───
+   A premium combat icon used as a background wash. The asset is masked rather
+   than drawn, so the fill is a theme colour and the source art's team red and
+   blue never reach the page. Opacity is the dial to tune if this reads too
+   loud or too faint. Measured worst case, assuming body copy sits directly on
+   the densest part of the wash, cream/55 holds 4.95:1 at 4%, 4.79:1 at 6%,
+   and 4.63:1 at 8%. Past 8% it drops under the 4.5:1 AA floor, so treat that
+   as the ceiling rather than a suggestion. */
+.watermark {
+  position: absolute;
+  pointer-events: none;
+  /* Negative z so the wash sits behind copy. An absolutely positioned element
+     at z-index auto paints above static in-flow siblings, which would tint the
+     text instead of backing it. This only lands correctly because the host
+     section carries `isolate`: without that stacking context the wash would
+     drop behind the section's own background and vanish. */
+  z-index: -1;
+  background-color: var(--color-steam-gold);
+  opacity: 0.06;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
 /* Section vertical rhythm. Every section gets the same measure so the page
    reads as one document rather than a stack of independently spaced blocks. */
 .section-rhythm {

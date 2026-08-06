@@ -1,5 +1,6 @@
 import StatIcon, { type StatName } from "./StatIcon";
 import BeltStrip from "./BeltStrip";
+import Watermark from "./Watermark";
 
 interface Feature {
   title: string;
@@ -63,7 +64,9 @@ const FEATURES: Feature[] = [
 
 export default function FeatureHighlights() {
   return (
-    <section className="relative section-rhythm px-6 bg-pixel-grid md:px-12 border-y border-steam-gold/20">
+    <section className="relative isolate section-rhythm px-6 bg-pixel-grid overflow-hidden md:px-12 border-y border-steam-gold/20">
+      <Watermark name="backcontrol" className="-right-24 top-20 h-[440px] w-[440px]" />
+
       {/* Section header */}
       <div className="max-w-3xl mx-auto text-center mb-12">
         <div className="flex items-center justify-center gap-3 mb-6 font-pixel text-pixel-xs tracking-[0.2em] uppercase text-steam-gold">

@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import BeltStrip from "./BeltStrip";
+import Watermark from "./Watermark";
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
 
@@ -39,7 +40,9 @@ export default function EmailSignup() {
   }
 
   return (
-    <section id="signup" className="relative section-rhythm px-6 text-center bg-pixel-grid border-t border-steam-gold/20">
+    <section id="signup" className="relative isolate section-rhythm px-6 text-center bg-pixel-grid overflow-hidden border-t border-steam-gold/20">
+      <Watermark name="saddle" className="-right-28 top-16 h-[380px] w-[500px]" />
+
       <div className="flex items-center justify-center gap-3 mb-6 font-pixel text-pixel-xs tracking-[0.2em] uppercase text-steam-gold">
         <span className="w-6 h-px bg-steam-gold/40" />
         Early Access

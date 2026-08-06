@@ -1,5 +1,6 @@
 import StatIcon, { type StatName } from "./StatIcon";
 import BeltStrip from "./BeltStrip";
+import Watermark from "./Watermark";
 
 interface Pillar {
   title: string;
@@ -15,7 +16,9 @@ const pillars: Pillar[] = [
 
 export default function GameInfo() {
   return (
-    <section id="about" className="relative section-rhythm px-6 text-center bg-pixel-grid">
+    <section id="about" className="relative isolate section-rhythm px-6 text-center bg-pixel-grid overflow-hidden">
+      <Watermark name="openguard" className="-left-28 top-24 h-[400px] w-[520px] scale-x-[-1]" />
+
       {/* Top belt strip divider */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32">
         <BeltStrip height={8} />
