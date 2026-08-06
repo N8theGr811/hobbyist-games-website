@@ -1,6 +1,10 @@
+import Watermark from "./Watermark";
+
 export default function Trailer() {
   return (
-    <section className="relative section-rhythm px-6 text-center md:px-12 overflow-hidden bg-pixel-grid">
+    <section className="relative isolate section-rhythm px-6 text-center md:px-12 overflow-hidden bg-pixel-grid">
+      <Watermark name="uchimata" className="-right-24 top-16 h-[400px] w-[540px]" />
+
       <p className="font-pixel text-pixel-xs tracking-[0.2em] uppercase text-steam-gold mb-4">
         Gameplay
       </p>

@@ -66,6 +66,7 @@ export default function FeatureHighlights() {
   return (
     <section className="relative isolate section-rhythm px-6 bg-pixel-grid overflow-hidden md:px-12 border-y border-steam-gold/20">
       <Watermark name="backcontrol" className="-right-24 top-20 h-[440px] w-[440px]" />
+      <Watermark name="granbyroll" className="-left-28 bottom-16 h-[420px] w-[336px]" />
 
       {/* Section header */}
       <div className="max-w-3xl mx-auto text-center mb-12">

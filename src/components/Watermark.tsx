@@ -1,5 +1,20 @@
-/** Premium combat position icons available as background washes. */
-export type WatermarkName = "backcontrol" | "openguard" | "saddle" | "turtle";
+/**
+ * Premium combat art available as background washes.
+ *
+ * Every name here was checked as a silhouette before being added: masking
+ * throws away colour, so an icon only earns a place if it still reads as two
+ * figures in one flat tone. RNC, North South Choke, Trap and Roll and Knee
+ * Slice Pass were tried and rejected on that test.
+ */
+export type WatermarkName =
+  | "backcontrol"
+  | "openguard"
+  | "saddle"
+  | "turtle"
+  | "kimura"
+  | "uchimata"
+  | "doubleleg"
+  | "granbyroll";
 
 interface WatermarkProps {
   name: WatermarkName;
