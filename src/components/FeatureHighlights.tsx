@@ -27,8 +27,8 @@ const MOMENTS: Moment[] = [
     line: "70+ techniques across 19 positions. Real odds on every turn.",
     media: {
       kind: "image",
-      src: "/media/screenshots/combat.jpg",
-      alt: "Combat screen showing two fighters in the standing position with three move options and their success odds",
+      src: "/media/screenshots/combat-position-odds.jpg",
+      alt: "Combat screen in the guard top position, showing two move cards and three move options with their success odds",
     },
   },
   {

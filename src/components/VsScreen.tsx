@@ -20,8 +20,8 @@ export default function VsScreen() {
       <div className="max-w-[900px] mx-auto">
         <div className="steam-panel relative overflow-hidden">
           <Image
-            src="/media/screenshots/CombatVsScreenStats.png"
-            alt="Combat VS screen showing stat comparison between two fighters"
+            src="/media/screenshots/vs-screen-stats.jpg"
+            alt="Pre-match VS screen comparing eight stats, belt ranks and archetypes for two fighters"
             width={1920}
             height={1080}
             className="w-full h-auto block"
