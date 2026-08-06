@@ -1,120 +1,127 @@
-import StatIcon, { type StatName } from "./StatIcon";
-import BeltStrip from "./BeltStrip";
 import Watermark from "./Watermark";
 
-interface Feature {
-  title: string;
-  description: string;
-  /** Icon — either a game stat icon name or a custom emoji char */
-  iconKind: "stat" | "emoji";
-  iconValue: StatName | string;
+interface Moment {
+  headline: string;
+  line: string;
+  media:
+    | { kind: "image"; src: string; alt: string }
+    | { kind: "video"; src: string; label: string };
 }
 
-const FEATURES: Feature[] = [
+/**
+ * Three moments, not seven features.
+ *
+ * This section used to be a seven-item grid carrying ~245 words. Every item
+ * had equal weight, so nothing landed, and a game about reading a position
+ * and picking a move was argued entirely in prose. The seven collapsed into
+ * these three ideas without losing anything GameInfo does not already cover,
+ * which is the same move the combat system made when nine interactions
+ * became three player-facing rules.
+ *
+ * Each moment shows rather than tells. The assets were already in the repo,
+ * stranded in an unimported Preview.tsx.
+ */
+const MOMENTS: Moment[] = [
   {
-    title: "Custom Submission Creator",
-    description:
-      "Create your own signature submission. Choose the position it's performed from, name it, and write its description — then use it in combat as a unique finishing move only you have.",
-    iconKind: "stat",
-    iconValue: "submissions",
+    headline: "Every position is a decision",
+    line: "70+ techniques across 19 positions. Real odds on every turn.",
+    media: {
+      kind: "image",
+      src: "/media/screenshots/combat.jpg",
+      alt: "Combat screen showing two fighters in the standing position with three move options and their success odds",
+    },
   },
   {
-    title: "Submission Gauge & Timing",
-    description:
-      "Land the perfect squeeze. An 11-zone oscillating timing gauge tests your precision — nail the PERFECT zone for maximum damage, or miss and give your opponent a chance to escape.",
-    iconKind: "emoji",
-    iconValue: "🎯",
+    headline: "The finish is a skill",
+    line: "An 11-zone gauge decides the squeeze. Miss it and they escape.",
+    media: {
+      kind: "video",
+      src: "/media/clips/submission-clip.mp4",
+      label: "Submission gauge gameplay",
+    },
   },
   {
-    title: "Move & Position Prioritization",
-    description:
-      "Every position opens different options. Choose between attacks, defenses, transitions, and submissions — each with real success probabilities based on your stats and your opponent’s weaknesses.",
-    iconKind: "stat",
-    iconValue: "guard",
-  },
-  {
-    title: "Mystery Move Draws",
-    description:
-      "Unlock rare techniques as you progress. Mystery draws reward you with new moves from Common to Legendary rarity — expanding your arsenal with every belt promotion.",
-    iconKind: "emoji",
-    iconValue: "🎴",
-  },
-  {
-    title: "Skill Tree",
-    description:
-      "Shape your fighter’s growth. Invest in 7 skill categories across 5 tiers to specialize your stats — become a guard specialist, wrestling powerhouse, or balanced all-rounder.",
-    iconKind: "stat",
-    iconValue: "strength",
-  },
-  {
-    title: "Adopt a Pet Companion",
-    description:
-      "Adopt a pet that follows you on your journey. Choose from a loyal shiba, a curious cat, or a polar bear — each one joins you in the overworld and cheers you on during combat.",
-    iconKind: "emoji",
-    iconValue: "🐾",
-  },
-  {
-    title: "Own & Upgrade Businesses",
-    description:
-      "Build your empire off the mats. Purchase and upgrade businesses across the city — earn passive income, unlock new opportunities, and fund your path to the championship.",
-    iconKind: "emoji",
-    iconValue: "🏢",
+    headline: "Fight like nobody else",
+    line: "Six archetypes, a skill tree, and a submission you name yourself.",
+    media: {
+      kind: "image",
+      src: "/media/screenshots/choose-style.jpg",
+      alt: "Style selection screen comparing the Wrestler archetype's starting stats and growth room",
+    },
   },
 ];
 
 export default function FeatureHighlights() {
   return (
     <section className="relative isolate section-rhythm px-6 bg-pixel-grid overflow-hidden md:px-12 border-y border-steam-gold/20">
-      <Watermark name="backcontrol" className="-right-24 top-20 h-[440px] w-[440px]" />
-      <Watermark name="granbyroll" className="-left-28 bottom-16 h-[420px] w-[336px]" />
+      <Watermark name="backcontrol" className="-right-24 top-32 h-[440px] w-[440px]" />
+      <Watermark name="granbyroll" className="-left-28 bottom-24 h-[420px] w-[336px]" />
 
-      {/* Section header */}
-      <div className="max-w-3xl mx-auto text-center mb-12">
+      {/* Section header. The old title, "What Makes It Special", named the
+          section instead of claiming anything. This one makes the claim. */}
+      <div className="max-w-3xl mx-auto text-center mb-16">
         <div className="flex items-center justify-center gap-3 mb-6 font-pixel text-pixel-xs tracking-[0.2em] uppercase text-steam-gold">
           <span className="w-6 h-px bg-steam-gold/40" />
-          Features
+          How It Plays
           <span className="w-6 h-px bg-steam-gold/40" />
         </div>
         <h2 className="font-pixel text-pixel-lg text-cream leading-tight tracking-wide">
-          What Makes It Special
+          Real Jiu-Jitsu. Real Decisions.
         </h2>
-        <div className="mt-6 mx-auto max-w-[200px]">
-          <BeltStrip height={8} />
-        </div>
       </div>
 
-      {/* Feature grid */}
-      <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5">
-        {FEATURES.map((feature) => (
+      {/* Alternating rows. Three across would shrink each frame to ~380px,
+          and these are dense UI screenshots that stop being readable there. */}
+      <div className="max-w-5xl mx-auto flex flex-col gap-16 md:gap-20">
+        {MOMENTS.map((moment, i) => (
           <div
-            key={feature.title}
-            className="surface-card flex gap-4 items-start p-5 border border-steam-gold/15 bg-steam-navy-2/60 backdrop-blur-sm transition-colors hover:border-steam-gold/40"
+            key={moment.headline}
+            className="grid items-center gap-8 md:grid-cols-2 md:gap-12"
           >
-            {/* Icon */}
-            <div
-              className="icon-tile rounded-full border border-steam-gold/30"
-              style={{ width: 56, height: 56 }}
-            >
-              {feature.iconKind === "stat" ? (
-                <StatIcon name={feature.iconValue as StatName} size={36} />
-              ) : (
-                <span className="text-2xl">{feature.iconValue}</span>
-              )}
+            <div className={i % 2 === 1 ? "md:order-2" : undefined}>
+              <MomentMedia media={moment.media} />
             </div>
-            {/* Text */}
-            <div>
-              {/* Body face. Seven titles of running-text length set in Press
-                  Start 2P at 10px were the least readable type on the page. */}
-              <h3 className="text-sm font-semibold uppercase tracking-widest text-steam-gold mb-2">
-                {feature.title}
+            <div className={i % 2 === 1 ? "md:order-1" : undefined}>
+              <h3 className="font-pixel text-pixel-md uppercase tracking-[0.1em] text-steam-gold mb-4 leading-relaxed">
+                {moment.headline}
               </h3>
-              <p className="text-sm leading-relaxed text-cream/60">
-                {feature.description}
+              <p className="text-base leading-relaxed text-cream/70">
+                {moment.line}
               </p>
             </div>
           </div>
         ))}
       </div>
     </section>
+  );
+}
+
+/** Screenshot or looping clip, both in the shared gold panel frame. */
+function MomentMedia({ media }: { media: Moment["media"] }) {
+  return (
+    <div className="steam-panel relative aspect-video overflow-hidden">
+      {media.kind === "video" ? (
+        <video
+          src={media.src}
+          aria-label={media.label}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      ) : (
+        /* Plain img rather than next/image: this is a fixed decorative frame
+           and object-cover already handles the fit. */
+        /* eslint-disable-next-line @next/next/no-img-element */
+        <img
+          src={media.src}
+          alt={media.alt}
+          loading="lazy"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      )}
+    </div>
   );
 }
