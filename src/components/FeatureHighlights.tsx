@@ -23,8 +23,8 @@ interface Moment {
  */
 const MOMENTS: Moment[] = [
   {
-    headline: "Every position is a decision",
-    line: "70+ techniques across 19 positions. Real odds on every turn.",
+    headline: "The odds are on the screen",
+    line: "70+ techniques across 19 positions. None of them are sure things.",
     media: {
       kind: "image",
       src: "/media/screenshots/combat-position-odds.jpg",
@@ -32,7 +32,7 @@ const MOMENTS: Moment[] = [
     },
   },
   {
-    headline: "The finish is a skill",
+    headline: "Getting there is the easy part",
     line: "An 11-zone gauge decides the squeeze. Miss it and they escape.",
     media: {
       kind: "video",
