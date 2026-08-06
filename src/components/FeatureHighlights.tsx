@@ -92,7 +92,7 @@ export default function FeatureHighlights() {
           >
             {/* Icon */}
             <div
-              className="icon-tile border border-steam-gold/20"
+              className="icon-tile rounded-full border border-steam-gold/30"
               style={{ width: 56, height: 56 }}
             >
               {feature.iconKind === "stat" ? (

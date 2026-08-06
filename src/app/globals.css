@@ -89,6 +89,16 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* ─── Component classes ───
+   These live in @layer components on purpose. Written unlayered they outrank
+   every Tailwind utility, because unlayered CSS beats anything in a layer no
+   matter the source order. That silently broke the hero stat ring: the markup
+   said `rounded-full`, .icon-tile's border-radius won anyway, and eight
+   circles became rounded squares with nothing in the component to explain it.
+   Inside @layer components, utilities override these, which is the precedence
+   a caller expects when they add a class at the call site. */
+@layer components {
+
 /* Pixel-art dot grid texture (overlay on dark sections) */
 .bg-pixel-grid {
   background-color: var(--color-steam-navy);
@@ -186,6 +196,8 @@ body {
   height: 8px;
   border-radius: 9999px;
 }
+
+}  /* end @layer components */
 
 /* ─── Hero reveal animations ─── */
 @keyframes fadeUp {

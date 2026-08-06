@@ -45,7 +45,7 @@ export default function GameInfo() {
         {pillars.map((pillar) => (
           <div key={pillar.title} className="flex-1 text-center">
             <div
-              className="icon-tile mx-auto mb-4 border border-steam-gold/30"
+              className="icon-tile mx-auto mb-4 rounded-full border border-steam-gold/30"
               style={{ width: 72, height: 72 }}
             >
               <StatIcon name={pillar.stat} size={44} />
