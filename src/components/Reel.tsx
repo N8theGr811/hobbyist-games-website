@@ -21,6 +21,7 @@ export default function Reel() {
   return (
     <section className="relative isolate section-rhythm px-6 overflow-hidden bg-pixel-grid md:px-12">
       <Watermark name="doubleleg" className="-left-24 top-20 h-[380px] w-[500px]" />
+      <Watermark name="underhookthrow" className="-right-20 bottom-12 h-[420px] w-[336px]" />
 
       <div className="mx-auto grid max-w-4xl items-center gap-10 md:grid-cols-[300px_1fr] md:gap-14">
         <div className="mx-auto w-full max-w-[300px]">

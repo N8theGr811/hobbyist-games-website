@@ -5,6 +5,7 @@ export default function VsScreen() {
   return (
     <section className="relative isolate section-rhythm px-6 text-center md:px-12 overflow-hidden bg-pixel-grid border-y border-steam-gold/20">
       <Watermark name="kimura" className="-left-24 top-24 h-[320px] w-[560px]" />
+      <Watermark name="singleleg" className="-right-28 bottom-16 h-[320px] w-[440px]" />
 
       <p className="font-pixel text-pixel-xs tracking-[0.2em] uppercase text-steam-gold mb-4">
         Matchup
