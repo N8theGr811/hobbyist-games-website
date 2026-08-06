@@ -96,17 +96,17 @@ export default function CreditsPage() {
       <header className="bg-steam-navy border-b-2 border-steam-gold/40 px-6 py-4 md:px-12">
         <Link
           href="/"
-          className="font-pixel text-[0.55rem] tracking-[0.1em] uppercase text-cream/60 hover:text-steam-gold transition-colors"
+          className="font-pixel text-pixel-xs tracking-[0.1em] uppercase text-cream/60 hover:text-steam-gold transition-colors"
         >
           ← Back to Hobbyist Games
         </Link>
       </header>
 
-      <main className="bg-pixel-grid min-h-screen px-6 py-16 md:px-12">
+      <main className="bg-pixel-grid min-h-screen px-6 section-rhythm md:px-12">
         <div className="max-w-2xl mx-auto">
           {/* Page heading */}
           <div className="text-center mb-16">
-            <p className="font-pixel text-[0.55rem] tracking-[0.2em] uppercase text-steam-gold mb-4">
+            <p className="font-pixel text-pixel-xs tracking-[0.2em] uppercase text-steam-gold mb-4">
               Attribution
             </p>
             <h1 className="font-pixel text-2xl text-cream mb-4">
@@ -121,7 +121,7 @@ export default function CreditsPage() {
           <div className="space-y-12">
             {SECTIONS.map((section) => (
               <div key={section.title}>
-                <p className="font-pixel text-[0.5rem] tracking-[0.15em] uppercase text-steam-gold mb-2">
+                <p className="font-pixel text-pixel-xs tracking-[0.15em] uppercase text-steam-gold mb-2">
                   {section.label}
                 </p>
                 <h2 className="font-pixel text-sm text-cream mb-4 tracking-wider">
@@ -146,7 +146,7 @@ export default function CreditsPage() {
                           <span className="text-sm text-cream">{entry.name}</span>
                         )}
                         {entry.role && (
-                          <span className="text-sm text-cream/40 ml-1.5">— {entry.role}</span>
+                          <span className="text-sm text-cream/55 ml-1.5">— {entry.role}</span>
                         )}
                       </div>
                     </div>
@@ -154,7 +154,7 @@ export default function CreditsPage() {
                 </div>
 
                 {section.note && (
-                  <p className="text-xs text-cream/35 mt-2 ml-7 italic">{section.note}</p>
+                  <p className="text-xs text-cream/55 mt-2 ml-7 italic">{section.note}</p>
                 )}
               </div>
             ))}
@@ -162,14 +162,14 @@ export default function CreditsPage() {
 
           {/* Licenses footer */}
           <div className="mt-16 pt-8 border-t border-steam-gold/15">
-            <p className="font-pixel text-[0.5rem] tracking-[0.15em] uppercase text-cream/35 mb-3">
+            <p className="font-pixel text-pixel-xs tracking-[0.15em] uppercase text-cream/55 mb-3">
               Licenses
             </p>
             <div className="flex flex-wrap gap-2">
               {["CC-BY-SA 3.0", "OGA-BY 3.0", "GPL 3.0", "MIT"].map((license) => (
                 <span
                   key={license}
-                  className="font-mono text-[0.6rem] text-cream/55 border border-steam-gold/25 bg-steam-navy-2 px-2.5 py-1 rounded"
+                  className="font-mono text-xs text-cream/55 border border-steam-gold/25 bg-steam-navy-2 px-2.5 py-1 rounded"
                 >
                   {license}
                 </span>
@@ -181,7 +181,7 @@ export default function CreditsPage() {
           <div className="mt-12 text-center">
             <Link
               href="/"
-              className="font-pixel text-[0.55rem] tracking-[0.12em] uppercase text-cream/35 hover:text-steam-gold transition-colors"
+              className="font-pixel text-pixel-xs tracking-[0.12em] uppercase text-cream/55 hover:text-steam-gold transition-colors"
             >
               ← Back to Hobbyist Games
             </Link>

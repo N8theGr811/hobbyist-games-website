@@ -19,6 +19,52 @@
   --font-body: "Outfit", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
   --font-pixel: "Press Start 2P", "VT323", monospace;
+
+  /* ─── Pixel type scale ───
+     Press Start 2P is a display face. Below 11px its counters close up and it
+     stops being type at all, so 11px is the floor and nothing may go under it.
+     The game enforces the same rule as UITheme.FONT_MINIMUM. Running text and
+     metadata belong to --font-body; these three sizes are the whole pixel
+     vocabulary. */
+  --text-pixel-xs: 0.6875rem;  /* 11px — eyebrows, captions, metadata */
+  --text-pixel-sm: 0.8125rem;  /* 13px — buttons, nav, pillar titles */
+  --text-pixel-lg: clamp(1.1rem, 2.6vw, 1.7rem);  /* section headings */
+
+  /* ─── Text opacity floor ───
+     Cream below 55% fails WCAG AA on steam-navy: /30 measures 2.4:1, /40 is
+     3.3:1, /50 is 4.5:1 with no margin. /55 is 5.2:1 and is the floor for any
+     text. Use the raw utilities for borders and fills, never for type. */
+  --color-cream-muted: color-mix(in srgb, #F4E9D2 55%, transparent);
+
+  /* ─── Section rhythm ───
+     One vertical measure for every section instead of the py-16/20/24 drift. */
+  --spacing-section: 5rem;
+  --spacing-section-tight: 3.5rem;
+
+  /* ─── Elevation ───
+     The gold inner highlight had drifted to six different alphas (0.06, 0.1,
+     0.1, 0.2, 0.25, 0.3) across five files for one visual intent. Two tokens:
+     panels are framed and prominent, tiles are small and repeated. */
+  --shadow-panel:
+    0 0 0 1px rgba(0, 0, 0, 0.4),
+    0 12px 40px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(232, 194, 92, 0.2);
+  --shadow-card:
+    0 4px 16px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(232, 194, 92, 0.08);
+  --shadow-tile:
+    0 0 0 1px rgba(0, 0, 0, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(232, 194, 92, 0.15);
+  /* Hero ring only. The gold cast is the one place a tile is meant to glow,
+     so it is named here rather than inlined at the call site. */
+  --shadow-tile-hero:
+    0 0 0 1px rgba(0, 0, 0, 0.4),
+    0 4px 12px rgba(212, 165, 60, 0.25),
+    inset 0 1px 0 rgba(232, 194, 92, 0.15);
+
+  --radius-panel: 8px;
+  --radius-tile: 6px;
 }
 
 html {
@@ -46,11 +92,43 @@ body {
 .steam-panel {
   background: linear-gradient(180deg, var(--color-steam-navy-2) 0%, var(--color-steam-navy) 100%);
   border: 2px solid var(--color-steam-gold);
-  box-shadow:
-    0 0 0 1px rgba(0,0,0,0.4),
-    0 12px 40px rgba(0,0,0,0.5),
-    inset 0 1px 0 rgba(232,194,92,0.2);
-  border-radius: 8px;
+  box-shadow: var(--shadow-panel);
+  border-radius: var(--radius-panel);
+}
+
+/* ─── Icon tile ───
+   The square/round icon holder repeated in the hero stat ring, the feature
+   grid, and the three pillars. Each of those hand-rolled its own surface with
+   a slightly different inner highlight; the surface now lives here and the
+   component supplies only size, shape, and border. */
+.icon-tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--color-steam-navy-2);
+  border-radius: var(--radius-tile);
+  box-shadow: var(--shadow-tile);
+}
+
+.icon-tile-hero {
+  box-shadow: var(--shadow-tile-hero);
+}
+
+/* ─── Card ───
+   The middle surface between a framed .steam-panel and a small .icon-tile:
+   feature cards, the signup field. Three surface levels total, matching the
+   panel / row / HUD split the game's UITheme settled on. */
+.surface-card {
+  box-shadow: var(--shadow-card);
+  border-radius: var(--radius-tile);
+}
+
+/* Section vertical rhythm. Every section gets the same measure so the page
+   reads as one document rather than a stack of independently spaced blocks. */
+.section-rhythm {
+  padding-top: var(--spacing-section);
+  padding-bottom: var(--spacing-section);
 }
 
 /* Belt-rank gradient strip (white → blue → purple → brown → black) */

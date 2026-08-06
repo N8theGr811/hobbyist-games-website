@@ -57,15 +57,16 @@ export default function Hero() {
           style={{ animationDelay: "0.2s" }}
         >
           <span className="animate-line-expand w-14 h-px bg-steam-gold/50" style={{ animationDelay: "0.8s" }} />
-          <span className="font-pixel text-[0.65rem] tracking-[0.2em] uppercase text-steam-gold">
+          <span className="font-pixel text-pixel-xs tracking-[0.2em] uppercase text-steam-gold">
             Coming Soon
           </span>
           <span className="animate-line-expand w-14 h-px bg-steam-gold/50" style={{ animationDelay: "0.8s" }} />
         </div>
 
-        {/* Studio credit */}
+        {/* Studio credit. Body face, not pixel: this is metadata, and set in
+            Press Start 2P it was competing with the wordmark below it. */}
         <p
-          className="animate-fade-up font-pixel text-[0.55rem] tracking-[0.2em] uppercase text-cream/30 mb-10"
+          className="animate-fade-up text-xs tracking-[0.2em] uppercase text-cream/55 mb-10"
           style={{ animationDelay: "0.4s" }}
         >
           A Hobbyist Games Production
@@ -110,7 +111,7 @@ export default function Hero() {
             href="https://store.steampowered.com/app/4690760"
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative inline-flex items-center gap-3 font-pixel text-[0.65rem] tracking-[0.1em] uppercase px-8 py-4 rounded-md border-2 border-steam-gold bg-steam-gold text-steam-navy hover:bg-steam-gold-2 hover:border-steam-gold-2 transition-all duration-200 shadow-[0_4px_0_rgba(0,0,0,0.4),0_8px_24px_rgba(212,165,60,0.35)] hover:shadow-[0_2px_0_rgba(0,0,0,0.4),0_4px_16px_rgba(212,165,60,0.55)] hover:-translate-y-px active:translate-y-px active:shadow-[0_0_0_rgba(0,0,0,0.4)]"
+            className="group relative inline-flex items-center gap-3 font-pixel text-pixel-sm tracking-[0.1em] uppercase px-8 py-4 rounded-md border-2 border-steam-gold bg-steam-gold text-steam-navy hover:bg-steam-gold-2 hover:border-steam-gold-2 transition-all duration-200 shadow-[0_4px_0_rgba(0,0,0,0.4),0_8px_24px_rgba(212,165,60,0.35)] hover:shadow-[0_2px_0_rgba(0,0,0,0.4),0_4px_16px_rgba(212,165,60,0.55)] hover:-translate-y-px active:translate-y-px active:shadow-[0_0_0_rgba(0,0,0,0.4)]"
           >
             Wishlist on Steam
             <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
@@ -119,7 +120,7 @@ export default function Hero() {
           {/* Secondary: Mailing list */}
           <a
             href="#signup"
-            className="group relative inline-flex items-center gap-3 font-pixel text-[0.6rem] tracking-[0.1em] uppercase px-6 py-3.5 rounded-md border border-steam-gold/40 bg-steam-navy-3/60 text-cream/75 hover:border-steam-gold hover:text-steam-gold transition-colors duration-200"
+            className="group relative inline-flex items-center gap-3 font-pixel text-pixel-sm tracking-[0.1em] uppercase px-6 py-3.5 rounded-md border border-steam-gold/40 bg-steam-navy-3/60 text-cream/75 hover:border-steam-gold hover:text-steam-gold transition-colors duration-200"
           >
             Mailing List
             <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
@@ -155,13 +156,11 @@ function StatRing() {
         return (
           <div
             key={stat}
-            className="absolute top-1/2 left-1/2 flex items-center justify-center rounded-full border-2 border-steam-gold bg-steam-navy-2"
+            className="icon-tile icon-tile-hero absolute top-1/2 left-1/2 rounded-full border-2 border-steam-gold"
             style={{
               width: ICON_TILE,
               height: ICON_TILE,
               transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
-              boxShadow:
-                "inset 0 1px 0 rgba(232,194,92,0.3), 0 0 0 1px rgba(0,0,0,0.4), 0 4px 12px rgba(212,165,60,0.25)",
             }}
           >
             <StatIcon name={stat} size={40} />
@@ -176,7 +175,9 @@ function StatRing() {
           width: CENTER_SIZE,
           height: CENTER_SIZE,
           fontSize: "1.1rem",
-          boxShadow: "0 0 20px rgba(200,55,45,0.45), inset 0 1px 0 rgba(232,194,92,0.25)",
+          // Bespoke: the one red-cast element on the page. Inner highlight
+          // alpha matches --shadow-tile so it stays in the same family.
+          boxShadow: "0 0 20px rgba(200,55,45,0.45), inset 0 1px 0 rgba(232,194,92,0.15)",
         }}
       >
         VS

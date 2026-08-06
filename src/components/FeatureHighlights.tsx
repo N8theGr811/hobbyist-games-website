@@ -63,15 +63,15 @@ const FEATURES: Feature[] = [
 
 export default function FeatureHighlights() {
   return (
-    <section className="relative py-16 px-6 bg-pixel-grid md:px-12 border-y border-steam-gold/20">
+    <section className="relative section-rhythm px-6 bg-pixel-grid md:px-12 border-y border-steam-gold/20">
       {/* Section header */}
       <div className="max-w-3xl mx-auto text-center mb-12">
-        <div className="flex items-center justify-center gap-3 mb-6 font-pixel text-[0.6rem] tracking-[0.2em] uppercase text-steam-gold">
+        <div className="flex items-center justify-center gap-3 mb-6 font-pixel text-pixel-xs tracking-[0.2em] uppercase text-steam-gold">
           <span className="w-6 h-px bg-steam-gold/40" />
           Features
           <span className="w-6 h-px bg-steam-gold/40" />
         </div>
-        <h2 className="font-pixel text-[clamp(1.1rem,2.6vw,1.7rem)] text-cream leading-tight tracking-wide">
+        <h2 className="font-pixel text-pixel-lg text-cream leading-tight tracking-wide">
           What Makes It Special
         </h2>
         <div className="mt-6 mx-auto max-w-[200px]">
@@ -84,12 +84,11 @@ export default function FeatureHighlights() {
         {FEATURES.map((feature) => (
           <div
             key={feature.title}
-            className="flex gap-4 items-start p-5 rounded-md border border-steam-gold/15 bg-steam-navy-2/60 backdrop-blur-sm transition-colors hover:border-steam-gold/40"
-            style={{ boxShadow: "inset 0 1px 0 rgba(232,194,92,0.06)" }}
+            className="surface-card flex gap-4 items-start p-5 border border-steam-gold/15 bg-steam-navy-2/60 backdrop-blur-sm transition-colors hover:border-steam-gold/40"
           >
             {/* Icon */}
             <div
-              className="shrink-0 flex items-center justify-center rounded-md border border-steam-gold/20 bg-steam-navy-3"
+              className="icon-tile border border-steam-gold/20"
               style={{ width: 56, height: 56 }}
             >
               {feature.iconKind === "stat" ? (
@@ -100,7 +99,9 @@ export default function FeatureHighlights() {
             </div>
             {/* Text */}
             <div>
-              <h3 className="font-pixel text-[0.65rem] uppercase tracking-widest text-steam-gold mb-2">
+              {/* Body face. Seven titles of running-text length set in Press
+                  Start 2P at 10px were the least readable type on the page. */}
+              <h3 className="text-sm font-semibold uppercase tracking-widest text-steam-gold mb-2">
                 {feature.title}
               </h3>
               <p className="text-sm leading-relaxed text-cream/60">

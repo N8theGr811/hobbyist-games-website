@@ -17,7 +17,7 @@ export default function Header() {
       <nav className="flex items-center gap-6">
         <a
           href="#about"
-          className="hidden font-pixel text-[0.55rem] tracking-[0.15em] uppercase text-cream/55 hover:text-steam-gold transition-colors sm:block"
+          className="hidden text-sm font-medium tracking-[0.15em] uppercase text-cream/55 hover:text-steam-gold transition-colors sm:block"
         >
           About
         </a>
@@ -25,7 +25,7 @@ export default function Header() {
           href="https://store.steampowered.com/app/4690760"
           target="_blank"
           rel="noopener noreferrer"
-          className="font-pixel text-[0.55rem] tracking-[0.15em] uppercase px-5 py-2.5 bg-steam-gold/15 text-steam-gold border border-steam-gold/50 hover:bg-steam-gold hover:text-steam-navy transition-colors rounded-md"
+          className="font-pixel text-pixel-xs tracking-[0.15em] uppercase px-5 py-2.5 bg-steam-gold/15 text-steam-gold border border-steam-gold/50 hover:bg-steam-gold hover:text-steam-navy transition-colors rounded-md"
         >
           Wishlist on Steam
         </a>
