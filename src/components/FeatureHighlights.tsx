@@ -32,7 +32,7 @@ const MOMENTS: Moment[] = [
     },
   },
   {
-    headline: "Getting there is the easy part",
+    headline: "Time it perfectly to increase your submission odds",
     line: "An 11-zone gauge decides the squeeze. Miss it and they escape.",
     media: {
       kind: "video",
