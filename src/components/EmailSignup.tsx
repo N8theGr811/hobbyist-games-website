@@ -46,18 +46,19 @@ export default function EmailSignup() {
 
       <div className="flex items-center justify-center gap-3 mb-6 font-pixel text-pixel-xs tracking-[0.2em] uppercase text-steam-gold">
         <span className="w-6 h-px bg-steam-gold/40" />
-        Early Access
+        Stay Posted
         <span className="w-6 h-px bg-steam-gold/40" />
       </div>
 
       <h2 className="font-pixel text-pixel-lg text-cream mb-4 leading-snug">
-        Be The First
+        Know When
         <br />
-        To <span className="text-steam-gold">Step On The Mat</span>
+        <span className="text-steam-gold">The Mats Open</span>
       </h2>
 
       <p className="text-sm text-cream/55 mb-8 max-w-md mx-auto leading-relaxed">
-        Sign up for beta testing updates and early access.
+        Give us your email and we will tell you when the game lands, and when there is
+        something worth knowing before then.
       </p>
 
       {state === "success" ? (
@@ -66,7 +67,7 @@ export default function EmailSignup() {
             YOU&apos;RE ON THE LIST!
           </p>
           <p className="text-sm text-cream/55">
-            We&apos;ll reach out when the beta is ready.
+            We&apos;ll email you when there is news. Nothing else.
           </p>
         </div>
       ) : (

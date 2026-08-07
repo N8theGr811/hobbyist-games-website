@@ -75,7 +75,7 @@ const SECTIONS: Section[] = [
     label: "What we collect",
     title: "What we never ask for",
     body: [
-      "On Steam there is no account signup, so there is nothing to fill in and nothing for us to lose.",
+      "On Steam there is no account signup, so there is nothing to fill in and nothing for us to lose. Nothing in this list is collected to play, or held against your account.",
     ],
     items: [
       "No email address",
@@ -87,6 +87,20 @@ const SECTIONS: Section[] = [
       "No device identifiers",
     ],
     note: "This list describes the Steam version, which is the only version released. If we release on mobile, signing in with Apple or Google would mean we receive an email address, and we will update this page and its date before that happens rather than after.",
+  },
+  {
+    label: "Optional",
+    title: "If you want game updates",
+    body: [
+      "You can give us your email address to hear about the game. That is entirely your choice, it is never required, and it has nothing to do with playing.",
+    ],
+    items: [
+      "It is kept in a mailing list that is separate from your game account, and the two are not connected",
+      "We use it to tell you about the game and nothing else",
+      "Every email has an unsubscribe link, and leaving removes your address",
+      "We do not sell it or share it with anyone",
+    ],
+    note: "This is the only email address we ever hold, and you have to hand it over on purpose. Signing in to play never gives us one.",
   },
   {
     label: "What we collect",
