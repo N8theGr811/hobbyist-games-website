@@ -26,6 +26,33 @@ interface Section {
  * Every claim here was checked against the PvP server's D1 migrations and
  * against deleteAccount() in src/accounts.ts. Nothing is aspirational: if the
  * code does not do it today, it is not written here.
+ *
+ * ---------------------------------------------------------------------------
+ * ADDING APPLE OR GOOGLE SIGN-IN (mobile)
+ *
+ * Update this page in the same change that ships the feature, not after. As of
+ * this writing the server has exactly one auth endpoint, /auth/steam, and
+ * steam_links is the only identity table, so none of the below is true yet.
+ *
+ * What actually changes, in order of how much it matters:
+ *
+ * 1. "What we never ask for" stops being true. Both providers return an email
+ *    address. Sign in with Apple returns either the real one or a private
+ *    relay address ending @privaterelay.appleid.com, and relay mail still
+ *    reaches a real person, so it is personal data either way. Move "No email
+ *    address" out of that list and say what is stored and for how long.
+ * 2. Google returns a display name and profile picture URL too, depending on
+ *    the scopes requested. Only list what is actually requested.
+ * 3. "Who else touches your data" gains Apple and Google as recipients.
+ * 4. "Deleting your account" needs the new identity rows named, alongside
+ *    steam_links, or the deletion description becomes incomplete.
+ * 5. The short version at the top says "your Steam ID". Widen it.
+ *
+ * Two Apple App Store rules that bear on this page: offering any third-party
+ * sign-in obliges you to offer Sign in with Apple as well, and the App Privacy
+ * label must match what this page says. A mismatch either way is a review
+ * problem. In-app account deletion is also required, and already exists.
+ * ---------------------------------------------------------------------------
  */
 const SECTIONS: Section[] = [
   {
@@ -48,7 +75,7 @@ const SECTIONS: Section[] = [
     label: "What we collect",
     title: "What we never ask for",
     body: [
-      "There is no account signup, so there is nothing to fill in and nothing for us to lose.",
+      "On Steam there is no account signup, so there is nothing to fill in and nothing for us to lose.",
     ],
     items: [
       "No email address",
@@ -59,6 +86,7 @@ const SECTIONS: Section[] = [
       "No contacts",
       "No device identifiers",
     ],
+    note: "This list describes the Steam version, which is the only version released. If we release on mobile, signing in with Apple or Google would mean we receive an email address, and we will update this page and its date before that happens rather than after.",
   },
   {
     label: "What we collect",
@@ -72,7 +100,7 @@ const SECTIONS: Section[] = [
     title: "What other players can see",
     body: [
       "Ranked play is public by design. Other players can see your username, your belt, your ladder rating and where you sit on the ladder, and the results of matches you have played.",
-      "Your Steam ID is not shown to other players.",
+      "Nothing that identifies you outside the game is shown to other players. Your Steam ID is not, and if we add other sign-in options later, those will not be either.",
     ],
   },
   {
