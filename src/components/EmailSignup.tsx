@@ -50,18 +50,15 @@ export default function EmailSignup() {
         <span className="w-6 h-px bg-steam-gold/40" />
       </div>
 
-      {/* The release date is stated in the hero and the metadata, so a "we will
-          tell you when it lands" pitch tells a reader nothing they do not
-          already know. The list is worth joining for what comes after. */}
-      <h2 className="font-pixel text-pixel-lg text-cream mb-4 leading-snug">
-        News From
+      {/* No display heading here. The release date is already in the hero, the
+          metadata and the OpenGraph description, so there is no launch to
+          announce, and the eyebrow plus one line says the whole offer. The h2
+          is kept for document structure and carries the offer itself. */}
+      <h2 className="font-pixel text-pixel-md text-cream mb-8 leading-relaxed">
+        Updates, New Content,
         <br />
-        <span className="text-steam-gold">The Gym</span>
+        And <span className="text-steam-gold">Whatever Comes Next</span>
       </h2>
-
-      <p className="text-sm text-cream/55 mb-8 max-w-md mx-auto leading-relaxed">
-        Updates, new content, and whatever comes next.
-      </p>
 
       {state === "success" ? (
         <div className="max-w-md mx-auto">
