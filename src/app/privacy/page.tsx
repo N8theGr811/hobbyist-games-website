@@ -43,13 +43,25 @@ interface Section {
  * 2. No column anywhere stores the Google email address or display name that
  *    arrive in the token. If either is stored, say so here and drop the
  *    "No email address" line below.
- * 3. Whether account linking shipped. If one person on Steam and iOS ends up
- *    with two accounts rather than one, the deletion and visibility wording
- *    both need revisiting.
+ * 3. Account linking is still out of scope, so one person on Steam and iOS has
+ *    two unconnected accounts. The page says so. If linking ever ships, that
+ *    note and the deletion wording both change.
  * 4. The deletion cascade drops every provider row, not only steam_links.
  *    A one-line omission there is invisible until someone audits it.
  *
  * Apple also requires the App Store privacy label to agree with this page.
+ *
+ * TWO THINGS THAT WOULD FORCE ANOTHER REVISION
+ *
+ * Sending mail. The "never ask for" note argues no address is needed because
+ * nothing sends mail. Adding receipts, notifications or anything else that
+ * emails a player breaks that argument and means collecting an address, so it
+ * needs a policy update shipped with it, not after. Keeping the claim strong
+ * now costs nothing: it is true today and stays true until that changes.
+ *
+ * Google Play. An Android release needs a Data Safety form, which is separate
+ * from Apple's label and worded differently. The page itself would barely
+ * change; the form is the work.
  * ---------------------------------------------------------------------------
  */
 const SECTIONS: Section[] = [
@@ -68,6 +80,7 @@ const SECTIONS: Section[] = [
       "Your daily and weekly reward claim counts",
       "When your account was created, and when you last played a match",
     ],
+    note: "Accounts are not joined across platforms. Playing on Steam and on mobile gives you two separate accounts, with separate ladder records, and we do not connect them to each other.",
   },
   {
     label: "What we collect",
@@ -98,7 +111,7 @@ const SECTIONS: Section[] = [
     title: "What other players can see",
     body: [
       "Ranked play is public by design. Other players can see your username, your belt, your ladder rating and where you sit on the ladder, and the results of matches you have played.",
-      "Nothing that identifies you outside the game is shown to other players. Your Steam ID is not, and if we add other sign-in options later, those will not be either.",
+      "Nothing that identifies you outside the game is shown to other players. Whichever service you signed in with, that id stays between you and us.",
     ],
   },
   {
@@ -121,7 +134,7 @@ const SECTIONS: Section[] = [
       "This is what deletion actually does, precisely, because it is worth being exact about.",
     ],
     items: [
-      "Every sign-in link is destroyed, Steam, Apple and Google alike, so nothing left in our database points back to any of them",
+      "The sign-in link is destroyed, whichever service it was, so nothing left in our database points back to your Steam, Apple or Google identity",
       "Your ladder record is destroyed: belt, rating, division, and last played time",
       "Your reward claim counters are destroyed",
       "Your past matches stay, but your id in them is replaced with an anonymous placeholder, so they no longer point to you",
@@ -149,7 +162,7 @@ const SECTIONS: Section[] = [
     label: "Changes",
     title: "If this policy changes",
     body: [
-      "If we change what we collect or who we share it with, we will update this page and change the date at the top. Material changes will also be announced on the game's Steam page.",
+      "If we change what we collect or who we share it with, we will update this page and change the date at the top. Material changes will also be announced wherever you got the game.",
     ],
   },
 ];
