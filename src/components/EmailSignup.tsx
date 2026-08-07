@@ -50,15 +50,17 @@ export default function EmailSignup() {
         <span className="w-6 h-px bg-steam-gold/40" />
       </div>
 
+      {/* The release date is stated in the hero and the metadata, so a "we will
+          tell you when it lands" pitch tells a reader nothing they do not
+          already know. The list is worth joining for what comes after. */}
       <h2 className="font-pixel text-pixel-lg text-cream mb-4 leading-snug">
-        Know When
+        News From
         <br />
-        <span className="text-steam-gold">The Mats Open</span>
+        <span className="text-steam-gold">The Gym</span>
       </h2>
 
       <p className="text-sm text-cream/55 mb-8 max-w-md mx-auto leading-relaxed">
-        Give us your email and we will tell you when the game lands, and when there is
-        something worth knowing before then.
+        Updates, new content, and whatever comes next.
       </p>
 
       {state === "success" ? (
