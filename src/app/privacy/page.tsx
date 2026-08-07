@@ -86,7 +86,7 @@ const SECTIONS: Section[] = [
     label: "What we collect",
     title: "What we never ask for",
     body: [
-      "There is no account signup on any platform, so there is nothing to fill in and nothing for us to lose.",
+      "There is no account signup on any platform, so there is nothing to fill in and nothing for us to lose. Nothing in this list is collected to play, or held against your account.",
     ],
     items: [
       "No email address",
@@ -98,6 +98,20 @@ const SECTIONS: Section[] = [
       "No device identifiers",
     ],
     note: "That holds on mobile too, which is worth spelling out. Sign in with Apple is asked for an identifier and nothing else, so no address reaches us, not even a private relay one. Google hands over an email address and display name whether they are wanted or not: we read the account id, ignore the rest, and store neither. The game has no passwords, sends no mail of any kind, and never handles payment, so an address would have no job to do.",
+  },
+  {
+    label: "Optional",
+    title: "If you want game updates",
+    body: [
+      "You can give us your email address to hear about the game. That is entirely your choice, it is never required, and it has nothing to do with playing.",
+    ],
+    items: [
+      "It is kept in a mailing list that is separate from your game account, and the two are not connected",
+      "We use it to tell you about the game and nothing else",
+      "Every email has an unsubscribe link, and leaving removes your address",
+      "We do not sell it or share it with anyone",
+    ],
+    note: "This is the only email address we ever hold, and you have to hand it over on purpose. Signing in to play never gives us one.",
   },
   {
     label: "What we collect",
