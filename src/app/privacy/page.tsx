@@ -28,30 +28,28 @@ interface Section {
  * code does not do it today, it is not written here.
  *
  * ---------------------------------------------------------------------------
- * ADDING APPLE OR GOOGLE SIGN-IN (mobile)
+ * DO NOT MERGE UNTIL THE MOBILE BUILD SHIPS WITH THESE PROVIDERS.
  *
- * Update this page in the same change that ships the feature, not after. As of
- * this writing the server has exactly one auth endpoint, /auth/steam, and
- * steam_links is the only identity table, so none of the below is true yet.
+ * This page now describes Apple and Google sign-in. As of 7 August 2026 the
+ * server has one auth endpoint, /auth/steam, and one identity table,
+ * steam_links, so none of it is true yet. Describing collection that does not
+ * happen is as wrong as omitting collection that does.
  *
- * What actually changes, in order of how much it matters:
+ * Before merging, confirm all four against the shipped code, then set
+ * LAST_UPDATED:
  *
- * 1. "What we never ask for" stops being true. Both providers return an email
- *    address. Sign in with Apple returns either the real one or a private
- *    relay address ending @privaterelay.appleid.com, and relay mail still
- *    reaches a real person, so it is personal data either way. Move "No email
- *    address" out of that list and say what is stored and for how long.
- * 2. Google returns a display name and profile picture URL too, depending on
- *    the scopes requested. Only list what is actually requested.
- * 3. "Who else touches your data" gains Apple and Google as recipients.
- * 4. "Deleting your account" needs the new identity rows named, alongside
- *    steam_links, or the deletion description becomes incomplete.
- * 5. The short version at the top says "your Steam ID". Widen it.
+ * 1. Apple is requested with neither the name nor the email scope, so no
+ *    address arrives, not even an @privaterelay.appleid.com relay.
+ * 2. No column anywhere stores the Google email address or display name that
+ *    arrive in the token. If either is stored, say so here and drop the
+ *    "No email address" line below.
+ * 3. Whether account linking shipped. If one person on Steam and iOS ends up
+ *    with two accounts rather than one, the deletion and visibility wording
+ *    both need revisiting.
+ * 4. The deletion cascade drops every provider row, not only steam_links.
+ *    A one-line omission there is invisible until someone audits it.
  *
- * Two Apple App Store rules that bear on this page: offering any third-party
- * sign-in obliges you to offer Sign in with Apple as well, and the App Privacy
- * label must match what this page says. A mismatch either way is a review
- * problem. In-app account deletion is also required, and already exists.
+ * Apple also requires the App Store privacy label to agree with this page.
  * ---------------------------------------------------------------------------
  */
 const SECTIONS: Section[] = [
@@ -59,10 +57,10 @@ const SECTIONS: Section[] = [
     label: "What we collect",
     title: "Only when you play online",
     body: [
-      "Single player needs no account and sends us nothing. Everything below applies only if you play ranked online matches, which signs you in through Steam.",
+      "Single player needs no account and sends us nothing. Everything below applies only if you play ranked online matches, which sign you in through Steam on the Steam version, or through Apple or Google on mobile.",
     ],
     items: [
-      "Your Steam ID, which we map to an internal id that means nothing outside our server",
+      "An id from whichever service you signed in with, which we map to an internal id that means nothing outside our server",
       "Your chosen username, and the time you last changed it",
       "Your belt rank, ladder rating, division, and the two numbers the rating system uses to track how certain it is about you",
       "Your match history: who you fought, whether you won, how it ended, and when",
@@ -75,7 +73,7 @@ const SECTIONS: Section[] = [
     label: "What we collect",
     title: "What we never ask for",
     body: [
-      "On Steam there is no account signup, so there is nothing to fill in and nothing for us to lose.",
+      "There is no account signup on any platform, so there is nothing to fill in and nothing for us to lose.",
     ],
     items: [
       "No email address",
@@ -86,7 +84,7 @@ const SECTIONS: Section[] = [
       "No contacts",
       "No device identifiers",
     ],
-    note: "This list describes the Steam version, which is the only version released. If we release on mobile, signing in with Apple or Google would mean we receive an email address, and we will update this page and its date before that happens rather than after.",
+    note: "That holds on mobile too, which is worth spelling out. Sign in with Apple is asked for an identifier and nothing else, so no address reaches us, not even a private relay one. Google hands over an email address and display name whether they are wanted or not: we read the account id, ignore the rest, and store neither. The game has no passwords, sends no mail of any kind, and never handles payment, so an address would have no job to do.",
   },
   {
     label: "What we collect",
@@ -107,8 +105,10 @@ const SECTIONS: Section[] = [
     label: "Third parties",
     title: "Who else touches your data",
     items: [
-      "Valve. When you sign in, we send Steam a ticket from your game to confirm you are who you say you are. Steam sends back your Steam ID",
-      "Google Firebase. This issues the token your game uses to prove it is signed in. Firebase only ever receives our internal id, never your Steam ID",
+      "Valve, on the Steam version. We send Steam a ticket from your game to confirm you are who you say you are, and Steam sends back your Steam ID",
+      "Apple, on mobile. We ask Apple to confirm who you are and receive an identifier that is unique to this app and meaningless outside it. We request nothing else",
+      "Google, on mobile, when you choose Google sign-in. We receive a token confirming who you are, read the account id from it, and ignore the rest",
+      "Google Firebase, a separate relationship from Google sign-in above. It issues the token your game uses to prove it is signed in, and only ever receives our internal id, never your Steam, Apple, or Google one",
       "Cloudflare. This hosts our game server and our database",
     ],
     note: "We do not sell your data, and we do not share it with advertisers. There is no advertising or analytics tracking in the game.",
@@ -121,13 +121,13 @@ const SECTIONS: Section[] = [
       "This is what deletion actually does, precisely, because it is worth being exact about.",
     ],
     items: [
-      "The link between you and your Steam account is destroyed, so nothing left in our database points back to your Steam identity",
+      "Every sign-in link is destroyed, Steam, Apple and Google alike, so nothing left in our database points back to any of them",
       "Your ladder record is destroyed: belt, rating, division, and last played time",
       "Your reward claim counters are destroyed",
       "Your past matches stay, but your id in them is replaced with an anonymous placeholder, so they no longer point to you",
       "Your username is retained and permanently retired",
     ],
-    note: "The username is kept on purpose. Handles appear on leaderboards, and if a retired one could be claimed again, somebody could convincingly impersonate a player who left. Nobody can take your handle after you go, including you. One exception: if an account was banned, we keep its Steam link so the ban cannot be shed by deleting and starting over.",
+    note: "The username is kept on purpose. Handles appear on leaderboards, and if a retired one could be claimed again, somebody could convincingly impersonate a player who left. Nobody can take your handle after you go, including you. One exception: if an account was banned, we keep its sign-in link so the ban cannot be shed by deleting and starting over.",
   },
   {
     label: "Your rights",
@@ -139,10 +139,10 @@ const SECTIONS: Section[] = [
   },
   {
     label: "Age",
-    title: "Players under 13",
+    title: "Younger players",
     body: [
-      "Submission Saga is intended for players aged 13 and over. We do not knowingly collect data from anyone under 13.",
-      `If you believe a child under 13 has created an online account, email ${CONTACT} and we will delete it.`,
+      "Submission Saga is intended for players aged 13 and over, and we do not knowingly collect data from anyone younger. Some countries set that age higher, as far as 16, so the limit where you live may not be 13.",
+      `If a child under the age that applies where you live has created an online account, email ${CONTACT} and we will delete it.`,
     ],
   },
   {
@@ -185,9 +185,10 @@ export default function PrivacyPage() {
               The short version
             </p>
             <p className="text-sm leading-relaxed text-cream/70">
-              Playing on your own sends us nothing. Playing ranked online stores your
-              Steam ID, your username, and your fight record, so the ladder works. We
-              never see your email, your password, or your payment details. You can
+              Playing on your own sends us nothing. Playing ranked online stores an id
+              from however you signed in, your username, and your fight record, so the
+              ladder works. We never see your email, your password, or your payment
+              details. You can
               delete your account from inside the game whenever you like.
             </p>
           </div>
