@@ -32,6 +32,14 @@ export default function Footer() {
           >
             Credits
           </a>
+          {/* Steamworks stores this URL and players reach it from the store
+              page, so /privacy must stay put once it ships. */}
+          <a
+            href="/privacy"
+            className="text-xs tracking-[0.1em] text-cream/55 hover:text-steam-gold transition-colors"
+          >
+            Privacy
+          </a>
         </div>
         <div className="flex gap-2">
           {socials.map((s) => (
