@@ -38,16 +38,23 @@ export default function Reel() {
         </div>
 
         <div className="text-center md:text-left">
+          {/* "The Reel" named the file format, not the contents, and it is
+              Instagram's word rather than anything a visitor here would use.
+              Every other eyebrow on the page names the subject — Matchup, The
+              Game, Stay Posted — so this one says what to do with the thing
+              sitting next to it. */}
           <div className="mb-6 flex items-center justify-center gap-3 font-pixel text-pixel-xs uppercase tracking-[0.2em] text-steam-gold md:justify-start">
             <span className="h-px w-6 bg-steam-gold/40" />
-            The Reel
+            Watch
           </div>
-          <h2 className="mb-4 font-pixel text-pixel-lg leading-tight tracking-wide text-cream">
-            The Whole Pitch In Thirty Seconds
-          </h2>
-          <p className="mb-8 max-w-md text-base leading-relaxed text-cream/70 md:mb-6">
+          {/* The old heading claimed a pitch and the line beneath it delivered
+              one, so the sub-line is promoted and the boast dropped. Held at
+              text-pixel-md rather than the -lg the wider sections use: Press
+              Start 2P is near-monospace, and a full sentence at -lg shatters
+              into four ragged lines inside this 540px column. */}
+          <h2 className="mb-8 font-pixel text-pixel-md leading-relaxed tracking-wide text-cream md:mb-6">
             What it is, why it exists, and when you can play it.
-          </p>
+          </h2>
           <a
             href={INSTAGRAM}
             target="_blank"
