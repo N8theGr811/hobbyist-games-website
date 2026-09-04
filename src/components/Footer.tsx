@@ -19,13 +19,25 @@ const socials = [
 export default function Footer() {
   return (
     <footer className="border-t border-steam-gold/15 bg-steam-navy">
-      <div className="max-w-[900px] mx-auto px-6 py-10 flex items-center justify-between md:px-12">
-        <div className="flex items-center gap-4">
+      <div className="max-w-[900px] mx-auto px-6 py-10 flex flex-wrap items-center justify-between gap-y-4 md:px-12">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
           {/* Body face at 12px. This was 8px Press Start 2P at 2.4:1 contrast,
               under the AA floor on both size and colour. */}
           <span className="text-xs tracking-[0.1em] text-cream/55">
             © 2026 Hobbyist Games
           </span>
+          <a
+            href="/guide"
+            className="text-xs tracking-[0.1em] text-cream/55 hover:text-steam-gold transition-colors"
+          >
+            Beginner&apos;s Guide
+          </a>
+          <a
+            href="/glossary"
+            className="text-xs tracking-[0.1em] text-cream/55 hover:text-steam-gold transition-colors"
+          >
+            Glossary
+          </a>
           <a
             href="/credits"
             className="text-xs tracking-[0.1em] text-cream/55 hover:text-steam-gold transition-colors"

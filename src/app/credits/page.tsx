@@ -4,6 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Credits & Attribution — Hobbyist Games",
   description: "Credits and attribution for Submission Saga assets, music, and tools.",
+  alternates: { canonical: "/credits" },
 };
 
 interface Credit {

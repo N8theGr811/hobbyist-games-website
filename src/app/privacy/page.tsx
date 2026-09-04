@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Privacy Policy — Hobbyist Games",
   description:
     "What data Submission Saga collects when you play online, who can see it, and how to delete your account.",
+  alternates: { canonical: "/privacy" },
 };
 
 /** Shown in the header and at the foot of the policy. */

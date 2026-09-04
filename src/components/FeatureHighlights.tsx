@@ -1,12 +1,5 @@
+import MomentRows, { type Moment } from "./MomentRows";
 import Watermark from "./Watermark";
-
-interface Moment {
-  headline: string;
-  line: string;
-  media:
-    | { kind: "image"; src: string; alt: string }
-    | { kind: "video"; src: string; label: string };
-}
 
 /**
  * Three moments, not seven features.
@@ -18,8 +11,16 @@ interface Moment {
  * which is the same move the combat system made when nine interactions
  * became three player-facing rules.
  *
- * Each moment shows rather than tells. The assets were already in the repo,
- * stranded in an unimported Preview.tsx.
+ * Each moment shows rather than tells.
+ *
+ * All three are phone captures, cropped the same way the Explore The Region
+ * shots are: the game renders 16:9 inside a 2556x1179 screen, so 230px of
+ * black pillar comes off each side and the remaining 2096x1179 drops into the
+ * aspect-video panel with nothing trimmed.
+ *
+ * The submission row used to be a looping clip. A still of the gauge landing
+ * on GREAT says the same thing in one frame, costs 263KB instead of 1.1MB,
+ * and does not need autoplay to work.
  */
 const MOMENTS: Moment[] = [
   {
@@ -27,17 +28,17 @@ const MOMENTS: Moment[] = [
     line: "90+ techniques across 19 positions, and you choose which ones you bring to each.",
     media: {
       kind: "image",
-      src: "/media/screenshots/combat-position-odds.jpg",
-      alt: "Combat screen in the guard top position, showing two move cards and three move options with their success odds",
+      src: "/media/screenshots/combat-guard-top.png",
+      alt: "Combat screen in guard top on turn 3 of 10, showing the double leg takedown that landed against the flying triangle that missed, and three move options with their odds and point values",
     },
   },
   {
     headline: "Time it perfectly to increase your submission odds",
     line: "An 11-zone gauge decides the squeeze. Miss it and they escape.",
     media: {
-      kind: "video",
-      src: "/media/clips/submission-gauge.mp4",
-      label: "Submission gauge resolving to a Great finish and a match victory",
+      kind: "image",
+      src: "/media/screenshots/submission-great.png",
+      alt: "A buggy choke locked in from bottom side control, with the timing gauge stopped inside the GREAT band",
     },
   },
   {
@@ -45,8 +46,8 @@ const MOMENTS: Moment[] = [
     line: "Six archetypes, a skill tree, and a submission you name yourself.",
     media: {
       kind: "image",
-      src: "/media/screenshots/choose-style.jpg",
-      alt: "Style selection screen comparing the Wrestler archetype's starting stats and growth room",
+      src: "/media/screenshots/skill-tree.png",
+      alt: "The skills tree with passing, submissions, escapes and wrestling maxed at five ranks each, guard untouched, and leg locks part-spent",
     },
   },
 ];
@@ -72,56 +73,7 @@ export default function FeatureHighlights() {
 
       {/* Alternating rows. Three across would shrink each frame to ~380px,
           and these are dense UI screenshots that stop being readable there. */}
-      <div className="max-w-5xl mx-auto flex flex-col gap-16 md:gap-20">
-        {MOMENTS.map((moment, i) => (
-          <div
-            key={moment.headline}
-            className="grid items-center gap-8 md:grid-cols-2 md:gap-12"
-          >
-            <div className={i % 2 === 1 ? "md:order-2" : undefined}>
-              <MomentMedia media={moment.media} />
-            </div>
-            <div className={i % 2 === 1 ? "md:order-1" : undefined}>
-              <h3 className="font-pixel text-pixel-md uppercase tracking-[0.1em] text-steam-gold mb-4 leading-relaxed">
-                {moment.headline}
-              </h3>
-              <p className="text-base leading-relaxed text-cream/70">
-                {moment.line}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
+      <MomentRows moments={MOMENTS} />
     </section>
-  );
-}
-
-/** Screenshot or looping clip, both in the shared gold panel frame. */
-function MomentMedia({ media }: { media: Moment["media"] }) {
-  return (
-    <div className="steam-panel relative aspect-video overflow-hidden">
-      {media.kind === "video" ? (
-        <video
-          src={media.src}
-          aria-label={media.label}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-      ) : (
-        /* Plain img rather than next/image: this is a fixed decorative frame
-           and object-cover already handles the fit. */
-        /* eslint-disable-next-line @next/next/no-img-element */
-        <img
-          src={media.src}
-          alt={media.alt}
-          loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-      )}
-    </div>
   );
 }

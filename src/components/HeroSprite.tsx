@@ -15,11 +15,18 @@ interface HeroSpriteProps {
 }
 
 // Spritesheet: 832×3456, 13 columns × 54 rows of 64×64 frames.
-// Front idle: row 24 (y = 24 * 64 = 1536), columns 0–1, 2 frames at 5fps.
+// Side idle: row 25 (y = 25 * 64 = 1600), columns 0–1, 2 frames at 5fps.
+//
+// Row 25 rather than row 24, the front idle, because the game turns its
+// fighters inward and the hero should match. combat_ui.gd plays this same row
+// as Side_idle under STAGE_WIDE: it faces right unflipped, so the player runs
+// it as-is and the opponent sets flip_h. The `flip` prop below is that same
+// mirror, which is why it only became literally true here — against the front
+// idle it mirrored a sprite that still faced the camera.
 const FRAME_SIZE = 64;
 const COLUMNS = 13;
 const ROWS = 54;
-const ROW_INDEX = 24;
+const ROW_INDEX = 25;
 const FRAME_COUNT = 2;
 const FPS = 5;
 

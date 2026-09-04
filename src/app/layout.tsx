@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Serif_Display, Outfit, JetBrains_Mono, Press_Start_2P } from "next/font/google";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const dmSerif = DM_Serif_Display({
@@ -26,7 +27,7 @@ const pixelFont = Press_Start_2P({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://hobbyistgames.com"),
+  metadataBase: new URL(SITE_URL),
   title: "Submission Saga — Hobbyist Games",
   description:
     "A pixel-art RPG where Brazilian Jiu-Jitsu meets adventure. Train, fight, and build your legacy. Out September 17, 2026.",
