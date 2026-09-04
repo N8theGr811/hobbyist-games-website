@@ -7,20 +7,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     { url: SITE_URL, lastModified, changeFrequency: "weekly", priority: 1 },
-    // The guide exists to be found by search, so it outranks the boilerplate
-    // pages below it.
-    {
-      url: `${SITE_URL}/guide`,
-      lastModified,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${SITE_URL}/glossary`,
-      lastModified,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
     {
       url: `${SITE_URL}/privacy`,
       lastModified,
