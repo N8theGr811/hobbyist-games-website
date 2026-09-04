@@ -89,6 +89,8 @@ interface Section {
   bottomWants?: string;
   feels: string;
   mistakes: Mistake[];
+  /** Rendered plainly. Not everything worth saying is a mistake. */
+  note?: string;
 }
 
 const SECTIONS: Section[] = [
@@ -253,10 +255,8 @@ const SECTIONS: Section[] = [
       {
         text: "Spinning the wrong way when you are caught, which finishes the heel hook for them. Get the knee line back first.",
       },
-      {
-        text: "Worth knowing: heel hooks are banned in most white belt competition. You will still meet the position in the gym.",
-      },
     ],
+    note: "Heel hooks are banned in most white belt competition. You will still meet the position in the gym.",
   },
 ];
 
@@ -265,6 +265,12 @@ const TONE_CLASS: Record<Rung["tone"], string> = {
   neutral: "bg-cream/40",
   bad: "bg-[#C8372D]",
 };
+
+/** [2, 3, 4] reads as "2, 3 or 4". Joining with commas alone produced a non-sentence. */
+function listWithOr(values: number[]): string {
+  if (values.length <= 1) return String(values[0] ?? "");
+  return `${values.slice(0, -1).join(", ")} or ${values[values.length - 1]}`;
+}
 
 function familyHref(family: string): string | null {
   return FAMILIES.some((f) => f.id === family) ? `/glossary#${family}` : null;
@@ -414,6 +420,12 @@ export default function GuidePage() {
                       ))}
                     </div>
 
+                    {section.note && (
+                      <p className="text-sm text-cream/55 leading-relaxed mt-2 italic">
+                        {section.note}
+                      </p>
+                    )}
+
                     {href && (
                       <p className="mt-3">
                         <Link
@@ -450,9 +462,9 @@ export default function GuidePage() {
                   <dd className="text-sm text-cream/70 leading-relaxed">
                     Not striking. There is no striking in the game at all. Attack means a scoring
                     action: takedowns, sweeps, guard passes. {COUNTS.scoringMoves} of the{" "}
-                    {COUNTS.byType.Attack} are worth points, {COUNTS.pointValues.join(", ")} of
-                    them. The other {COUNTS.byType.Attack - COUNTS.scoringMoves} are entries that
-                    put you somewhere better without scoring.
+                    {COUNTS.byType.Attack} score, worth {listWithOr(COUNTS.pointValues)} points.
+                    The other {COUNTS.byType.Attack - COUNTS.scoringMoves} are entries that put
+                    you somewhere better without scoring.
                   </dd>
                 </div>
                 <div>
