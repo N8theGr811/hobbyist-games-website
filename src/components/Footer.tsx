@@ -27,6 +27,12 @@ export default function Footer() {
             © 2026 Hobbyist Games
           </span>
           <a
+            href="/guide"
+            className="text-xs tracking-[0.1em] text-cream/55 hover:text-steam-gold transition-colors"
+          >
+            Beginner&apos;s Guide
+          </a>
+          <a
             href="/credits"
             className="text-xs tracking-[0.1em] text-cream/55 hover:text-steam-gold transition-colors"
           >
