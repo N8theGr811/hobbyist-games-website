@@ -13,6 +13,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    // Generated from the game's combat data, so it changes whenever the game's
+    // move table does rather than on any writing schedule.
+    {
+      url: `${SITE_URL}/glossary`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
     {
       url: `${SITE_URL}/privacy`,
       lastModified,
