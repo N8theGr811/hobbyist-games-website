@@ -5,6 +5,8 @@ import FeatureHighlights from "@/components/FeatureHighlights";
 import ExploreTheRegion from "@/components/ExploreTheRegion";
 import Reel from "@/components/Reel";
 import GameInfo from "@/components/GameInfo";
+import LearnTheGame from "@/components/LearnTheGame";
+import Faq from "@/components/Faq";
 import EmailSignup from "@/components/EmailSignup";
 import Footer from "@/components/Footer";
 
@@ -26,6 +28,8 @@ export default function Home() {
         <ExploreTheRegion />
         <Reel />
         <GameInfo />
+        <LearnTheGame />
+        <Faq />
         <EmailSignup />
       </main>
       <Footer />
