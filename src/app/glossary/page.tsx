@@ -6,6 +6,7 @@ import {
   BELT_GATE,
   COUNTS,
   FAMILIES,
+  MOVES,
   MOVES_BY_POSITION,
   THEME,
   familyPositions,
@@ -17,6 +18,7 @@ import {
   type GlossaryMove,
   type GlossaryPosition,
   type MoveType,
+  type Rarity,
   type Rivalry,
 } from "@/lib/glossary";
 
@@ -122,28 +124,54 @@ function TypeTag({ type }: { type: MoveType }) {
  * filled. A player's own card fills more as they upgrade it; a move on this
  * page is always shown unupgraded, so only the base rung is lit.
  */
-function RarityDots({ move }: { move: GlossaryMove }) {
-  const rungs = move.tiers.map((t) => t.rarity);
+/**
+ * One rung of the upgrade ladder: filled where the move starts, a ring for each
+ * upgrade still to take. The game dims unearned rungs instead, but a dimmed dot
+ * this small disappears on steam-navy, and the whole point of the ladder here
+ * is to say "this can be upgraded". A ring at full strength always shows: every
+ * rarity colour clears the 3:1 non-text contrast floor on navy.
+ */
+function RarityDot({ rarity, filled, size }: { rarity: Rarity; filled: boolean; size: number }) {
+  const color = THEME.rarityColors[rarity];
   return (
     <span
-      className="shrink-0 flex items-center gap-px leading-none"
-      title={`${THEME.rarityLabels[move.rarity.base]}, upgradeable to ${THEME.rarityLabels[move.rarity.max]}`}
+      aria-hidden="true"
+      className="inline-block shrink-0 rounded-full"
+      style={{
+        width: size,
+        height: size,
+        border: `2px solid ${color}`,
+        backgroundColor: filled ? color : "transparent",
+      }}
+    />
+  );
+}
+
+/** Unique moves with more than one rung. rip_leg_out is listed twice, hence the set. */
+const UPGRADEABLE = new Set(MOVES.filter((m) => m.tiers.length > 1).map((m) => m.id)).size;
+
+const DOT_SIZE = 10;
+const DOT_GAP = 3;
+/** Widest ladder in the game is four rungs, common to legendary. */
+const DOT_SLOT = 4 * DOT_SIZE + 3 * DOT_GAP;
+
+function RarityDots({ move }: { move: GlossaryMove }) {
+  const label =
+    move.tiers.length > 1
+      ? `${THEME.rarityLabels[move.rarity.base]}, upgradeable to ${THEME.rarityLabels[move.rarity.max]}`
+      : `${THEME.rarityLabels[move.rarity.base]}, does not upgrade`;
+  return (
+    // A fixed slot, sized for the longest ladder, so the chance column beside
+    // it lines up down the list whether a move has one rung or four.
+    <span
+      className="shrink-0 flex items-center"
+      style={{ width: DOT_SLOT, gap: DOT_GAP }}
+      title={label}
     >
-      {rungs.map((rarity, i) => (
-        <span
-          key={rarity}
-          aria-hidden="true"
-          className="text-sm"
-          style={{ color: THEME.rarityColors[rarity], opacity: i === 0 ? 1 : 0.4 }}
-        >
-          •
-        </span>
+      {move.tiers.map((tier, i) => (
+        <RarityDot key={tier.rarity} rarity={tier.rarity} filled={i === 0} size={DOT_SIZE} />
       ))}
-      <span className="sr-only">
-        {rungs.length > 1
-          ? `${THEME.rarityLabels[move.rarity.base]}, upgradeable to ${THEME.rarityLabels[move.rarity.max]}`
-          : THEME.rarityLabels[move.rarity.base]}
-      </span>
+      <span className="sr-only">{label}</span>
     </span>
   );
 }
@@ -192,7 +220,12 @@ function TierLadder({ move }: { move: GlossaryMove }) {
               className="font-normal text-left text-xs py-0.5 pr-3 whitespace-nowrap"
               style={{ color: THEME.rarityColors[tier.rarity] }}
             >
-              {THEME.rarityLabels[tier.rarity]}
+              {/* The same dot the collapsed row shows for this rung, so the
+                  ladder above reads as the ladder here. */}
+              <span className="inline-flex items-center gap-1.5 align-middle">
+                <RarityDot rarity={tier.rarity} filled={i === 0} size={8} />
+                {THEME.rarityLabels[tier.rarity]}
+              </span>
               {/* Which rung you land on when you first unlock it. */}
               {i === 0 && multi && <span className="text-cream/40"> · start</span>}
             </th>
@@ -392,7 +425,11 @@ function MoveEntry({ move }: { move: GlossaryMove }) {
   const rarityColor = THEME.rarityColors[move.rarity.base];
   return (
     <details className="group border-b border-steam-gold/10 last:border-b-0">
-      <summary className="flex cursor-pointer list-none items-center gap-2.5 py-2 px-3 hover:bg-steam-navy-3/40 sm:px-4 [&::-webkit-details-marker]:hidden">
+      {/* Two layouts from one set of elements. On a phone the stats wrap onto
+          their own line under the name: beside it, the tag, points, chance and a
+          four-rung dot slot left the name about 100px and cut "Transition to
+          Mount" to "Transitio...". From sm up it is one row, stats on the right. */}
+      <summary className="flex flex-wrap cursor-pointer list-none items-center gap-x-2.5 gap-y-1 py-2 px-3 hover:bg-steam-navy-3/40 sm:flex-nowrap sm:px-4 [&::-webkit-details-marker]:hidden">
         <Image
           src={iconSrc(move)}
           width={256}
@@ -406,27 +443,37 @@ function MoveEntry({ move }: { move: GlossaryMove }) {
           <span className="block text-sm text-cream truncate" style={{ color: rarityColor }}>
             {move.name}
           </span>
-          {/* Hidden once open: the card below prints the same line in full, and
-              the collapsed row only carries it so the list can be scanned. */}
-          <span className="block text-xs text-cream/55 truncate group-open:hidden">
+          {/* Desktop only, and hidden once open: the card below prints the same
+              line in full. On a phone it truncated to a few words, so the stats
+              line takes its place there instead. */}
+          <span className="hidden sm:block text-xs text-cream/55 truncate sm:group-open:hidden">
             {move.description}
           </span>
         </span>
-        <TypeTag type={move.type} />
-        {move.points > 0 && (
-          <span className="shrink-0 font-mono text-[0.625rem] leading-none px-1.5 py-1 border border-steam-gold/30 bg-steam-gold/10 text-steam-gold-2 rounded-sm">
-            +{move.points}
-          </span>
-        )}
-        <span className="shrink-0 font-mono text-xs text-cream/55 w-9 text-right">
-          {pct(move.tiers[0].baseChance ?? 0)}
-        </span>
-        <RarityDots move={move} />
+        {/* Before the stats in the DOM so it stays on the name's line when they
+            wrap; order-last puts it back at the end of the single desktop row. */}
         <span
           aria-hidden="true"
-          className="shrink-0 text-cream/40 transition-transform group-open:rotate-90"
+          className="shrink-0 text-cream/40 transition-transform group-open:rotate-90 sm:order-last"
         >
           ›
+        </span>
+        {/* pl = icon width + gap, so on a phone the stats sit under the name. */}
+        <span className="flex basis-full items-center gap-2.5 pl-[46px] sm:basis-auto sm:shrink-0 sm:pl-0">
+          <TypeTag type={move.type} />
+          {/* A slot even when empty, so the chance column lines up on the
+              left-aligned phone layout too, not just the right-aligned one. */}
+          <span className="flex w-7 shrink-0 items-center">
+            {move.points > 0 && (
+              <span className="inline-block font-mono text-[0.625rem] leading-none px-1.5 py-1 border border-steam-gold/30 bg-steam-gold/10 text-steam-gold-2 rounded-sm">
+                +{move.points}
+              </span>
+            )}
+          </span>
+          <span className="shrink-0 font-mono text-xs text-cream/55 w-9 text-right">
+            {pct(move.tiers[0].baseChance ?? 0)}
+          </span>
+          <RarityDots move={move} />
         </span>
       </summary>
       <MoveCard move={move} />
@@ -553,12 +600,28 @@ export default function GlossaryPage() {
             </ul>
             <p className="text-xs text-cream/55 mt-3">
               {COUNTS.scoringMoves} moves score, worth {COUNTS.pointValues.join(", ")} points.
-              The dots on each row are its upgrade ladder: how far that move can be improved,
-              from{" "}
-              <span style={{ color: THEME.rarityColors.common }}>common</span> up to{" "}
-              <span style={{ color: THEME.rarityColors.legendary }}>legendary</span>. Upgrading
-              raises the odds, not the points.
             </p>
+
+            {/* Upgrades get their own line and a drawn example, because a row of
+                dots with no key reads as decoration rather than as a ladder. */}
+            <div className="mt-4 pt-4 border-t border-steam-gold/15 flex items-start gap-3">
+              <span
+                className="flex items-center pt-1 shrink-0"
+                style={{ gap: DOT_GAP }}
+                aria-hidden="true"
+              >
+                {THEME.rarityLevels.map((rarity, i) => (
+                  <RarityDot key={rarity} rarity={rarity} filled={i === 0} size={12} />
+                ))}
+              </span>
+              <p className="text-sm text-cream/70">
+                {UPGRADEABLE} of the {COUNTS.uniqueMoves} moves can be upgraded. The filled dot
+                is where a move starts when you unlock it, and each ring after it is an upgrade
+                you buy with move points, up to{" "}
+                <span style={{ color: THEME.rarityColors.legendary }}>legendary</span>. One dot
+                means the move doesn&apos;t upgrade. Upgrading raises the odds, not the points.
+              </p>
+            </div>
           </div>
 
           <div className="steam-panel p-4 sm:p-6 mb-10">
