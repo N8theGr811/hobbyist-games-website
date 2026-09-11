@@ -64,3 +64,6 @@ public/media/Player Sprites/JetBrainsMono-2.304/
 
 # superpowers brainstorm artifacts
 .superpowers/
+
+# Subscriber exports and launch email drafts — contains real email addresses, never commit
+exports/
