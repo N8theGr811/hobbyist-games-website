@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Serif_Display, Outfit, JetBrains_Mono, Press_Start_2P } from "next/font/google";
 import { SITE_URL } from "@/lib/site";
+import { APP_STORE_ID } from "@/lib/stores";
 import "./globals.css";
 
 const dmSerif = DM_Serif_Display({
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "Submission Saga — Hobbyist Games",
   description:
-    "A pixel-art RPG where Brazilian Jiu-Jitsu meets adventure. Train, fight, and build your legacy. Out September 17, 2026.",
+    "A pixel-art RPG where Brazilian Jiu-Jitsu meets adventure. Train, fight, and build your legacy. Out now on Steam and the App Store.",
   icons: {
     icon: "/brand/favicon-32.png",
     apple: "/brand/favicon-180.png",
@@ -38,9 +39,12 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Submission Saga — Hobbyist Games",
     description:
-      "A pixel-art RPG where Brazilian Jiu-Jitsu meets adventure. Out September 17, 2026.",
+      "A pixel-art RPG where Brazilian Jiu-Jitsu meets adventure. Out now on Steam and the App Store.",
     images: [{ url: "/brand/og-image.png", width: 1200, height: 630 }],
   },
+  // Safari on iPhone and iPad puts Apple's own Smart App Banner, with a Get
+  // (or Open) button, above every page. Other browsers ignore the tag.
+  itunes: { appId: APP_STORE_ID },
 };
 
 export default function RootLayout({

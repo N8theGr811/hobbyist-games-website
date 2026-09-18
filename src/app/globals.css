@@ -260,6 +260,25 @@ body {
   animation: scrollLine 2.5s ease-in-out infinite;
 }
 
+/* ─── Live marker ───
+   The ring that spreads off the square beside "Out now". It loops forever, so
+   it gets no animation at all unless the visitor allows motion; the square
+   itself still shows. */
+@keyframes livePing {
+  0% { transform: scale(1); opacity: 0.7; }
+  70%, 100% { transform: scale(2.75); opacity: 0; }
+}
+
+.animate-live-ping {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-live-ping {
+    animation: livePing 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+}
+
 /* Subtle grain texture overlay */
 body::after {
   content: '';

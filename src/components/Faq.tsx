@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { APP_STORE_URL, STEAM_URL } from "@/lib/stores";
 import Watermark from "./Watermark";
 
 /**
@@ -21,14 +22,19 @@ import Watermark from "./Watermark";
  *   cosmetics carry `steam_dlc_only` in GoldCosmeticData, which keeps them out
  *   of the Pro Shop on Steam. Saying "everything is earnable" without that
  *   sentence would be false for exactly those nine.
+ * - The store links come from src/lib/stores.ts, which records how each id
+ *   was checked against the live store.
  *
- * Answers are ReactNode, not string, so the one link this section carries can
- * live inline in the copy instead of in the markup below.
+ * Answers are ReactNode, not string, so links can live inline in the copy
+ * instead of in the markup below.
  */
 interface Faq {
   q: string;
   a: React.ReactNode;
 }
+
+const LINK =
+  "text-steam-gold underline underline-offset-4 decoration-steam-gold/40 hover:decoration-steam-gold transition-colors";
 
 const FAQS: Faq[] = [
   {
@@ -40,10 +46,7 @@ const FAQS: Faq[] = [
     a: (
       <>
         No. If you have never trained, start with the{" "}
-        <Link
-          href="/guide"
-          className="text-steam-gold underline underline-offset-4 decoration-steam-gold/40 hover:decoration-steam-gold transition-colors"
-        >
+        <Link href="/guide" className={LINK}>
           beginner&rsquo;s guide
         </Link>
         . It covers the positions and the handful of terms the game uses. If you
@@ -53,7 +56,19 @@ const FAQS: Faq[] = [
   },
   {
     q: "What does it cost, and where can I get it?",
-    a: "$9.99 on Steam, for Windows and macOS. $9.99 on the App Store, for iPhone and iPad. Both on September 17, 2026.",
+    a: (
+      <>
+        $9.99 on{" "}
+        <a href={STEAM_URL} target="_blank" rel="noopener noreferrer" className={LINK}>
+          Steam
+        </a>
+        , for Windows and macOS. $9.99 on the{" "}
+        <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer" className={LINK}>
+          App Store
+        </a>
+        , for iPhone and iPad. Both out now.
+      </>
+    ),
   },
   {
     q: "Is the fighting turn-based?",

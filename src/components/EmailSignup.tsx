@@ -50,10 +50,11 @@ export default function EmailSignup() {
         <span className="w-6 h-px bg-steam-gold/40" />
       </div>
 
-      {/* No display heading here. The release date is already in the hero, the
-          metadata and the OpenGraph description, so there is no launch to
-          announce, and the eyebrow plus one line says the whole offer. The h2
-          is kept for document structure and carries the offer itself. */}
+      {/* No display heading here. The hero, the header, the metadata and the
+          OpenGraph description already say the game is out, so there is no
+          launch to announce, and the eyebrow plus one line says the whole
+          offer. The h2 is kept for document structure and carries the offer
+          itself. */}
       <h2 className="font-pixel text-pixel-md text-cream mb-8 leading-relaxed">
         Updates, New Content,
         <br />

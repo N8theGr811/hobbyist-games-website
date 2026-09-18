@@ -6,7 +6,7 @@ import { COUNTS } from "@/lib/glossary";
  * The homepage's way into /guide and /glossary.
  *
  * The header carries the same two links, but only from lg up: beside the logo
- * on a 375px screen there is room for the Wishlist button and nothing else.
+ * on a 375px screen there is room for the two store links and nothing else.
  * The footer carries them too, at 12px under everything. So on a phone this
  * band is the only visible route to either page without scrolling to the very
  * bottom, which is why it exists rather than a third header link.

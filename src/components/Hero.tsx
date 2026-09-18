@@ -1,11 +1,22 @@
 import Image from "next/image";
 import HeroSprite from "./HeroSprite";
 import BeltStrip from "./BeltStrip";
+import LiveDot from "./LiveDot";
+import StoreButtons from "./StoreButtons";
 import StatIcon, { type StatName } from "./StatIcon";
 import Watermark from "./Watermark";
 
 const PLAYER_SPRITE = "/sprites/purple1.png";
 const OPPONENT_SPRITE = "/sprites/purple2.png";
+
+/** The fighters' box centre sits 30px above the VS badge's centre. */
+const FIGHTER_Y = "translateY(calc(-50% - 30px))";
+/**
+ * Each fighter's box starts 10% in from its edge of the screen. The ring's
+ * row is centred, so measured from its middle that is half its own width,
+ * less 40vw.
+ */
+const FIGHTER_X = "calc(50% - 40vw)";
 
 // The 8 game stats arranged in a ring around the central VS
 const STAT_RING: StatName[] = [
@@ -36,45 +47,11 @@ export default function Hero() {
       <div className="absolute bottom-[-15%] left-[-10%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(74,134,224,0.08)_0%,transparent_60%)] pointer-events-none" />
       <div className="absolute top-[50%] left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-[radial-gradient(ellipse,rgba(212,165,60,0.08)_0%,transparent_70%)] pointer-events-none" />
 
-      {/* ─── Flanking sprites — vertically aligned with the VS badge ─── */}
-      <div
-        className="hidden xl:block absolute top-1/2 z-10 animate-fade-in pointer-events-none"
-        style={{ left: "10%", animationDelay: "0.6s", transform: "translateY(-30%)" }}
-      >
-        <HeroSprite
-          spriteSheet={PLAYER_SPRITE}
-          size={360}
-          glowColor="rgba(74,134,224,0.25)"
-        />
-      </div>
-      <div
-        className="hidden xl:block absolute top-1/2 z-10 animate-fade-in pointer-events-none"
-        style={{ right: "10%", animationDelay: "0.6s", transform: "translateY(-30%)" }}
-      >
-        <HeroSprite
-          spriteSheet={OPPONENT_SPRITE}
-          flip
-          size={360}
-          glowColor="rgba(200,55,45,0.25)"
-        />
-      </div>
-
-      {/* ─── Content ─── */}
-      <div className="relative z-20 text-center px-6 pt-24 pb-16">
-        {/* Release date badge. The flanking rules are desktop-only: at the
-            larger date size they would push the row past a 375px viewport,
-            and the date carries the line on its own without them. */}
-        <div
-          className="animate-fade-in flex items-center justify-center gap-4 mb-8"
-          style={{ animationDelay: "0.2s" }}
-        >
-          <span className="animate-line-expand hidden h-px w-14 bg-steam-gold/50 sm:block" style={{ animationDelay: "0.8s" }} />
-          <span className="font-pixel text-pixel-md tracking-[0.2em] uppercase text-steam-gold whitespace-nowrap">
-            September 17, 2026
-          </span>
-          <span className="animate-line-expand hidden h-px w-14 bg-steam-gold/50 sm:block" style={{ animationDelay: "0.8s" }} />
-        </div>
-
+      {/* ─── Content ───
+          A flex column only so the store buttons can change places with the
+          stat ring (see the order classes below). The items stretch to full
+          width, exactly as blocks did, so nothing else moves. */}
+      <div className="relative z-20 flex flex-col text-center px-6 pt-24 pb-16">
         {/* Studio credit. Body face, not pixel: this is metadata, and set in
             Press Start 2P it was competing with the wordmark below it. */}
         <p
@@ -102,12 +79,47 @@ export default function Hero() {
           />
         </div>
 
-        {/* Stat-icon ring with VS centerpiece */}
-        <div
-          className="animate-fade-up flex justify-center mb-10"
-          style={{ animationDelay: "1.0s" }}
-        >
-          <StatRing />
+        {/* Stat-icon ring with VS centerpiece. From xl it sits between the
+            wordmark and the tagline, with the two fighters bracketing its VS
+            badge. Below xl there are no fighters, so it drops under the
+            store buttons: on a phone it is 294px of decoration that would
+            otherwise push them below the fold. */}
+        <div className="relative mb-10 max-xl:order-1">
+          <div
+            className="animate-fade-up flex justify-center"
+            style={{ animationDelay: "1.0s" }}
+          >
+            <StatRing />
+          </div>
+
+          {/* ─── Flanking sprites ───
+              Anchored to this row rather than to the section, so they stay
+              level with the VS badge whatever the content above or below
+              does. Hung off the section's centre, as they were before
+              launch, they drifted against the badge whenever the hero's
+              height changed. FIGHTER_X and FIGHTER_Y put them exactly where
+              the section-based numbers did before launch. */}
+          <div
+            className="hidden xl:block absolute top-1/2 z-10 animate-fade-in pointer-events-none"
+            style={{ left: FIGHTER_X, animationDelay: "0.6s", transform: FIGHTER_Y }}
+          >
+            <HeroSprite
+              spriteSheet={PLAYER_SPRITE}
+              size={360}
+              glowColor="rgba(74,134,224,0.25)"
+            />
+          </div>
+          <div
+            className="hidden xl:block absolute top-1/2 z-10 animate-fade-in pointer-events-none"
+            style={{ right: FIGHTER_X, animationDelay: "0.6s", transform: FIGHTER_Y }}
+          >
+            <HeroSprite
+              spriteSheet={OPPONENT_SPRITE}
+              flip
+              size={360}
+              glowColor="rgba(200,55,45,0.25)"
+            />
+          </div>
         </div>
 
         {/* Tagline */}
@@ -118,35 +130,28 @@ export default function Hero() {
           From white belt to <span className="text-steam-gold font-semibold">world champion</span>.
         </p>
 
-        {/* CTAs */}
+        {/* Where to get it. "Out now" is an eyebrow here, the size of every
+            other section label. A framed banner over the wordmark was tried
+            first and Nathan turned it down. The Android tile's "Get
+            notified" is the hero's way to the mailing list, so there is no
+            separate link. */}
         <div
-          className="animate-fade-up flex flex-col items-center gap-3 mb-10 sm:flex-row sm:justify-center sm:gap-4"
+          className="animate-fade-up flex flex-col items-center mb-10"
           style={{ animationDelay: "1.4s" }}
         >
-          {/* Primary: Wishlist on Steam */}
-          <a
-            href="https://store.steampowered.com/app/4690760"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative inline-flex items-center gap-3 font-pixel text-pixel-sm tracking-[0.1em] uppercase px-8 py-4 rounded-md border-2 border-steam-gold bg-steam-gold text-steam-navy hover:bg-steam-gold-2 hover:border-steam-gold-2 transition-all duration-200 shadow-[0_4px_0_rgba(0,0,0,0.4),0_8px_24px_rgba(212,165,60,0.35)] hover:shadow-[0_2px_0_rgba(0,0,0,0.4),0_4px_16px_rgba(212,165,60,0.55)] hover:-translate-y-px active:translate-y-px active:shadow-[0_0_0_rgba(0,0,0,0.4)]"
-          >
-            Wishlist on Steam
-            <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
-          </a>
-
-          {/* Secondary: Mailing list */}
-          <a
-            href="#signup"
-            className="group relative inline-flex items-center gap-3 font-pixel text-pixel-sm tracking-[0.1em] uppercase px-6 py-3.5 rounded-md border border-steam-gold/40 bg-steam-navy-3/60 text-cream/75 hover:border-steam-gold hover:text-steam-gold transition-colors duration-200"
-          >
-            Mailing List
-            <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
-          </a>
+          <p className="mb-5 flex items-center justify-center gap-3 font-pixel text-pixel-xs uppercase tracking-[0.2em] text-steam-gold">
+            <span className="h-px w-6 bg-steam-gold/40" />
+            <LiveDot size={6} />
+            Out now
+            <span className="h-px w-6 bg-steam-gold/40" />
+          </p>
+          <StoreButtons />
         </div>
 
-        {/* Belt-rank gradient strip */}
+        {/* Belt-rank gradient strip. w-full because a flex item with auto
+            margins shrinks to its content, and the strip has none. */}
         <div
-          className="animate-fade-in max-w-md mx-auto"
+          className="animate-fade-in w-full max-w-md mx-auto max-xl:order-2"
           style={{ animationDelay: "1.6s" }}
         >
           <BeltStrip height={9} />
