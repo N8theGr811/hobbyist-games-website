@@ -447,9 +447,9 @@ export default function PrivacyPage() {
                 Who we are
               </h2>
               <p className="text-sm leading-relaxed text-cream/70 mb-3">
-                Submission Saga is made by Nathan Markham, trading as Hobbyist Games,
-                based in the United States. That is who is responsible for the data
-                described on this page.
+                Submission Saga is made by Hobbyist Games LLC, based in California in
+                the United States. That is who is responsible for the data described
+                on this page.
               </p>
               <p className="text-sm leading-relaxed text-cream/70">
                 For any question or request about your data, email{" "}
