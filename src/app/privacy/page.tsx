@@ -25,22 +25,40 @@ const CONTACT = "info@submissionsaga.com";
  * Every provider gets its own flag from here on.
  *
  * The state of play, from the game repo's Scripts/Systems/Online/auth_provider.gd
- * ("Apple has landed, Google is coming") and its Kind enum, which lists
- * STEAM, APPLE, EMAIL and no Google:
+ * and its Kind enum, which lists STEAM, APPLE, GOOGLE, EMAIL:
  *
  *   Steam   shipped. OS.has_feature("steam_build").
  *   Apple   shipped. OS.has_feature("ios"), via /auth/apple.
+ *   Google  BUILT, NOT YET IN PLAYERS' HANDS (2026-09-23). OS.has_feature
+ *           ("android"), through the system browser: /auth/google/openid/* on
+ *           the PvP server, deployed as version 6d1e1357. No Android build is
+ *           on Google Play yet, so this page must not claim it.
  *   Email   EDITOR ONLY, and it must stay that way. AuthProvider.current()
  *           returns EMAIL for OS.has_feature("editor") alone, so no exported
  *           build can reach the form. This is the only thing holding up "No
  *           password" and "No email address" below. If an email/password door
  *           ever opens in a shipped build, both of those lines are false the
  *           day it does.
- *   Google   not built. PROVIDERS in src/provider_links.ts and the CHECK in
- *           migration 0011 both name it, because the table was built to accept
- *           it. A CHECK constraint is not a feature.
  *
- * BEFORE FLIPPING, CONFIRM AGAINST THE SHIPPED CODE:
+ * WHEN TO FLIP: in the commit that goes with submitting the first Android
+ * build to Google Play for review, since the Play listing links here. Not
+ * before, because until then no player can reach Google sign-in.
+ *
+ * THE THREE CHECKS BELOW WERE ANSWERED ON 2026-09-23, against the server's
+ * src/google_oidc.ts and src/index.ts at commit 8c02377. Re-check them only if
+ * those files change:
+ *
+ *   1. Scope is `openid` ALONE (buildGoogleAuthUrl). Google therefore sends
+ *      no email address and no name at all, so the older draft of the Google
+ *      note, "Google hands over an email address and display name whether
+ *      they are wanted or not", was wrong for this build and is rewritten.
+ *      The Google account id (`sub`) is stored in provider_links, and for up
+ *      to ten minutes in openid_sessions, and nothing else from the token is.
+ *   2. Google mints its own uid through uidForProvider("google", sub). There
+ *      is no link route, so "accounts are not joined" stays true.
+ *   3. Google is in the third-parties list below.
+ *
+ * The original checklist, kept because it says why each check matters:
  *
  * 1. Which scopes Google is actually asked for. Unlike Apple, Google returns an
  *    email address and display name whether or not they were wanted, so the
@@ -123,7 +141,7 @@ const SECTIONS: Section[] = [
     note: "Accounts are not joined across platforms. Signing in on Steam and on an iPhone gives you two separate accounts, with separate ladder records, and nothing here connects them to each other.",
     google: {
       body: [
-        "Single player needs no account and sends us nothing. Everything below applies only once you sign in for online play, which is Steam on the Steam version, and Sign in with Apple or Google on mobile.",
+        "Single player needs no account and sends us nothing. Everything below applies only once you sign in for online play, which is Steam on the Steam version, Sign in with Apple on iPhone and iPad, and Google on Android.",
       ],
       items: [
         "An id from the service you signed in with — your Steam ID, or the identifier Apple or Google issues — which we map to an internal id that means nothing outside our server",
@@ -187,7 +205,18 @@ const SECTIONS: Section[] = [
     ],
     note: "Sign in with Apple can return your name and your email address, or a private relay address that forwards to it. We request neither scope, so neither ever reaches us. The game has no passwords, sends no mail of any kind, and never handles payment, so an address would have no job to do here.",
     google: {
-      note: "Sign in with Apple can return your name and your email address, or a private relay address that forwards to it. We request neither scope, so neither ever reaches us. Google hands over an email address and display name whether they are wanted or not: we read the account id, ignore the rest, and store neither. The game has no passwords, sends no mail of any kind, and never handles payment, so an address would have no job to do here.",
+      body: [
+        "There is no account signup on any platform. Steam signs you in because you are already signed in to Steam, Sign in with Apple hands us an identifier, and on Android you pick a Google account in your browser. There is nothing to fill in, and so nothing for us to lose.",
+      ],
+      items: [
+        "No email address",
+        "No password",
+        "No real name",
+        "No payment information. Valve, Apple and Google Play handle every purchase and we never see your card, billing address, or anything like it",
+        "No location data",
+        "No contacts",
+      ],
+      note: "Sign in with Apple and Google sign-in can both return your name and your email address. We ask each of them for an account id and nothing else, so neither your name nor your address ever reaches us. The game has no passwords, sends no mail of any kind, and never handles payment, so an address would have no job to do here.",
     },
   },
   {
@@ -220,6 +249,13 @@ const SECTIONS: Section[] = [
       "Anyone you have played, and anyone who knows your exact username, can send you a friend request. There is no way to search for a player, so that is the whole of it.",
       "Nothing that identifies you outside the game is shown to other players. Your Steam ID is not, your Apple identifier is not, and your cloud save is visible to nobody but you.",
     ],
+    google: {
+      body: [
+        "Ranked play is public by design. Other players can see your username, your belt, your ladder rating and where you sit on the ladder, and the results of matches you have played.",
+        "Anyone you have played, and anyone who knows your exact username, can send you a friend request. There is no way to search for a player, so that is the whole of it.",
+        "Nothing that identifies you outside the game is shown to other players. Your Steam ID is not, your Apple or Google identifier is not, and your cloud save is visible to nobody but you.",
+      ],
+    },
   },
   {
     label: "Third parties",
@@ -235,7 +271,7 @@ const SECTIONS: Section[] = [
       items: [
         "Valve, on the Steam version. We send Steam a ticket from your game to confirm you are who you say you are, and Steam sends back your Steam ID. If you sign in through a browser instead, that exchange holds a short-lived session on our server for ten minutes and then drops it",
         "Apple, on iPhone and iPad. We ask Apple to confirm who you are and receive an identifier unique to this app and meaningless outside it. We request nothing else. We also keep the refresh token Apple issues, for one purpose: Apple requires that deleting your account revokes your tokens with them, and that token is what the revocation call needs",
-        "Google, when you choose Google sign-in. We receive a token confirming who you are, read the account id from it, and ignore the rest",
+        "Google, on Android. You sign in with Google in your browser, and our server receives a token carrying an account id and nothing else, because that is all we ask Google for. The exchange holds a short-lived session on our server for up to ten minutes and then drops it",
         "Google Firebase, a separate relationship from Google sign-in above. It issues the token your game uses to prove it is signed in, and separately it holds this website's mailing list. It only ever receives our internal id, never your Steam, Apple or Google one",
         ...INFRASTRUCTURE,
       ],
@@ -248,6 +284,13 @@ const SECTIONS: Section[] = [
       "You can delete your online account from inside the game, on the account screen reached from the title menu. It happens immediately, and it is not a request that we review.",
       "This is what deletion actually does, precisely, because it is worth being exact about.",
     ],
+    google: {
+      body: [
+        "You can delete your online account from inside the game, on the account screen reached from the title menu. It happens immediately, and it is not a request that we review.",
+        `If you no longer have the game installed, email ${CONTACT} with your username and the platform you play on, and we will delete the account for you, with the same effect as deleting it in game.`,
+        "This is what deletion actually does, precisely, because it is worth being exact about.",
+      ],
+    },
     items: [
       "Your account record is removed, and your username is released — you or anyone else can claim it again",
       "Your ladder record is destroyed: belt, rating, division, and last played time",
@@ -267,6 +310,13 @@ const SECTIONS: Section[] = [
       "The mapping from your sign-in to an internal id. Your Steam or Apple credential goes on resolving to the same internal id it always did. What deletion removes is the account on that identity, not the identity itself: no handle, no ladder record, no save, no friends, nothing about you is left attached to it. Signing in again puts you on that same empty id rather than a fresh one, and you start over from nothing.",
       "Other people's protection from you. Blocks that other players placed on you stay, because a block is the blocker's protection rather than your data, and it would be worth nothing if deleting your account walked you back through it. Reports other players filed about you stay for the same kind of reason: they are evidence in a queue that counts how many separate people complained, and clearing them would let someone reset their own tally on demand.",
     ],
+    google: {
+      body: [
+        "Two things survive on purpose, and they are worth stating plainly rather than leaving you to find out.",
+        "The mapping from your sign-in to an internal id. Your Steam, Apple or Google credential goes on resolving to the same internal id it always did. What deletion removes is the account on that identity, not the identity itself: no handle, no ladder record, no save, no friends, nothing about you is left attached to it. Signing in again puts you on that same empty id rather than a fresh one, and you start over from nothing.",
+        "Other people's protection from you. Blocks that other players placed on you stay, because a block is the blocker's protection rather than your data, and it would be worth nothing if deleting your account walked you back through it. Reports other players filed about you stay for the same kind of reason: they are evidence in a queue that counts how many separate people complained, and clearing them would let someone reset their own tally on demand.",
+      ],
+    },
     note: "Banned accounts differ in one further way. A banned account is kept as a marker instead of being removed, and its username stays retired permanently, so that a ban cannot be shed by deleting the account and signing straight back up.",
   },
   {
@@ -297,7 +347,7 @@ const SECTIONS: Section[] = [
 /** The things a player who reads nothing else should still walk away with. */
 const SHORT_VERSION = [
   "Playing on your own sends us nothing.",
-  "Signing in for online play stores an id from Steam or Apple, your username, your fighter, your fight record and a backup of your save, so the ladder and your progress work across devices.",
+  `Signing in for online play stores an id from ${GOOGLE_SIGN_IN_LIVE ? "Steam, Apple or Google" : "Steam or Apple"}, your username, your fighter, your fight record and a backup of your save, so the ladder and your progress work across devices.`,
   "We never see your email, your password, or your payment details.",
   "You can delete your account from inside the game whenever you like.",
 ].join(" ");
