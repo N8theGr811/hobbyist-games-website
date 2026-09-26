@@ -9,13 +9,13 @@ export const metadata: Metadata = {
 };
 
 /** Shown in the header and at the foot of the policy. */
-const LAST_UPDATED = "23 September 2026";
+const LAST_UPDATED = "26 September 2026";
 const CONTACT = "info@submissionsaga.com";
 
 /**
  * =============================================================================
- * FLIP THIS TO true IN THE SAME COMMIT THAT SHIPS GOOGLE SIGN-IN, AND BUMP
- * LAST_UPDATED ABOVE IN THAT SAME COMMIT.
+ * Enabled on 26 September 2026 for the Android build in Google Play internal
+ * testing. The provider notes below preserve the original pre-release audit.
  * =============================================================================
  *
  * This replaces the old MOBILE_SIGN_IN_LIVE, which bundled Apple and Google
@@ -79,7 +79,7 @@ const CONTACT = "info@submissionsaga.com";
  * needed because nothing sends mail. Receipts, notifications, anything that
  * emails a player, breaks that and needs a policy update shipped with it.
  */
-const GOOGLE_SIGN_IN_LIVE = false;
+const GOOGLE_SIGN_IN_LIVE = true;
 
 interface Section {
   label: string;
