@@ -148,7 +148,7 @@ const SECTIONS: Section[] = [
     note: "Accounts are not joined across platforms. Signing in on Steam and on an iPhone gives you two separate accounts, with separate ladder records, and nothing here connects them to each other.",
     google: {
       body: [
-        "Single player needs no account and sends us nothing. Everything below applies only once you sign in for online play, which is Steam on the Steam version, Sign in with Apple on iPhone and iPad, and Google on Android.",
+        "Single player needs no game account. The online records listed in this section are sent to our server once you sign in, using Steam on the Steam version, Sign in with Apple on iPhone and iPad, or Google on Android. Android billing services can communicate with Google separately, as described below.",
       ],
       items: [
         "An id from the service you signed in with — your Steam ID, or the identifier Apple or Google issues — which we map to an internal id that means nothing outside our server",
@@ -163,7 +163,7 @@ const SECTIONS: Section[] = [
       "Signing in backs your single-player save up to our server, so you can carry it between a computer and a phone. We store it as one opaque string and never look inside it: the game's save format changes often, and a server that understood it would corrupt saves rather than merely fail to read them.",
     ],
     items: [
-      "The save itself, stored as text we do not parse",
+      "The save itself, stored as text we do not parse, including your Gold balance and the identifiers of purchases already credited to that save",
       "The save format version, so an older build refuses a save it is too old to read",
       "A short summary the game writes for you to read: your belt, your in-game day, your playtime, and a device label",
       "An id for the install that wrote last, so the game can tell you the newer progress came from your other device",
@@ -209,7 +209,7 @@ const SECTIONS: Section[] = [
       "No real name",
       "No payment information. Valve and Apple handle every purchase and we never see your card, billing address, or anything like it",
       "No location data",
-      "No contacts",
+      "No access to your phone's address book. In-game friendships are described above",
     ],
     note: "Sign in with Apple can return your name and your email address, or a private relay address that forwards to it. We request neither scope, so neither ever reaches us. The game has no passwords, sends no mail of any kind, and never handles payment, so an address would have no job to do here.",
     google: {
@@ -222,10 +222,20 @@ const SECTIONS: Section[] = [
         "No real name",
         "No payment information. Valve, Apple and Google Play handle every purchase and we never see your card, billing address, or anything like it",
         "No location data",
-        "No contacts",
+        "No access to your phone's address book. In-game friendships are described above",
       ],
       note: "Sign in with Apple and Google sign-in can both return your name and your email address. We ask each of them for an account id and nothing else, so neither your name nor your address ever reaches us. The game has no passwords, sends no mail of any kind, and never handles payment, so an address would have no job to do here.",
     },
+  },
+  {
+    label: "Android store services",
+    title: "Google Play billing",
+    body: [
+      "The Android game initializes Google Play Billing when loading or saving progress so it can check for purchases that still need to be credited. This is separate from signing in to the game's online account and can happen even if you do not buy anything.",
+      "The billing library can send billing diagnostics to Google, including operation results, error details and a billing-client session identifier. This supports the operation and diagnosis of the billing service. Signing out of online play does not turn this off.",
+      "Google Play handles the payment itself. We do not receive your card number or billing address. The game keeps a local purchase record so the same purchase is not credited twice; purchase-claim identifiers are also included in your save and its optional cloud backup.",
+    ],
+    note: "Deleting your game account removes the game data described below. It does not delete your Google account or Google's separate payment and billing-service records, which Google handles under its own policies.",
   },
   {
     label: "Optional",
@@ -274,7 +284,7 @@ const SECTIONS: Section[] = [
       "Google Firebase. This issues the token your game uses to prove it is signed in, and separately it holds this website's mailing list. Firebase only ever receives our internal id, never your Steam ID or your Apple identifier",
       ...INFRASTRUCTURE,
     ],
-    note: "We do not sell your data, and we do not share it with advertisers. There is no advertising or analytics tracking in the game.",
+    note: "We do not sell your data or share it with advertisers. The game has no advertising. Online connection diagnostics and Google Play billing diagnostics are described separately above.",
     google: {
       items: [
         "Valve, on the Steam version. We send Steam a ticket from your game to confirm you are who you say you are, and Steam sends back your Steam ID. If you sign in through a browser instead, that exchange holds a short-lived session on our server for ten minutes and then drops it",
@@ -356,7 +366,7 @@ const SECTIONS: Section[] = [
 
 /** The things a player who reads nothing else should still walk away with. */
 const SHORT_VERSION = [
-  "Playing on your own sends us nothing.",
+  "Single-player gameplay stays on your device unless you sign in for cloud backup. On Android, Google Play Billing can send billing diagnostics to Google even without an online game account.",
   `Signing in for online play stores an id from ${GOOGLE_SIGN_IN_LIVE ? "Steam, Apple or Google" : "Steam or Apple"}, your username, your fighter, your fight record and a backup of your save, so the ladder and your progress work across devices.`,
   "We never see your email, your password, or your payment details.",
   "You can delete your account from inside the game whenever you like.",
