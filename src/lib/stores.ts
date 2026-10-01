@@ -46,14 +46,6 @@ export interface Store {
 
 export const STORES: readonly Store[] = [
   {
-    id: "steam",
-    name: "Steam",
-    shortLabel: "STEAM",
-    platforms: ["Windows", "macOS"],
-    device: "desktop",
-    href: STEAM_URL,
-  },
-  {
     id: "app-store",
     name: "App Store",
     shortLabel: "iOS",
@@ -68,5 +60,13 @@ export const STORES: readonly Store[] = [
     platforms: ["Android"],
     device: "phone",
     href: GOOGLE_PLAY_URL,
+  },
+  {
+    id: "steam",
+    name: "Steam",
+    shortLabel: "STEAM",
+    platforms: ["Windows", "macOS"],
+    device: "desktop",
+    href: STEAM_URL,
   },
 ];
