@@ -19,24 +19,20 @@ export default function Header() {
       <nav className="flex items-center gap-6">
         <a
           href="#about"
-          className="hidden text-sm font-medium tracking-[0.15em] uppercase text-cream/55 hover:text-steam-gold transition-colors sm:block"
+          className="hidden text-sm font-medium tracking-[0.15em] uppercase text-cream/55 hover:text-steam-gold transition-colors md:block"
         >
           About
         </a>
-        {/* lg, not md: at 768px the space between the logo and the nav is
-            153px and these two need about 200. There is no Tailwind step
-            between md and lg, so lg is the first that fits (measured: 220px
-            clear at 1024). Phones reach them through the Learn The Game band
-            on the homepage instead. */}
+        {/* Leave room for all three stores; phones use the Learn band. */}
         <Link
           href="/guide"
-          className="hidden text-sm font-medium tracking-[0.15em] uppercase text-cream/55 hover:text-steam-gold transition-colors lg:block"
+          className="hidden text-sm font-medium tracking-[0.15em] uppercase text-cream/55 hover:text-steam-gold transition-colors xl:block"
         >
           Guide
         </Link>
         <Link
           href="/glossary"
-          className="hidden text-sm font-medium tracking-[0.15em] uppercase text-cream/55 hover:text-steam-gold transition-colors lg:block"
+          className="hidden text-sm font-medium tracking-[0.15em] uppercase text-cream/55 hover:text-steam-gold transition-colors xl:block"
         >
           Glossary
         </Link>

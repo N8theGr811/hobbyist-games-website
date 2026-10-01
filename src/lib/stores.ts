@@ -14,6 +14,9 @@
  * The App Store URL has no country segment on purpose. Without one, Apple
  * sends each visitor to their own storefront instead of the US one.
  *
+ * Google Play was verified publicly available on 2026-10-01 at $9.99 US.
+ * Its package matches the Android release preset; omit region parameters.
+ *
  * No prices here. The game hardcodes none either (steam_dlc_data.gd and
  * gold_pack_data.gd explain why), and a price on a button is wrong during
  * every sale and in every other currency.
@@ -24,29 +27,22 @@ export const APP_STORE_ID = "6801609003";
 export const STEAM_URL = `https://store.steampowered.com/app/${STEAM_APP_ID}`;
 export const APP_STORE_URL = `https://apps.apple.com/app/submission-saga/id${APP_STORE_ID}`;
 
+export const GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id=com.hobbyistgames.submissionsaga";
+
 export interface Store {
-  id: "steam" | "app-store";
+  id: "steam" | "app-store" | "google-play";
   /** Set in the pixel face, which the site always uppercases. */
   name: string;
   /**
-   * The header's label on a 375px phone, where the full name does not fit.
+   * The header's compact label on tablets, where the full name does not fit.
    * Shown exactly as written, never uppercased, because "IOS" is not a name.
    */
   shortLabel: string;
   /** Spelled the way their owners spell them, and never uppercased either. */
-  platforms: readonly [string, string];
+  platforms: readonly [string, string?];
   device: "desktop" | "phone";
   href: string;
 }
-
-/**
- * Platforms announced but not on sale. Each gets a dashed "coming soon" tile
- * under the store buttons, linked to the mailing list, which is how players
- * hear when it ships. Android has an export preset in the game repo but no
- * store listing yet. On launch day, verify its link the way the two below
- * were, give it an entry in STORES, and take it out of here.
- */
-export const COMING_SOON: readonly string[] = ["Android"];
 
 export const STORES: readonly Store[] = [
   {
@@ -64,5 +60,13 @@ export const STORES: readonly Store[] = [
     platforms: ["iPhone", "iPad"],
     device: "phone",
     href: APP_STORE_URL,
+  },
+  {
+    id: "google-play",
+    name: "Google Play",
+    shortLabel: "Android",
+    platforms: ["Android"],
+    device: "phone",
+    href: GOOGLE_PLAY_URL,
   },
 ];

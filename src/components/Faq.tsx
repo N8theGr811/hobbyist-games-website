@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { APP_STORE_URL, STEAM_URL } from "@/lib/stores";
+import { APP_STORE_URL, GOOGLE_PLAY_URL, STEAM_URL } from "@/lib/stores";
 import Watermark from "./Watermark";
 
 /**
@@ -66,7 +66,11 @@ const FAQS: Faq[] = [
         <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer" className={LINK}>
           App Store
         </a>
-        , for iPhone and iPad. Both out now.
+        , for iPhone and iPad. $9.99 on{" "}
+        <a href={GOOGLE_PLAY_URL} target="_blank" rel="noopener noreferrer" className={LINK}>
+          Google Play
+        </a>
+        , for Android. All out now. Prices vary by region.
       </>
     ),
   },
@@ -84,15 +88,15 @@ const FAQS: Faq[] = [
   },
   {
     q: "Can I move my Steam save to my phone?",
-    a: "No. Signing in backs your progress up to the account you signed in with, and a Steam account and an Apple account are two separate accounts with no way to join them. A backup made on one cannot be restored by the other. If you want to play on both, plan on two characters.",
+    a: "No. Signing in backs your progress up to the account you signed in with, and Steam, Apple and Google accounts are separate accounts with no way to join them. A backup made on one cannot be restored by the other. If you want to play on both, plan on two characters.",
   },
   {
     q: "Do I need an account or an internet connection?",
-    a: "Not for the single-player game. It needs no account and sends us nothing. You sign in only when you go online, which is Steam on the Steam version and Sign in with Apple on iPhone and iPad.",
+    a: "Not for the single-player game. Online play and cloud backup use Steam, Sign in with Apple on iPhone and iPad, or Google on Android. Google Play Billing can send billing diagnostics to Google even without an online game account.",
   },
   {
     q: "Are there microtransactions?",
-    a: "Steam has three cosmetic DLC packs, and on iPhone and iPad you can buy Gold, which is the currency the Pro Shop runs on. Neither one touches a fight. Gold is also paid out by belt promotions and trophies, so anything the Pro Shop sells can be earned instead of bought. The exception is each pack's exclusive kit, which on Steam is only in the pack.",
+    a: "Steam has three cosmetic DLC packs, and on iPhone, iPad and Android you can buy Gold, which is the currency the Pro Shop runs on. Neither one touches a fight. Gold is also paid out by belt promotions and trophies, so anything the Pro Shop sells can be earned instead of bought. The exception is each pack's exclusive kit, which on Steam is only in the pack.",
   },
   {
     q: "Who made it?",
