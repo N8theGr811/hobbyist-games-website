@@ -24,8 +24,7 @@ import {
 
 export const metadata: Metadata = {
   title: "Move Glossary — Every Move in Submission Saga",
-  description:
-    "All 92 moves in Submission Saga, with the game's own move card for each one: art, odds, points, where it puts you, what it beats, and how you unlock it.",
+  description: `All ${COUNTS.uniqueMoves} moves in Submission Saga, with the game's own move card for each one: art, odds, points, where it puts you, what it beats, and how you unlock it.`,
   alternates: { canonical: "/glossary" },
 };
 
@@ -38,16 +37,20 @@ export const metadata: Metadata = {
  * anything that comes out of the data.
  */
 const INTRO =
-  "Every move in the game, grouped by the position you use it from. Most have to be " +
-  "unlocked with move points, but a handful are taught to you by specific people, and " +
-  "some you start with. The description on each move is the same text the game shows " +
-  "on the card.";
+  "Every move in the game, grouped by the position you use it from. You start with " +
+  "about a third of them and buy most of the rest with move points. Each card says how " +
+  "you get it. The description on each move is the same text the game shows on the card.";
 
+/**
+ * Restates the game's own type help (help_data.gd, move_attack and friends).
+ * Not every Attack scores, the leg entanglement entries do not, but nothing
+ * else does. No Defense move takes you anywhere: all four hold the position.
+ */
 const TYPE_BLURB: Record<MoveType, string> = {
-  Attack: "Scores. Takedowns, sweeps and passes are all attacks.",
+  Attack: "Takedowns, sweeps and passes. The only type that scores.",
   Transition: "Moves you somewhere better without scoring.",
-  Submission: "Ends the match if it lands.",
-  Defense: "Gets you out, or keeps you where you are.",
+  Submission: "Ends the match if you finish it.",
+  Defense: "Holds your position. Never scores, but has an edge against whatever it meets.",
 };
 
 const TYPE_ORDER: MoveType[] = ["Attack", "Transition", "Submission", "Defense"];
@@ -60,7 +63,7 @@ function acquisitionText(acq: Acquisition): string {
     case "points":
       return `Bought with move points (costs ${acq.cost}). Unlocking a position rolls a random locked move from that group, so which one you get is not up to you.`;
     case "gym":
-      return `Taught when you clear the ${gymName(acq.badge)} gym, both leaders beaten.`;
+      return `Taught when you clear ${acq.gym}, both leaders beaten.`;
     case "ashi":
       return `Taught outright for beating ${acq.teacher} at Ashi Academy. No move point.`;
     // "Coach Herb" is what a player sees. The game keys him "The Old Master"
@@ -72,16 +75,22 @@ function acquisitionText(acq: Acquisition): string {
       return `Taught by Coach Herb at the end of ${acq.course}, ${acq.classes === 8 || acq.classes === 11 ? "an" : "a"} ${acq.classes}-class course.`;
     case "secret":
       return `Only from ${acq.teacher}. It never enters the mystery pool, so finding him is the only way to get it.`;
+    case "gift":
+      // The game sells it nowhere, so this line is the whole answer: until
+      // October 2026 the page offered it for a move point.
+      return `A ${acq.occasion} gift, given to everyone who played ${dayRange(acq.opens, acq.closes)}, and never offered again.`;
     case "belt":
       return `Unlocks on its own once you reach ${acq.belt} belt. Nothing to buy.`;
   }
 }
 
-/** "beach_badge" -> "Beach". The badge ids are the gyms' own names. */
-function gymName(badge: string | undefined): string {
-  if (!badge) return "";
-  const word = badge.replace(/_badge$/, "").replace(/_/g, " ");
-  return word.charAt(0).toUpperCase() + word.slice(1);
+/** "2026-09-17", "2026-09-20" -> "September 17 to 20, 2026". UTC, as the game counts it. */
+function dayRange(opens: string | undefined, closes: string | undefined): string {
+  if (!opens || !closes) return "";
+  const day = (iso: string, opts: Intl.DateTimeFormatOptions) =>
+    new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", { timeZone: "UTC", ...opts });
+  const sameMonth = opens.slice(0, 7) === closes.slice(0, 7);
+  return `${day(opens, { month: "long", day: "numeric" })} to ${day(closes, sameMonth ? { day: "numeric" } : { month: "long", day: "numeric" })}, ${closes.slice(0, 4)}`;
 }
 
 /** Short label for the compact row, where the full sentence will not fit. */
@@ -92,6 +101,7 @@ const ROUTE_LABEL: Record<Acquisition["route"], string> = {
   ashi: "Ashi Academy",
   class: "Class",
   secret: "Secret",
+  gift: "Gift",
   belt: "Belt",
 };
 
@@ -637,6 +647,7 @@ export default function GlossaryPage() {
                   ["ashi", "Taught for beating a fighter on the Ashi Academy ladder."],
                   ["class", "Taught by Coach Herb at the end of a class course."],
                   ["secret", "One person in the world teaches it, and nothing else does."],
+                  ["gift", "Given out during a dated event, and never again."],
                   ["belt", "Unlocks on belt alone."],
                 ] as const
               ).map(([route, text]) => (
@@ -691,7 +702,7 @@ export default function GlossaryPage() {
           <div className="mt-16 pt-8 border-t border-steam-gold/15 text-center">
             <p className="text-xs text-cream/55">
               Every move, number and picture on this page is read straight from the game&apos;s
-              own combat data, so this page and the game cannot disagree.
+              own combat data.
             </p>
           </div>
 

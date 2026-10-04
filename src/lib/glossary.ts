@@ -2,13 +2,16 @@
 // Typed access to the generated combat glossary.
 //
 // glossary.json is GENERATED. Its source is combat_data.gd, move_tree_data.gd,
-// move_rivalry_data.gd, the three reservation files and ui_theme.gd in the
-// JiuJitsuRPG repo, exported by `python3 tools/export_glossary.py` there.
-// That same command writes public/combat-icons/moves/. Do not hand-edit either.
+// move_rivalry_data.gd, the reservation files, occasion_data.gd,
+// map_location_data.gd and ui_theme.gd in the JiuJitsuRPG repo, exported by
+// `python3 tools/export_glossary.py` there. That same command writes
+// public/combat-icons/moves/. Do not hand-edit either.
 //
 // This exists because the hand-ported copy in src/lib/combat/moves.ts drifted
-// from the game: 14 moves missing, 3 that do not exist, 23 renamed. The
-// glossary is generated so /glossary cannot repeat that.
+// from the game: 14 moves missing, 3 that do not exist, 23 renamed. Generating
+// it does not stop it going stale, only re-running does: by October 2026 it
+// still sold Hip Throw for 3 points, renamed Uchi Mata at 2 a month earlier.
+// `export_glossary.py --check` says whether it is current.
 
 import raw from "./glossary.json";
 
@@ -20,9 +23,10 @@ export type Rarity = "common" | "rare" | "epic" | "legendary";
 export type PositionSide = "top" | "bottom" | "neutral";
 
 /**
- * How a move is obtained. Five reservations sit on top of the move-point pool,
+ * How a move is obtained. Six reservations sit on top of the move-point pool,
  * and a reserved move never enters it, so the route is exclusive rather than
  * a list. `belt` is rip_leg_out alone, which unlocks on belt with no purchase.
+ * `gift` was handed out during a dated event and is never sold.
  */
 export type AcquisitionRoute =
   | "default"
@@ -31,14 +35,20 @@ export type AcquisitionRoute =
   | "ashi"
   | "class"
   | "secret"
+  | "gift"
   | "belt";
 
 export interface Acquisition {
   route: AcquisitionRoute;
   /** points: move points to buy it. */
   cost?: number;
-  /** gym: the badge whose gym teaches it on clear. */
+  /** gym: the badge whose gym teaches it on clear, and the gym's own name. */
   badge?: string;
+  gym?: string;
+  /** gift: the event, and its window as inclusive UTC days, "YYYY-MM-DD". */
+  occasion?: string;
+  opens?: string;
+  closes?: string;
   /** ashi / secret: who hands it over. */
   teacher?: string;
   /** class: the course that ends in it, and how many classes that course runs. */
