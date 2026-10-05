@@ -3,6 +3,7 @@ import { DM_Serif_Display, Outfit, JetBrains_Mono, Press_Start_2P } from "next/f
 import { SITE_URL } from "@/lib/site";
 import { APP_STORE_ID } from "@/lib/stores";
 import "./globals.css";
+import MetaPixel from "@/components/MetaPixel";
 
 const dmSerif = DM_Serif_Display({
   weight: "400",
@@ -57,7 +58,7 @@ export default function RootLayout({
       lang="en"
       className={`${dmSerif.variable} ${outfit.variable} ${jetbrainsMono.variable} ${pixelFont.variable}`}
     >
-      <body>{children}</body>
+      <body>{children}<MetaPixel /></body>
     </html>
   );
 }

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 /** Shown in the header and at the foot of the policy. */
-const LAST_UPDATED = "26 September 2026";
+const LAST_UPDATED = "5 October 2026";
 const CONTACT = "info@submissionsaga.com";
 
 /**
@@ -82,6 +82,7 @@ const CONTACT = "info@submissionsaga.com";
 const GOOGLE_SIGN_IN_LIVE = true;
 
 interface Section {
+  id?: string;
   label: string;
   title: string;
   /** Paragraphs of plain prose. */
@@ -135,6 +136,17 @@ const INFRASTRUCTURE = [
  * here — which is what GOOGLE_SIGN_IN_LIVE above is for.
  */
 const SECTIONS: Section[] = [
+  {
+    id: "website-advertising",
+    label: "Website",
+    title: "Advertising cookies",
+    body: [
+      "If you choose Allow in the website's advertising cookie notice, we load Meta Pixel to measure page visits and clicks on our Steam, App Store and Google Play links. A store click does not tell us whether you installed or purchased the game.",
+      "Meta receives these events, the page URL, browser and device information, your IP address and advertising cookie identifiers. Meta can use this information to attribute visits to ads and match activity to Meta accounts. We do not send mailing-list email addresses, game account details or payment information through the Pixel, and automatic advanced matching is disabled.",
+      "Advertising tracking stays off until you opt in. You can decline or change your choice through Cookie settings on this website. We remember your choice in this browser and honor Global Privacy Control by keeping advertising tracking off. Withdrawing consent stops future events; it does not remove events already sent to Meta.",
+    ],
+    note: "This tracking applies to the website only. It is not installed inside the game. Meta handles the data it receives under its own privacy policy at https://www.facebook.com/privacy/policy/.",
+  },
   {
     label: "What we collect",
     title: "Only when you play online",
@@ -412,7 +424,7 @@ export default function PrivacyPage() {
                   : section;
 
               return (
-                <section key={section.title}>
+                <section key={section.title} id={s.id}>
                   <p className="font-pixel text-pixel-xs tracking-[0.15em] uppercase text-steam-gold mb-2">
                     {s.label}
                   </p>
