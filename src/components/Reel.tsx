@@ -55,7 +55,7 @@ export default function Reel() {
               Start 2P is near-monospace, and a full sentence at -lg shatters
               into four ragged lines inside this 540px column. */}
           <h2 className="mb-8 font-pixel text-pixel-md leading-relaxed tracking-wide text-cream md:mb-6">
-            What it is, why it exists, and when you can play it.
+            What it is, why I made it, and where to play it.
           </h2>
           <a
             href={INSTAGRAM}
