@@ -17,7 +17,7 @@ export default function Trailer() {
 
       {/* Gold-bordered Steam-style frame */}
       <div className="relative max-w-[800px] mx-auto">
-        <div className="steam-panel relative aspect-video overflow-hidden">
+        <div className="steam-panel border-cream relative aspect-video overflow-hidden">
           <iframe
             src="https://www.youtube.com/embed/Y5ZYra3CYhw?rel=0"
             title="Submission Saga Gameplay"

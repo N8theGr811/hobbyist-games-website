@@ -108,7 +108,7 @@ export default function FaqSection() {
   return (
     <section
       id="faq"
-      className="relative isolate section-rhythm px-6 bg-pixel-grid overflow-hidden border-y border-steam-gold/20"
+      className="relative isolate section-rhythm px-6 bg-pixel-grid overflow-hidden"
     >
       <Watermark name="granbyroll" className="-left-24 top-32 h-[340px] w-[480px]" />
       <Watermark name="uchimata" className="-right-24 bottom-24 h-[340px] w-[460px]" />

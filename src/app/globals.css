@@ -109,6 +109,15 @@ body {
   background-position: 0 0, 4px 4px;
 }
 
+/* Every other homepage section sits on this lighter navy, so the page reads
+   as a run of distinct bands rather than one long scroll. Same dot grid.
+   Between navy-2 and navy-3: navy-2 was too close to tell apart, and on
+   navy-3 cream/55 drops under 4.5:1 where a watermark sits behind it.
+   Here it measures 4.96:1 bare. */
+.bg-pixel-grid-alt {
+  background-color: #172040;
+}
+
 /* Gold-bordered Steam-style panel */
 .steam-panel {
   background: linear-gradient(180deg, var(--color-steam-navy-2) 0%, var(--color-steam-navy) 100%);

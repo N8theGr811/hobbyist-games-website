@@ -49,7 +49,7 @@ const MOMENTS: Moment[] = [
 
 export default function ExploreTheRegion() {
   return (
-    <section className="relative isolate section-rhythm px-6 md:px-12 overflow-hidden bg-pixel-grid border-y border-steam-gold/20">
+    <section className="relative isolate section-rhythm px-6 md:px-12 overflow-hidden bg-pixel-grid">
       <Watermark name="kimura" className="-left-24 top-24 h-[320px] w-[560px]" />
       <Watermark name="singleleg" className="-right-28 bottom-16 h-[320px] w-[440px]" />
 

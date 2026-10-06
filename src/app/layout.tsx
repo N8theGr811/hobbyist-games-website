@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Serif_Display, Outfit, JetBrains_Mono, Press_Start_2P } from "next/font/google";
+import { DM_Serif_Display, Outfit, JetBrains_Mono, Press_Start_2P, VT323 } from "next/font/google";
 import { SITE_URL } from "@/lib/site";
 import { APP_STORE_ID } from "@/lib/stores";
 import "./globals.css";
@@ -26,6 +26,13 @@ const pixelFont = Press_Start_2P({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-pixel",
+});
+
+// The hero tagline's face, and nowhere else.
+const vt323 = VT323({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-vt323",
 });
 
 export const metadata: Metadata = {
@@ -56,7 +63,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${dmSerif.variable} ${outfit.variable} ${jetbrainsMono.variable} ${pixelFont.variable}`}
+      className={`${dmSerif.variable} ${outfit.variable} ${jetbrainsMono.variable} ${pixelFont.variable} ${vt323.variable}`}
     >
       <body>{children}<MetaPixel /></body>
     </html>

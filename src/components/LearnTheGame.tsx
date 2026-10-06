@@ -52,7 +52,7 @@ const DOORS: Door[] = [
 
 export default function LearnTheGame() {
   return (
-    <section id="learn" className="relative px-6 py-16 bg-steam-navy md:px-12">
+    <section id="learn" className="relative px-6 py-16 bg-pixel-grid bg-pixel-grid-alt md:px-12">
       <div className="max-w-3xl mx-auto">
         <div className="flex items-center justify-center gap-3 mb-10 font-pixel text-pixel-xs tracking-[0.2em] uppercase text-steam-gold">
           <span className="w-6 h-px bg-steam-gold/40" />
@@ -65,7 +65,7 @@ export default function LearnTheGame() {
             <Link
               key={door.href}
               href={door.href}
-              className="group flex flex-col rounded-md border border-steam-gold/25 bg-steam-navy-2 p-5 transition-colors hover:border-steam-gold"
+              className="group flex flex-col rounded-md border border-steam-gold/25 bg-steam-navy p-5 transition-colors hover:border-steam-gold"
             >
               <div className="mb-4 flex h-32 items-center justify-center rounded bg-steam-navy-3/60">
                 <Image

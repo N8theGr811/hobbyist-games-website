@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import BeltStrip from "./BeltStrip";
 import Watermark from "./Watermark";
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
@@ -40,7 +39,7 @@ export default function EmailSignup() {
   }
 
   return (
-    <section id="signup" className="relative isolate section-rhythm px-6 text-center bg-pixel-grid overflow-hidden border-t border-steam-gold/20">
+    <section id="signup" className="relative isolate section-rhythm px-6 text-center bg-pixel-grid bg-pixel-grid-alt overflow-hidden">
       <Watermark name="saddle" className="-right-28 top-16 h-[380px] w-[500px]" />
       <Watermark name="doubleleg" className="-left-24 bottom-8 h-[300px] w-[400px]" />
 
@@ -102,10 +101,6 @@ export default function EmailSignup() {
       <p className="mt-4 text-xs text-cream/55">
         No spam. Unsubscribe anytime.
       </p>
-
-      <div className="mt-8 max-w-[280px] mx-auto">
-        <BeltStrip height={8} />
-      </div>
     </section>
   );
 }

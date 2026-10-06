@@ -54,10 +54,10 @@ export default function MomentRows({
   );
 }
 
-/** Screenshot or looping clip, both in the shared gold panel frame. */
+/** Screenshot or looping clip, in the panel frame with a cream outline. */
 function MomentMedia({ media }: { media: Moment["media"] }) {
   return (
-    <div className="steam-panel relative aspect-video overflow-hidden">
+    <div className="steam-panel border-cream relative aspect-video overflow-hidden">
       {media.kind === "video" ? (
         <video
           src={media.src}

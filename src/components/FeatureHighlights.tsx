@@ -54,7 +54,7 @@ const MOMENTS: Moment[] = [
 
 export default function FeatureHighlights() {
   return (
-    <section className="relative isolate section-rhythm px-6 bg-pixel-grid overflow-hidden md:px-12 border-y border-steam-gold/20">
+    <section className="relative isolate section-rhythm px-6 bg-pixel-grid bg-pixel-grid-alt overflow-hidden md:px-12">
       <Watermark name="backcontrol" className="-right-24 top-32 h-[440px] w-[440px]" />
       <Watermark name="granbyroll" className="-left-28 bottom-24 h-[420px] w-[336px]" />
 

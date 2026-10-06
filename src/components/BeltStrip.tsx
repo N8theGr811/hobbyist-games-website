@@ -27,3 +27,21 @@ export default function BeltStrip({
     />
   );
 }
+
+/**
+ * The hero's belt bar: hard stops, no shadow, min(640px, 80%) wide. Also
+ * marks the seam between homepage sections, so the two always match.
+ */
+export function BeltBar({ className = "", style }: { className?: string; style?: React.CSSProperties }) {
+  return (
+    <div
+      aria-hidden="true"
+      className={`h-2 w-[min(640px,80%)] rounded-[4px] ${className}`}
+      style={{
+        background:
+          "linear-gradient(90deg, #f5f0d8 0 20%, #3878dc 0 40%, #7a3fb8 0 60%, #6b4226 0 80%, #0e0e14 0)",
+        ...style,
+      }}
+    />
+  );
+}
