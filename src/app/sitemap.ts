@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { getShopConfig } from "@/lib/shop";
 import { SITE_URL } from "@/lib/site";
 
 /** Every indexable page. Add a route here when you add one to src/app. */
@@ -13,6 +14,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    ...(getShopConfig() ? [{
+      url: `${SITE_URL}/shop`,
+      lastModified,
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+    }] : []),
     // Generated from the game's combat data, so it changes whenever the game's
     // move table does rather than on any writing schedule.
     {

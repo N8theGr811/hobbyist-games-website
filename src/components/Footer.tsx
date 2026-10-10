@@ -39,6 +39,9 @@ export default function Footer() {
           <span className="text-xs tracking-[0.1em] text-cream/55">
             © 2026 Hobbyist Games
           </span>
+          <a href="/shop" className="text-xs tracking-[0.1em] text-cream/55 hover:text-steam-gold transition-colors">
+            Shop
+          </a>
           <a
             href="/guide"
             className="text-xs tracking-[0.1em] text-cream/55 hover:text-steam-gold transition-colors"
