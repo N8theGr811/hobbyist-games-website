@@ -8,8 +8,8 @@ import { getShopConfig } from "@/lib/shop";
 /** The collection stays in Shopify; this page provides the studio's shop front. */
 export function generateMetadata(): Metadata {
   return {
-    title: "Merch | Submission Saga",
-    description: "Submission Saga merch. Two-sided Comfort Colors tees from Hobbyist Games.",
+    title: "Shop | Submission Saga",
+    description: "Shop Submission Saga apparel. Two-sided Comfort Colors tees from Hobbyist Games.",
     alternates: { canonical: "/shop" },
     robots: getShopConfig() ? undefined : { index: false, follow: true },
   };
@@ -17,8 +17,8 @@ export function generateMetadata(): Metadata {
 
 export default function ShopPage() {
   const config = getShopConfig();
-  const heading = <div className="flex flex-wrap items-baseline gap-x-5 gap-y-2">
-    <h1 className="font-pixel text-2xl leading-relaxed tracking-wide md:text-[27px]">Merch</h1>
+  const heading = <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+    <h1 className="font-pixel text-2xl leading-relaxed tracking-wide md:text-[27px]">Shop</h1>
     <p className="text-sm text-steam-gold">Submission Saga</p>
   </div>;
 
