@@ -67,7 +67,10 @@ Three cards show Archetype, Moves, and Logo tees. The Archetype design selector
 switches between three separately synced Printful products, preserving artwork
 mappings. Product IDs are in `ShopifyCollection.tsx`; add future designs there
 after publishing them to Buy Button. Printful exports front/back/side mockups;
-the second (back) image is featured on the cards, with all views in the modal.
+the second (back) image is featured on the cards, with a front/back toggle.
+Native cards use the SDK's live product model and open its size-selection modal;
+Shopify still owns cart and checkout. The merch page uses a neutral gallery with
+product information below the images and no promotional tagline.
 Prices, sizes, availability, and currency formatting are owned by Shopify. International shipping does
 not imply that the embed localizes currencies; check the actual checkout for the
 markets enabled in the store.

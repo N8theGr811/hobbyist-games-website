@@ -1,7 +1,7 @@
 "use client";
 
 import Script from "next/script";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
 interface ShopConfig {
   domain: string;
@@ -11,7 +11,9 @@ interface ShopConfig {
 
 interface BuyComponent {
   destroy(): void;
-  model?: { id?: string };
+  openModal(): Promise<unknown>;
+  formattedPrice: string;
+  model?: { id?: string; title: string; images: { src: string }[] };
 }
 
 interface BuyUI {
@@ -42,11 +44,16 @@ const groups = [
 type ProductConfig = Pick<ShopConfig, "domain" | "storefrontAccessToken"> & {
   productId: string;
   scriptReady: boolean;
+  title: string;
+  children: ReactNode;
 };
 
 /** Shopify owns live prices, sizes, availability, cart, and checkout. */
-function ShopifyProduct({ domain, storefrontAccessToken, productId, scriptReady }: ProductConfig) {
+function ShopifyProduct({ domain, storefrontAccessToken, productId, scriptReady, title, children }: ProductConfig) {
   const host = useRef<HTMLDivElement>(null);
+  const product = useRef<BuyComponent | undefined>(undefined);
+  const [details, setDetails] = useState<{ title: string; front?: string; back?: string; price: string }>();
+  const [view, setView] = useState<"front" | "back">("back");
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
 
   useEffect(() => {
@@ -78,12 +85,12 @@ function ShopifyProduct({ domain, storefrontAccessToken, productId, scriptReady 
       ui = readyUI;
       if (cancelled) return;
       const button = {
-        "background-color": "#D4A53C",
-        color: "#0E1530",
-        "border-radius": "6px",
+        "background-color": "#242620",
+        color: "#FFFFFF",
+        "border-radius": "2px",
         "font-weight": "bold",
-        ":hover": { "background-color": "#E8C25C", color: "#0E1530" },
-        ":focus": { "background-color": "#E8C25C", color: "#0E1530" },
+        ":hover": { "background-color": "#40433a", color: "#FFFFFF" },
+        ":focus": { "background-color": "#40433a", color: "#FFFFFF" },
       };
       ui.createComponent("product", {
         id: productId,
@@ -92,21 +99,17 @@ function ShopifyProduct({ domain, storefrontAccessToken, productId, scriptReady 
           product: {
             events: {
               afterInit: (rendered: BuyComponent) => {
-                if (!cancelled) setStatus(rendered.model?.id ? "ready" : "error");
+                if (cancelled) return;
+                product.current = rendered;
+                const model = rendered.model;
+                if (model?.id) {
+                  setDetails({ title: model.title, front: model.images[0]?.src, back: model.images[1]?.src, price: rendered.formattedPrice });
+                  setStatus("ready");
+                } else setStatus("error");
               },
             },
             buttonDestination: "modal",
-            contents: { options: false, title: false },
-            text: { button: "Choose options" },
-            // Printful exports front, back, then side views. Feature the large back artwork.
-            templates: {
-              img: '<div class="{{data.classes.product.imgWrapper}}" data-element="product.imgWrapper"><img alt="{{data.title}} - back print" class="{{data.classes.product.img}}" data-element="product.img" src="{{#data.carouselImages.1}}{{src}}{{/data.carouselImages.1}}{{^data.carouselImages.1}}{{data.currentImage.srcLarge}}{{/data.carouselImages.1}}" /></div>',
-            },
-            styles: {
-              product: { "max-width": "100%", "margin-left": "0", "margin-bottom": "0" },
-              price: { color: "#F4E9D2" },
-              button,
-            },
+            contents: { img: false, title: false, price: false, options: false, button: false },
           },
           modalProduct: {
             contents: { img: false, imgWithCarousel: true, button: false, buttonWithQuantity: true },
@@ -114,7 +117,7 @@ function ShopifyProduct({ domain, storefrontAccessToken, productId, scriptReady 
             text: { button: "Add to cart" },
           },
           cart: { popup: false, styles: { button }, text: { button: "Checkout" } },
-          toggle: { styles: { toggle: button, count: { color: "#0E1530" }, iconPath: { fill: "#0E1530" } } },
+          toggle: { styles: { toggle: button, count: { color: "#FFFFFF" }, iconPath: { fill: "#FFFFFF" } } },
         },
       });
       // The current SDK wrapper returns void; it registers the component synchronously.
@@ -126,23 +129,39 @@ function ShopifyProduct({ domain, storefrontAccessToken, productId, scriptReady 
 
     return () => {
       cancelled = true;
+      product.current = undefined;
       dispose();
     };
   }, [scriptReady, domain, storefrontAccessToken, productId]);
 
   return (
     <>
-      <div role="status" aria-live="polite">
-        {status === "loading" && <p className="py-8 text-cream/70">Loading tee...</p>}
-        {status === "error" && (
-          <div className="py-8">
-            <p className="text-cream/70">This tee couldn&apos;t load. Please try again in a moment.</p>
-            <button type="button" onClick={() => window.location.reload()} className="mt-4 min-h-11 text-steam-gold underline underline-offset-4">Try again</button>
+      <div className="relative aspect-[4/5] overflow-hidden bg-[#e8e5de]">
+        {details ? (
+          <>
+            <button type="button" onClick={() => void product.current?.openModal()} className="group h-full w-full cursor-pointer p-5 focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-[#383b31]" aria-label={`Choose size for ${details.title}`}>
+              {/* Shopify supplies live mockup URLs; preserve the original artwork. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={(view === "back" ? details.back : details.front) || details.front} alt={`${details.title}, ${view} view`} className="h-full w-full object-contain mix-blend-multiply transition-transform duration-500 motion-safe:group-hover:scale-[1.035]" />
+            </button>
+            {details.back && <button type="button" onClick={() => setView(view === "back" ? "front" : "back")} className="absolute bottom-3 right-3 min-h-11 px-3 text-xs tracking-wide text-[#44483d] underline underline-offset-4 hover:text-black">View {view === "back" ? "front" : "back"}</button>}
+          </>
+        ) : (
+          <div role="status" aria-live="polite" className="flex h-full items-center justify-center p-6 text-sm text-[#606357]">
+            {status === "error" ? <button type="button" onClick={() => window.location.reload()} className="min-h-11 underline">Unable to load. Try again</button> : "Loading…"}
           </div>
         )}
       </div>
-      <div ref={host} hidden={status === "error"} />
-      <noscript><p className="py-8 text-cream/70">Please enable JavaScript to browse the collection and checkout.</p></noscript>
+      <div className="mt-5 flex items-baseline justify-between gap-3">
+        <h2 className="text-xl font-medium tracking-[-0.025em]">{title}</h2>
+        <span className="text-sm tabular-nums text-[#55594f]">{details?.price}</span>
+      </div>
+      <div className="mt-2 flex min-h-12 items-center">{children}</div>
+      <button type="button" disabled={status !== "ready"} onClick={() => void product.current?.openModal()} className="mt-4 flex min-h-12 w-full items-center justify-between border-t border-[#26291f]/25 text-sm transition-colors hover:border-[#26291f] disabled:opacity-40">
+        Choose size <span aria-hidden="true">↗</span>
+      </button>
+      <div ref={host} hidden aria-hidden="true" />
+      <noscript><p>Please enable JavaScript to shop.</p></noscript>
     </>
   );
 }
@@ -164,27 +183,25 @@ export default function ShopifyCollection(config: ShopConfig) {
       {scriptFailed ? (
         <p role="alert">The shop couldn&apos;t load. Please refresh and try again.</p>
       ) : (
-        <div className="grid gap-12 md:grid-cols-3 md:gap-8">
+        <div className="grid gap-x-8 gap-y-12 md:grid-cols-3 lg:gap-x-10">
           {groups.map((group, index) => {
             const productId = index === 0 ? archetype : group.designs[0].id;
             return (
               <article key={group.title}>
-                <h2 className="font-display text-3xl">{group.title}</h2>
-                <div className="my-5 md:min-h-12">
+                <ShopifyProduct key={productId} {...config} productId={productId} scriptReady={scriptReady} title={group.title}>
                   {group.designs.length > 1 ? (
-                    <label className="flex items-center gap-3 text-sm text-cream/70">
-                      Design
+                    <label className="flex w-full items-center gap-3 text-sm text-[#55594f]">
+                      <span className="sr-only">Archetype design</span>
                       <select
                         value={archetype}
                         onChange={(event) => setArchetype(event.target.value)}
-                        className="min-h-11 min-w-0 flex-1 rounded border border-steam-gold/30 bg-[#0E1530] px-3 text-cream"
+                        className="min-h-11 w-full cursor-pointer border-b border-[#26291f]/20 bg-transparent pr-6 text-sm focus-visible:outline-2 focus-visible:outline-[#383b31]"
                       >
                         {group.designs.map((design) => <option key={design.id} value={design.id}>{design.name}</option>)}
                       </select>
                     </label>
-                  ) : <p className="flex min-h-11 items-center text-sm text-cream/70">Printed front and back</p>}
-                </div>
-                <ShopifyProduct key={productId} {...config} productId={productId} scriptReady={scriptReady} />
+                  ) : <p className="text-sm text-[#65685f]">Front + back print</p>}
+                </ShopifyProduct>
               </article>
             );
           })}
