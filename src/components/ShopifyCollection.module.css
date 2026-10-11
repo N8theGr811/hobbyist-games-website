@@ -16,7 +16,11 @@
 .cardHeading > span { color:var(--muted); font-size:14px; white-space:nowrap; }
 .cardMeta,.cardDesign { display:block; margin-top:10px; min-height:44px; font-size:14px; color:var(--muted); }
 .cardMeta { padding-top:12px; }
-.cardDesign select { width:100%; height:44px; border:0; border-bottom:1px solid var(--line); background:transparent; padding-right:20px; cursor:pointer; }
+.selectWrap { display:block; position:relative; }
+.selectWrap select { appearance:none; display:block; width:100%; min-height:46px; border:1px solid var(--line); border-radius:10px; background:rgba(244,233,210,.035); color:var(--color-cream); padding:0 38px 0 14px; font:inherit; cursor:pointer; transition:border-color .2s,background .2s; }
+.selectWrap select:hover:not(:disabled) { border-color:rgba(244,233,210,.32); background:rgba(244,233,210,.06); }
+.selectWrap select:disabled { opacity:.5; cursor:wait; }
+.selectWrap svg { position:absolute; right:14px; top:50%; transform:translateY(-50%); pointer-events:none; color:var(--muted); }
 .cardDesign option,.designLabel option { background:var(--color-steam-navy-2); color:var(--color-cream); }
 .skeleton { display:grid; place-items:center; height:100%; font-size:14px; color:#555950; }
 .loadError { padding:40px 0; }
@@ -45,7 +49,7 @@
 .productPrice span { display:block; font-size:12px; color:var(--muted); margin-top:5px; }
 .intro { color:var(--muted); font-size:15px; line-height:1.7; margin:24px 0; max-width:360px; }
 .designLabel { display:grid; gap:10px; font-size:13px; margin-bottom:24px; }
-.designLabel select { width:100%; min-height:48px; border:1px solid var(--line); border-radius:10px; padding:0 12px; background:var(--color-steam-navy); }
+
 .sizes { border:0; padding:0; margin:24px 0; min-width:0; }
 .sizes legend { display:flex; align-items:center; justify-content:space-between; width:100%; font-size:13px; margin-bottom:12px; }
 .sizes legend button { color:var(--muted); text-decoration:underline; text-underline-offset:4px; min-height:30px; }

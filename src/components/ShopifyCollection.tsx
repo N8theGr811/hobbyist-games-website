@@ -53,6 +53,13 @@ function SizeGuide({ html }: { html: string }) {
   </>;
 }
 
+/** Shared native selector keeps keyboard and mobile pickers while matching the shop. */
+function DesignSelect({ value, choices, onChange, disabled = false }: {
+  value: string; choices: { name: string; id: string }[]; onChange: (id: string) => void; disabled?: boolean;
+}) {
+  return <span className={styles.selectWrap}><select value={value} disabled={disabled} onChange={event => onChange(event.target.value)}>{choices.map(choice => <option value={choice.id} key={choice.id}>{choice.name}</option>)}</select><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg></span>;
+}
+
 /** The preview has a single purchase action and explicitly asks shoppers to choose a size. */
 function ProductPreview({ product, title, design, choices, chooseDesign, busy, blocked, error, add, close }: {
   product: Product; title: string; design: string; choices: { name: string; id: string }[];
@@ -76,7 +83,7 @@ function ProductPreview({ product, title, design, choices, chooseDesign, busy, b
         <h2>{title}</h2>
         <p className={styles.productPrice}>{price ? money(price) : "Unavailable"} <span>{price?.currencyCode || "USD"} · Shipping at checkout</span></p>
         <p className={styles.intro}>Comfort Colors 1717. Heavyweight, garment-dyed cotton with a relaxed fit.</p>
-        {choices.length > 1 && <label className={styles.designLabel}>Design<select value={design} disabled={busy} onChange={event => chooseDesign(event.target.value)}>{choices.map(choice => <option value={choice.id} key={choice.id}>{choice.name}</option>)}</select></label>}
+        {choices.length > 1 && <label className={styles.designLabel}>Design<DesignSelect value={design} choices={choices} disabled={busy} onChange={chooseDesign} /></label>}
         <fieldset className={styles.sizes}><legend>Size <button type="button" onClick={() => setGuideOpen(!guideOpen)} aria-expanded={guideOpen}>Size guide</button></legend><div>{product.variants.nodes.map(item => <button type="button" key={item.id} disabled={!item.availableForSale || busy} aria-pressed={variant?.id === item.id} aria-label={`Size ${sizeOf(item)}${!item.availableForSale ? ", sold out" : ""}`} onClick={() => setVariant(item)}>{sizeOf(item)}</button>)}</div></fieldset>
         {guideOpen && <div className={styles.guide}><SizeGuide html={product.descriptionHtml} /></div>}
         <button type="button" className={styles.primary} disabled={!variant || busy || blocked} onClick={() => variant && add(variant)}>{busy ? "Adding to bag…" : variant ? "Add to bag" : "Select your size"}<span aria-hidden="true">↗</span></button>
@@ -173,7 +180,7 @@ export default function ShopifyCollection({ domain, storefrontAccessToken }: Sto
           {product ? <Photo product={product} index={1} /> : <span className={styles.skeleton}>{catalogReady ? "Currently unavailable" : "Loading tee…"}</span>}
         </button>
         <div className={styles.cardHeading}><h2><button type="button" disabled={!product} onClick={() => { if (!restoreFailed) setError(""); setPreview(index); }}>{group.title}</button></h2><span>{product?.variants.nodes[0] ? money(product.variants.nodes[0].price) : ""}</span></div>
-        {index === 0 ? <label className={styles.cardDesign}><span className="sr-only">Archetype design</span><select value={archetype} onChange={event => setArchetype(event.target.value)}>{group.designs.map(design => <option key={design.id} value={design.id}>{design.name}</option>)}</select></label> : <p className={styles.cardMeta}>Two-sided · Black</p>}
+        {index === 0 ? <label className={styles.cardDesign}><span className="sr-only">Archetype design</span><DesignSelect value={archetype} choices={group.designs} onChange={setArchetype} /></label> : <p className={styles.cardMeta}>Two-sided · Black</p>}
       </article>;
     })}</div>}
     {activeGroup && activeProduct && activeId && <ProductPreview key={activeId} product={activeProduct} title={activeGroup.title} choices={activeGroup.designs} design={activeId} chooseDesign={setArchetype} close={() => setPreview(null)} busy={busy} blocked={restoring || restoreFailed} error={error} add={variant => void mutate({ variantId: variant.id })} />}
