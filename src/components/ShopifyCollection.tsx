@@ -96,7 +96,7 @@ function ProductPreview({ product, title, design, choices, chooseDesign, colors,
         {error && <p role="alert" className={styles.error}>{error}</p>}
         <p className={styles.fulfillment}>Made to order. Printed and shipped by Printful.</p>
         <details className={styles.details}><summary>Product details</summary><p>{product.description.split("Size guide")[0]}</p></details>
-        <details className={styles.details}><summary>Shipping & returns</summary><p>Shipping is calculated at checkout. Each tee is made to order, so check the size guide before purchasing. Wrong-size and change-of-mind returns are not offered, except where required by law. For damaged, defective, misprinted, or incorrect items, email info@submissionsaga.com within 14 days of delivery.</p></details>
+        <details className={styles.details}><summary>Shipping & returns</summary><p>Shipping is calculated at checkout. Please check the size guide before ordering. Your statutory cancellation and faulty-goods rights apply. For help with a return or an issue with your tee, email <a href="mailto:info@submissionsaga.com">info@submissionsaga.com</a>.</p></details>
       </div>
     </div>
   </ShopDialog>;

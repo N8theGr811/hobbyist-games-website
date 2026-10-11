@@ -41,6 +41,11 @@ export default function ShopPage() {
               </div>
             )}
           </section>
+          {config && <nav aria-label="Order support" className="mt-10 flex flex-wrap gap-x-6 gap-y-3 border-t border-cream/10 pt-5 text-sm text-cream/70">
+            <a href="https://shopify.com/81663688903/account" className="underline underline-offset-4 hover:text-cream">Cancel or return an order</a>
+            <a href={`https://${config.domain}/policies/refund-policy`} className="underline underline-offset-4 hover:text-cream">Return policy</a>
+            <a href={`https://${config.domain}/policies/shipping-policy`} className="underline underline-offset-4 hover:text-cream">Shipping policy</a>
+          </nav>}
         </div>
       </main>
       <Footer />
