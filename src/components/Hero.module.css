@@ -1,0 +1,25 @@
+/* Leave room for the header, title, caption, stores, and section divider.
+   The image shrinks without cropping; very short windows scroll naturally. */
+.screenshot {
+  --hero-content-height: 380px;
+  --hero-consent-height: 0px;
+  max-height: clamp(128px, calc(100svh - var(--hero-content-height) - var(--hero-consent-height)), 552px);
+}
+
+/* The first-visit prompt must not sit over the store links. */
+:global(body:has([data-cookie-consent])) .screenshot {
+  --hero-consent-height: 144px;
+}
+
+@media (min-width: 640px) {
+  .screenshot {
+    --hero-content-height: 424px;
+  }
+}
+
+/* Beside the title, the image only needs to leave room for the stores. */
+@media (min-width: 1024px) {
+  .screenshot {
+    --hero-content-height: 232px;
+  }
+}

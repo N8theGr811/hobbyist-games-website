@@ -93,7 +93,7 @@ export default function MetaPixel() {
         </Script>
       )}
       {choice === null || settingsOpen ? (
-        <section aria-label="Advertising cookie choices" className="fixed bottom-3 left-3 right-3 z-[100] mx-auto max-w-xl rounded-md border border-cream/20 bg-steam-navy p-4 text-sm text-cream shadow-lg">
+        <section data-cookie-consent aria-label="Advertising cookie choices" className="fixed bottom-3 left-3 right-3 z-[100] mx-auto max-w-xl rounded-md border border-cream/20 bg-steam-navy p-4 text-sm text-cream shadow-lg">
           <p>Allow advertising cookies? We use Meta to measure visits and store clicks from our ads. <a href="/privacy#website-advertising" className="underline">Privacy details</a></p>
           <div className="mt-3 flex gap-3">
             <button type="button" onClick={() => choose("declined")} className="rounded border border-cream/40 px-4 py-2 hover:bg-cream/10">No thanks</button>
