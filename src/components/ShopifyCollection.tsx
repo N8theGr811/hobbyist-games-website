@@ -103,7 +103,7 @@ function ProductPreview({ product, title, design, choices, chooseDesign, colors,
 }
 
 /** Native storefront views backed by Shopify catalog and Cart API, with hosted payment checkout. */
-export default function ShopifyCollection({ domain, storefrontAccessToken }: StorefrontConfig) {
+export default function ShopifyCollection({ domain, storefrontAccessToken, heading }: StorefrontConfig & { heading: ReactNode }) {
   const config = { domain, storefrontAccessToken };
   const [catalog, setCatalog] = useState<Catalog>({});
   const [loadError, setLoadError] = useState("");
@@ -181,7 +181,8 @@ export default function ShopifyCollection({ domain, storefrontAccessToken }: Sto
   function chooseColor(id: string, color: string) { setSelectedColors(previous => ({ ...previous, [id]: color })); }
 
   return <div className={styles.shop}>
-    <div className={styles.toolbar}><span>Comfort Colors · 1717</span><button type="button" className={styles.bagButton} onClick={() => { setPreview(null); if (!restoreFailed) setError(""); setBagOpen(true); }} aria-label={`Open shopping bag, ${cart?.totalQuantity || 0} items`}><svg width="18" height="20" viewBox="0 0 20 22" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true"><path d="M3 7h14l1 13H2L3 7Z"/><path d="M6 8V5a4 4 0 0 1 8 0v3"/></svg>Bag <span>{cart?.totalQuantity || 0}</span></button></div>
+    <div className={styles.toolbar}>{heading}<button type="button" className={styles.bagButton} onClick={() => { setPreview(null); if (!restoreFailed) setError(""); setBagOpen(true); }} aria-label={`Open shopping bag, ${cart?.totalQuantity || 0} items`}><svg width="18" height="20" viewBox="0 0 20 22" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true"><path d="M3 7h14l1 13H2L3 7Z"/><path d="M6 8V5a4 4 0 0 1 8 0v3"/></svg>Bag <span>{cart?.totalQuantity || 0}</span></button></div>
+    <p className={styles.collectionNote}>Comfort Colors · 1717</p>
     {loadError ? <div role="alert" className={styles.loadError}>{loadError}<button type="button" onClick={() => setAttempt(attempt + 1)}>Try again</button></div> : <div className={styles.products}>{groups.map((group, index) => {
       const id = index === 0 ? archetype : group.designs[0].id;
       const source = catalog[productGid(id)];

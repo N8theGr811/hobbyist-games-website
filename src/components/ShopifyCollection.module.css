@@ -1,8 +1,9 @@
 /* The same navy, cream, gold and font tokens carry from gallery to checkout handoff. */
 .shop { --line: rgba(244,233,210,.15); --muted: rgba(244,233,210,.67); }
-.toolbar { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:28px; padding-bottom:20px; border-bottom:1px solid var(--line); }
-.toolbar > span { font-size:13px; color:var(--muted); }
-.bagButton { display:flex; gap:10px; align-items:center; border:1px solid var(--line); border-radius:100px; padding:10px 17px; min-height:44px; font-size:14px; }
+.toolbar { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:0; padding-bottom:24px; border-bottom:1px solid var(--line); }
+.toolbar > div { min-width:0; }
+.collectionNote { margin:20px 0 24px; font-size:13px; color:var(--muted); }
+.bagButton { flex-shrink:0; display:flex; gap:10px; align-items:center; border:1px solid var(--line); border-radius:100px; padding:10px 17px; min-height:44px; font-size:14px; }
 .bagButton > span { color:var(--color-steam-gold); font-variant-numeric:tabular-nums; }
 .products { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:36px; }
 .card { min-width:0; }
