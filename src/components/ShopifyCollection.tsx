@@ -191,7 +191,7 @@ export default function ShopifyCollection({ domain, storefrontAccessToken, headi
       const product = source ? productForColor(source, color) : undefined;
       return <article key={group.title} className={styles.card}>
         <button type="button" className={styles.cardPhoto} disabled={!product} onClick={() => { if (!restoreFailed) setError(""); setPreview(index); }} aria-label={`View ${group.title}`}>
-          {product ? <Photo product={product} index={1} /> : <span className={styles.skeleton}>{catalogReady ? "Currently unavailable" : "Loading tee…"}</span>}
+          {product ? <><Photo product={product} index={1} className={styles.cardBack} /><Photo product={product} index={0} className={styles.cardFront} /></> : <span className={styles.skeleton}>{catalogReady ? "Currently unavailable" : "Loading tee…"}</span>}
         </button>
         <div className={styles.cardHeading}><h2><button type="button" disabled={!product} onClick={() => { if (!restoreFailed) setError(""); setPreview(index); }}>{group.title}</button></h2><span>{product?.variants.nodes[0] ? money(product.variants.nodes[0].price) : ""}</span></div>
         {index === 0 ? <label className={styles.cardDesign}><span className="sr-only">Archetype design</span><DesignSelect value={archetype} choices={group.designs} onChange={setArchetype} /></label> : colors.length > 1 ? <ColorSelect colors={colors} value={color} onChange={value => chooseColor(productGid(id), value)} /> : <p className={styles.cardMeta}>Two-sided · {color || "Black"}</p>}

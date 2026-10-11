@@ -10,6 +10,14 @@
 .cardPhoto { position:relative; width:100%; aspect-ratio:4/5; background:#e8e5de; border-radius:20px; overflow:hidden; display:block; isolation:isolate; }
 .photo { display:block; height:100%; width:100%; object-fit:contain; mix-blend-mode:multiply; }
 .cardPhoto > .photo { position:absolute; inset:0; padding:0; transform:scale(1.18); }
+.cardPhoto > .cardBack,.cardPhoto > .cardFront { transition:opacity .2s ease; }
+.cardPhoto > .cardFront { opacity:0; }
+.cardPhoto:focus-visible > .cardBack { opacity:0; }
+.cardPhoto:focus-visible > .cardFront { opacity:1; }
+@media (hover:hover) and (pointer:fine) {
+  .cardPhoto:hover > .cardBack { opacity:0; }
+  .cardPhoto:hover > .cardFront { opacity:1; }
+}
 .cardHeading { display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-top:22px; }
 .cardHeading h2 { font-family:var(--font-pixel); font-size:12px; line-height:1.8; }
 .cardHeading h2 button { text-align:left; min-height:44px; }
