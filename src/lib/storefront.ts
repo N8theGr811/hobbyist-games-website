@@ -21,9 +21,9 @@ export interface Cart {
 
 export const groups = [
   { title: "Archetype Tee", designs: [
-    { name: "Submission Specialist", id: "15400772534471" },
-    { name: "Wrestler", id: "15400773419207" },
     { name: "Guard Player", id: "15400774238407" },
+    { name: "Wrestler", id: "15400773419207" },
+    { name: "Submission Specialist", id: "15400772534471" },
   ] },
   { title: "Moves Tee", designs: [{ name: "Moves", id: "15400771027143" }] },
   { title: "Logo Tee", designs: [{ name: "Logo", id: "15400769454279" }] },
