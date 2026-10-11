@@ -1,7 +1,7 @@
 /* One introduction and one gameplay image, with room for first-visit consent. */
 .hero {
   --hero-consent-height: 0px;
-  --hero-content-height: 360px;
+  --hero-content-height: 372px;
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -84,12 +84,12 @@
 .stores {
   grid-area: stores;
   width: 100%;
-  max-width: 400px;
+  max-width: 440px;
 }
 
 @media (min-width: 640px) {
   .hero {
-    --hero-content-height: 400px;
+    --hero-content-height: 412px;
   }
 
   .layout {
