@@ -94,24 +94,35 @@ and [Printful connection](https://help.printful.com/hc/en-us/articles/5026226064
 ### Launch status (October 10, 2026)
 
 The five two-sided Comfort Colors tees are synced to Printful and published to
-Buy Button at $38 across S–4XL. The website presents three cards, and groups the
+Buy Button at $32 across S–4XL, including both Logo Tee colors (42 variants). The website presents three cards, and groups the
 three archetypes with a design selector. Production Shopify environment values
 are saved in Vercel; a new deployment is still needed. Shopify's store name is
 Hobbyist Games and automatic fulfillment requests and shipment notifications are
 on. Printful automatically confirms fulfillment requests and updates stock;
 its import override and product substitutions are off. High-risk orders are not
 automatically fulfilled. Printful's US standard
-shipping profile is $4.95; only the United States is an active market.
+shipping profile is $4.95. The United States and International (230 regions)
+markets are active in Hobbyist Games (`a01zqh-k6`, `info@submissionsaga.com`).
+International inherits USD and all products, with Printful's existing Tshirts
+shipping profile. Managed Markets is off. Russia, Belarus, and Venezuela are
+excluded, along with Shopify-unavailable destinations. Ukraine, Kosovo, and
+Palestinian Territories remain excluded pending product/destination verification.
+Storefront API test carts returned one-tee shipping quotes of $8.59 for Canada,
+$4.79 for the UK, and $7.99 for Australia, with a $32 USD product subtotal.
+Customer checkout still redirects to the password page, so full checkout remains
+untested. Printful Growth is active; the displayed next payment is $24.99 on
+October 24, 2026.
 
 Before enabling live sales:
 - Remove Shopify storefront password protection when ready to launch. The live
   Cart API checkout URL currently redirects to the store's Opening soon page.
-- Add a Printful billing method.
+- Verify the fulfillment billing method before the first live order.
 - Confirm the merchant's sales-tax registrations; Shopify currently says US tax
   is not being collected. Do not infer registration from the LLC's existence.
 - Return, shipping, contact, and automated privacy policies are published.
   Additional general terms of service have not been added.
-- Confirm any additional countries before activating those markets.
+- Review international tax obligations before launch; no tax registrations or
+  duty collection settings were changed during market setup.
 - Deploy, then verify checkout and a merchant-authorized test order through to
   Printful. No paid order has been placed during setup.
 
