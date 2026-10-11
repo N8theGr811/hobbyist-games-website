@@ -74,7 +74,12 @@ previews feature the back print on its own; front and side views remain availabl
 in the preview thumbnails. Logo Tee has Black and White choices on the card and
 preview. Color selection filters sizes and Printful mockups, resets the selected
 size, and carries the correct Shopify variant and color into the bag. Mockup
-filenames must retain Printful's color/view naming for automatic grouping. The bag
+filenames must retain Printful's color/view naming for automatic grouping.
+White Logo Tee uses local transparent front/back Ghost previews in
+`public/images/merch`, downloaded from the White/S variant's Printful Mockup view
+on October 10, 2026. Refresh these if its artwork or placement changes. The
+product-level downloader incorrectly applies the black variant's artwork to white;
+use the white variant directly. These previews sit on black throughout the shop. The bag
 supports quantity changes and removal, and restores its Shopify cart ID from local
 storage on return. It is accessible from the shop page. Native dialogs handle
 focus, Escape, backdrop dismissal, and scroll locking. Shopify validates cart

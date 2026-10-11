@@ -43,8 +43,10 @@ export function productForColor(product: Product, color: string): Product {
   const variants = product.variants.nodes.filter(variant => colorOf(variant) === color)
     .sort((a, b) => sizes.indexOf(sizeOf(a)) - sizes.indexOf(sizeOf(b)));
   const slug = color.toLowerCase().replace(/\s+/g, "-");
-  const matched = product.images.nodes.filter(image => new URL(image.url).pathname.toLowerCase().includes(`-${slug}-`));
-  const images = matched.length ? matched : colorsOf(product).length === 1 ? product.images.nodes : variants[0]?.image ? [variants[0].image] : [];
+  const matched = product.images.nodes.filter(image => new URL(image.url, "https://local.invalid").pathname.toLowerCase().includes(`-${slug}-`));
+  const images = product.id === productGid("15400769454279") && color === "White"
+    ? ["front", "back"].map(view => ({ url: `/images/merch/logo-white-${view}.png`, altText: `White Logo Tee, ${view}` }))
+    : matched.length ? matched : colorsOf(product).length === 1 ? product.images.nodes : variants[0]?.image ? [variants[0].image] : [];
   return { ...product, images: { nodes: images }, variants: { nodes: variants } };
 }
 

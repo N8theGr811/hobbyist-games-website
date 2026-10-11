@@ -143,7 +143,5 @@
 .colors button span { width:16px; height:16px; border-radius:50%; border:1px solid #ffffff40; }
 
 .whitePhoto { mix-blend-mode:normal; }
-/* White uses Printful's wider flat-lay mockup, with its original garment color. */
-.cardPhoto:has(.whitePhoto),.largePhoto:has(.whitePhoto),.bagPhoto:has(.whitePhoto) { background:#fff; }
-.cardPhoto > .whitePhoto,.largePhoto > .whitePhoto { transform:scale(1); }
-.zoomed > .whitePhoto { transform:scale(1.65); }
+/* Transparent Printful Ghost mockups retain the white garment on black. */
+.cardPhoto:has(.whitePhoto),.largePhoto:has(.whitePhoto),.bagPhoto:has(.whitePhoto),.thumbnails button:has(.whitePhoto) { background:#000; }
