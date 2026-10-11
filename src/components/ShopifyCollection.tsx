@@ -33,11 +33,6 @@ function Photo({ product, index, className = "" }: { product: Product; index: nu
   return image ? <img className={`${styles.photo} ${className}`} src={image.url} alt={`${shortTitle(product.title)}, ${index === 0 ? "front" : index === 1 ? "back" : "side"} view`} /> : null;
 }
 
-/** One paired view reuses the exact front and back mockups without altering the print. */
-function PairedPhoto({ product }: { product: Product }) {
-  return <span className={styles.pairedPhoto}><Photo product={product} index={0} /><Photo product={product} index={1} /></span>;
-}
-
 /** Fallback for a saved bag item that is no longer in the displayed collection. */
 function CartPhoto({ url, title }: { url: string; title: string }) {
   // eslint-disable-next-line @next/next/no-img-element
@@ -64,7 +59,7 @@ function ProductPreview({ product, title, design, choices, chooseDesign, busy, b
   chooseDesign: (id: string) => void; busy: boolean; blocked: boolean; error: string;
   add: (variant: Variant) => void; close: () => void;
 }) {
-  const [imageIndex, setImageIndex] = useState(-1);
+  const [imageIndex, setImageIndex] = useState(1);
   const [variant, setVariant] = useState<Variant | null>(null);
   const [guideOpen, setGuideOpen] = useState(false);
   const [zoom, setZoom] = useState(false);
@@ -72,8 +67,8 @@ function ProductPreview({ product, title, design, choices, chooseDesign, busy, b
   return <ShopDialog label={title} close={close}>
     <div className={styles.previewGrid}>
       <div className={styles.gallery}>
-        <button type="button" className={`${styles.largePhoto} ${zoom ? styles.zoomed : ""}`} onClick={() => setZoom(!zoom)} aria-label={zoom ? "Zoom out" : "Zoom in on print"} aria-pressed={zoom}>{imageIndex === -1 ? <PairedPhoto product={product} /> : <Photo product={product} index={imageIndex} />}</button>
-        <div className={styles.thumbnails} aria-label="Product views"><button type="button" aria-pressed={imageIndex === -1} aria-label="Show front and back" onClick={() => { setImageIndex(-1); setZoom(false); }}><PairedPhoto product={product} /></button>{product.images.nodes.map((image, index) => <button type="button" key={image.url} aria-pressed={imageIndex === index} aria-label={`Show ${["front", "back", "left", "right"][index] || `view ${index + 1}`}`} onClick={() => { setImageIndex(index); setZoom(false); }}><Photo product={product} index={index} /></button>)}</div>
+        <button type="button" className={`${styles.largePhoto} ${zoom ? styles.zoomed : ""}`} onClick={() => setZoom(!zoom)} aria-label={zoom ? "Zoom out" : "Zoom in on print"} aria-pressed={zoom}><Photo product={product} index={imageIndex} /></button>
+        <div className={styles.thumbnails} aria-label="Product views">{product.images.nodes.map((image, index) => <button type="button" key={image.url} aria-pressed={imageIndex === index} aria-label={`Show ${["front", "back", "left", "right"][index] || `view ${index + 1}`}`} onClick={() => { setImageIndex(index); setZoom(false); }}><Photo product={product} index={index} /></button>)}</div>
         <p className={styles.galleryNote}>Front + back print <span>Tap image to zoom</span></p>
       </div>
       <div className={styles.productInfo}>
@@ -175,7 +170,7 @@ export default function ShopifyCollection({ domain, storefrontAccessToken }: Sto
       const product = catalog[productGid(id)];
       return <article key={group.title} className={styles.card}>
         <button type="button" className={styles.cardPhoto} disabled={!product} onClick={() => { if (!restoreFailed) setError(""); setPreview(index); }} aria-label={`View ${group.title}`}>
-          {product ? <><PairedPhoto product={product} /><span className={styles.viewHint}>Explore tee <span>↗</span></span></> : <span className={styles.skeleton}>{catalogReady ? "Currently unavailable" : "Loading tee…"}</span>}
+          {product ? <><Photo product={product} index={1} /><span className={styles.viewHint}>Explore tee <span>↗</span></span></> : <span className={styles.skeleton}>{catalogReady ? "Currently unavailable" : "Loading tee…"}</span>}
         </button>
         <div className={styles.cardHeading}><h2>{group.title}</h2><span>{product?.variants.nodes[0] ? money(product.variants.nodes[0].price) : ""}</span></div>
         {index === 0 ? <label className={styles.cardDesign}><span className="sr-only">Archetype design</span><select value={archetype} onChange={event => setArchetype(event.target.value)}>{group.designs.map(design => <option key={design.id} value={design.id}>{design.name}</option>)}</select></label> : <p className={styles.cardMeta}>Two-sided · Black</p>}

@@ -70,8 +70,8 @@ Printful products, preserving artwork mappings. Product IDs are in
 The gallery, product preview, and bag share the site's navy/gold palette, pixel
 headings, Outfit body font, and rounded corners. Previews offer front/back/side
 photos, tap-to-zoom, explicit size selection, and Shopify's size guide. Cards and
-previews open with a shared front-and-back composition made from the original
-mockups; individual views remain available in the preview thumbnails. The bag
+previews feature the back print on its own; front and side views remain available
+in the preview thumbnails. The bag
 supports quantity changes and removal, and restores its Shopify cart ID from local
 storage on return. It is accessible from the shop page. Native dialogs handle
 focus, Escape, backdrop dismissal, and scroll locking. Shopify validates cart
