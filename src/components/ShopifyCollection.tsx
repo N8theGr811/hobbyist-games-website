@@ -1,213 +1,199 @@
 "use client";
 
-import Script from "next/script";
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { cartQuery, catalogQuery, changeCart, groups, money, productGid, request, shortTitle, sizeOf, type Cart, type Product, type StorefrontConfig, type Variant } from "@/lib/storefront";
+import styles from "./ShopifyCollection.module.css";
 
-interface ShopConfig {
-  domain: string;
-  storefrontAccessToken: string;
-  collectionId: string;
-}
+type Catalog = Record<string, Product>;
 
-interface BuyComponent {
-  destroy(): void;
-  openModal(): Promise<unknown>;
-  formattedPrice: string;
-  model?: { id?: string; title: string; images: { src: string }[] };
-}
-
-interface BuyUI {
-  createComponent(type: "product", config: Record<string, unknown>): void;
-  components: { product: BuyComponent[] };
-}
-
-declare global {
-  interface Window {
-    ShopifyBuy?: {
-      buildClient(config: { domain: string; storefrontAccessToken: string }): unknown;
-      UI: { onReady(client: unknown): Promise<BuyUI> };
-    };
-  }
-}
-
-// These are fulfillment-linked product IDs, not copies of Shopify prices or sizes.
-const groups = [
-  { title: "Archetype Tee", designs: [
-    { name: "Submission Specialist", id: "15400772534471" },
-    { name: "Wrestler", id: "15400773419207" },
-    { name: "Guard Player", id: "15400774238407" },
-  ] },
-  { title: "Moves Tee", designs: [{ name: "Moves", id: "15400771027143" }] },
-  { title: "Logo Tee", designs: [{ name: "Logo", id: "15400769454279" }] },
-];
-
-type ProductConfig = Pick<ShopConfig, "domain" | "storefrontAccessToken"> & {
-  productId: string;
-  scriptReady: boolean;
-  title: string;
-  children: ReactNode;
-};
-
-/** Shopify owns live prices, sizes, availability, cart, and checkout. */
-function ShopifyProduct({ domain, storefrontAccessToken, productId, scriptReady, title, children }: ProductConfig) {
-  const host = useRef<HTMLDivElement>(null);
-  const product = useRef<BuyComponent | undefined>(undefined);
-  const [details, setDetails] = useState<{ title: string; front?: string; back?: string; price: string }>();
-  const [view, setView] = useState<"front" | "back">("back");
-  const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
-
+/** One accessible dialog foundation for product previews and the shopping bag. */
+function ShopDialog({ label, drawer = false, close, children }: { label: string; drawer?: boolean; close: () => void; children: ReactNode }) {
+  const ref = useRef<HTMLDialogElement>(null);
   useEffect(() => {
-    if (status !== "loading") return;
-    const timeout = window.setTimeout(() => setStatus("error"), 20000);
-    return () => window.clearTimeout(timeout);
-  }, [status]);
-
-  useEffect(() => {
-    if (!scriptReady || !host.current || !window.ShopifyBuy) return;
-    let cancelled = false;
-    let component: BuyComponent | undefined;
-    let ui: BuyUI | undefined;
-    // A dedicated node lets late SDK responses clean up without touching a new mount.
-    const node = document.createElement("div");
-    host.current.appendChild(node);
-
-    function dispose() {
-      component?.destroy();
-      if (ui && component) {
-        ui.components.product = ui.components.product.filter((entry) => entry !== component);
-      }
-      node.remove();
-    }
-
-    const sdk = window.ShopifyBuy;
-    const client = sdk.buildClient({ domain, storefrontAccessToken });
-    sdk.UI.onReady(client).then((readyUI) => {
-      ui = readyUI;
-      if (cancelled) return;
-      const button = {
-        "background-color": "#D4A53C",
-        color: "#0E1530",
-        "border-radius": "10px",
-        "font-weight": "bold",
-        "font-family": "Outfit, sans-serif",
-        ":hover": { "background-color": "#E8C25C", color: "#0E1530" },
-        ":focus": { "background-color": "#E8C25C", color: "#0E1530" },
-      };
-      ui.createComponent("product", {
-        id: productId,
-        node,
-        options: {
-          product: {
-            events: {
-              afterInit: (rendered: BuyComponent) => {
-                if (cancelled) return;
-                product.current = rendered;
-                const model = rendered.model;
-                if (model?.id) {
-                  setDetails({ title: model.title, front: model.images[0]?.src, back: model.images[1]?.src, price: rendered.formattedPrice });
-                  setStatus("ready");
-                } else setStatus("error");
-              },
-            },
-            buttonDestination: "modal",
-            contents: { img: false, title: false, price: false, options: false, button: false },
-          },
-          modalProduct: {
-            contents: { img: false, imgWithCarousel: true, button: false, buttonWithQuantity: true },
-            styles: { button },
-            text: { button: "Add to cart" },
-          },
-          cart: { popup: false, styles: { button }, text: { button: "Checkout" } },
-          toggle: { styles: { toggle: button, count: { color: "#0E1530" }, iconPath: { fill: "#0E1530" } } },
-        },
-      });
-      // The current SDK wrapper returns void; it registers the component synchronously.
-      component = ui.components.product.at(-1);
-    }).catch((error) => {
-      console.error("Shopify collection could not load", error);
-      if (!cancelled) setStatus("error");
-    });
-
-    return () => {
-      cancelled = true;
-      product.current = undefined;
-      dispose();
-    };
-  }, [scriptReady, domain, storefrontAccessToken, productId]);
-
-  return (
-    <>
-      <div className="relative aspect-[4/5] overflow-hidden rounded-panel border border-steam-gold/25 bg-[#e8e5de]">
-        {details ? (
-          <>
-            <button type="button" onClick={() => void product.current?.openModal()} className="group h-full w-full cursor-pointer p-5 focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-[#383b31]" aria-label={`Choose size for ${details.title}`}>
-              {/* Shopify supplies live mockup URLs; preserve the original artwork. */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={(view === "back" ? details.back : details.front) || details.front} alt={`${details.title}, ${view} view`} className="h-full w-full object-contain mix-blend-multiply transition-transform duration-500 motion-safe:group-hover:scale-[1.035]" />
-            </button>
-            {details.back && <button type="button" onClick={() => setView(view === "back" ? "front" : "back")} className="absolute bottom-3 right-3 min-h-11 px-3 text-xs tracking-wide text-[#44483d] underline underline-offset-4 hover:text-black">View {view === "back" ? "front" : "back"}</button>}
-          </>
-        ) : (
-          <div role="status" aria-live="polite" className="flex h-full items-center justify-center p-6 text-sm text-[#606357]">
-            {status === "error" ? <button type="button" onClick={() => window.location.reload()} className="min-h-11 underline">Unable to load. Try again</button> : "Loading…"}
-          </div>
-        )}
-      </div>
-      <div className="mt-5 flex items-baseline justify-between gap-3 md:flex-col md:gap-2 lg:flex-row lg:gap-3">
-        <h2 className="font-pixel text-pixel-sm leading-relaxed text-cream">{title}</h2>
-        <span className="text-sm tabular-nums text-cream/70">{details?.price}</span>
-      </div>
-      <div className="mt-2 flex min-h-12 items-center">{children}</div>
-      <button type="button" disabled={status !== "ready"} onClick={() => void product.current?.openModal()} className="mt-4 flex min-h-12 w-full items-center justify-between rounded-md border border-steam-gold/40 bg-steam-gold/10 px-4 text-sm font-medium text-steam-gold transition-colors hover:bg-steam-gold/20 focus-visible:outline-2 focus-visible:outline-steam-gold disabled:opacity-40">
-        Choose size <span aria-hidden="true">↗</span>
-      </button>
-      <div ref={host} hidden aria-hidden="true" />
-      <noscript><p>Please enable JavaScript to shop.</p></noscript>
-    </>
-  );
+    const dialog = ref.current!;
+    const previous = document.activeElement as HTMLElement | null;
+    const overflow = document.body.style.overflow;
+    dialog.showModal();
+    document.body.style.overflow = "hidden";
+    return () => { dialog.close(); document.body.style.overflow = overflow; previous?.focus(); };
+  }, []);
+  return <dialog ref={ref} aria-label={label} className={`${styles.dialog} ${drawer ? styles.drawer : styles.preview}`} onCancel={event => { event.preventDefault(); close(); }} onClick={event => { if (event.target === event.currentTarget) close(); }}>
+    <div className={styles.dialogBody}>
+      <button type="button" className={styles.close} onClick={close} aria-label={`Close ${label.toLowerCase()}`} autoFocus>×</button>
+      {children}
+    </div>
+  </dialog>;
 }
 
+/** Live Shopify mockups share one restrained image treatment across every view. */
+function Photo({ product, index, className = "" }: { product: Product; index: number; className?: string }) {
+  const image = product.images.nodes[index] || product.images.nodes[0];
+  // Shopify provides changing CDN URLs; use the original catalog media without copying it.
+  // eslint-disable-next-line @next/next/no-img-element
+  return image ? <img className={`${styles.photo} ${className}`} src={image.url} alt={`${shortTitle(product.title)}, ${index === 0 ? "front" : index === 1 ? "back" : "side"} view`} /> : null;
+}
 
-/** Three storefront choices retain five separate Printful artwork mappings. */
-export default function ShopifyCollection(config: ShopConfig) {
-  const [scriptReady, setScriptReady] = useState(false);
-  const [scriptFailed, setScriptFailed] = useState(false);
+/** Fallback for a saved bag item that is no longer in the displayed collection. */
+function CartPhoto({ url, title }: { url: string; title: string }) {
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img className={styles.photo} src={url} alt={title} />;
+}
+
+/** Only plain text cells are extracted from Shopify's size guide, never arbitrary HTML. */
+function SizeGuide({ html }: { html: string }) {
+  const [metric, setMetric] = useState(false);
+  const tables = new DOMParser().parseFromString(html, "text/html").querySelectorAll("table");
+  const table = tables[metric ? 1 : 0] || tables[0];
+  if (!table) return <p>Contact info@submissionsaga.com for sizing help.</p>;
+  const rows = Array.from(table.rows).map(row => Array.from(row.cells).map(cell => cell.textContent?.trim() || ""));
+  if (rows[0]?.length < (rows[1]?.length || 0)) rows[0].unshift("Size");
+  return <>
+    <div className={styles.units}><button type="button" aria-pressed={!metric} onClick={() => setMetric(false)}>Inches</button><button type="button" aria-pressed={metric} onClick={() => setMetric(true)}>Centimeters</button></div>
+    <div className={styles.tableScroll}><table><caption className="sr-only">Garment measurements in {metric ? "centimeters" : "inches"}</caption><thead><tr>{rows[0]?.map((cell, i) => <th key={i} scope="col">{cell || "Size"}</th>)}</tr></thead><tbody>{rows.slice(1).map((row, i) => <tr key={i}>{row.map((cell, j) => j === 0 ? <th key={j} scope="row">{cell}</th> : <td key={j}>{cell}</td>)}</tr>)}</tbody></table></div>
+  </>;
+}
+
+/** The preview has a single purchase action and explicitly asks shoppers to choose a size. */
+function ProductPreview({ product, title, design, choices, chooseDesign, busy, blocked, error, add, close }: {
+  product: Product; title: string; design: string; choices: { name: string; id: string }[];
+  chooseDesign: (id: string) => void; busy: boolean; blocked: boolean; error: string;
+  add: (variant: Variant) => void; close: () => void;
+}) {
+  const [imageIndex, setImageIndex] = useState(1);
+  const [variant, setVariant] = useState<Variant | null>(null);
+  const [guideOpen, setGuideOpen] = useState(false);
+  const [zoom, setZoom] = useState(false);
+  const price = variant?.price || product.variants.nodes[0]?.price;
+  return <ShopDialog label={title} close={close}>
+    <div className={styles.previewGrid}>
+      <div className={styles.gallery}>
+        <button type="button" className={`${styles.largePhoto} ${zoom ? styles.zoomed : ""}`} onClick={() => setZoom(!zoom)} aria-label={zoom ? "Zoom out" : "Zoom in on print"} aria-pressed={zoom}><Photo product={product} index={imageIndex} /></button>
+        <div className={styles.thumbnails} aria-label="Product views">{product.images.nodes.map((image, index) => <button type="button" key={image.url} aria-pressed={imageIndex === index} aria-label={`Show ${["front", "back", "left", "right"][index] || `view ${index + 1}`}`} onClick={() => { setImageIndex(index); setZoom(false); }}><Photo product={product} index={index} /></button>)}</div>
+        <p className={styles.galleryNote}>Front + back print <span>Tap image to zoom</span></p>
+      </div>
+      <div className={styles.productInfo}>
+        <p className={styles.eyebrow}>Submission Saga</p>
+        <h2>{title}</h2>
+        <p className={styles.productPrice}>{price ? money(price) : "Unavailable"} <span>{price?.currencyCode || "USD"} · Shipping at checkout</span></p>
+        <p className={styles.intro}>Comfort Colors 1717. Heavyweight, garment-dyed cotton with a relaxed fit.</p>
+        {choices.length > 1 && <label className={styles.designLabel}>Design<select value={design} disabled={busy} onChange={event => chooseDesign(event.target.value)}>{choices.map(choice => <option value={choice.id} key={choice.id}>{choice.name}</option>)}</select></label>}
+        <fieldset className={styles.sizes}><legend>Size <button type="button" onClick={() => setGuideOpen(!guideOpen)} aria-expanded={guideOpen}>Size guide</button></legend><div>{product.variants.nodes.map(item => <button type="button" key={item.id} disabled={!item.availableForSale || busy} aria-pressed={variant?.id === item.id} aria-label={`Size ${sizeOf(item)}${!item.availableForSale ? ", sold out" : ""}`} onClick={() => setVariant(item)}>{sizeOf(item)}</button>)}</div></fieldset>
+        {guideOpen && <div className={styles.guide}><SizeGuide html={product.descriptionHtml} /></div>}
+        <button type="button" className={styles.primary} disabled={!variant || busy || blocked} onClick={() => variant && add(variant)}>{busy ? "Adding to bag…" : variant ? "Add to bag" : "Select your size"}<span aria-hidden="true">↗</span></button>
+        {error && <p role="alert" className={styles.error}>{error}</p>}
+        <p className={styles.fulfillment}>Made to order. Printed and shipped by Printful.</p>
+        <details className={styles.details}><summary>Product details</summary><p>{product.description.split("Size guide")[0]}</p></details>
+        <details className={styles.details}><summary>Shipping & returns</summary><p>Shipping is calculated at checkout. Each tee is made to order, so check the size guide before purchasing. Wrong-size and change-of-mind returns are not offered, except where required by law. For damaged, defective, misprinted, or incorrect items, email info@submissionsaga.com within 14 days of delivery.</p></details>
+      </div>
+    </div>
+  </ShopDialog>;
+}
+
+/** Native storefront views backed by Shopify catalog and Cart API, with hosted payment checkout. */
+export default function ShopifyCollection({ domain, storefrontAccessToken }: StorefrontConfig) {
+  const config = { domain, storefrontAccessToken };
+  const [catalog, setCatalog] = useState<Catalog>({});
+  const [loadError, setLoadError] = useState("");
+  const [catalogReady, setCatalogReady] = useState(false);
+  const [attempt, setAttempt] = useState(0);
   const [archetype, setArchetype] = useState(groups[0].designs[0].id);
+  const [preview, setPreview] = useState<number | null>(null);
+  const [bagOpen, setBagOpen] = useState(false);
+  const [cart, setCart] = useState<Cart | null>(null);
+  const [restoring, setRestoring] = useState(true);
+  const [restoreFailed, setRestoreFailed] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const locked = useRef(false);
+  const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
+  const cartKey = `submission-saga-cart:${domain}`;
 
-  return (
-    <>
-      <Script
-        src="https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js"
-        onReady={() => setScriptReady(true)}
-        onError={() => setScriptFailed(true)}
-      />
-      {scriptFailed ? (
-        <p role="alert">The shop couldn&apos;t load. Please refresh and try again.</p>
-      ) : (
-        <div className="grid gap-x-8 gap-y-12 md:grid-cols-3 lg:gap-x-10">
-          {groups.map((group, index) => {
-            const productId = index === 0 ? archetype : group.designs[0].id;
-            return (
-              <article key={group.title}>
-                <ShopifyProduct key={productId} {...config} productId={productId} scriptReady={scriptReady} title={group.title}>
-                  {group.designs.length > 1 ? (
-                    <label className="flex w-full items-center gap-3 text-sm text-cream/70">
-                      <span className="sr-only">Archetype design</span>
-                      <select
-                        value={archetype}
-                        onChange={(event) => setArchetype(event.target.value)}
-                        className="min-h-11 w-full cursor-pointer rounded-md border border-steam-gold/25 bg-steam-navy-2 px-3 pr-6 text-sm text-cream focus-visible:outline-2 focus-visible:outline-steam-gold"
-                      >
-                        {group.designs.map((design) => <option key={design.id} value={design.id}>{design.name}</option>)}
-                      </select>
-                    </label>
-                  ) : <p className="text-sm text-cream/70">Front + back print</p>}
-                </ShopifyProduct>
-              </article>
-            );
-          })}
-        </div>
-      )}
-    </>
-  );
+  useEffect(() => {
+    let active = true;
+    request<{ nodes: (Product | null)[] }>({ domain, storefrontAccessToken }, catalogQuery, { ids: groups.flatMap(group => group.designs.map(design => productGid(design.id))) })
+      .then(data => { if (active) { setCatalog(Object.fromEntries(data.nodes.filter((product): product is Product => !!product).map(product => [product.id, product]))); setLoadError(""); setCatalogReady(true); } })
+      .catch(() => { if (active) setLoadError("The collection couldn't load. Please try again."); });
+    return () => { active = false; };
+  }, [domain, storefrontAccessToken, attempt]);
+
+  useEffect(() => {
+    let active = true;
+    async function restore() {
+      try {
+        let id: string | null = null;
+        try { id = localStorage.getItem(cartKey); } catch { return; }
+        if (id) {
+          const data = await request<{ cart: Cart | null }>({ domain, storefrontAccessToken }, cartQuery, { id });
+          if (active) setCart(data.cart);
+          if (!data.cart) localStorage.removeItem(cartKey);
+        }
+      } catch { if (active) { setRestoreFailed(true); setError("We couldn't restore your saved bag. Refresh to reconnect before adding items."); } }
+      finally { if (active) setRestoring(false); }
+    }
+    void restore();
+    return () => { active = false; };
+  }, [domain, storefrontAccessToken, cartKey]);
+
+  function saveCart(next: Cart) {
+    setCart(next);
+    try { localStorage.setItem(cartKey, next.id); } catch { /* Shopping still works when storage is blocked. */ }
+  }
+  async function mutate(change: { variantId: string } | { lineId: string; quantity: number }) {
+    if (locked.current || restoring || restoreFailed) return;
+    locked.current = true; setBusy(true); setError(""); setNotice("");
+    try {
+      const result = await changeCart(config, cart, change);
+      saveCart(result.cart); setNotice(result.warning || ("variantId" in change ? "Added to your bag" : ""));
+      if ("variantId" in change) { setPreview(null); setBagOpen(true); }
+    } catch (cause) { setError(cause instanceof Error ? cause.message : "Unable to update your bag. Please try again."); }
+    finally { locked.current = false; setBusy(false); }
+  }
+  async function checkout() {
+    if (!cart || locked.current) return;
+    locked.current = true; setBusy(true); setError("");
+    try {
+      const data = await request<{ cart: Cart | null }>(config, cartQuery, { id: cart.id });
+      if (!data.cart?.totalQuantity) throw new Error("Your bag has expired or is empty. Refresh and add your tee again.");
+      saveCart(data.cart);
+      window.location.assign(data.cart.checkoutUrl);
+    } catch (cause) { setError(cause instanceof Error ? cause.message : "Checkout couldn't open. Please try again."); }
+    finally { locked.current = false; setBusy(false); }
+  }
+  const activeGroup = preview === null ? null : groups[preview];
+  const activeId = preview === 0 ? archetype : activeGroup?.designs[0].id;
+  const activeProduct = activeId ? catalog[productGid(activeId)] : null;
+
+  return <div className={styles.shop}>
+    <div className={styles.toolbar}><span>Comfort Colors · 1717</span><button type="button" className={styles.bagButton} onClick={() => { setPreview(null); if (!restoreFailed) setError(""); setBagOpen(true); }} aria-label={`Open shopping bag, ${cart?.totalQuantity || 0} items`}><svg width="18" height="20" viewBox="0 0 20 22" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true"><path d="M3 7h14l1 13H2L3 7Z"/><path d="M6 8V5a4 4 0 0 1 8 0v3"/></svg>Bag <span>{cart?.totalQuantity || 0}</span></button></div>
+    {loadError ? <div role="alert" className={styles.loadError}>{loadError}<button type="button" onClick={() => setAttempt(attempt + 1)}>Try again</button></div> : <div className={styles.products}>{groups.map((group, index) => {
+      const id = index === 0 ? archetype : group.designs[0].id;
+      const product = catalog[productGid(id)];
+      return <article key={group.title} className={styles.card}>
+        <button type="button" className={styles.cardPhoto} disabled={!product} onClick={() => { if (!restoreFailed) setError(""); setPreview(index); }} aria-label={`View ${group.title}`}>
+          {product ? <><Photo product={product} index={1} className={styles.backPhoto} /><Photo product={product} index={0} className={styles.frontPhoto} /><span className={styles.viewHint}>Explore tee <span>↗</span></span></> : <span className={styles.skeleton}>{catalogReady ? "Currently unavailable" : "Loading tee…"}</span>}
+        </button>
+        <div className={styles.cardHeading}><h2>{group.title}</h2><span>{product?.variants.nodes[0] ? money(product.variants.nodes[0].price) : ""}</span></div>
+        {index === 0 ? <label className={styles.cardDesign}><span className="sr-only">Archetype design</span><select value={archetype} onChange={event => setArchetype(event.target.value)}>{group.designs.map(design => <option key={design.id} value={design.id}>{design.name}</option>)}</select></label> : <p className={styles.cardMeta}>Two-sided · Black</p>}
+        <button type="button" className={styles.cardAction} disabled={!product} onClick={() => { if (!restoreFailed) setError(""); setPreview(index); }}>View tee <span aria-hidden="true">↗</span></button>
+      </article>;
+    })}</div>}
+    {activeGroup && activeProduct && activeId && <ProductPreview key={activeId} product={activeProduct} title={activeGroup.title} choices={activeGroup.designs} design={activeId} chooseDesign={setArchetype} close={() => setPreview(null)} busy={busy} blocked={restoring || restoreFailed} error={error} add={variant => void mutate({ variantId: variant.id })} />}
+    {bagOpen && <ShopDialog label="Shopping bag" drawer close={() => setBagOpen(false)}>
+      <div className={styles.bagHeader}><p className={styles.eyebrow}>Submission Saga</p><h2>Your bag <span>{cart?.totalQuantity || 0}</span></h2></div>
+      <div className={styles.bagLines}>
+        {notice && <p role="status" className={styles.notice}>{notice}</p>}
+        {restoring ? <p>Loading your bag…</p> : cart?.totalQuantity ? cart.lines.nodes.map(line => {
+          const product = catalog[line.merchandise.product.id];
+          return <article key={line.id} className={styles.bagLine}>
+            <div className={styles.bagPhoto}>{product ? <Photo product={product} index={1} /> : line.merchandise.image && <CartPhoto url={line.merchandise.image.url} title={line.merchandise.product.title} />}</div>
+            <div className={styles.lineInfo}><h3>{shortTitle(line.merchandise.product.title)}</h3><p>Black · {sizeOf(line.merchandise)}</p><strong>{money(line.cost.totalAmount)}</strong><div className={styles.lineActions}><div className={styles.quantity}><button type="button" disabled={busy || line.quantity <= 1} aria-label={`Decrease quantity of ${shortTitle(line.merchandise.product.title)}`} onClick={() => void mutate({ lineId: line.id, quantity: line.quantity - 1 })}>−</button><span aria-label="Quantity">{line.quantity}</span><button type="button" disabled={busy} aria-label={`Increase quantity of ${shortTitle(line.merchandise.product.title)}`} onClick={() => void mutate({ lineId: line.id, quantity: line.quantity + 1 })}>+</button></div><button type="button" className={styles.remove} disabled={busy} onClick={() => void mutate({ lineId: line.id, quantity: 0 })} aria-label={`Remove ${shortTitle(line.merchandise.product.title)}`}>Remove</button></div></div>
+          </article>;
+        }) : <div className={styles.empty}><span aria-hidden="true">↗</span><h3>Your bag is empty</h3><p>Explore the Submission Saga collection.</p><button type="button" className={styles.secondary} onClick={() => setBagOpen(false)}>Explore merch</button></div>}
+      </div>
+      <div className={styles.bagFooter}>
+        {error && <p role="alert" className={styles.error}>{error}</p>}
+        {!!cart?.totalQuantity && <><div className={styles.subtotal}><span>Subtotal</span><strong>{money(cart.cost.subtotalAmount)}</strong></div><p className={styles.checkoutNote}>Shipping and any applicable taxes calculated at checkout.</p><button type="button" className={styles.primary} disabled={busy} onClick={() => void checkout()}>{busy ? "Updating…" : "Continue to checkout"}<span aria-hidden="true">↗</span></button><p className={styles.secure}>Secure checkout with Shopify</p><button type="button" className={styles.continue} onClick={() => setBagOpen(false)}>Continue shopping</button></>}
+      </div>
+    </ShopDialog>}
+  </div>;
 }

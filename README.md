@@ -37,7 +37,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## Shop connection
 
-`/shop` uses Shopify Buy Button product components. With no complete configuration it
+`/shop` uses custom product previews and a shopping bag backed by the Shopify
+Storefront API, followed by Shopify-hosted checkout. With no complete configuration it
 shows a coming-soon message, is marked noindex, and stays out of the sitemap.
 The header and footer link to it on desktop and mobile.
 
@@ -60,20 +61,22 @@ To connect the separate Hobbyist Games store:
    checkout and shipping for a US address and each intended international market.
    Confirm the order reaches Printful. A local page preview cannot verify this.
 
-The SDK loads only when the configured shop is visited. Shopify handles the cart
-and checkout; its cart can remain available after navigating elsewhere on the
-site. Loading failures offer a retry instead of displaying an empty catalog.
-Three cards show Archetype, Moves, and Logo tees. The Archetype design selector
-switches between three separately synced Printful products, preserving artwork
-mappings. Product IDs are in `ShopifyCollection.tsx`; add future designs there
-after publishing them to Buy Button. Printful exports front/back/side mockups;
-the second (back) image is featured on the cards, with a front/back toggle.
-Native cards use the SDK's live product model and open its size-selection modal;
-Shopify still owns cart and checkout. The merch page uses the site's navy/gold palette, pixel headings, rounded photo
-panels, and product information below the images with no promotional tagline.
-Prices, sizes, availability, and currency formatting are owned by Shopify. International shipping does
-not imply that the embed localizes currencies; check the actual checkout for the
-markets enabled in the store.
+The catalog loads only when the configured shop is visited. Loading failures offer
+a retry instead of displaying an empty catalog. Three cards show Archetype, Moves,
+and Logo tees. The Archetype selector switches between three separately synced
+Printful products, preserving artwork mappings. Product IDs are in
+`src/lib/storefront.ts`; add future designs there after publishing to Buy Button.
+
+The gallery, product preview, and bag share the site's navy/gold palette, pixel
+headings, Outfit body font, and rounded corners. Previews offer front/back/side
+photos, tap-to-zoom, explicit size selection, and Shopify's size guide. The bag
+supports quantity changes and removal, and restores its Shopify cart ID from local
+storage on return. It is accessible from the shop page. Native dialogs handle
+focus, Escape, backdrop dismissal, and scroll locking. Shopify validates cart
+changes and provides the final checkout URL; payment details stay in its checkout.
+
+Prices, sizes, availability, and currency come from Shopify. International shipping
+does not imply currency localization; check checkout for each enabled market.
 
 Setup references: [Buy Button](https://help.shopify.com/en/manual/online-sales-channels/buy-button)
 and [Printful connection](https://help.printful.com/hc/en-us/articles/50262260641297-How-do-I-connect-my-Shopify-store-to-Printful).
@@ -91,6 +94,8 @@ automatically fulfilled. Printful's US standard
 shipping profile is $4.95; only the United States is an active market.
 
 Before enabling live sales:
+- Remove Shopify storefront password protection when ready to launch. The live
+  Cart API checkout URL currently redirects to the store's Opening soon page.
 - Add a Printful billing method.
 - Confirm the merchant's sales-tax registrations; Shopify currently says US tax
   is not being collected. Do not infer registration from the LLC's existence.
