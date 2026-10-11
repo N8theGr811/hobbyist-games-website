@@ -170,11 +170,10 @@ export default function ShopifyCollection({ domain, storefrontAccessToken }: Sto
       const product = catalog[productGid(id)];
       return <article key={group.title} className={styles.card}>
         <button type="button" className={styles.cardPhoto} disabled={!product} onClick={() => { if (!restoreFailed) setError(""); setPreview(index); }} aria-label={`View ${group.title}`}>
-          {product ? <><Photo product={product} index={1} /><span className={styles.viewHint}>Explore tee <span>↗</span></span></> : <span className={styles.skeleton}>{catalogReady ? "Currently unavailable" : "Loading tee…"}</span>}
+          {product ? <Photo product={product} index={1} /> : <span className={styles.skeleton}>{catalogReady ? "Currently unavailable" : "Loading tee…"}</span>}
         </button>
-        <div className={styles.cardHeading}><h2>{group.title}</h2><span>{product?.variants.nodes[0] ? money(product.variants.nodes[0].price) : ""}</span></div>
+        <div className={styles.cardHeading}><h2><button type="button" disabled={!product} onClick={() => { if (!restoreFailed) setError(""); setPreview(index); }}>{group.title}</button></h2><span>{product?.variants.nodes[0] ? money(product.variants.nodes[0].price) : ""}</span></div>
         {index === 0 ? <label className={styles.cardDesign}><span className="sr-only">Archetype design</span><select value={archetype} onChange={event => setArchetype(event.target.value)}>{group.designs.map(design => <option key={design.id} value={design.id}>{design.name}</option>)}</select></label> : <p className={styles.cardMeta}>Two-sided · Black</p>}
-        <button type="button" className={styles.cardAction} disabled={!product} onClick={() => { if (!restoreFailed) setError(""); setPreview(index); }}>View tee <span aria-hidden="true">↗</span></button>
       </article>;
     })}</div>}
     {activeGroup && activeProduct && activeId && <ProductPreview key={activeId} product={activeProduct} title={activeGroup.title} choices={activeGroup.designs} design={activeId} chooseDesign={setArchetype} close={() => setPreview(null)} busy={busy} blocked={restoring || restoreFailed} error={error} add={variant => void mutate({ variantId: variant.id })} />}

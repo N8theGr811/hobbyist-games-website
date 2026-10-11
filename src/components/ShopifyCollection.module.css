@@ -9,16 +9,15 @@
 .cardPhoto { position:relative; width:100%; aspect-ratio:4/5; background:#e8e5de; border-radius:20px; overflow:hidden; display:block; isolation:isolate; }
 .photo { display:block; height:100%; width:100%; object-fit:contain; mix-blend-mode:multiply; }
 .cardPhoto > .photo { position:absolute; inset:0; padding:20px; }
-.viewHint { position:absolute; bottom:16px; left:18px; right:18px; display:flex; justify-content:space-between; color:#373a34; font-size:12px; opacity:0; transform:translateY(4px); transition:opacity .2s,transform .2s; }
 .cardHeading { display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-top:22px; }
 .cardHeading h2 { font-family:var(--font-pixel); font-size:12px; line-height:1.8; }
+.cardHeading h2 button { text-align:left; min-height:44px; }
+.cardHeading h2 button:hover { color:var(--color-steam-gold); }
 .cardHeading > span { color:var(--muted); font-size:14px; white-space:nowrap; }
 .cardMeta,.cardDesign { display:block; margin-top:10px; min-height:44px; font-size:14px; color:var(--muted); }
 .cardMeta { padding-top:12px; }
 .cardDesign select { width:100%; height:44px; border:0; border-bottom:1px solid var(--line); background:transparent; padding-right:20px; cursor:pointer; }
 .cardDesign option,.designLabel option { background:var(--color-steam-navy-2); color:var(--color-cream); }
-.cardAction { display:flex; align-items:center; justify-content:space-between; width:100%; min-height:48px; margin-top:10px; padding:0 16px; border:1px solid rgba(212,165,60,.3); border-radius:10px; font-size:14px; color:var(--color-steam-gold); background:rgba(212,165,60,.05); transition:background .2s,border-color .2s; }
-.cardAction:hover { background:rgba(212,165,60,.12); border-color:var(--color-steam-gold); }
 .skeleton { display:grid; place-items:center; height:100%; font-size:14px; color:#555950; }
 .loadError { padding:40px 0; }
 .loadError button { display:block; min-height:44px; margin-top:12px; text-decoration:underline; color:var(--color-steam-gold); }
@@ -107,9 +106,6 @@
 .shop button:disabled,.dialog button:disabled { cursor:not-allowed; }
 .dialog button:disabled:not(.primary),.shop button:disabled { opacity:.45; }
 .shop button:focus-visible,.shop select:focus-visible,.dialog button:focus-visible,.dialog select:focus-visible,.dialog summary:focus-visible { outline:2px solid var(--color-steam-gold); outline-offset:4px; }
-@media (hover:hover) and (prefers-reduced-motion:no-preference) {
-  .cardPhoto:hover .viewHint { opacity:1; transform:none; }
-}
 @media (max-width:1100px) { .cardHeading { flex-direction:column; gap:6px; } .products { gap:24px; } .previewGrid { gap:24px; } .productInfo { padding-right:0; } }
 @media (max-width:767px) {
   .products { grid-template-columns:1fr; gap:40px; }
