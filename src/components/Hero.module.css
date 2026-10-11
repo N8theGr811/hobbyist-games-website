@@ -1,38 +1,37 @@
-/* One introduction and one gameplay image, with room for first-visit consent. */
+/* A centered poster that leaves the stores visible below the full game image. */
 .hero {
   --hero-consent-height: 0px;
-  --hero-content-height: 372px;
+  /* Logo, subtitle, buttons, gaps and padding, plus a little breathing room. */
+  --hero-content-height: 360px;
   position: relative;
   isolation: isolate;
   overflow: hidden;
   color: #f4ebd0;
   background-color: #0b1230;
   background-image:
-    radial-gradient(ellipse at 80% 48%, rgba(232, 190, 63, 0.065), transparent 60%),
+    radial-gradient(ellipse at 50% 48%, rgba(232, 190, 63, 0.065), transparent 60%),
     radial-gradient(rgba(244, 235, 208, 0.025) 1px, transparent 1px);
   background-size: auto, 14px 14px;
 }
 
 :global(body:has([data-cookie-consent])) .hero {
-  --hero-consent-height: 144px;
+  --hero-consent-height: 176px;
 }
 
 .layout {
   display: grid;
-  grid-template-areas: "intro" "gameplay" "stores";
   align-items: center;
   justify-items: center;
-  gap: 20px;
-  max-width: 1280px;
+  gap: 18px;
+  max-width: 1000px;
   margin-inline: auto;
   padding: 88px 16px 32px;
   text-align: center;
 }
 
 .intro {
-  grid-area: intro;
   width: 100%;
-  max-width: 440px;
+  max-width: 320px;
 }
 
 /* Display only the existing PNG's artwork bounds (403,108 to 1751,480).
@@ -55,7 +54,7 @@
 }
 
 .subtitle {
-  margin-top: 12px;
+  margin-top: 8px;
   font-family: var(--font-vt323);
   font-size: 22px;
   line-height: 1;
@@ -63,7 +62,6 @@
 }
 
 .gameplay {
-  grid-area: gameplay;
   display: flex;
   justify-content: center;
   width: 100%;
@@ -75,21 +73,20 @@
   width: auto;
   height: auto;
   max-width: 100%;
-  max-height: clamp(128px, calc(100svh - var(--hero-content-height) - var(--hero-consent-height)), 552px);
+  max-height: clamp(96px, calc(100svh - var(--hero-content-height) - var(--hero-consent-height)), 520px);
   border: 1px solid rgba(244, 235, 208, 0.3);
   border-radius: 10px;
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
 }
 
 .stores {
-  grid-area: stores;
   width: 100%;
-  max-width: 440px;
+  max-width: 520px;
 }
 
 @media (min-width: 640px) {
-  .hero {
-    --hero-content-height: 412px;
+  :global(body:has([data-cookie-consent])) .hero {
+    --hero-consent-height: 144px;
   }
 
   .layout {
@@ -97,37 +94,17 @@
   }
 }
 
-@media (min-width: 1024px) {
+@media (max-height: 680px) {
   .hero {
-    --hero-content-height: 200px;
+    --hero-content-height: 320px;
   }
 
   .layout {
-    grid-template-columns: 0.85fr 1.15fr;
-    grid-template-areas: "intro gameplay" "stores gameplay";
-    align-content: center;
-    column-gap: 48px;
-    row-gap: 32px;
-    min-height: min(760px, calc(100svh - var(--hero-consent-height) - 24px));
-    padding: 112px 48px 48px;
-    text-align: left;
+    gap: 14px;
+    padding-block: 80px 24px;
   }
 
   .intro {
-    align-self: end;
-  }
-
-  .wordmark {
-    width: 100%;
-  }
-
-  .subtitle {
-    margin-top: 16px;
-    font-size: 24px;
-    text-align: center;
-  }
-
-  .stores {
-    align-self: start;
+    max-width: 240px;
   }
 }
