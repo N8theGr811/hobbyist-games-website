@@ -8,8 +8,11 @@
 .card { min-width:0; }
 .cardPhoto { position:relative; width:100%; aspect-ratio:4/5; background:#e8e5de; border-radius:20px; overflow:hidden; display:block; isolation:isolate; }
 .photo { display:block; height:100%; width:100%; object-fit:contain; mix-blend-mode:multiply; }
-.cardPhoto .photo { position:absolute; inset:0; padding:20px; transition:opacity .35s ease,transform .6s ease; }
-.frontPhoto { opacity:0; }
+.pairedPhoto { display:block; position:relative; width:100%; height:100%; }
+.pairedPhoto .photo { position:absolute; width:70%; height:76%; padding:0; object-fit:contain; }
+.pairedPhoto .photo:first-child { left:-3%; top:0; }
+.pairedPhoto .photo:last-child { right:-3%; bottom:0; }
+.thumbnails .pairedPhoto .photo { width:72%; height:80%; padding:0; }
 .viewHint { position:absolute; bottom:16px; left:18px; right:18px; display:flex; justify-content:space-between; color:#373a34; font-size:12px; opacity:0; transform:translateY(4px); transition:opacity .2s,transform .2s; }
 .cardHeading { display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-top:22px; }
 .cardHeading h2 { font-family:var(--font-pixel); font-size:12px; line-height:1.8; }
@@ -32,9 +35,10 @@
 .previewGrid { display:grid; grid-template-columns:1.1fr 1fr; gap:40px; padding:24px; }
 .gallery { min-width:0; }
 .largePhoto { display:block; aspect-ratio:4/5; width:100%; background:#e8e5de; border-radius:16px; overflow:hidden; cursor:zoom-in; }
-.largePhoto .photo { padding:20px; transition:transform .4s ease; }
+.largePhoto > .photo { padding:20px; transition:transform .4s ease; }
 .zoomed { cursor:zoom-out; }
-.zoomed .photo { transform:scale(1.65); }
+.largePhoto .pairedPhoto { transition:transform .4s ease; }
+.zoomed > .photo,.zoomed > .pairedPhoto { transform:scale(1.65); }
 .thumbnails { display:flex; justify-content:center; gap:12px; margin-top:16px; }
 .thumbnails button { width:62px; height:68px; padding:3px; border:2px solid transparent; border-radius:9px; overflow:hidden; background:#e8e5de; opacity:.65; }
 .thumbnails button[aria-pressed="true"] { opacity:1; border-color:var(--color-steam-gold); }
@@ -109,8 +113,6 @@
 .dialog button:disabled:not(.primary),.shop button:disabled { opacity:.45; }
 .shop button:focus-visible,.shop select:focus-visible,.dialog button:focus-visible,.dialog select:focus-visible,.dialog summary:focus-visible { outline:2px solid var(--color-steam-gold); outline-offset:4px; }
 @media (hover:hover) and (prefers-reduced-motion:no-preference) {
-  .cardPhoto:hover .backPhoto { opacity:0; }
-  .cardPhoto:hover .frontPhoto { opacity:1; transform:scale(1.025); }
   .cardPhoto:hover .viewHint { opacity:1; transform:none; }
 }
 @media (max-width:1100px) { .cardHeading { flex-direction:column; gap:6px; } .products { gap:24px; } .previewGrid { gap:24px; } .productInfo { padding-right:0; } }
@@ -118,11 +120,10 @@
   .products { grid-template-columns:1fr; gap:40px; }
   .cardHeading { flex-direction:row; }
   .cardPhoto { aspect-ratio:1/1.1; }
-  .cardPhoto .photo { padding:18px; }
   .preview { width:calc(100% - 16px); max-height:calc(100dvh - 16px); border-radius:20px; }
   .previewGrid { grid-template-columns:1fr; padding:12px; gap:12px; }
   .largePhoto { aspect-ratio:1/1; }
-  .largePhoto .photo { padding:12px; }
+  .largePhoto > .photo { padding:12px; }
   .productInfo { padding:20px 12px 8px; }
   .productInfo h2 { font-size:17px; }
   .galleryNote { padding:0 8px; font-size:11px; }
