@@ -15,16 +15,12 @@ export default function Hero() {
               width={2160}
               height={580}
               priority
-              sizes="(max-width: 639px) 125vw, 650px"
+              sizes="(max-width: 639px) 128vw, 710px"
               className={styles.wordmarkImage}
             />
           </h1>
           <p className={`${styles.subtitle} animate-fade-up`} style={{ animationDelay: "0.15s" }}>
             THE JIU JITSU RPG
-          </p>
-          <p className={`${styles.tagline} animate-fade-up`} style={{ animationDelay: "0.3s" }}>
-            From white belt to<br />
-            <span>world champion.</span>
           </p>
         </div>
 
