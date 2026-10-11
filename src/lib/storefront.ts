@@ -5,6 +5,7 @@ export interface ProductImage { url: string; altText: string | null }
 export interface Variant {
   id: string; title: string; availableForSale: boolean; price: Money;
   selectedOptions: { name: string; value: string }[];
+  image: ProductImage | null;
 }
 export interface Product {
   id: string; title: string; description: string; descriptionHtml: string;
@@ -33,6 +34,20 @@ export const money = (value: Money) => new Intl.NumberFormat("en-US", { style: "
 export const shortTitle = (title: string) => title.replace(/^Submission Saga\s*/, "");
 export const sizeOf = (variant: Variant) => variant.selectedOptions.find(option => option.name.toLowerCase() === "size")?.value || variant.title;
 
+export const colorOf = (variant: Variant) => variant.selectedOptions.find(option => /^(color|colour)$/i.test(option.name))?.value || "Black";
+export const colorsOf = (product: Product) => Array.from(new Set(product.variants.nodes.map(colorOf)));
+
+/** Printful exports color and view in filenames; keep each color's media together. */
+export function productForColor(product: Product, color: string): Product {
+  const sizes = ["S", "M", "L", "XL", "2XL", "3XL", "4XL"];
+  const variants = product.variants.nodes.filter(variant => colorOf(variant) === color)
+    .sort((a, b) => sizes.indexOf(sizeOf(a)) - sizes.indexOf(sizeOf(b)));
+  const slug = color.toLowerCase().replace(/\s+/g, "-");
+  const matched = product.images.nodes.filter(image => new URL(image.url).pathname.toLowerCase().includes(`-${slug}-`));
+  const images = matched.length ? matched : colorsOf(product).length === 1 ? product.images.nodes : variants[0]?.image ? [variants[0].image] : [];
+  return { ...product, images: { nodes: images }, variants: { nodes: variants } };
+}
+
 export async function request<T>(config: StorefrontConfig, query: string, variables: Record<string, unknown> = {}): Promise<T> {
   const response = await fetch(`https://${config.domain}/api/2026-07/graphql.json`, {
     method: "POST", headers: { "Content-Type": "application/json", "X-Shopify-Storefront-Access-Token": config.storefrontAccessToken },
@@ -45,8 +60,8 @@ export async function request<T>(config: StorefrontConfig, query: string, variab
 }
 
 export const catalogQuery = `query Catalog($ids: [ID!]!) { nodes(ids: $ids) { ... on Product {
-  id title description descriptionHtml images(first: 8) { nodes { url altText } }
-  variants(first: 50) { nodes { id title availableForSale price { amount currencyCode } selectedOptions { name value } } }
+  id title description descriptionHtml images(first: 30) { nodes { url altText } }
+  variants(first: 50) { nodes { id title availableForSale image { url altText } price { amount currencyCode } selectedOptions { name value } } }
 } } }`;
 export const cartFields = `id checkoutUrl totalQuantity cost { subtotalAmount { amount currencyCode } }
   lines(first: 100) { nodes { id quantity cost { totalAmount { amount currencyCode } }

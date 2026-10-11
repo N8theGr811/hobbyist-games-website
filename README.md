@@ -71,7 +71,10 @@ The gallery, product preview, and bag share the site's navy/gold palette, pixel
 headings, Outfit body font, and rounded corners. Previews offer front/back/side
 photos, tap-to-zoom, explicit size selection, and Shopify's size guide. Cards and
 previews feature the back print on its own; front and side views remain available
-in the preview thumbnails. The bag
+in the preview thumbnails. Logo Tee has Black and White choices on the card and
+preview. Color selection filters sizes and Printful mockups, resets the selected
+size, and carries the correct Shopify variant and color into the bag. Mockup
+filenames must retain Printful's color/view naming for automatic grouping. The bag
 supports quantity changes and removal, and restores its Shopify cart ID from local
 storage on return. It is accessible from the shop page. Native dialogs handle
 focus, Escape, backdrop dismissal, and scroll locking. Shopify validates cart

@@ -134,3 +134,16 @@
   .quantity button { width:32px; }
 }
 @media (prefers-reduced-motion:reduce) { .shop *,.dialog * { transition:none!important; animation:none!important; } }
+
+.colors { border:0; padding:0; margin:12px 0 0; min-width:0; }
+.colors legend { font-size:12px; color:var(--muted); margin-bottom:8px; }
+.colors > div { display:flex; gap:8px; }
+.colors button { display:flex; align-items:center; gap:8px; padding:8px 12px; min-height:44px; border:1px solid var(--line); border-radius:10px; font-size:13px; }
+.colors button[aria-pressed="true"] { border-color:var(--color-steam-gold); background:rgba(212,165,60,.06); }
+.colors button span { width:16px; height:16px; border-radius:50%; border:1px solid #ffffff40; }
+
+.whitePhoto { mix-blend-mode:normal; }
+/* White uses Printful's wider flat-lay mockup, with its original garment color. */
+.cardPhoto:has(.whitePhoto),.largePhoto:has(.whitePhoto),.bagPhoto:has(.whitePhoto) { background:#fff; }
+.cardPhoto > .whitePhoto,.largePhoto > .whitePhoto { transform:scale(1); }
+.zoomed > .whitePhoto { transform:scale(1.65); }
