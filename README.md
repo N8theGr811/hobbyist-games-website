@@ -37,7 +37,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## Shop connection
 
-`/shop` embeds a Shopify Buy Button collection. With no complete configuration it
+`/shop` uses Shopify Buy Button product components. With no complete configuration it
 shows a coming-soon message, is marked noindex, and stays out of the sitemap.
 The header and footer link to it on desktop and mobile.
 
@@ -63,9 +63,54 @@ To connect the separate Hobbyist Games store:
 The SDK loads only when the configured shop is visited. Shopify handles the cart
 and checkout; its cart can remain available after navigating elsewhere on the
 site. Loading failures offer a retry instead of displaying an empty catalog.
-Prices and currency formatting are owned by Shopify. International shipping does
+Three cards show Archetype, Moves, and Logo tees. The Archetype design selector
+switches between three separately synced Printful products, preserving artwork
+mappings. Product IDs are in `ShopifyCollection.tsx`; add future designs there
+after publishing them to Buy Button. Printful exports front/back/side mockups;
+the second (back) image is featured on the cards, with all views in the modal.
+Prices, sizes, availability, and currency formatting are owned by Shopify. International shipping does
 not imply that the embed localizes currencies; check the actual checkout for the
 markets enabled in the store.
 
 Setup references: [Buy Button](https://help.shopify.com/en/manual/online-sales-channels/buy-button)
 and [Printful connection](https://help.printful.com/hc/en-us/articles/50262260641297-How-do-I-connect-my-Shopify-store-to-Printful).
+
+### Launch status (October 10, 2026)
+
+The five two-sided Comfort Colors tees are synced to Printful and published to
+Buy Button at $38 across S–4XL. The website presents three cards, and groups the
+three archetypes with a design selector. Production Shopify environment values
+are saved in Vercel; a new deployment is still needed. Shopify's store name is
+Hobbyist Games and automatic fulfillment requests and shipment notifications are
+on. Printful automatically confirms fulfillment requests and updates stock;
+its import override and product substitutions are off. High-risk orders are not
+automatically fulfilled. Printful's US standard
+shipping profile is $4.95; only the United States is an active market.
+
+Before enabling live sales:
+- Add a Printful billing method.
+- Confirm the merchant's sales-tax registrations; Shopify currently says US tax
+  is not being collected. Do not infer registration from the LLC's existence.
+- Return, shipping, contact, and automated privacy policies are published.
+  Additional general terms of service have not been added.
+- Confirm any additional countries before activating those markets.
+- Deploy, then verify checkout and a merchant-authorized test order through to
+  Printful. No paid order has been placed during setup.
+
+The following return terms were approved by the merchant and published in
+Shopify, along with the shipping information and support contact policy:
+
+**Returns:** Each shirt is made to order. Please check the size guide before
+ordering. We do not offer returns or exchanges for an incorrectly chosen size,
+color, or change of mind, except where required by applicable law. If your order
+arrives damaged, defective, misprinted, or incorrect, contact
+info@submissionsaga.com within 14 days of delivery with your order number and
+photos. We will review the issue and arrange an appropriate replacement or
+refund. Contact us before sending anything back. This policy does not limit your
+statutory rights.
+
+**Shipping:** Shirts are printed to order. Production and transit are separate;
+shipping charges are shown at checkout. Tracking is emailed when an order ships.
+Delivery dates are estimates, not guarantees. For a delayed or missing package,
+contact info@submissionsaga.com promptly with your order number. We currently
+ship to the United States.
