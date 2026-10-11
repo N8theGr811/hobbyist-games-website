@@ -1,25 +1,150 @@
-/* Leave room for the header, title, caption, stores, and section divider.
-   The image shrinks without cropping; very short windows scroll naturally. */
-.screenshot {
-  --hero-content-height: 380px;
+/* One introduction and one gameplay image, with room for first-visit consent. */
+.hero {
   --hero-consent-height: 0px;
-  max-height: clamp(128px, calc(100svh - var(--hero-content-height) - var(--hero-consent-height)), 552px);
+  --hero-content-height: 440px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #f4ebd0;
+  background-color: #0b1230;
+  background-image:
+    radial-gradient(ellipse at 80% 48%, rgba(232, 190, 63, 0.065), transparent 60%),
+    radial-gradient(rgba(244, 235, 208, 0.025) 1px, transparent 1px);
+  background-size: auto, 14px 14px;
 }
 
-/* The first-visit prompt must not sit over the store links. */
-:global(body:has([data-cookie-consent])) .screenshot {
+:global(body:has([data-cookie-consent])) .hero {
   --hero-consent-height: 144px;
 }
 
+.layout {
+  display: grid;
+  grid-template-areas: "intro" "gameplay" "stores";
+  align-items: center;
+  justify-items: center;
+  gap: 20px;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding: 88px 16px 32px;
+  text-align: center;
+}
+
+.intro {
+  grid-area: intro;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Display only the existing PNG's artwork bounds (403,108 to 1751,480).
+   Keeping that empty canvas out of layout gives the title its actual size. */
+.wordmark {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1348 / 372;
+  width: min(100%, 76vw);
+  margin-inline: auto;
+}
+
+.wordmarkImage {
+  position: absolute;
+  width: 160.2374%;
+  max-width: none;
+  height: auto;
+  left: -29.8961%;
+  top: -29.0323%;
+}
+
+.subtitle {
+  margin-top: 12px;
+  font-family: var(--font-vt323);
+  font-size: 22px;
+  line-height: 1;
+  letter-spacing: 0.2em;
+}
+
+.tagline {
+  margin-top: 24px;
+  font-size: 24px;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.tagline span {
+  color: #e8be3f;
+}
+
+.gameplay {
+  grid-area: gameplay;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+}
+
+.screenshot {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: clamp(128px, calc(100svh - var(--hero-content-height) - var(--hero-consent-height)), 552px);
+  border: 1px solid rgba(244, 235, 208, 0.3);
+  border-radius: 10px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+}
+
+.stores {
+  grid-area: stores;
+  width: 100%;
+  max-width: 400px;
+}
+
 @media (min-width: 640px) {
-  .screenshot {
-    --hero-content-height: 424px;
+  .hero {
+    --hero-content-height: 480px;
+  }
+
+  .layout {
+    padding-inline: 24px;
   }
 }
 
-/* Beside the title, the image only needs to leave room for the stores. */
 @media (min-width: 1024px) {
-  .screenshot {
-    --hero-content-height: 232px;
+  .hero {
+    --hero-content-height: 200px;
+  }
+
+  .layout {
+    grid-template-columns: 0.8fr 1.2fr;
+    grid-template-areas: "intro gameplay" "stores gameplay";
+    align-content: center;
+    column-gap: 48px;
+    row-gap: 32px;
+    min-height: min(760px, calc(100svh - var(--hero-consent-height) - 24px));
+    padding: 112px 48px 48px;
+    text-align: left;
+  }
+
+  .intro {
+    align-self: end;
+  }
+
+  .wordmark {
+    width: 100%;
+  }
+
+  .subtitle {
+    margin-top: 16px;
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .tagline {
+    margin-top: 32px;
+    font-size: clamp(28px, 2.6vw, 36px);
+  }
+
+  .stores {
+    align-self: start;
   }
 }
