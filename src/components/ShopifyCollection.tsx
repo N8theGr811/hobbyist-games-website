@@ -85,12 +85,13 @@ function ShopifyProduct({ domain, storefrontAccessToken, productId, scriptReady,
       ui = readyUI;
       if (cancelled) return;
       const button = {
-        "background-color": "#242620",
-        color: "#FFFFFF",
-        "border-radius": "2px",
+        "background-color": "#D4A53C",
+        color: "#0E1530",
+        "border-radius": "10px",
         "font-weight": "bold",
-        ":hover": { "background-color": "#40433a", color: "#FFFFFF" },
-        ":focus": { "background-color": "#40433a", color: "#FFFFFF" },
+        "font-family": "Outfit, sans-serif",
+        ":hover": { "background-color": "#E8C25C", color: "#0E1530" },
+        ":focus": { "background-color": "#E8C25C", color: "#0E1530" },
       };
       ui.createComponent("product", {
         id: productId,
@@ -117,7 +118,7 @@ function ShopifyProduct({ domain, storefrontAccessToken, productId, scriptReady,
             text: { button: "Add to cart" },
           },
           cart: { popup: false, styles: { button }, text: { button: "Checkout" } },
-          toggle: { styles: { toggle: button, count: { color: "#FFFFFF" }, iconPath: { fill: "#FFFFFF" } } },
+          toggle: { styles: { toggle: button, count: { color: "#0E1530" }, iconPath: { fill: "#0E1530" } } },
         },
       });
       // The current SDK wrapper returns void; it registers the component synchronously.
@@ -136,7 +137,7 @@ function ShopifyProduct({ domain, storefrontAccessToken, productId, scriptReady,
 
   return (
     <>
-      <div className="relative aspect-[4/5] overflow-hidden bg-[#e8e5de]">
+      <div className="relative aspect-[4/5] overflow-hidden rounded-panel border border-steam-gold/25 bg-[#e8e5de]">
         {details ? (
           <>
             <button type="button" onClick={() => void product.current?.openModal()} className="group h-full w-full cursor-pointer p-5 focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-[#383b31]" aria-label={`Choose size for ${details.title}`}>
@@ -152,12 +153,12 @@ function ShopifyProduct({ domain, storefrontAccessToken, productId, scriptReady,
           </div>
         )}
       </div>
-      <div className="mt-5 flex items-baseline justify-between gap-3">
-        <h2 className="text-xl font-medium tracking-[-0.025em]">{title}</h2>
-        <span className="text-sm tabular-nums text-[#55594f]">{details?.price}</span>
+      <div className="mt-5 flex items-baseline justify-between gap-3 md:flex-col md:gap-2 lg:flex-row lg:gap-3">
+        <h2 className="font-pixel text-pixel-sm leading-relaxed text-cream">{title}</h2>
+        <span className="text-sm tabular-nums text-cream/70">{details?.price}</span>
       </div>
       <div className="mt-2 flex min-h-12 items-center">{children}</div>
-      <button type="button" disabled={status !== "ready"} onClick={() => void product.current?.openModal()} className="mt-4 flex min-h-12 w-full items-center justify-between border-t border-[#26291f]/25 text-sm transition-colors hover:border-[#26291f] disabled:opacity-40">
+      <button type="button" disabled={status !== "ready"} onClick={() => void product.current?.openModal()} className="mt-4 flex min-h-12 w-full items-center justify-between rounded-md border border-steam-gold/40 bg-steam-gold/10 px-4 text-sm font-medium text-steam-gold transition-colors hover:bg-steam-gold/20 focus-visible:outline-2 focus-visible:outline-steam-gold disabled:opacity-40">
         Choose size <span aria-hidden="true">↗</span>
       </button>
       <div ref={host} hidden aria-hidden="true" />
@@ -190,17 +191,17 @@ export default function ShopifyCollection(config: ShopConfig) {
               <article key={group.title}>
                 <ShopifyProduct key={productId} {...config} productId={productId} scriptReady={scriptReady} title={group.title}>
                   {group.designs.length > 1 ? (
-                    <label className="flex w-full items-center gap-3 text-sm text-[#55594f]">
+                    <label className="flex w-full items-center gap-3 text-sm text-cream/70">
                       <span className="sr-only">Archetype design</span>
                       <select
                         value={archetype}
                         onChange={(event) => setArchetype(event.target.value)}
-                        className="min-h-11 w-full cursor-pointer border-b border-[#26291f]/20 bg-transparent pr-6 text-sm focus-visible:outline-2 focus-visible:outline-[#383b31]"
+                        className="min-h-11 w-full cursor-pointer rounded-md border border-steam-gold/25 bg-steam-navy-2 px-3 pr-6 text-sm text-cream focus-visible:outline-2 focus-visible:outline-steam-gold"
                       >
                         {group.designs.map((design) => <option key={design.id} value={design.id}>{design.name}</option>)}
                       </select>
                     </label>
-                  ) : <p className="text-sm text-[#65685f]">Front + back print</p>}
+                  ) : <p className="text-sm text-cream/70">Front + back print</p>}
                 </ShopifyProduct>
               </article>
             );
