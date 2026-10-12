@@ -67,7 +67,7 @@ export default function FeatureHighlights() {
           <span className="w-6 h-px bg-steam-gold/40" />
         </div>
         <h2 className="font-pixel text-pixel-lg text-cream leading-tight tracking-wide">
-          Real Jiu-Jitsu. Real Decisions.
+          Real Jiu Jitsu Decisions
         </h2>
       </div>
 
