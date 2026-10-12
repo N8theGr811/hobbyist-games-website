@@ -1,4 +1,4 @@
-/* A centered poster that leaves the stores visible below the full game image. */
+/* One wordmark and one gameplay group, stacked when two columns will not fit. */
 .hero {
   --hero-consent-height: 0px;
   /* Logo, subtitle, slogan, buttons, gaps and padding, with breathing room. */
@@ -22,7 +22,7 @@
   display: grid;
   align-items: center;
   justify-items: center;
-  gap: 12px;
+  gap: 8px;
   max-width: 1000px;
   margin-inline: auto;
   padding: 76px 16px 24px;
@@ -32,6 +32,14 @@
 .intro {
   width: 100%;
   max-width: 320px;
+}
+
+.content {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
 }
 
 /* Display only the existing PNG's artwork bounds (403,108 to 1751,480).
@@ -54,7 +62,6 @@
 }
 
 .subtitle {
-  margin-top: 8px;
   font-family: var(--font-vt323);
   font-size: 22px;
   line-height: 1;
@@ -111,11 +118,34 @@
     --hero-content-height: 344px;
   }
 
-  .layout {
+  .content {
     gap: 10px;
   }
 
   .intro {
     max-width: 240px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    --hero-content-height: 272px;
+  }
+
+  .layout {
+    grid-template-columns: minmax(0, 0.65fr) minmax(0, 1.35fr);
+    gap: 40px;
+    align-content: center;
+    max-width: 1400px;
+    min-height: min(860px, calc(100svh - var(--hero-consent-height) - 24px));
+    padding: 76px 32px 32px;
+  }
+
+  .intro {
+    max-width: none;
+  }
+
+  .wordmark {
+    width: 100%;
   }
 }
