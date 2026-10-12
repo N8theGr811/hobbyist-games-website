@@ -30,7 +30,7 @@ export default function Hero() {
           <img
             src="/hero/screenshot-knee-on-belly-1280.webp"
             srcSet="/hero/screenshot-knee-on-belly-800.webp 800w, /hero/screenshot-knee-on-belly-1280.webp 1280w, /hero/screenshot-knee-on-belly-1960.webp 1960w"
-            sizes="(min-width: 1280px) 677px, (min-width: 1024px) 53vw, (max-width: 639px) calc(100vw - 32px), (max-height: 680px) min(calc(100vw - 48px), calc((100svh - 372px) * 1.776)), min(924px, calc(100vw - 48px), calc((100svh - 388px) * 1.776))"
+            sizes="(min-width: 1280px) 677px, (min-width: 1024px) 53vw, (max-width: 639px) calc(100vw - 32px), (max-height: 680px) min(calc(100vw - 48px), calc((100svh - 384px) * 1.776)), min(924px, calc(100vw - 48px), calc((100svh - 400px) * 1.776))"
             alt="Submission Saga gameplay: a knee-on-belly position mid-match"
             width={2096}
             height={1180}

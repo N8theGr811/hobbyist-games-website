@@ -28,12 +28,12 @@ function StoreButton({ store }: { store: Store }) {
         <span className="flex min-h-7 items-center justify-center font-pixel text-pixel-xs uppercase leading-tight @min-[420px]:min-h-0 @min-[600px]:justify-start @min-[600px]:leading-none @min-[900px]:text-sm @min-[900px]:tracking-[0.08em]">
           {store.name}
         </span>{" "}
-        {/* The dot is for the eye; a screen reader hears "Windows and macOS". */}
+        {/* The separator is visual; a screen reader hears "Windows and macOS". */}
         <span className="text-[11px] leading-tight opacity-75 @min-[600px]:text-xs @min-[600px]:leading-none @min-[900px]:text-sm">
           {first}
           {second && (
             <>
-              <span aria-hidden="true">·</span>
+              <span aria-hidden="true"> / </span>
               <span className="sr-only"> and </span>
               {second}
             </>

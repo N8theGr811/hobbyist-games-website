@@ -2,7 +2,7 @@
 .hero {
   --hero-consent-height: 0px;
   /* Logo, subtitle, slogan, buttons, gaps and padding, with breathing room. */
-  --hero-content-height: 388px;
+  --hero-content-height: 400px;
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -85,7 +85,7 @@
 .stores {
   grid-area: stores;
   display: grid;
-  gap: 8px;
+  gap: 20px;
   width: 100%;
   max-width: 980px;
 }
@@ -112,7 +112,7 @@
 
 @media (max-height: 680px) {
   .hero {
-    --hero-content-height: 372px;
+    --hero-content-height: 384px;
   }
 
   .layout {
@@ -121,6 +121,21 @@
 
   .intro {
     max-width: 240px;
+  }
+}
+
+/* Leave room for the cookie notice on the smallest phone screens. */
+@media (max-width: 359px) and (max-height: 600px) {
+  .layout {
+    gap: 8px;
+  }
+
+  .wordmark {
+    width: 200px;
+  }
+
+  .stores {
+    gap: 12px;
   }
 }
 
@@ -153,7 +168,7 @@
 
   .stores {
     align-self: start;
-    gap: 12px;
+    gap: 24px;
     max-width: 440px;
   }
 }
