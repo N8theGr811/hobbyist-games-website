@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { cartQuery, catalogQuery, changeCart, colorOf, colorsOf, productForColor, groups, money, productGid, request, shortTitle, sizeOf, type Cart, type Product, type StorefrontConfig, type Variant } from "@/lib/storefront";
+import { CART_LIMIT_MESSAGE, MAX_CART_QUANTITY, cartQuery, catalogQuery, changeCart, colorOf, colorsOf, productForColor, groups, money, productGid, request, shortTitle, sizeOf, type Cart, type Product, type StorefrontConfig, type Variant } from "@/lib/storefront";
 import styles from "./ShopifyCollection.module.css";
 
 type Catalog = Record<string, Product>;
@@ -169,6 +169,7 @@ export default function ShopifyCollection({ domain, storefrontAccessToken, headi
       const data = await request<{ cart: Cart | null }>(config, cartQuery, { id: cart.id });
       if (!data.cart?.totalQuantity) throw new Error("Your bag has expired or is empty. Refresh and add your tee again.");
       saveCart(data.cart);
+      if (data.cart.totalQuantity > MAX_CART_QUANTITY) throw new Error(CART_LIMIT_MESSAGE);
       window.location.assign(data.cart.checkoutUrl);
     } catch (cause) { setError(cause instanceof Error ? cause.message : "Checkout couldn't open. Please try again."); }
     finally { locked.current = false; setBusy(false); }
@@ -207,13 +208,13 @@ export default function ShopifyCollection({ domain, storefrontAccessToken, headi
           const product = source ? productForColor(source, colorOf(line.merchandise)) : undefined;
           return <article key={line.id} className={styles.bagLine}>
             <div className={styles.bagPhoto}>{product ? <Photo product={product} index={1} /> : line.merchandise.image && <CartPhoto url={line.merchandise.image.url} title={line.merchandise.product.title} />}</div>
-            <div className={styles.lineInfo}><h3>{shortTitle(line.merchandise.product.title)}</h3><p>{colorOf(line.merchandise)} · {sizeOf(line.merchandise)}</p><strong>{money(line.cost.totalAmount)}</strong><div className={styles.lineActions}><div className={styles.quantity}><button type="button" disabled={busy || line.quantity <= 1} aria-label={`Decrease quantity of ${shortTitle(line.merchandise.product.title)}`} onClick={() => void mutate({ lineId: line.id, quantity: line.quantity - 1 })}>−</button><span aria-label="Quantity">{line.quantity}</span><button type="button" disabled={busy} aria-label={`Increase quantity of ${shortTitle(line.merchandise.product.title)}`} onClick={() => void mutate({ lineId: line.id, quantity: line.quantity + 1 })}>+</button></div><button type="button" className={styles.remove} disabled={busy} onClick={() => void mutate({ lineId: line.id, quantity: 0 })} aria-label={`Remove ${shortTitle(line.merchandise.product.title)}`}>Remove</button></div></div>
+            <div className={styles.lineInfo}><h3>{shortTitle(line.merchandise.product.title)}</h3><p>{colorOf(line.merchandise)} · {sizeOf(line.merchandise)}</p><strong>{money(line.cost.totalAmount)}</strong><div className={styles.lineActions}><div className={styles.quantity}><button type="button" disabled={busy || line.quantity <= 1} aria-label={`Decrease quantity of ${shortTitle(line.merchandise.product.title)}`} onClick={() => void mutate({ lineId: line.id, quantity: line.quantity - 1 })}>−</button><span aria-label="Quantity">{line.quantity}</span><button type="button" disabled={busy || cart.totalQuantity >= MAX_CART_QUANTITY} aria-label={`Increase quantity of ${shortTitle(line.merchandise.product.title)}`} onClick={() => void mutate({ lineId: line.id, quantity: line.quantity + 1 })}>+</button></div><button type="button" className={styles.remove} disabled={busy} onClick={() => void mutate({ lineId: line.id, quantity: 0 })} aria-label={`Remove ${shortTitle(line.merchandise.product.title)}`}>Remove</button></div></div>
           </article>;
         }) : <div className={styles.empty}><span aria-hidden="true">↗</span><h3>Your bag is empty</h3><p>Explore the Submission Saga collection.</p><button type="button" className={styles.secondary} onClick={() => setBagOpen(false)}>Explore merch</button></div>}
       </div>
       <div className={styles.bagFooter}>
         {error && <p role="alert" className={styles.error}>{error}</p>}
-        {!!cart?.totalQuantity && <><div className={styles.subtotal}><span>Subtotal</span><strong>{money(cart.cost.subtotalAmount)}</strong></div><p className={styles.checkoutNote}>Shipping and any applicable taxes calculated at checkout.</p><button type="button" className={styles.primary} disabled={busy} onClick={() => void checkout()}>{busy ? "Updating…" : "Continue to checkout"}<span aria-hidden="true">↗</span></button><p className={styles.secure}>Secure checkout with Shopify</p><button type="button" className={styles.continue} onClick={() => setBagOpen(false)}>Continue shopping</button></>}
+        {!!cart?.totalQuantity && <><div className={styles.subtotal}><span>Subtotal</span><strong>{money(cart.cost.subtotalAmount)}</strong></div><p className={styles.checkoutNote}>Shipping and any applicable taxes calculated at checkout. Maximum {MAX_CART_QUANTITY} shirts per order.</p><button type="button" className={styles.primary} disabled={busy} onClick={() => void checkout()}>{busy ? "Updating…" : "Continue to checkout"}<span aria-hidden="true">↗</span></button><p className={styles.secure}>Secure checkout with Shopify</p><button type="button" className={styles.continue} onClick={() => setBagOpen(false)}>Continue shopping</button></>}
       </div>
     </ShopDialog>}
   </div>;

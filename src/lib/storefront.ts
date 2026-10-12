@@ -20,6 +20,9 @@ export interface Cart {
   cost: { subtotalAmount: Money }; lines: { nodes: CartLine[] };
 }
 
+export const MAX_CART_QUANTITY = 20;
+export const CART_LIMIT_MESSAGE = `Orders are limited to ${MAX_CART_QUANTITY} shirts. For larger orders, contact info@submissionsaga.com.`;
+
 export const groups = [
   { title: "Archetype Tee", designs: [
     { name: "Guard Player", id: "15400774238407" },
@@ -73,6 +76,11 @@ export const cartQuery = `query Cart($id: ID!) { cart(id: $id) { ${cartFields} }
 
 /** Mutations are serialized by the UI; Shopify validates quantities and availability. */
 export async function changeCart(config: StorefrontConfig, cart: Cart | null, change: { variantId: string } | { lineId: string; quantity: number }): Promise<{ cart: Cart; warning?: string }> {
+  const currentQuantity = cart?.totalQuantity || 0;
+  const nextQuantity = "variantId" in change
+    ? currentQuantity + 1
+    : currentQuantity - (cart?.lines.nodes.find(line => line.id === change.lineId)?.quantity || 0) + change.quantity;
+  if (nextQuantity > MAX_CART_QUANTITY && nextQuantity >= currentQuantity) throw new Error(CART_LIMIT_MESSAGE);
   let name: string, args: string, invocation: string, variables: Record<string, unknown>;
   if ("variantId" in change) {
     const lines = [{ merchandiseId: change.variantId, quantity: 1 }];
