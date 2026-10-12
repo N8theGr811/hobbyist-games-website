@@ -1,7 +1,7 @@
 /* A centered poster that leaves the stores visible below the full game image. */
 .hero {
   --hero-consent-height: 0px;
-  /* Logo, subtitle, buttons, gaps and padding, plus a little breathing room. */
+  /* Logo, subtitle, slogan, buttons, gaps and padding, with breathing room. */
   --hero-content-height: 360px;
   position: relative;
   isolation: isolate;
@@ -22,10 +22,10 @@
   display: grid;
   align-items: center;
   justify-items: center;
-  gap: 18px;
+  gap: 12px;
   max-width: 1000px;
   margin-inline: auto;
-  padding: 88px 16px 32px;
+  padding: 76px 16px 24px;
   text-align: center;
 }
 
@@ -80,8 +80,20 @@
 }
 
 .stores {
+  display: grid;
+  gap: 8px;
   width: 100%;
-  max-width: 520px;
+  max-width: 980px;
+}
+
+.tagline {
+  font-size: clamp(18px, 1.8vw, 24px);
+  line-height: 1.25;
+}
+
+.tagline strong {
+  color: #e8be3f;
+  font-weight: 600;
 }
 
 @media (min-width: 640px) {
@@ -96,12 +108,11 @@
 
 @media (max-height: 680px) {
   .hero {
-    --hero-content-height: 320px;
+    --hero-content-height: 344px;
   }
 
   .layout {
-    gap: 14px;
-    padding-block: 80px 24px;
+    gap: 10px;
   }
 
   .intro {

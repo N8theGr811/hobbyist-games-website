@@ -1,9 +1,10 @@
-/** Dark play buttons with cream pixel lettering and a restrained gold edge. */
+/** The original outlined store buttons, kept in one row at every width. */
 import { STORES, type Store } from "@/lib/stores";
+import { PixelArrow } from "./PixelGlyphs";
 
 export default function StoreButtons() {
   return (
-    <div className="grid w-full grid-cols-3 gap-2">
+    <div className="grid w-full grid-cols-3 gap-2 sm:gap-3 lg:gap-4">
       {STORES.map((store) => (
         <StoreButton key={store.id} store={store} />
       ))}
@@ -18,14 +19,15 @@ function StoreButton({ store }: { store: Store }) {
       href={store.href}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex min-h-18 min-w-0 items-center justify-center rounded-md border border-steam-gold/50 bg-steam-navy-3 px-1 py-3 text-center text-cream shadow-[0_3px_0_rgba(0,0,0,0.25)] transition-[border-color,box-shadow,transform] duration-150 hover:border-steam-gold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cream motion-safe:hover:-translate-y-0.5 motion-safe:active:translate-y-0.5 active:shadow-none"
+      className="flex min-h-[68px] min-w-0 items-center gap-2 rounded-[10px] border border-[#e8be3f] bg-[rgba(6,9,26,0.5)] px-1 py-2.5 text-center text-[#f4ebd0] transition-colors duration-[120ms] hover:border-[#e8be3f] hover:bg-[#e8be3f] hover:text-[#0b1230] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#e8be3f] sm:px-3 sm:py-4 md:text-left lg:gap-4 lg:px-5"
     >
-      <span className="flex flex-col gap-1.5">
-        <span className="font-[family-name:var(--font-vt323)] text-[clamp(18px,5.3vw,22px)] uppercase leading-none">
+      <DeviceOutline device={store.device} />
+      <span className="flex min-w-0 flex-1 flex-col gap-1.5">
+        <span className="font-pixel text-pixel-xs uppercase leading-tight sm:leading-none lg:text-sm lg:tracking-[0.08em]">
           {store.name}
         </span>{" "}
         {/* The dot is for the eye; a screen reader hears "Windows and macOS". */}
-        <span className="text-xs leading-tight opacity-80">
+        <span className="text-[11px] leading-tight opacity-75 sm:text-sm sm:leading-none">
           {first}
           {second && (
             <>
@@ -36,6 +38,21 @@ function StoreButton({ store }: { store: Store }) {
           )}
         </span>
       </span>
+      <PixelArrow scale={2} className="hidden md:block" />
     </a>
+  );
+}
+
+/** Keep the original device outlines where the row has room for them. */
+function DeviceOutline({ device }: { device: Store["device"] }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={
+        device === "phone"
+          ? "hidden h-[30px] w-[22px] flex-none rounded-[4px] border-2 border-current md:block"
+          : "hidden h-[22px] w-[30px] flex-none rounded-[2px] border-2 border-current md:block"
+      }
+    />
   );
 }
