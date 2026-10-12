@@ -31,7 +31,7 @@ const socials: Social[] = [
 export default function Footer() {
   return (
     <footer className="border-t border-steam-gold/15 bg-steam-navy">
-      {/* Wraps: four links plus the copyright do not fit one line on a phone. */}
+      {/* Primary links wrap naturally on small screens. */}
       <div className="max-w-[900px] mx-auto px-6 py-10 flex flex-wrap items-center justify-between gap-y-4 md:px-12">
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
           {/* Body face at 12px. This was 8px Press Start 2P at 2.4:1 contrast,
@@ -60,14 +60,7 @@ export default function Footer() {
           >
             Credits
           </a>
-          {/* Steamworks stores this URL and players reach it from the store
-              page, so /privacy must stay put once it ships. */}
-          <a
-            href="/privacy"
-            className="text-xs tracking-[0.1em] text-cream/55 hover:text-steam-gold transition-colors"
-          >
-            Privacy
-          </a>
+
         </div>
         <div className="flex gap-2">
           {socials.map((s) => (
@@ -82,6 +75,22 @@ export default function Footer() {
               {s.icon ?? s.label}
             </a>
           ))}
+        </div>
+      </div>
+      <div className="max-w-[900px] mx-auto px-6 pb-10 md:px-12">
+        <div className="border-t border-steam-gold/15 pt-5 text-xs text-cream/65">
+          <nav aria-label="Order support" className="flex flex-wrap items-center gap-x-5 gap-y-3">
+            <a href="https://shopify.com/81663688903/account" className="hover:text-steam-gold transition-colors">Cancel or return an order</a>
+            <a href="https://checkout.submissionsaga.com/policies/refund-policy" className="hover:text-steam-gold transition-colors">Return policy</a>
+            <a href="https://checkout.submissionsaga.com/policies/shipping-policy" className="hover:text-steam-gold transition-colors">Shipping policy</a>
+            <a href="https://checkout.submissionsaga.com/policies/contact-information" className="hover:text-steam-gold transition-colors">Contact</a>
+          </nav>
+          <p className="mt-4">Support: <a href="mailto:info@submissionsaga.com" className="underline underline-offset-4 hover:text-steam-gold transition-colors">info@submissionsaga.com</a></p>
+          <nav aria-label="Privacy policies" className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-cream/55">
+            {/* Preserve the existing privacy URL used by the game stores. */}
+            <a href="/privacy" className="hover:text-steam-gold transition-colors">Website &amp; game privacy</a>
+            <a href="https://checkout.submissionsaga.com/policies/privacy-policy" className="hover:text-steam-gold transition-colors">Shop privacy</a>
+          </nav>
         </div>
       </div>
     </footer>

@@ -4,12 +4,12 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Privacy Policy — Hobbyist Games",
   description:
-    "What data Submission Saga collects when you play online, who can see it, and how to delete your account.",
+    "How Hobbyist Games handles website visits, apparel orders and Submission Saga game data, and how to exercise your privacy rights.",
   alternates: { canonical: "/privacy" },
 };
 
 /** Shown in the header and at the foot of the policy. */
-const LAST_UPDATED = "5 October 2026";
+const LAST_UPDATED = "12 October 2026";
 const CONTACT = "info@submissionsaga.com";
 
 /**
@@ -137,6 +137,18 @@ const INFRASTRUCTURE = [
  */
 const SECTIONS: Section[] = [
   {
+    id: "apparel-orders",
+    label: "Shop",
+    title: "Apparel orders",
+    body: [
+      "Hobbyist Games LLC operates the Submission Saga apparel shop. When you order, we receive your contact details, shipping and billing addresses, purchased items, payment status and order history through Shopify. We use this information to process your purchase, provide support, handle returns and meet our accounting and legal obligations.",
+      "Shopify provides the product catalog, shopping bag, checkout, payment processing and order management. Your browser connects to Shopify when you browse the collection and use your bag. We store a Shopify cart identifier in this browser so your bag can be restored. Payment details are entered in Shopify's checkout; we do not receive your full payment-card number.",
+      "We share the order and recipient details needed to print and deliver your shirts with Printful and its delivery providers. They may process that information in countries outside your own. Order records are retained as needed to fulfill purchases, resolve disputes and comply with tax and other legal requirements.",
+      `For access, correction, deletion or other privacy requests relating to an apparel order, email ${CONTACT}. Some records must be retained for legal reasons. Deleting a game account does not delete shop orders, and a shop account is separate from your game account.`,
+    ],
+    note: "The store privacy policy linked above provides further details about Shopify, international processing, retention and your rights. The game-specific sections below describe game data, not apparel orders.",
+  },
+  {
     id: "website-advertising",
     label: "Website",
     title: "Advertising cookies",
@@ -261,7 +273,7 @@ const SECTIONS: Section[] = [
       "Every email has an unsubscribe link, and leaving removes your address",
       "We do not sell it or share it with anyone",
     ],
-    note: "This is the only email address we ever hold, and you have to hand it over on purpose. Signing in to play never gives us one.",
+    note: "You provide this email address when subscribing. Signing in to play does not give us an email address; apparel checkout and support are separate sources described in the shop section.",
   },
   {
     label: "What we collect",
@@ -380,7 +392,7 @@ const SECTIONS: Section[] = [
 const SHORT_VERSION = [
   "Single-player gameplay stays on your device unless you sign in for cloud backup. On Android, Google Play Billing can send billing diagnostics to Google even without an online game account.",
   `Signing in for online play stores an id from ${GOOGLE_SIGN_IN_LIVE ? "Steam, Apple or Google" : "Steam or Apple"}, your username, your fighter, your fight record and a backup of your save, so the ladder and your progress work across devices.`,
-  "We never see your email, your password, or your payment details.",
+  "Game sign-in does not give us your email, password or full payment details. Apparel purchases are separate: Shopify provides your order and contact details, and Printful receives the information needed to fulfill your order.",
   "You can delete your account from inside the game whenever you like.",
 ].join(" ");
 
@@ -416,6 +428,9 @@ export default function PrivacyPage() {
           </div>
 
           <div className="space-y-12">
+            <p className="text-sm leading-relaxed text-cream/70">
+              Shopping for apparel? Read the <Link href="#apparel-orders" className="text-steam-gold underline underline-offset-4">apparel privacy summary</Link> and our <a href="https://checkout.submissionsaga.com/policies/privacy-policy" className="text-steam-gold underline underline-offset-4">full store privacy policy</a>.
+            </p>
             {SECTIONS.map((section) => {
               // Keyed on the base title so the key survives the switch.
               const s =
