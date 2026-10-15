@@ -18,8 +18,8 @@
   .cardPhoto:hover > .cardBack { opacity:0; }
   .cardPhoto:hover > .cardFront { opacity:1; }
 }
-.cardHeading { display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-top:22px; }
-.cardHeading h2 { font-family:var(--font-pixel); font-size:12px; line-height:1.8; }
+.cardHeading { display:flex; flex-direction:column; align-items:flex-start; gap:6px; margin-top:22px; }
+.cardHeading h2 { font-family:var(--font-pixel); font-size:22px; line-height:1.6; }
 .cardHeading h2 button { text-align:left; min-height:44px; }
 .cardHeading h2 button:hover { color:var(--color-steam-gold); }
 .cardHeading > span { color:var(--muted); font-size:14px; white-space:nowrap; }
@@ -119,10 +119,10 @@
 .shop button:disabled,.dialog button:disabled { cursor:not-allowed; }
 .dialog button:disabled:not(.primary),.shop button:disabled { opacity:.45; }
 .shop button:focus-visible,.shop select:focus-visible,.dialog button:focus-visible,.dialog select:focus-visible,.dialog summary:focus-visible { outline:2px solid var(--color-steam-gold); outline-offset:4px; }
-@media (max-width:1100px) { .cardHeading { flex-direction:column; gap:6px; } .products { gap:24px; } .previewGrid { gap:24px; } .productInfo { padding-right:0; } }
+@media (max-width:1100px) { .products { gap:24px; } .previewGrid { gap:24px; } .productInfo { padding-right:0; } }
 @media (max-width:767px) {
   .products { grid-template-columns:1fr; gap:40px; }
-  .cardHeading { flex-direction:row; }
+  .cardHeading h2 { font-size:20px; }
   .cardPhoto { aspect-ratio:1/1.1; }
   .preview { width:calc(100% - 16px); max-height:calc(100dvh - 16px); border-radius:20px; }
   .previewGrid { grid-template-columns:1fr; padding:12px; gap:12px; }
