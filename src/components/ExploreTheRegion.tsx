@@ -28,8 +28,8 @@ import Watermark from "./Watermark";
  */
 const MOMENTS: Moment[] = [
   {
-    headline: "A World Beyond the Mats",
-    line: "Numbered routes connect villages, forest, and mountain. Some stay locked until your belt is high enough.",
+    headline: "A Map to Explore Off the Mats",
+    line: "Unlockable routes connecting Gyms, forests, and hidden challenges.",
     media: {
       kind: "image",
       src: "/media/screenshots/region-town.png",
