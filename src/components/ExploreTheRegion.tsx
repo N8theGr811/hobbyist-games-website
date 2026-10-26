@@ -28,7 +28,7 @@ import Watermark from "./Watermark";
  */
 const MOMENTS: Moment[] = [
   {
-    headline: "Towns, farms, and forest trails",
+    headline: "A World Beyond the Mats",
     line: "Numbered routes connect villages, forest, and mountain. Some stay locked until your belt is high enough.",
     media: {
       kind: "image",
