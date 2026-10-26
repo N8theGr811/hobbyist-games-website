@@ -28,8 +28,6 @@ export default function GameInfo() {
 
       <h2 className="font-pixel text-pixel-lg text-cream leading-snug max-w-2xl mx-auto mb-6">
         White Belt To World Champion.
-        <br />
-        Every Roll Matters.
       </h2>
 
       <p className="text-base text-cream/55 max-w-md mx-auto mb-12 leading-relaxed">

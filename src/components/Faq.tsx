@@ -121,7 +121,7 @@ export default function FaqSection() {
             <span className="w-6 h-px bg-steam-gold/40" />
           </div>
           <h2 className="font-pixel text-pixel-lg text-cream leading-tight tracking-wide">
-            Before You Roll
+            Before You Train
           </h2>
         </div>
 
