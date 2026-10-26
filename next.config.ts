@@ -17,6 +17,9 @@ const RETIRED_HOSTS = ["hobbyistgames.com", "www.hobbyistgames.com"];
  */
 const COMMUNITY_URL = "https://www.reddit.com/r/SubmissionSaga/";
 
+// A stable address to share even if the Discord invite changes later.
+const DISCORD_URL = "https://discord.gg/PuWbYnAX";
+
 const nextConfig: NextConfig = {
   async redirects() {
     return [
@@ -27,6 +30,7 @@ const nextConfig: NextConfig = {
         permanent: true,
       })),
       { source: "/community", destination: COMMUNITY_URL, permanent: false },
+      { source: "/discord", destination: DISCORD_URL, permanent: false },
     ];
   },
 };

@@ -60,7 +60,14 @@ export default function Footer() {
           >
             Credits
           </a>
-
+          <a
+            href="/discord"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs tracking-[0.1em] text-cream/55 hover:text-steam-gold transition-colors"
+          >
+            Discord
+          </a>
         </div>
         <div className="flex gap-2">
           {socials.map((s) => (

@@ -1,8 +1,8 @@
 /* A content-sized split keeps the first section compact, with no empty rows. */
 .hero {
   --hero-consent-height: 0px;
-  /* Logo, subtitle, slogan, buttons, gaps and padding, with breathing room. */
-  --hero-content-height: 400px;
+  /* Logo, subtitle, slogan, stores, community link, gaps and padding. */
+  --hero-content-height: 464px;
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -100,6 +100,34 @@
   font-weight: 600;
 }
 
+.community {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+  min-height: 44px;
+  color: #e8be3f;
+  font-size: 14px;
+  line-height: 22px;
+  text-underline-offset: 4px;
+}
+
+.community:hover > span:first-child {
+  text-decoration: underline;
+}
+
+.community:focus-visible {
+  outline: 2px solid #e8be3f;
+  outline-offset: 5px;
+  border-radius: 2px;
+}
+
+.communityNote {
+  color: rgba(244, 235, 208, 0.75);
+  font-size: 13px;
+}
+
 @media (min-width: 640px) {
   :global(body:has([data-cookie-consent])) .hero {
     --hero-consent-height: 144px;
@@ -112,7 +140,7 @@
 
 @media (max-height: 680px) {
   .hero {
-    --hero-content-height: 384px;
+    --hero-content-height: 448px;
   }
 
   .layout {
