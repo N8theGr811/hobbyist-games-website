@@ -1,12 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import LanguageSwitch from "@/components/LanguageSwitch";
+import { getI18n, pageMetadata } from "@/lib/i18n";
+import translations from "@/lib/i18n/pages.pt-BR.json";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy — Hobbyist Games",
-  description:
-    "How Hobbyist Games handles website visits, apparel orders and Submission Saga game data, and how to exercise your privacy rights.",
-  alternates: { canonical: "/privacy" },
-};
+type Props = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const { t } = getI18n(locale, translations);
+  return pageMetadata(locale, "/privacy", {
+    title: t("Privacy Policy — Hobbyist Games"),
+    description: t("How Hobbyist Games handles website visits, apparel orders and Submission Saga game data, and how to exercise your privacy rights."),
+  });
+}
 
 /** Shown in the header and at the foot of the policy. */
 const LAST_UPDATED = "12 October 2026";
@@ -144,7 +151,7 @@ const SECTIONS: Section[] = [
       "Hobbyist Games LLC operates the Submission Saga apparel shop. When you order, we receive your contact details, shipping and billing addresses, purchased items, payment status and order history through Shopify. We use this information to process your purchase, provide support, handle returns and meet our accounting and legal obligations.",
       "Shopify provides the product catalog, shopping bag, checkout, payment processing and order management. Your browser connects to Shopify when you browse the collection and use your bag. We store a Shopify cart identifier in this browser so your bag can be restored. Payment details are entered in Shopify's checkout; we do not receive your full payment-card number.",
       "We share the order and recipient details needed to print and deliver your shirts with Printful and its delivery providers. They may process that information in countries outside your own. Order records are retained as needed to fulfill purchases, resolve disputes and comply with tax and other legal requirements.",
-      `For access, correction, deletion or other privacy requests relating to an apparel order, email ${CONTACT}. Some records must be retained for legal reasons. Deleting a game account does not delete shop orders, and a shop account is separate from your game account.`,
+      "For access, correction, deletion or other privacy requests relating to an apparel order, email {contact}. Some records must be retained for legal reasons. Deleting a game account does not delete shop orders, and a shop account is separate from your game account.",
     ],
     note: "The store privacy policy linked above provides further details about Shopify, international processing, retention and your rights. The game-specific sections below describe game data, not apparel orders.",
   },
@@ -184,7 +191,7 @@ const SECTIONS: Section[] = [
     label: "What we collect",
     title: "Your cloud save",
     body: [
-      "Signing in backs your single-player save up to our server, so you can carry it between a computer and a phone. We store it as one opaque string and never look inside it: the game's save format changes often, and a server that understood it would corrupt saves rather than merely fail to read them.",
+      "Signing in backs your single-player save up to our server, so you can restore it on another device by signing in with the same account from the same sign-in service. Accounts from {providers} are separate, and saves cannot be transferred between those services. We store it as one opaque string and never look inside it: the game's save format changes often, and a server that understood it would corrupt saves rather than merely fail to read them.",
     ],
     items: [
       "The save itself, stored as text we do not parse, including your Gold balance and the identifiers of purchases already credited to that save",
@@ -329,7 +336,7 @@ const SECTIONS: Section[] = [
     google: {
       body: [
         "You can delete your online account from inside the game, on the account screen reached from the title menu. It happens immediately, and it is not a request that we review.",
-        `If you no longer have the game installed, email ${CONTACT} with your username and the platform you play on, and we will delete the account for you, with the same effect as deleting it in game.`,
+        "If you no longer have the game installed, email {contact} with your username and the platform you play on, and we will delete the account for you, with the same effect as deleting it in game.",
         "This is what deletion actually does, precisely, because it is worth being exact about.",
       ],
     },
@@ -376,7 +383,7 @@ const SECTIONS: Section[] = [
     title: "Younger players",
     body: [
       "Submission Saga is intended for players aged 13 and over, and we do not knowingly collect data from anyone younger. Some countries set that age higher, as far as 16, so the limit where you live may not be 13.",
-      `If a child under the age that applies where you live has created an online account, email ${CONTACT} and we will delete it.`,
+      "If a child under the age that applies where you live has created an online account, email {contact} and we will delete it.",
     ],
   },
   {
@@ -391,22 +398,25 @@ const SECTIONS: Section[] = [
 /** The things a player who reads nothing else should still walk away with. */
 const SHORT_VERSION = [
   "Single-player gameplay stays on your device unless you sign in for cloud backup. On Android, Google Play Billing can send billing diagnostics to Google even without an online game account.",
-  `Signing in for online play stores an id from ${GOOGLE_SIGN_IN_LIVE ? "Steam, Apple or Google" : "Steam or Apple"}, your username, your fighter, your fight record and a backup of your save, so the ladder and your progress work across devices.`,
+  "Signing in for online play stores an id from {providers}, your username, your fighter, your fight record and a backup of your save, so the ladder and your progress work across devices.",
   "Game sign-in does not give us your email, password or full payment details. Apparel purchases are separate: Shopify provides your order and contact details, and Printful receives the information needed to fulfill your order.",
   "You can delete your account from inside the game whenever you like.",
-].join(" ");
+];
 
-export default function PrivacyPage() {
+export default async function PrivacyPage({ params }: Props) {
+  const { locale } = await params;
+  const { t, path } = getI18n(locale, translations);
   return (
     <>
       {/* Header bar, matching /credits */}
-      <header className="bg-steam-navy border-b-2 border-steam-gold/40 px-6 py-4 md:px-12">
+      <header className="flex items-center justify-between gap-4 bg-steam-navy border-b-2 border-steam-gold/40 px-6 py-4 md:px-12">
         <Link
-          href="/"
+          href={path("/")}
           className="font-pixel text-pixel-xs tracking-[0.1em] uppercase text-cream/60 hover:text-steam-gold transition-colors"
         >
-          ← Back to Hobbyist Games
+          {t("← Back to Hobbyist Games")}
         </Link>
+        <LanguageSwitch />
       </header>
 
       <main className="bg-pixel-grid min-h-screen px-6 section-rhythm md:px-12">
@@ -414,22 +424,22 @@ export default function PrivacyPage() {
           {/* Page heading */}
           <div className="text-center mb-16">
             <p className="font-pixel text-pixel-xs tracking-[0.2em] uppercase text-steam-gold mb-4">
-              Privacy
+              {t("Privacy")}
             </p>
-            <h1 className="font-pixel text-2xl text-cream mb-4">Privacy Policy</h1>
-            <p className="text-sm text-cream/55">Last updated {LAST_UPDATED}</p>
+            <h1 className="font-pixel text-2xl text-cream mb-4">{t("Privacy Policy")}</h1>
+            <p className="text-sm text-cream/55">{t("Last updated {date}", { date: t(LAST_UPDATED) })}</p>
           </div>
 
           <div className="surface-card mb-16 border border-steam-gold/25 bg-steam-navy-2/60 p-6">
             <p className="font-pixel text-pixel-xs uppercase tracking-[0.15em] text-steam-gold mb-3">
-              The short version
+              {t("The short version")}
             </p>
-            <p className="text-sm leading-relaxed text-cream/70">{SHORT_VERSION}</p>
+            <p className="text-sm leading-relaxed text-cream/70">{SHORT_VERSION.map((paragraph) => t(paragraph, { providers: t(GOOGLE_SIGN_IN_LIVE ? "Steam, Apple or Google" : "Steam or Apple") })).join(" ")}</p>
           </div>
 
           <div className="space-y-12">
             <p className="text-sm leading-relaxed text-cream/70">
-              Shopping for apparel? Read the <Link href="#apparel-orders" className="text-steam-gold underline underline-offset-4">apparel privacy summary</Link> and our <a href="https://checkout.submissionsaga.com/policies/privacy-policy" className="text-steam-gold underline underline-offset-4">full store privacy policy</a>.
+              {t("Shopping for apparel? Read the")} <Link href="#apparel-orders" className="text-steam-gold underline underline-offset-4">{t("apparel privacy summary")}</Link> {t("and our")} <a href="https://checkout.submissionsaga.com/policies/privacy-policy" className="text-steam-gold underline underline-offset-4">{t("full store privacy policy")}</a>.
             </p>
             {SECTIONS.map((section) => {
               // Keyed on the base title so the key survives the switch.
@@ -441,15 +451,15 @@ export default function PrivacyPage() {
               return (
                 <section key={section.title} id={s.id}>
                   <p className="font-pixel text-pixel-xs tracking-[0.15em] uppercase text-steam-gold mb-2">
-                    {s.label}
+                    {t(s.label)}
                   </p>
                   <h2 className="font-pixel text-sm text-cream mb-4 tracking-wider">
-                    {s.title}
+                    {t(s.title)}
                   </h2>
 
                   {s.body?.map((p) => (
                     <p key={p} className="text-sm leading-relaxed text-cream/70 mb-3">
-                      {p}
+                      {t(p, { contact: CONTACT, providers: t(GOOGLE_SIGN_IN_LIVE ? "Steam, Apple and Google" : "Steam and Apple") })}
                     </p>
                   ))}
 
@@ -459,7 +469,7 @@ export default function PrivacyPage() {
                         <div key={item} className="flex items-baseline gap-2">
                           <div className="w-5 h-px bg-steam-gold/40 mt-2 shrink-0" />
                           <span className="text-sm leading-relaxed text-cream/70">
-                            {item}
+                            {t(item)}
                           </span>
                         </div>
                       ))}
@@ -468,7 +478,7 @@ export default function PrivacyPage() {
 
                   {s.note && (
                     <p className="text-xs text-cream/55 mt-4 leading-relaxed italic">
-                      {s.note}
+                      {t(s.note)}
                     </p>
                   )}
                 </section>
@@ -478,26 +488,23 @@ export default function PrivacyPage() {
             {/* Who we are and how to reach us */}
             <section>
               <p className="font-pixel text-pixel-xs tracking-[0.15em] uppercase text-steam-gold mb-2">
-                Contact
+                {t("Contact")}
               </p>
               <h2 className="font-pixel text-sm text-cream mb-4 tracking-wider">
-                Who we are
+                {t("Who we are")}
               </h2>
               <p className="text-sm leading-relaxed text-cream/70 mb-3">
-                Submission Saga is made by Hobbyist Games LLC, based in California in
-                the United States. That is who is responsible for the data described
-                on this page.
+                {t("Submission Saga is made by Hobbyist Games LLC, based in California in the United States. That is who is responsible for the data described on this page.")}
               </p>
               <p className="text-sm leading-relaxed text-cream/70">
-                For any question or request about your data, email{" "}
+                {t("For any question or request about your data, email")}{" "}
                 <a
                   href={`mailto:${CONTACT}`}
                   className="text-cream underline underline-offset-2 decoration-cream/20 transition-colors hover:text-steam-gold hover:decoration-steam-gold"
                 >
                   {CONTACT}
                 </a>
-                . Depending on where you live you may have additional rights over your
-                data under local law, and you can use that address to exercise them.
+                {t(". Depending on where you live you may have additional rights over your data under local law, and you can use that address to exercise them.")}
               </p>
             </section>
           </div>
@@ -505,10 +512,10 @@ export default function PrivacyPage() {
           {/* Back link */}
           <div className="mt-16 pt-8 border-t border-steam-gold/15 text-center">
             <Link
-              href="/"
+              href={path("/")}
               className="font-pixel text-pixel-xs tracking-[0.12em] uppercase text-cream/55 hover:text-steam-gold transition-colors"
             >
-              ← Back to Hobbyist Games
+              {t("← Back to Hobbyist Games")}
             </Link>
           </div>
         </div>

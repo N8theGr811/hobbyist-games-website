@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { getI18n, pageMetadata } from "@/lib/i18n";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import FeatureHighlights from "@/components/FeatureHighlights";
@@ -15,33 +15,38 @@ import { BeltBar } from "@/components/BeltStrip";
  * Canonical is declared per page, never in the root layout -- an inherited
  * "/" would tell Google that /privacy and /credits duplicate the homepage.
  */
-export const metadata: Metadata = {
-  alternates: { canonical: "/" },
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale, t } = getI18n((await params).locale);
+  return pageMetadata(locale, "/", {
+    title: t("Submission Saga — Hobbyist Games"),
+    description: t("A pixel-art RPG where Brazilian Jiu-Jitsu meets adventure. Train, fight, and build your legacy. Out now on Steam and the App Store."),
+  });
+}
 
-export default function Home() {
+export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = getI18n((await params).locale);
   return (
     <>
-      <Header />
+      <Header locale={locale} />
       <main>
-        <Hero />
+        <Hero locale={locale} />
         <SectionBreak />
-        <FeatureHighlights />
+        <FeatureHighlights locale={locale} />
         <SectionBreak />
-        <ExploreTheRegion />
+        <ExploreTheRegion locale={locale} />
         <SectionBreak />
-        <Reel />
+        <Reel locale={locale} />
         <SectionBreak />
-        <GameInfo />
+        <GameInfo locale={locale} />
         <SectionBreak />
-        <LearnTheGame />
+        <LearnTheGame locale={locale} />
         <SectionBreak />
-        <Faq />
+        <Faq locale={locale} />
         <SectionBreak />
         <EmailSignup />
       </main>
       <SectionBreak />
-      <Footer />
+      <Footer locale={locale} />
     </>
   );
 }

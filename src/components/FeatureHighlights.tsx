@@ -1,3 +1,4 @@
+import { getI18n, type Locale } from "@/lib/i18n";
 import MomentRows, { type Moment } from "./MomentRows";
 import Watermark from "./Watermark";
 
@@ -52,7 +53,8 @@ const MOMENTS: Moment[] = [
   },
 ];
 
-export default function FeatureHighlights() {
+export default function FeatureHighlights({ locale = "en" }: { locale?: Locale }) {
+  const { t } = getI18n(locale);
   return (
     <section className="relative isolate section-rhythm px-6 bg-pixel-grid bg-pixel-grid-alt overflow-hidden md:px-12">
       <Watermark name="backcontrol" className="-right-24 top-32 h-[440px] w-[440px]" />
@@ -63,17 +65,16 @@ export default function FeatureHighlights() {
       <div className="max-w-3xl mx-auto text-center mb-16">
         <div className="flex items-center justify-center gap-3 mb-6 font-pixel text-pixel-xs tracking-[0.2em] uppercase text-steam-gold">
           <span className="w-6 h-px bg-steam-gold/40" />
-          How It Plays
-          <span className="w-6 h-px bg-steam-gold/40" />
+          {t("How It Plays")}<span className="w-6 h-px bg-steam-gold/40" />
         </div>
         <h2 className="font-pixel text-pixel-lg text-cream leading-tight tracking-wide">
-          Real Jiu Jitsu Decisions
+          {t("Real Jiu Jitsu Decisions")}
         </h2>
       </div>
 
       {/* Alternating rows. Three across would shrink each frame to ~380px,
           and these are dense UI screenshots that stop being readable there. */}
-      <MomentRows moments={MOMENTS} />
+      <MomentRows locale={locale} moments={MOMENTS} />
     </section>
   );
 }

@@ -1,9 +1,11 @@
+import { getI18n, type Locale } from "@/lib/i18n";
 /** A compact split pairs the game's identity and stores with its gameplay. */
 import Image from "next/image";
 import StoreButtons from "./StoreButtons";
 import styles from "./Hero.module.css";
 
-export default function Hero() {
+export default function Hero({ locale = "en" }: { locale?: Locale }) {
+  const { t, path } = getI18n(locale);
   return (
     <section className={styles.hero} aria-label="Submission Saga">
       <div className={styles.layout}>
@@ -20,7 +22,7 @@ export default function Hero() {
             />
           </h1>
           <p className={`${styles.subtitle} animate-fade-up`} style={{ animationDelay: "0.15s" }}>
-            THE JIU JITSU RPG
+            {t("THE JIU JITSU RPG")}
           </p>
         </div>
 
@@ -31,7 +33,7 @@ export default function Hero() {
             src="/hero/screenshot-knee-on-belly-1280.webp"
             srcSet="/hero/screenshot-knee-on-belly-800.webp 800w, /hero/screenshot-knee-on-belly-1280.webp 1280w, /hero/screenshot-knee-on-belly-1960.webp 1960w"
             sizes="(min-width: 1280px) 677px, (min-width: 1024px) 53vw, (max-width: 639px) calc(100vw - 32px), (max-height: 680px) min(calc(100vw - 48px), calc((100svh - 448px) * 1.776)), min(924px, calc(100vw - 48px), calc((100svh - 464px) * 1.776))"
-            alt="Submission Saga gameplay: a knee-on-belly position mid-match"
+            alt={t("Submission Saga gameplay: a knee-on-belly position mid-match")}
             width={2096}
             height={1180}
             fetchPriority="high"
@@ -42,12 +44,12 @@ export default function Hero() {
 
         <div className={`${styles.stores} animate-fade-up`} style={{ animationDelay: "0.45s" }}>
           <p className={styles.tagline}>
-            From white belt to <strong>world champion</strong>.
+            {t("From white belt to ")}<strong>{t("world champion")}</strong>.
           </p>
-          <StoreButtons />
-          <a href="/discord" target="_blank" rel="noopener noreferrer" className={styles.community}>
-            <span>Join the Discord <span aria-hidden="true">→</span></span>
-            <span className={styles.communityNote}>Ask questions and find online matches.</span>
+          <StoreButtons locale={locale} />
+          <a href={path("/discord")} target="_blank" rel="noopener noreferrer" className={styles.community}>
+            <span>{t("Join the Discord ")}<span aria-hidden="true">→</span></span>
+            <span className={styles.communityNote}>{t("Ask questions and find online matches.")}</span>
           </a>
         </div>
       </div>

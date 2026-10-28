@@ -14,6 +14,7 @@
 // `export_glossary.py --check` says whether it is current.
 
 import raw from "./glossary.json";
+import portuguese from "./i18n/glossary-game.pt-BR.json";
 
 export type MoveType = "Attack" | "Transition" | "Submission" | "Defense";
 
@@ -179,47 +180,90 @@ export const FAMILIES: GlossaryFamily[] = glossary.families;
 export const POSITIONS: GlossaryPosition[] = glossary.positions;
 export const MOVES: GlossaryMove[] = glossary.moves;
 
-export const POSITIONS_BY_ID: ReadonlyMap<string, GlossaryPosition> = new Map(
-  POSITIONS.map((p) => [p.id, p]),
-);
-
-/** Moves available from a given position, in the order the game lists them. */
-export const MOVES_BY_POSITION: ReadonlyMap<string, GlossaryMove[]> = MOVES.reduce(
-  (acc, move) => {
-    const list = acc.get(move.position);
-    if (list) list.push(move);
-    else acc.set(move.position, [move]);
-    return acc;
-  },
-  new Map<string, GlossaryMove[]>(),
-);
-
-/** The positions in a family, top first. Standing lists once, not twice. */
-export function familyPositions(family: GlossaryFamily): GlossaryPosition[] {
-  const ids = family.neutral ? [family.top] : [family.top, family.bottom];
-  return ids
-    .map((id) => POSITIONS_BY_ID.get(id))
-    .filter((p): p is GlossaryPosition => p !== undefined);
-}
-
-export function positionName(id: string | undefined): string | undefined {
-  return id ? POSITIONS_BY_ID.get(id)?.name : undefined;
-}
-
 /** Web path for a move's art. The exporter writes these files. */
 export function iconSrc(move: GlossaryMove): string {
   return `/combat-icons/moves/${move.icon.file}`;
 }
 
-/**
- * The rarity a move sits at before any upgrade, and the ladder above it. The
- * card draws one dot per rung, the first filled.
- */
-export function tierLadder(move: GlossaryMove): Rarity[] {
-  return move.tiers.map((t) => t.rarity);
-}
-
 /** 0.4 -> "40%". The game prints whole percents on the card. */
 export function pct(value: number): string {
   return `${Math.round(value * 100)}%`;
+}
+
+/** Localized text overlays one shared set of gameplay facts and identifiers. */
+interface GlossaryText {
+  positions: Record<string, Pick<GlossaryPosition, "name" | "description">>;
+  moves: Record<string, Pick<GlossaryMove, "name" | "description" | "shortName">>;
+  families: Record<string, Pick<GlossaryFamily, "label" | "topLabel" | "bottomLabel">>;
+  rivalries: Record<string, string>;
+  acquisition: Record<string, string>;
+  stats: Record<string, string>;
+  rarities: Record<Rarity, string>;
+  belts: Record<string, string>;
+}
+
+/** Missing generated text is a build error, never a silent English fallback. */
+function requiredText<T>(value: T | undefined, key: string): T {
+  if (value === undefined) throw new Error(`Missing glossary translation: ${key}`);
+  return value;
+}
+
+function localizedGlossary(): Glossary {
+  const text = portuguese as GlossaryText;
+  const moves = MOVES.map((move): GlossaryMove => {
+    const rivalries = move.rivalries && {
+      strongVs: move.rivalries.strongVs.map((rivalry) => ({
+        ...rivalry,
+        name: requiredText(text.moves[rivalry.move], rivalry.move).name,
+        reason: requiredText(text.rivalries[`${move.id}:${rivalry.move}`], `${move.id}:${rivalry.move}`),
+      })),
+      weakVs: move.rivalries.weakVs.map((rivalry) => ({
+        ...rivalry,
+        name: requiredText(text.moves[rivalry.move], rivalry.move).name,
+        reason: requiredText(text.rivalries[`${rivalry.move}:${move.id}`], `${rivalry.move}:${move.id}`),
+      })),
+    };
+    const acquisition = { ...move.acquisition };
+    for (const field of ["gym", "course", "occasion", "teacher"] as const) {
+      const original = acquisition[field];
+      if (original) acquisition[field] = requiredText(text.acquisition[original], original);
+    }
+    return { ...move, ...requiredText(text.moves[move.id], move.id), acquisition, ...(rivalries ? { rivalries } : {}) };
+  });
+  return {
+    ...glossary,
+    theme: { ...THEME, rarityLabels: text.rarities, typeTags: { Attack: "ATQ", Transition: "TRN", Submission: "FIN", Defense: "DEF" } },
+    positions: POSITIONS.map((position) => ({ ...position, ...requiredText(text.positions[position.id], position.id) })),
+    families: FAMILIES.map((family) => ({ ...family, ...requiredText(text.families[family.id], family.id) })),
+    moves,
+  };
+}
+
+const portugueseGlossary = localizedGlossary();
+
+/** Each request gets its own lookup closures; language never mutates globals. */
+export function getGlossary(locale: string) {
+  const data = locale === "pt-BR" ? portugueseGlossary : glossary;
+  const positions = new Map(data.positions.map((position) => [position.id, position]));
+  const moves = new Map<string, GlossaryMove[]>();
+  for (const move of data.moves) {
+    const list = moves.get(move.position) ?? [];
+    list.push(move);
+    moves.set(move.position, list);
+  }
+  return {
+    ...data,
+    movesByPosition: moves,
+    familyPositions: (family: GlossaryFamily): GlossaryPosition[] =>
+      (family.neutral ? [family.top] : [family.top, family.bottom])
+        .map((id) => positions.get(id))
+        .filter((position): position is GlossaryPosition => position !== undefined),
+    positionName: (id: string | undefined): string | undefined => id ? positions.get(id)?.name : undefined,
+    statLabel: (id: string): string => locale === "pt-BR"
+      ? requiredText((portuguese as GlossaryText).stats[id], id)
+      : id.replace(/_/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase()),
+    beltLabel: (id: string): string => locale === "pt-BR"
+      ? requiredText((portuguese as GlossaryText).belts[id], id)
+      : `${id} belt`,
+  };
 }

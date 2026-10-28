@@ -1,13 +1,20 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import LanguageSwitch from "@/components/LanguageSwitch";
+import { getI18n, pageMetadata } from "@/lib/i18n";
+import translations from "@/lib/i18n/pages.pt-BR.json";
 
-export const metadata: Metadata = {
-  title: "Introduction to Jiu Jitsu Concepts — Hobbyist Games",
-  description:
-    "Jiu jitsu is a grappling martial art with no strikes, where opponents try to gain positional control and submission. The key terms and positions used in Submission Saga.",
-  alternates: { canonical: "/guide" },
-};
+type Props = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const { t } = getI18n(locale, translations);
+  return pageMetadata(locale, "/guide", {
+    title: t("Introduction to Jiu Jitsu Concepts — Hobbyist Games"),
+    description: t("Jiu jitsu is a grappling martial art with no strikes, where opponents try to gain positional control and submission. The key terms and positions used in Submission Saga."),
+  });
+}
 
 /**
  * All copy on this page is Nathan's. Edits are limited to spelling, possessives,
@@ -160,7 +167,8 @@ const POSITIONS: Entry[] = [
   },
 ];
 
-function EntryList({ entries }: { entries: Entry[] }) {
+function EntryList({ entries, locale }: { entries: Entry[]; locale: string }) {
+  const { t } = getI18n(locale, translations);
   return (
     <dl className="space-y-8">
       {entries.map((entry) => (
@@ -177,16 +185,16 @@ function EntryList({ entries }: { entries: Entry[] }) {
               src={entry.art.src}
               width={entry.art.width}
               height={entry.art.height}
-              alt={entry.art.alt}
+              alt={t(entry.art.alt)}
               className="w-[190px] max-w-full h-auto justify-self-center sm:justify-self-start"
             />
           )}
 
           <div>
             <dt className="font-pixel text-pixel-sm text-cream mb-1.5 tracking-wide">
-              {entry.name}
+              {t(entry.name)}
             </dt>
-            <dd className="text-sm text-cream/70 leading-relaxed">{entry.body}</dd>
+            <dd className="text-sm text-cream/70 leading-relaxed">{t(entry.body)}</dd>
           </div>
         </div>
       ))}
@@ -194,56 +202,59 @@ function EntryList({ entries }: { entries: Entry[] }) {
   );
 }
 
-export default function GuidePage() {
+export default async function GuidePage({ params }: Props) {
+  const { locale } = await params;
+  const { t, path } = getI18n(locale, translations);
   return (
     <>
-      <header className="bg-steam-navy border-b-2 border-steam-gold/40 px-6 py-4 md:px-12">
+      <header className="flex items-center justify-between gap-4 bg-steam-navy border-b-2 border-steam-gold/40 px-6 py-4 md:px-12">
         <Link
-          href="/"
+          href={path("/")}
           className="font-pixel text-pixel-xs tracking-[0.1em] uppercase text-cream/60 hover:text-steam-gold transition-colors"
         >
-          ← Back to Hobbyist Games
+          {t("← Back to Hobbyist Games")}
         </Link>
+        <LanguageSwitch />
       </header>
 
       <main className="bg-pixel-grid min-h-screen px-6 section-rhythm md:px-12">
         <article className="max-w-2xl mx-auto">
           <div className="text-center mb-12">
             <p className="font-pixel text-pixel-xs tracking-[0.2em] uppercase text-steam-gold mb-4">
-              Beginner&apos;s Guide
+              {t("Beginner's Guide")}
             </p>
             <h1 className="font-pixel text-xl md:text-2xl text-cream leading-relaxed">
-              Introduction to Jiu Jitsu Concepts
+              {t("Introduction to Jiu Jitsu Concepts")}
             </h1>
           </div>
 
           <section className="mb-14 space-y-4">
             {INTRO.map((para) => (
               <p key={para} className="text-base text-cream/80 leading-relaxed">
-                {para}
+                {t(para)}
               </p>
             ))}
           </section>
 
           <section className="mb-14">
-            <h2 className="font-pixel text-pixel-lg text-steam-gold mb-6">Key Concepts</h2>
-            <EntryList entries={KEY_CONCEPTS} />
+            <h2 className="font-pixel text-pixel-lg text-steam-gold mb-6">{t("Key Concepts")}</h2>
+            <EntryList entries={KEY_CONCEPTS} locale={locale} />
           </section>
 
           <section>
-            <h2 className="font-pixel text-pixel-lg text-steam-gold mb-2">Positions</h2>
+            <h2 className="font-pixel text-pixel-lg text-steam-gold mb-2">{t("Positions")}</h2>
             <p className="text-xs text-cream/55 mb-6 tracking-[0.05em] uppercase">
-              Used in Submission Saga
+              {t("Used in Submission Saga")}
             </p>
-            <EntryList entries={POSITIONS} />
+            <EntryList entries={POSITIONS} locale={locale} />
           </section>
 
           <div className="mt-16 text-center">
             <Link
-              href="/"
+              href={path("/")}
               className="font-pixel text-pixel-xs tracking-[0.12em] uppercase text-cream/55 hover:text-steam-gold transition-colors"
             >
-              ← Back to Hobbyist Games
+              {t("← Back to Hobbyist Games")}
             </Link>
           </div>
         </article>

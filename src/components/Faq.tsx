@@ -1,3 +1,4 @@
+import { getI18n, type Locale } from "@/lib/i18n";
 import Link from "next/link";
 import { APP_STORE_URL, GOOGLE_PLAY_URL, STEAM_URL } from "@/lib/stores";
 import Watermark from "./Watermark";
@@ -36,75 +37,75 @@ interface Faq {
 const LINK =
   "text-steam-gold underline underline-offset-4 decoration-steam-gold/40 hover:decoration-steam-gold transition-colors";
 
-const FAQS: Faq[] = [
-  {
-    q: "What kind of game is this?",
-    a: "An RPG built on jiu jitsu. You make a fighter, train, explore the region, and work your way up from white belt.",
-  },
-  {
-    q: "Do I need to know jiu jitsu to play?",
-    a: (
-      <>
-        No. If you have never trained, start with the{" "}
-        <Link href="/guide" className={LINK}>
-          beginner&rsquo;s guide
-        </Link>
-        . It covers the positions and the handful of terms the game uses. If you
-        already train, you will read a position faster than a new player.
-      </>
-    ),
-  },
-  {
-    q: "What does it cost, and where can I get it?",
-    a: (
-      <>
-        $9.99 on{" "}
-        <a href={STEAM_URL} target="_blank" rel="noopener noreferrer" className={LINK}>
-          Steam
-        </a>
-        , for Windows and macOS. $9.99 on the{" "}
-        <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer" className={LINK}>
-          App Store
-        </a>
-        , for iPhone and iPad. $9.99 on{" "}
-        <a href={GOOGLE_PLAY_URL} target="_blank" rel="noopener noreferrer" className={LINK}>
-          Google Play
-        </a>
-        , for Android. All out now. Prices vary by region.
-      </>
-    ),
-  },
-  {
-    q: "Is the fighting turn-based?",
-    a: "Yes, with one exception. Both fighters choose at the same time and the turn resolves at once, so you are reading your opponent as much as picking your own move. When a submission lands, a timing gauge appears and you play that in real time: hit the sweet spot to finish it, or to escape if you are the one caught.",
-  },
-  {
-    q: "Are the techniques real?",
-    a: "Over 90 of them, across 19 positions, and they relate to each other the way they do on the mat. Many of the ideas are optimized for a game format and might differ a bit from the exact real life jiu jitsu situations. It is as close to real jiu jitsu as I could make it while maintaining a fun and playable game.",
-  },
-  {
-    q: "Is there online play?",
-    a: "Ranked matches run through seven divisions: Blue, Purple, Brown and Black, then Gold, Diamond and Champion above them. The first four are named after belts. The last three are not belts, they are ladder positions you hold for as long as your rating holds up. You bring one character online, and your rating, division, record and match history are kept on the server rather than in your save. A new account calibrates for its first few matches before it is placed.",
-  },
-  {
-    q: "Can I move my Steam save to my phone?",
-    a: "No. Signing in backs your progress up to the account you signed in with, and Steam, Apple and Google accounts are separate accounts with no way to join them. A backup made on one cannot be restored by the other. If you want to play on both, plan on two characters.",
-  },
-  {
-    q: "Do I need an account or an internet connection?",
-    a: "Not for the single-player game. Online play and cloud backup use Steam, Sign in with Apple on iPhone and iPad, or Google on Android. Google Play Billing can send billing diagnostics to Google even without an online game account.",
-  },
-  {
-    q: "Are there microtransactions?",
-    a: "Steam has three cosmetic DLC packs, and on iPhone, iPad and Android you can buy Gold, which is the currency the Pro Shop runs on. Neither one touches a fight. Gold is also paid out by belt promotions and trophies, so anything the Pro Shop sells can be earned instead of bought. The exception is each pack's exclusive kit, which on Steam is only in the pack.",
-  },
-  {
-    q: "Who made it?",
-    a: "Nate Markham, under Hobbyist Games.",
-  },
-];
+export default function FaqSection({ locale = "en" }: { locale?: Locale }) {
+  const { t, path } = getI18n(locale);
+  const FAQS: Faq[] = [
+    {
+      q: "What kind of game is this?",
+      a: "An RPG built on jiu jitsu. You make a fighter, train, explore the region, and work your way up from white belt.",
+    },
+    {
+      q: "Do I need to know jiu jitsu to play?",
+      a: (
+        <>
+          {t("No. If you have never trained, start with the")}{" "}
+          <Link href={path("/guide")} className={LINK}>
+            {t("beginner’s guide")}
+          </Link>
+          {t(". It covers the positions and the handful of terms the game uses. If you already train, you will read a position faster than a new player.")}
+        </>
+      ),
+    },
+    {
+      q: "What does it cost, and where can I get it?",
+      a: (
+        <>
+          {t("$9.99 on")}{" "}
+          <a href={STEAM_URL} target="_blank" rel="noopener noreferrer" className={LINK}>
+            Steam
+          </a>
+          {t(", for Windows and macOS. $9.99 on the")}{" "}
+          <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer" className={LINK}>
+            App Store
+          </a>
+          {t(", for iPhone and iPad. $9.99 on")}{" "}
+          <a href={GOOGLE_PLAY_URL} target="_blank" rel="noopener noreferrer" className={LINK}>
+            Google Play
+          </a>
+          {t(", for Android. All out now. Prices vary by region.")}
+        </>
+      ),
+    },
+    {
+      q: "Is the fighting turn-based?",
+      a: "Yes, with one exception. Both fighters choose at the same time and the turn resolves at once, so you are reading your opponent as much as picking your own move. When a submission lands, a timing gauge appears and you play that in real time: hit the sweet spot to finish it, or to escape if you are the one caught.",
+    },
+    {
+      q: "Are the techniques real?",
+      a: "Over 90 of them, across 19 positions, and they relate to each other the way they do on the mat. Many of the ideas are optimized for a game format and might differ a bit from the exact real life jiu jitsu situations. It is as close to real jiu jitsu as I could make it while maintaining a fun and playable game.",
+    },
+    {
+      q: "Is there online play?",
+      a: "Ranked matches run through seven divisions: Blue, Purple, Brown and Black, then Gold, Diamond and Champion above them. The first four are named after belts. The last three are not belts, they are ladder positions you hold for as long as your rating holds up. You bring one character online, and your rating, division, record and match history are kept on the server rather than in your save. A new account calibrates for its first few matches before it is placed.",
+    },
+    {
+      q: "Can I move my Steam save to my phone?",
+      a: "No. Signing in backs your progress up to the account you signed in with, and Steam, Apple and Google accounts are separate accounts with no way to join them. A backup made on one cannot be restored by the other. If you want to play on both, plan on two characters.",
+    },
+    {
+      q: "Do I need an account or an internet connection?",
+      a: "Not for the single-player game. Online play and cloud backup use Steam, Sign in with Apple on iPhone and iPad, or Google on Android. Google Play Billing can send billing diagnostics to Google even without an online game account.",
+    },
+    {
+      q: "Are there microtransactions?",
+      a: "Steam has three cosmetic DLC packs, and on iPhone, iPad and Android you can buy Gold, which is the currency the Pro Shop runs on. Neither one touches a fight. Gold is also paid out by belt promotions and trophies, so anything the Pro Shop sells can be earned instead of bought. The exception is each pack's exclusive kit, which on Steam is only in the pack.",
+    },
+    {
+      q: "Who made it?",
+      a: "Nate Markham, under Hobbyist Games.",
+    },
+  ];
 
-export default function FaqSection() {
   return (
     <section
       id="faq"
@@ -117,11 +118,10 @@ export default function FaqSection() {
         <div className="text-center mb-14">
           <div className="flex items-center justify-center gap-3 mb-6 font-pixel text-pixel-xs tracking-[0.2em] uppercase text-steam-gold">
             <span className="w-6 h-px bg-steam-gold/40" />
-            Questions
-            <span className="w-6 h-px bg-steam-gold/40" />
+            {t("Questions")}<span className="w-6 h-px bg-steam-gold/40" />
           </div>
           <h2 className="font-pixel text-pixel-lg text-cream leading-tight tracking-wide">
-            Before You Train
+            {t("Before You Train")}
           </h2>
         </div>
 
@@ -131,11 +131,11 @@ export default function FaqSection() {
             Weight and colour do the separating instead. */}
         <dl className="space-y-10">
           {FAQS.map(({ q, a }) => (
-            <div key={q} className="border-t border-steam-gold/15 pt-8 first:border-t-0 first:pt-0">
+            <div key={t(q)} className="border-t border-steam-gold/15 pt-8 first:border-t-0 first:pt-0">
               <dt className="text-base sm:text-lg font-semibold text-cream mb-3 leading-snug">
-                {q}
+                {t(q)}
               </dt>
-              <dd className="text-base text-cream/55 leading-relaxed">{a}</dd>
+              <dd className="text-base text-cream/55 leading-relaxed">{typeof a === "string" ? t(a) : a}</dd>
             </div>
           ))}
         </dl>

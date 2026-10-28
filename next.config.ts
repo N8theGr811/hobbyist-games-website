@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { PAGE_PATHS } from "./src/lib/locales";
 
 /**
  * Hosts that used to serve this site and now fold into the canonical origin.
@@ -21,6 +22,14 @@ const COMMUNITY_URL = "https://www.reddit.com/r/SubmissionSaga/";
 const DISCORD_URL = "https://discord.gg/PuWbYnAX";
 
 const nextConfig: NextConfig = {
+  async rewrites() {
+    // Both languages share static pages. English keeps every established URL.
+    return {
+      beforeFiles: PAGE_PATHS.map(path => ({ source: path, destination: `/en${path === "/" ? "" : path}` })),
+      afterFiles: [],
+      fallback: [],
+    };
+  },
   async redirects() {
     return [
       ...RETIRED_HOSTS.map((host) => ({
@@ -29,6 +38,7 @@ const nextConfig: NextConfig = {
         destination: `${CANONICAL_ORIGIN}/:path*`,
         permanent: true,
       })),
+      { source: "/en/:path*", destination: "/:path*", permanent: true },
       { source: "/community", destination: COMMUNITY_URL, permanent: false },
       { source: "/discord", destination: DISCORD_URL, permanent: false },
     ];

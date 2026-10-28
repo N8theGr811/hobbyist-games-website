@@ -1,3 +1,4 @@
+import { getI18n, type Locale } from "@/lib/i18n";
 import Image from "next/image";
 import Link from "next/link";
 import { COUNTS } from "@/lib/glossary";
@@ -40,7 +41,7 @@ const DOORS: Door[] = [
   {
     href: "/glossary",
     label: "Move Glossary",
-    line: `All ${COUNTS.uniqueMoves} moves by position, with the odds, points and unlock for each.`,
+    line: "All {count} moves by position, with the odds, points and unlock for each.",
     art: {
       src: "/combat-icons/moves/flying_triangle.png",
       width: 256,
@@ -50,27 +51,27 @@ const DOORS: Door[] = [
   },
 ];
 
-export default function LearnTheGame() {
+export default function LearnTheGame({ locale = "en" }: { locale?: Locale }) {
+  const { t, path } = getI18n(locale);
   return (
     <section id="learn" className="relative px-6 py-16 bg-pixel-grid bg-pixel-grid-alt md:px-12">
       <div className="max-w-3xl mx-auto">
         <div className="flex items-center justify-center gap-3 mb-10 font-pixel text-pixel-xs tracking-[0.2em] uppercase text-steam-gold">
           <span className="w-6 h-px bg-steam-gold/40" />
-          Learn The Game
-          <span className="w-6 h-px bg-steam-gold/40" />
+          {t("Learn The Game")}<span className="w-6 h-px bg-steam-gold/40" />
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2">
           {DOORS.map((door) => (
             <Link
               key={door.href}
-              href={door.href}
+              href={path(door.href)}
               className="group flex flex-col rounded-md border border-steam-gold/25 bg-steam-navy p-5 transition-colors hover:border-steam-gold"
             >
               <div className="mb-4 flex h-32 items-center justify-center rounded bg-steam-navy-3/60">
                 <Image
                   src={door.art.src}
-                  alt={door.art.alt}
+                  alt={t(door.art.alt)}
                   width={door.art.width}
                   height={door.art.height}
                   className="h-full w-auto"
@@ -78,10 +79,10 @@ export default function LearnTheGame() {
                 />
               </div>
               <span className="flex items-center justify-between font-pixel text-pixel-sm tracking-[0.1em] uppercase text-steam-gold">
-                {door.label}
+                {t(door.label)}
                 <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
               </span>
-              <span className="mt-2 text-sm text-cream/55 leading-relaxed">{door.line}</span>
+              <span className="mt-2 text-sm text-cream/55 leading-relaxed">{t(door.line, { count: COUNTS.uniqueMoves })}</span>
             </Link>
           ))}
         </div>

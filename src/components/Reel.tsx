@@ -1,3 +1,4 @@
+import { getI18n, type Locale } from "@/lib/i18n";
 import Watermark from "./Watermark";
 
 const REEL = "/media/clips/android-launch.mp4";
@@ -19,7 +20,8 @@ const INSTAGRAM = "https://www.instagram.com/submission_saga/";
  * Controls are on because the reel is narrated, so muted autoplay would throw
  * away half of it.
  */
-export default function Reel() {
+export default function Reel({ locale = "en" }: { locale?: Locale }) {
+  const { t } = getI18n(locale);
   return (
     <section className="relative isolate section-rhythm px-6 overflow-hidden bg-pixel-grid bg-pixel-grid-alt md:px-12">
       <Watermark name="doubleleg" className="-left-24 top-20 h-[380px] w-[500px]" />
@@ -47,7 +49,7 @@ export default function Reel() {
               sitting next to it. */}
           <div className="mb-6 flex items-center justify-center gap-3 font-pixel text-pixel-xs uppercase tracking-[0.2em] text-steam-gold md:justify-start">
             <span className="h-px w-6 bg-steam-gold/40" />
-            Watch
+            {t("Watch")}
           </div>
           {/* The old heading claimed a pitch and the line beneath it delivered
               one, so the sub-line is promoted and the boast dropped. Held at
@@ -55,7 +57,7 @@ export default function Reel() {
               Start 2P is near-monospace, and a full sentence at -lg shatters
               into four ragged lines inside this 540px column. */}
           <h2 className="mb-8 font-pixel text-pixel-md leading-relaxed tracking-wide text-cream md:mb-6">
-            What it is, why I made it, and where to play it.
+            {t("What it is, why I made it, and where to play it.")}
           </h2>
           <a
             href={INSTAGRAM}
@@ -63,8 +65,7 @@ export default function Reel() {
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-2 font-pixel text-pixel-xs uppercase tracking-[0.1em] text-cream/55 transition-colors hover:text-steam-gold"
           >
-            Follow on Instagram
-            <span className="transition-transform duration-200 group-hover:translate-x-1">
+            {t("Follow on Instagram")}<span className="transition-transform duration-200 group-hover:translate-x-1">
               →
             </span>
           </a>

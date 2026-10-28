@@ -1,0 +1,600 @@
+{
+  "acquisition": {
+    "Advanced (Headlock Attack)": "Avançado (Ataque)",
+    "Fundamentals (Passing)": "Fundamentos (Passagem)",
+    "Hana": "Hana",
+    "Intermediate (Headlock Defense)": "Intermediário (Defesa)",
+    "Landon": "Landon",
+    "Launch Weekend": "Fim de Semana de Lançamento",
+    "Lights Out Grappling": "Lights Out Grappling",
+    "Marco": "Marco",
+    "Neil": "Neil",
+    "Rina": "Rina",
+    "Riptide Academy": "Riptide Academy",
+    "Silas": "Silas",
+    "The Lab": "The Lab",
+    "The Tap Room": "The Tap Room"
+  },
+  "belts": {
+    "black": "Faixa Preta",
+    "blue": "Faixa Azul",
+    "brown": "Faixa Marrom",
+    "purple": "Faixa Roxa",
+    "white": "Faixa Branca"
+  },
+  "families": {
+    "back": {
+      "label": "Costas"
+    },
+    "front-headlock": {
+      "label": "Front Headlock"
+    },
+    "guard": {
+      "label": "Guarda"
+    },
+    "half-guard": {
+      "label": "Meia-Guarda"
+    },
+    "mount": {
+      "label": "Montada"
+    },
+    "saddle": {
+      "bottomLabel": "Defesa",
+      "label": "Saddle",
+      "topLabel": "Ataque"
+    },
+    "side-control": {
+      "label": "100 Quilos"
+    },
+    "single-leg-x": {
+      "bottomLabel": "Defesa",
+      "label": "Single Leg X",
+      "topLabel": "Ataque"
+    },
+    "standing": {
+      "label": "Em Pé"
+    },
+    "turtle": {
+      "label": "Tartaruga"
+    }
+  },
+  "moves": {
+    "arm_drag": {
+      "description": "Arm drag para ficar nas costas do oponente na tartaruga",
+      "name": "Arm Drag"
+    },
+    "armbar_guard": {
+      "description": "Ataque o braço a partir da guarda",
+      "name": "Chave de Braço"
+    },
+    "armbar_mount": {
+      "description": "Isole o braço e parta para a chave de braço",
+      "name": "Chave de Braço da Montada em S"
+    },
+    "back_triangle": {
+      "description": "Passe a perna sobre o ombro e estrangule. Errar custa as costas.",
+      "name": "Triângulo pelas Costas"
+    },
+    "backstep_to_saddle": {
+      "description": "Backstep para entrar no saddle",
+      "name": "Backstep para Saddle"
+    },
+    "berimbolo": {
+      "description": "Inverta por baixo do oponente e gire para pegar as costas",
+      "name": "Berimbolo"
+    },
+    "body_lock_pass": {
+      "description": "Trave as mãos nas costas do oponente para limitar a mobilidade. Troque o quadril e pumele as pernas para passar a guarda.",
+      "name": "Body Lock Pass"
+    },
+    "body_triangle_squeeze": {
+      "description": "Trave um triângulo corporal (em forma de 4) e aperte seu oponente.",
+      "name": "Triângulo de Corpo"
+    },
+    "break_grips_guard": {
+      "description": "Quebre as pegadas e sente na guarda.",
+      "name": "Quebrar Pegadas e Sentar à Guarda"
+    },
+    "break_grips_stand": {
+      "description": "Quebre as pegadas e volte a ficar de pé.",
+      "name": "Quebrar Pegadas e Levantar",
+      "shortName": "Levantar"
+    },
+    "buggy_choke": {
+      "description": "Zoe o oponente montando um buggy choke por baixo dos 100 quilos",
+      "name": "Buggy Choke"
+    },
+    "bulldog_choke": {
+      "description": "Ataque o Bulldog Choke (mata-leão sem os ganchos)",
+      "name": "Bulldog Choke"
+    },
+    "choi_bar": {
+      "description": "Ataque o braço afastado com uma chave de braço, jogando a perna por cima e quebrando a postura do oponente",
+      "name": "Choi Bar"
+    },
+    "clear_hooks": {
+      "description": "Lute contra os ganchos e tente virar de frente",
+      "name": "Tirar os Ganchos e Ir para a Guarda",
+      "shortName": "Tirar os Ganchos"
+    },
+    "counter_back_take": {
+      "description": "Contra-ataque o ataque de perna e pegue as costas.",
+      "name": "Pegada pelas Costas em Contra-Ataque"
+    },
+    "cow_catcher": {
+      "description": "Pressione e caia nos 100 Quilos.",
+      "name": "Cow Catcher"
+    },
+    "darce_choke": {
+      "description": "Encaixe o D'Arce e aperte",
+      "name": "D'Arce"
+    },
+    "disentangle_step_out": {
+      "description": "Tire o pé do oponente do seu quadril e passe por fora para escapar",
+      "name": "Desenroscar e Sair"
+    },
+    "double_under_pass": {
+      "description": "Pegue os double unders e empilhe o adversário.",
+      "name": "Double Under"
+    },
+    "elbow_escape": {
+      "description": "Frame e deslize para meia-guarda",
+      "name": "Fuga de Quadril para Meia-Guarda",
+      "shortName": "Fuga de Quadril"
+    },
+    "enter_saddle": {
+      "description": "Inverta e eleve o oponente para entrar no saddle",
+      "name": "Entrar no Saddle"
+    },
+    "enter_single_leg_x": {
+      "description": "Mergulhe sob as pernas e entre no single leg X",
+      "name": "Entrar no Single Leg X",
+      "shortName": "Entrada Single Leg X"
+    },
+    "escape_to_guard": {
+      "description": "Faça fuga de quadril e recupere a guarda",
+      "name": "Fuga de Quadril para a Guarda"
+    },
+    "fallback_to_slx": {
+      "description": "Caia voluntariamente e entre no single leg X, perde 2 pontos.",
+      "name": "Cair para Single Leg X"
+    },
+    "false_reap": {
+      "description": "Aplique um False Reap para entrar no saddle",
+      "name": "False Reap"
+    },
+    "flying_triangle": {
+      "description": "Salte e encaixe um triângulo em pé, alto risco",
+      "name": "Triângulo Voador"
+    },
+    "footsweep_snapdown": {
+      "description": "Faça uma rasteira combinada com snapdown para uma entrada devastadora no front headlock.",
+      "name": "Rasteira e Snapdown"
+    },
+    "force_half_guard": {
+      "description": "Pressão confiável para meia-guarda, prepara o Kimura.",
+      "name": "Forçar Meia-Guarda"
+    },
+    "frame_defense": {
+      "description": "Faça frame e impeça o avanço",
+      "name": "Frame e Segurar"
+    },
+    "front_headlock_snap": {
+      "description": "Gire para um front headlock",
+      "name": "Transição para Front Headlock",
+      "shortName": "Front Headlock"
+    },
+    "go_behind": {
+      "description": "Circule por trás e comece a atacar a tartaruga",
+      "name": "Ir para Trás"
+    },
+    "granby_roll": {
+      "description": "Faça um Granby Roll para quebrar as pegadas do oponente",
+      "name": "Granby Roll"
+    },
+    "guard_arm_drag": {
+      "description": "Puxe o braço para o lado e deslize para as costas, chegando por cima da tartaruga",
+      "name": "Arm Drag da Guarda"
+    },
+    "hand_fight": {
+      "description": "Lute constantemente contra as pegadas para evitar o estrangulamento",
+      "name": "Pegada e Sobreviver",
+      "shortName": "Pegada"
+    },
+    "handfight_stand": {
+      "description": "Lute contra as pegadas e volte a ficar de pé.",
+      "name": "Disputa de Pegada e Levantar"
+    },
+    "head_arm_choke": {
+      "description": "Envolva a cabeça e o braço para um katagatame da montada.",
+      "name": "Katagatame"
+    },
+    "heist_snapdown": {
+      "description": "Erga-se e puxe o adversário para baixo até o front headlock",
+      "name": "Heist e Snapdown"
+    },
+    "hide_heel_extract": {
+      "description": "Esconda o calcanhar para evitar o heel hook e depois tire a perna",
+      "name": "Esconder o Calcanhar e Tirar a Perna",
+      "shortName": "Esconder o Calcanhar"
+    },
+    "high_wrist_guillotine": {
+      "description": "Encaixe a guilhotina de pulso alto e aperte",
+      "name": "Guilhotina"
+    },
+    "hooks_aggressive": {
+      "description": "Bote os dois ganchos agressivamente para pegar as costas.",
+      "name": "Botar Ganchos Agressivamente",
+      "shortName": "Botar Ganchos"
+    },
+    "kimura_half": {
+      "description": "Ataque a kimura a partir da meia-guarda",
+      "name": "Kimura"
+    },
+    "kimura_side": {
+      "description": "Ataque o braço distante com uma kimura",
+      "name": "Kimura"
+    },
+    "kipping_escape_slx": {
+      "description": "Escape da montada com um kip de quadril e enlace uma perna no single leg X",
+      "name": "Kipping Escape para Single Leg X",
+      "shortName": "Kipping Escape"
+    },
+    "knee_slice_pass": {
+      "description": "Faça uma passagem knee cut para os 100 Quilos.",
+      "name": "Knee Cut"
+    },
+    "knee_tap": {
+      "description": "Aplique um knee tap para derrubar",
+      "name": "Knee Tap"
+    },
+    "leg_weave_pass": {
+      "description": "Enfie o braço entre as pernas do oponente para derrubar o knee shield e passar para os 100 kilos",
+      "name": "Passagem Leg Weave"
+    },
+    "maintain_mount": {
+      "description": "Aplique pressão pesada e mantenha a posição de montada.",
+      "name": "Pressão e Manter a Posição"
+    },
+    "mount_from_back": {
+      "description": "Solte as costas e gire para a montada",
+      "name": "Transição para a Montada"
+    },
+    "mount_transition": {
+      "description": "Encaixe o joelho na barriga e passe para a montada com segurança",
+      "name": "Joelho na Barriga para a Montada"
+    },
+    "north_south_choke": {
+      "description": "Gire para o norte-sul e encaixe o estrangulamento sob o queixo",
+      "name": "Estrangulamento Norte-Sul"
+    },
+    "octopus_guard_sweep": {
+      "description": "Raspe o oponente usando a Guarda Polvo",
+      "name": "Raspagem da Guarda Polvo"
+    },
+    "pass_to_side": {
+      "description": "Pressione com crossface e passe para os 100 Quilos.",
+      "name": "Crossface e Passagem com Pressão",
+      "shortName": "Passagem Crossface"
+    },
+    "peek_out": {
+      "description": "Faça um sit out e ponha a cabeça para fora para escapar e chegar por cima",
+      "name": "Espiar e Escapar"
+    },
+    "pull_guard": {
+      "description": "Sente e puxe o adversário para a sua guarda",
+      "name": "Puxar Guarda"
+    },
+    "pull_guard_headlock": {
+      "description": "Sente para a guarda para escapar do front headlock",
+      "name": "Puxar Guarda"
+    },
+    "pull_guard_slx": {
+      "description": "Sente direto no single leg X, se falhar, você continua em pé",
+      "name": "Puxar Guarda para Single Leg X",
+      "shortName": "Entrada Single Leg X"
+    },
+    "pummel_pass": {
+      "description": "Pumelar a perna pra fora e passar para os 100 Quilos.",
+      "name": "Pumelar a Perna e Passar"
+    },
+    "recover_guard": {
+      "description": "Faça fuga de quadril e recupere a guarda fechada",
+      "name": "Recuperar a Guarda"
+    },
+    "rip_leg_out": {
+      "description": "Exploda, chute e arranque a perna para soltá-la",
+      "name": "Arrancar a Perna"
+    },
+    "rnc": {
+      "description": "Encaixe o mata-leão, o rei das finalizações",
+      "name": "Mata-Leão"
+    },
+    "roll_to_saddle": {
+      "description": "Inverta e agarre uma perna para entrar no saddle",
+      "name": "Rolar para o Saddle"
+    },
+    "saddle_inside_heelhook": {
+      "description": "Ataque o heel hook interno a partir do saddle",
+      "name": "Heel Hook Interno"
+    },
+    "saddle_pass_heelhook": {
+      "description": "Passe a perna para o outro lado e ataque o Z-lock",
+      "name": "Cruzar a Perna e Z-lock"
+    },
+    "saddle_to_back": {
+      "description": "Abandone o ataque de perna e pegue as costas",
+      "name": "Transição para as Costas"
+    },
+    "shoulder_crunch_sweep": {
+      "description": "Comprima o ombro e eleve com os ganchos de borboleta para cair na montada",
+      "name": "Raspagem Borboleta com Shoulder Crunch",
+      "shortName": "Raspagem Borboleta"
+    },
+    "single_leg": {
+      "description": "Entre num single leg para a queda",
+      "name": "Single Leg"
+    },
+    "slx_footlock": {
+      "description": "Ataque a botinha reta a partir do SLX",
+      "name": "Botinha Reta"
+    },
+    "slx_outside_heelhook": {
+      "description": "Faça o reap e ataque o heel hook externo a partir do SLX",
+      "name": "Heel Hook Externo com Reap"
+    },
+    "slx_sweep": {
+      "description": "Raspe a partir do single leg X para subir por cima",
+      "name": "Raspagem"
+    },
+    "smother_choke": {
+      "description": "Sufoque o oponente a partir da montada",
+      "name": "Sufocamento"
+    },
+    "snapdown": {
+      "description": "Puxe a cabeça do adversário para baixo até o front headlock",
+      "name": "Snapdown"
+    },
+    "snatch_front_headlock": {
+      "description": "Force o adversário ao front headlock por cima da meia-guarda",
+      "name": "Forçar Front Headlock",
+      "shortName": "Forçar Front Headlock"
+    },
+    "stand_up": {
+      "description": "Crie distância e volte a ficar de pé",
+      "name": "Levantar"
+    },
+    "stand_up_shake_off": {
+      "description": "Levante a postura, empurre o quadril e sacuda o oponente das suas costas para cair por cima na guarda",
+      "name": "Levantar e Sacudir",
+      "shortName": "Levantar e Sacudir"
+    },
+    "strip_grip_pass": {
+      "description": "Quebre a pegada na sua perna e passe com pressão para os 100 quilos",
+      "name": "Quebrar Pegada e Passar com Pressão"
+    },
+    "sucker_drag": {
+      "description": "Arraste o braço do headlock do oponente e saia por trás",
+      "name": "Sucker Drag"
+    },
+    "survive_mount": {
+      "description": "Cotovelos colados, proteja o pescoço, sobreviva",
+      "name": "Proteger e Sobreviver"
+    },
+    "sweep": {
+      "description": "Aplique uma raspagem de quadril para chegar à montada",
+      "name": "Raspagem de Quadril"
+    },
+    "take_back_mount": {
+      "description": "Force um gift wrap e pegue as costas",
+      "name": "Gift Wrap para as Costas",
+      "shortName": "Gift Wrap"
+    },
+    "take_back_side": {
+      "description": "Force o adversário pro lado e pegue as costas.",
+      "name": "Expor as Costas e Botar Ganchos",
+      "shortName": "Expor as Costas"
+    },
+    "take_back_turtle": {
+      "description": "Insira um gancho e use power half para garantir as costas.",
+      "name": "Usar o Power Half para Pegar as Costas",
+      "shortName": "Power Half para as Costas"
+    },
+    "throw_leg_mount": {
+      "description": "Jogue a perna por cima e suba para a montada.",
+      "name": "Jogar a Perna para Montada"
+    },
+    "torreando_pass": {
+      "description": "Passe por fora da guarda do oponente usando o j-point e a passagem cem-quilos norte-sul",
+      "name": "Toreando"
+    },
+    "triangle": {
+      "description": "Encaixe um triângulo a partir da guarda",
+      "name": "Triângulo"
+    },
+    "tripod_sweep": {
+      "description": "Segure um tornozelo, bloqueie o segundo tornozelo com um pé e derrube o oponente com o outro pé. Suba por cima.",
+      "name": "Tripod Sweep"
+    },
+    "turtle_up": {
+      "description": "Tire um gancho e vá para a tartaruga",
+      "name": "Tirar um Gancho e Tartaruga",
+      "shortName": "Tartaruga"
+    },
+    "turtle_up_side_control": {
+      "description": "Faça uma ponte explosiva e vire de costas para o oponente para virar tartaruga",
+      "name": "Virar Tartaruga",
+      "shortName": "Tartaruga"
+    },
+    "twister": {
+      "description": "Encaixe o twister a partir das costas.",
+      "name": "Twister"
+    },
+    "uchi_mata": {
+      "description": "Projete seu oponente com uma ceifada na parte interna da coxa e caia no controle lateral.",
+      "name": "Uchi Mata"
+    },
+    "underhook_sweep": {
+      "description": "Consiga o underhook e use o dogfight para raspar o oponente",
+      "name": "Raspagem com Underhook",
+      "shortName": "Raspagem Underhook"
+    },
+    "upa": {
+      "description": "Prenda o braço, faça a ponte e role por cima dele",
+      "name": "Upa"
+    },
+    "wrestle": {
+      "description": "Entre em uma baiana",
+      "name": "Baiana",
+      "shortName": "Baiana"
+    }
+  },
+  "positions": {
+    "back_control": {
+      "description": "Você pegou as costas dele!",
+      "name": "Pegada pelas Costas"
+    },
+    "back_exposed": {
+      "description": "Suas costas foram tomadas!",
+      "name": "Costas Tomadas"
+    },
+    "front_headlock_attack": {
+      "description": "Controlando a cabeça do adversário pela frente",
+      "name": "Front Headlock (Ataque)"
+    },
+    "front_headlock_defend": {
+      "description": "Preso no front headlock do adversário",
+      "name": "Front Headlock (Defesa)"
+    },
+    "guard_bottom": {
+      "description": "Você tem o adversário na sua guarda fechada",
+      "name": "Guarda Fechada"
+    },
+    "guard_top": {
+      "description": "Você está dentro da guarda fechada do adversário",
+      "name": "Passando a Guarda"
+    },
+    "half_guard_bottom": {
+      "description": "Segurando na meia-guarda",
+      "name": "Meia-Guarda (Embaixo)"
+    },
+    "half_guard_top": {
+      "description": "Passando pela meia-guarda",
+      "name": "Meia-Guarda (Em Cima)"
+    },
+    "mount_bottom": {
+      "description": "Preso embaixo da montada",
+      "name": "Embaixo da Montada"
+    },
+    "mount_top": {
+      "description": "Montado no adversário",
+      "name": "Montada"
+    },
+    "saddle_defense": {
+      "description": "Pego no saddle do adversário",
+      "name": "Saddle (Defesa)"
+    },
+    "saddle_offense": {
+      "description": "Encaixou o saddle: ataques de perna perigosos",
+      "name": "Saddle (Ataque)"
+    },
+    "side_control_bottom": {
+      "description": "Preso embaixo dos 100 Quilos",
+      "name": "Embaixo dos 100 Quilos"
+    },
+    "side_control_top": {
+      "description": "Posição dominante dos 100 Quilos",
+      "name": "100 Quilos"
+    },
+    "single_leg_x_defense": {
+      "description": "Preso no single leg X do adversário",
+      "name": "Single Leg X (Defesa)"
+    },
+    "single_leg_x_offense": {
+      "description": "Atacando as pernas a partir do single leg X",
+      "name": "Single Leg X (Ataque)"
+    },
+    "standing": {
+      "description": "Ambos lutadores em pé",
+      "name": "Em Pé"
+    },
+    "turtle_bottom": {
+      "description": "Tartaruga, protegendo dos ataques",
+      "name": "Tartaruga (Embaixo)"
+    },
+    "turtle_top": {
+      "description": "Atacando a posição de tartaruga do adversário",
+      "name": "Atacando a Tartaruga"
+    }
+  },
+  "rarities": {
+    "common": "Comum",
+    "epic": "Épico",
+    "legendary": "Lendário",
+    "rare": "Raro"
+  },
+  "rivalries": {
+    "armbar_guard:torreando_pass": "o braço da frente de quem passa já está dentro da chave de braço.",
+    "armbar_mount:kipping_escape_slx": "o kip apoia com o braço esticado atravessado no corpo.",
+    "back_triangle:hand_fight": "as duas mãos estão lutando pelas pegadas, e nenhuma encontra a perna.",
+    "body_lock_pass:berimbolo": "o body lock não deixa espaço para inverter.",
+    "body_lock_pass:stand_up": "a pegada já domina o quadril que o levantar precisa.",
+    "body_triangle_squeeze:turtle_up": "de bruços, as costelas entram nas pernas que já estão lá.",
+    "break_grips_stand:hooks_aggressive": "sem pegadas, os ganchos escorregam da base em pé.",
+    "choi_bar:pass_to_side": "quem passa com crossface tem um braço apoiado e comprometido.",
+    "clear_hooks:mount_from_back": "a rotação para a montada precisa dos ganchos que estão sendo tirados.",
+    "cow_catcher:sucker_drag": "o drag vira a cabeça para frente e para baixo.",
+    "double_under_pass:triangle": "empilhar tira o ângulo que os dois triângulos precisam.",
+    "footsweep_snapdown:wrestle": "a entrada põe todo o peso num pé só, o da frente.",
+    "force_half_guard:sweep": "o hip bump precisa de espaço para sentar.",
+    "granby_roll:take_back_turtle": "o power half compromete um braço antes de controlar o ombro.",
+    "guard_arm_drag:force_half_guard": "a pressão peito a peito compromete um braço à frente.",
+    "hand_fight:rnc": "as duas mãos estão no punho que estrangula.",
+    "heist_snapdown:torreando_pass": "quem passa está esticado para frente, cabeça baixa.",
+    "hide_heel_extract:saddle_inside_heelhook": "o hook não tem calcanhar exposto para pegar.",
+    "high_wrist_guillotine:peek_out": "o ângulo do peek-out é onde a chave fecha.",
+    "high_wrist_guillotine:pull_guard_headlock": "sentar com a cabeça ainda presa encaixa o estrangulamento.",
+    "hooks_aggressive:granby_roll": "o granby mostra as costas durante o giro inteiro.",
+    "kipping_escape_slx:take_back_mount": "o gift wrap precisa de um instante para encaixar.",
+    "knee_slice_pass:tripod_sweep": "a raspagem precisa de um ângulo que o knee slice já ocupa por baixo.",
+    "knee_tap:pull_guard": "a perna que puxa está plantada e ao alcance.",
+    "knee_tap:pull_guard_slx": "a perna que puxa está plantada e ao alcance.",
+    "mount_from_back:turtle_up": "virar de bruços já é metade da rotação para a montada.",
+    "pass_to_side:enter_saddle": "os ombros já estão presos antes da virada para dentro.",
+    "pass_to_side:enter_single_leg_x": "os ombros já estão presos antes da entrada.",
+    "peek_out:darce_choke": "a pegada do D'Arce ainda não está travada.",
+    "pull_guard:footsweep_snapdown": "o footsweep precisa de uma base plantada em pé.",
+    "pull_guard:snapdown": "o snapdown precisa de uma estrutura em pé para quebrar.",
+    "rnc:clear_hooks": "as duas mãos estão nos ganchos, e nenhuma está no pescoço.",
+    "roll_to_saddle:front_headlock_snap": "girar até a cabeça entrega as pernas à inversão.",
+    "shoulder_crunch_sweep:body_lock_pass": "os braços travados não deixam nenhuma mão livre para apoiar.",
+    "single_leg:pull_guard": "a puxada está no meio da sentada, com uma perna ainda carregada.",
+    "single_leg:pull_guard_slx": "a puxada está no meio da sentada, com uma perna ainda carregada.",
+    "smother_choke:kipping_escape_slx": "o kip vira a cabeça e deixa o pescoço aberto.",
+    "snapdown:wrestle": "a entrada baixa a cabeça e joga para frente.",
+    "snatch_front_headlock:underhook_sweep": "a raspagem baixa a cabeça para dentro do alcance.",
+    "sucker_drag:high_wrist_guillotine": "a guilhotina ainda não fechou no cotovelo.",
+    "take_back_mount:elbow_escape": "a fuga deixa o braço distante atravessado no corpo.",
+    "take_back_mount:upa": "o braço da ponte fica exposto durante toda a upa.",
+    "take_back_side:turtle_up_side_control": "virar para a tartaruga abre as costas no caminho.",
+    "take_back_turtle:break_grips_stand": "levantar dá a alavanca que o power half precisa.",
+    "torreando_pass:shoulder_crunch_sweep": "a raspagem de crunch se compromete com um ponto só.",
+    "triangle:knee_slice_pass": "o corte entrega um braço atravessado e a cabeça vem junto.",
+    "turtle_up:back_triangle": "de bruços, não há ombro para passar a perna por cima.",
+    "twister:clear_hooks": "a pegada na perna distante dura mais que os ganchos.",
+    "uchi_mata:knee_tap": "o knee tap entra perto e deixa a parte interna da coxa exposta.",
+    "wrestle:pull_guard": "a puxada vem atrasada e o quadril ainda não caiu.",
+    "wrestle:pull_guard_slx": "a puxada vem atrasada e o quadril ainda não caiu."
+  },
+  "source": "Generated by tools/export-glossary-locale.py from game pt_BR.po; do not edit by hand.",
+  "stats": {
+    "cardio": "Cardio",
+    "escapes": "Fugas",
+    "guard": "Guarda",
+    "leg_entanglements": "Chaves de Perna",
+    "passing": "Passagem",
+    "strength": "Força",
+    "submissions": "Finalizações",
+    "wrestling": "Wrestling"
+  }
+}

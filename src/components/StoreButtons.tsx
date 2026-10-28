@@ -1,20 +1,22 @@
+import { getI18n, type Locale } from "@/lib/i18n";
 /** Brand logos distinguish the stores while the buttons stay in one row. */
 import { STORES, type Store } from "@/lib/stores";
 import { PixelArrow } from "./PixelGlyphs";
 
-export default function StoreButtons() {
-  return (
+export default function StoreButtons({ locale = "en" }: { locale?: Locale }) {
+    return (
     <div className="@container w-full">
       <div className="grid w-full grid-cols-3 gap-2 @min-[900px]:gap-4">
         {STORES.map((store) => (
-          <StoreButton key={store.id} store={store} />
+          <StoreButton key={store.id} store={store} locale={locale} />
         ))}
       </div>
     </div>
   );
 }
 
-function StoreButton({ store }: { store: Store }) {
+function StoreButton({ store, locale }: { store: Store; locale: Locale }) {
+  const { t } = getI18n(locale);
   const [first, second] = store.platforms;
   return (
     <a
@@ -34,7 +36,7 @@ function StoreButton({ store }: { store: Store }) {
           {second && (
             <>
               <span aria-hidden="true"> / </span>
-              <span className="sr-only"> and </span>
+              <span className="sr-only"> {t(" and ")}</span>
               {second}
             </>
           )}

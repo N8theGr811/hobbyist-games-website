@@ -1,3 +1,4 @@
+import { getI18n, type Locale } from "@/lib/i18n";
 interface Social {
   label: string;
   href: string;
@@ -28,7 +29,8 @@ const socials: Social[] = [
   },
 ];
 
-export default function Footer() {
+export default function Footer({ locale = "en" }: { locale?: Locale }) {
+  const { t, path } = getI18n(locale);
   return (
     <footer className="border-t border-steam-gold/15 bg-steam-navy">
       {/* Primary links wrap naturally on small screens. */}
@@ -39,29 +41,29 @@ export default function Footer() {
           <span className="text-xs tracking-[0.1em] text-cream/55">
             © 2026 Hobbyist Games
           </span>
-          <a href="/shop" className="text-xs tracking-[0.1em] text-cream/55 hover:text-steam-gold transition-colors">
-            Shop
+          <a href={path("/shop")} className="text-xs tracking-[0.1em] text-cream/55 hover:text-steam-gold transition-colors">
+            {t("Shop")}
           </a>
           <a
-            href="/guide"
+            href={path("/guide")}
             className="text-xs tracking-[0.1em] text-cream/55 hover:text-steam-gold transition-colors"
           >
-            Beginner&apos;s Guide
+            {t("Beginner's Guide")}
           </a>
           <a
-            href="/glossary"
+            href={path("/glossary")}
             className="text-xs tracking-[0.1em] text-cream/55 hover:text-steam-gold transition-colors"
           >
-            Move Glossary
+            {t("Move Glossary")}
           </a>
           <a
-            href="/credits"
+            href={path("/credits")}
             className="text-xs tracking-[0.1em] text-cream/55 hover:text-steam-gold transition-colors"
           >
-            Credits
+            {t("Credits")}
           </a>
           <a
-            href="/discord"
+            href={path("/discord")}
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs tracking-[0.1em] text-cream/55 hover:text-steam-gold transition-colors"
@@ -86,17 +88,17 @@ export default function Footer() {
       </div>
       <div className="max-w-[900px] mx-auto px-6 pb-10 md:px-12">
         <div className="border-t border-steam-gold/15 pt-5 text-xs text-cream/65">
-          <nav aria-label="Order support" className="flex flex-wrap items-center gap-x-5 gap-y-3">
-            <a href="https://shopify.com/81663688903/account" className="hover:text-steam-gold transition-colors">Cancel or return an order</a>
-            <a href="https://checkout.submissionsaga.com/policies/refund-policy" className="hover:text-steam-gold transition-colors">Return policy</a>
-            <a href="https://checkout.submissionsaga.com/policies/shipping-policy" className="hover:text-steam-gold transition-colors">Shipping policy</a>
-            <a href="https://checkout.submissionsaga.com/policies/contact-information" className="hover:text-steam-gold transition-colors">Contact</a>
+          <nav aria-label={t("Order support")} className="flex flex-wrap items-center gap-x-5 gap-y-3">
+            <a href="https://shopify.com/81663688903/account" className="hover:text-steam-gold transition-colors">{t("Cancel or return an order")}</a>
+            <a href="https://checkout.submissionsaga.com/policies/refund-policy" className="hover:text-steam-gold transition-colors">{t("Return policy")}</a>
+            <a href="https://checkout.submissionsaga.com/policies/shipping-policy" className="hover:text-steam-gold transition-colors">{t("Shipping policy")}</a>
+            <a href="https://checkout.submissionsaga.com/policies/contact-information" className="hover:text-steam-gold transition-colors">{t("Contact")}</a>
           </nav>
-          <p className="mt-4">Support: <a href="mailto:info@submissionsaga.com" className="underline underline-offset-4 hover:text-steam-gold transition-colors">info@submissionsaga.com</a></p>
-          <nav aria-label="Privacy policies" className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-cream/55">
+          <p className="mt-4">{t("Support: ")}<a href="mailto:info@submissionsaga.com" className="underline underline-offset-4 hover:text-steam-gold transition-colors">info@submissionsaga.com</a></p>
+          <nav aria-label={t("Privacy policies")} className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-cream/55">
             {/* Preserve the existing privacy URL used by the game stores. */}
-            <a href="/privacy" className="hover:text-steam-gold transition-colors">Website &amp; game privacy</a>
-            <a href="https://checkout.submissionsaga.com/policies/privacy-policy" className="hover:text-steam-gold transition-colors">Shop privacy</a>
+            <a href={path("/privacy")} className="hover:text-steam-gold transition-colors">{t("Website & game privacy")}</a>
+            <a href="https://checkout.submissionsaga.com/policies/privacy-policy" className="hover:text-steam-gold transition-colors">{t("Shop privacy")}</a>
           </nav>
         </div>
       </div>

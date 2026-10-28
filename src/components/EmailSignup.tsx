@@ -1,11 +1,14 @@
 "use client";
 
+import { useI18n } from "./LocaleProvider";
+
 import { useState, type FormEvent } from "react";
 import Watermark from "./Watermark";
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
 
 export default function EmailSignup() {
+  const { t } = useI18n();
   const [email, setEmail] = useState("");
   const [state, setState] = useState<SubmitState>("idle");
   const [errorMsg, setErrorMsg] = useState("");
@@ -26,7 +29,7 @@ export default function EmailSignup() {
 
       if (!res.ok) {
         setState("error");
-        setErrorMsg(data.error || "Something went wrong. Please try again.");
+        setErrorMsg(t(data.error || "Something went wrong. Please try again."));
         return;
       }
 
@@ -34,7 +37,7 @@ export default function EmailSignup() {
       setEmail("");
     } catch {
       setState("error");
-      setErrorMsg("Network error. Please try again.");
+      setErrorMsg(t("Network error. Please try again."));
     }
   }
 
@@ -45,8 +48,7 @@ export default function EmailSignup() {
 
       <div className="flex items-center justify-center gap-3 mb-6 font-pixel text-pixel-xs tracking-[0.2em] uppercase text-steam-gold">
         <span className="w-6 h-px bg-steam-gold/40" />
-        Stay Posted
-        <span className="w-6 h-px bg-steam-gold/40" />
+        {t("Stay Posted")}<span className="w-6 h-px bg-steam-gold/40" />
       </div>
 
       {/* No display heading here. The hero, the header, the metadata and the
@@ -55,18 +57,18 @@ export default function EmailSignup() {
           offer. The h2 is kept for document structure and carries the offer
           itself. */}
       <h2 className="font-pixel text-pixel-md text-cream mb-8 leading-relaxed">
-        Updates, New Content,
-        <br />
-        And <span className="text-steam-gold">Whatever Comes Next</span>
+        {t("Updates, New Content,")}<br />
+        {t("And ")}<span className="text-steam-gold">{t("Whatever Comes Next")}
+      </span>
       </h2>
 
       {state === "success" ? (
         <div className="max-w-md mx-auto">
           <p className="font-pixel text-sm text-steam-gold tracking-wider mb-3">
-            YOU&apos;RE ON THE LIST!
+            {t("YOU'RE ON THE LIST!")}
           </p>
           <p className="text-sm text-cream/55">
-            We&apos;ll email you when there is news. Nothing else.
+            {t("We'll email you when there is news. Nothing else.")}
           </p>
         </div>
       ) : (
@@ -79,27 +81,28 @@ export default function EmailSignup() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="your@email.com"
+              placeholder={t("your@email.com")}
               disabled={state === "submitting"}
-              className="flex-1 px-5 py-4 bg-steam-navy-2 text-cream text-sm outline-none placeholder:text-cream/55 disabled:opacity-50"
+              aria-label={t("Email address")}
+              className="min-w-0 flex-1 px-3 sm:px-5 py-4 bg-steam-navy-2 text-cream text-sm outline-none placeholder:text-cream/55 disabled:opacity-50"
             />
             <button
               type="submit"
               disabled={state === "submitting"}
-              className="font-pixel text-pixel-sm tracking-[0.1em] uppercase px-7 py-4 bg-steam-gold text-steam-navy hover:bg-steam-gold-2 transition-colors whitespace-nowrap disabled:opacity-50 cursor-pointer"
+              className="font-pixel text-pixel-sm tracking-[0.1em] uppercase px-3 sm:px-7 py-4 bg-steam-gold text-steam-navy hover:bg-steam-gold-2 transition-colors whitespace-nowrap disabled:opacity-50 cursor-pointer"
             >
-              {state === "submitting" ? "..." : "Sign Up"}
+              {state === "submitting" ? "..." : t("Sign Up")}
             </button>
           </div>
 
           {state === "error" && (
-            <p className="mt-3 text-sm text-mat-red font-semibold">{errorMsg}</p>
+            <p className="mt-3 text-sm text-mat-red font-semibold" role="alert">{errorMsg}</p>
           )}
         </form>
       )}
 
       <p className="mt-4 text-xs text-cream/55">
-        No spam. Unsubscribe anytime.
+        {t("No spam. Unsubscribe anytime.")}
       </p>
     </section>
   );

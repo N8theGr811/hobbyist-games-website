@@ -1,3 +1,5 @@
+import { getI18n, type Locale } from "@/lib/i18n";
+
 export interface Moment {
   headline: string;
   line: string;
@@ -20,11 +22,14 @@ export interface Moment {
  */
 export default function MomentRows({
   moments,
+  locale = "en",
   startSide = "left",
 }: {
   moments: Moment[];
+  locale?: Locale;
   startSide?: "left" | "right";
 }) {
+  const { t } = getI18n(locale);
   const flip = startSide === "right";
 
   return (
@@ -33,18 +38,18 @@ export default function MomentRows({
         const mediaRight = (i % 2 === 1) !== flip;
         return (
           <div
-            key={moment.headline}
+            key={t(moment.headline)}
             className="grid items-center gap-8 md:grid-cols-2 md:gap-12"
           >
             <div className={mediaRight ? "md:order-2" : undefined}>
-              <MomentMedia media={moment.media} />
+              <MomentMedia media={moment.media} locale={locale} />
             </div>
             <div className={mediaRight ? "md:order-1" : undefined}>
               <h3 className="font-pixel text-pixel-md uppercase tracking-[0.1em] text-steam-gold mb-4 leading-relaxed">
-                {moment.headline}
+                {t(moment.headline)}
               </h3>
               <p className="text-base leading-relaxed text-cream/70">
-                {moment.line}
+                {t(moment.line)}
               </p>
             </div>
           </div>
@@ -55,13 +60,14 @@ export default function MomentRows({
 }
 
 /** Screenshot or looping clip, in the panel frame with a cream outline. */
-function MomentMedia({ media }: { media: Moment["media"] }) {
+function MomentMedia({ media, locale }: { media: Moment["media"]; locale: Locale }) {
+  const { t } = getI18n(locale);
   return (
     <div className="steam-panel border-cream relative aspect-video overflow-hidden">
       {media.kind === "video" ? (
         <video
           src={media.src}
-          aria-label={media.label}
+          aria-label={t(media.label)}
           autoPlay
           muted
           loop
@@ -75,7 +81,7 @@ function MomentMedia({ media }: { media: Moment["media"] }) {
         /* eslint-disable-next-line @next/next/no-img-element */
         <img
           src={media.src}
-          alt={media.alt}
+          alt={t(media.alt)}
           loading="lazy"
           className="absolute inset-0 h-full w-full object-cover"
         />

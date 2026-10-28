@@ -1,5 +1,7 @@
 "use client";
 
+import { useI18n } from "./LocaleProvider";
+
 /** Website advertising measurement, enabled only after a visitor opts in. */
 import Script from "next/script";
 import { usePathname } from "next/navigation";
@@ -40,6 +42,7 @@ function saveChoice(choice: Exclude<Choice, null>): void {
 }
 
 export default function MetaPixel() {
+  const { t, path } = useI18n();
   const choice = useSyncExternalStore(subscribe, getChoice, () => null);
   const pathname = usePathname();
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -93,15 +96,15 @@ export default function MetaPixel() {
         </Script>
       )}
       {choice === null || settingsOpen ? (
-        <section data-cookie-consent aria-label="Advertising cookie choices" className="fixed bottom-3 left-3 right-3 z-[100] mx-auto max-w-xl rounded-md border border-cream/20 bg-steam-navy p-4 text-sm text-cream shadow-lg">
-          <p>Allow advertising cookies? We use Meta to measure visits and store clicks from our ads. <a href="/privacy#website-advertising" className="underline">Privacy details</a></p>
+        <section data-cookie-consent aria-label={t("Advertising cookie choices")} className="fixed bottom-3 left-3 right-3 z-[100] mx-auto max-w-xl rounded-md border border-cream/20 bg-steam-navy p-4 text-sm text-cream shadow-lg">
+          <p>{t("Allow advertising cookies? We use Meta to measure visits and store clicks from our ads. ")}<a href={path("/privacy#website-advertising")} className="underline">{t("Privacy details")}</a></p>
           <div className="mt-3 flex gap-3">
-            <button type="button" onClick={() => choose("declined")} className="rounded border border-cream/40 px-4 py-2 hover:bg-cream/10">No thanks</button>
-            <button type="button" onClick={() => choose("accepted")} className="rounded border border-cream/40 px-4 py-2 hover:bg-cream/10">Allow</button>
+            <button type="button" onClick={() => choose("declined")} className="rounded border border-cream/40 px-4 py-2 hover:bg-cream/10">{t("No thanks")}</button>
+            <button type="button" onClick={() => choose("accepted")} className="rounded border border-cream/40 px-4 py-2 hover:bg-cream/10">{t("Allow")}</button>
           </div>
         </section>
       ) : (
-        <button type="button" onClick={() => setSettingsOpen(true)} className="fixed bottom-2 left-2 z-[100] rounded bg-steam-navy px-3 py-2 text-xs text-cream/70 underline">Cookie settings</button>
+        <button type="button" onClick={() => setSettingsOpen(true)} className="fixed bottom-2 left-2 z-[100] rounded bg-steam-navy px-3 py-2 text-xs text-cream/70 underline">{t("Cookie settings")}</button>
       )}
     </>
   );

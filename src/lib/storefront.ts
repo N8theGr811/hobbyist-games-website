@@ -21,7 +21,7 @@ export interface Cart {
 }
 
 export const MAX_CART_QUANTITY = 20;
-export const CART_LIMIT_MESSAGE = `Orders are limited to ${MAX_CART_QUANTITY} shirts. For larger orders, contact info@submissionsaga.com.`;
+export const CART_LIMIT_MESSAGE = "Orders are limited to {count} shirts. For larger orders, contact info@submissionsaga.com.";
 
 export const groups = [
   { title: "Archetype Tee", designs: [
@@ -33,11 +33,15 @@ export const groups = [
   { title: "Logo Tee", designs: [{ name: "Logo", id: "15400769454279" }] },
 ];
 export const productGid = (id: string) => `gid://shopify/Product/${id}`;
-export const money = (value: Money) => new Intl.NumberFormat("en-US", { style: "currency", currency: value.currencyCode }).format(Number(value.amount));
+export const money = (value: Money, locale: string = "en") => new Intl.NumberFormat(locale === "pt-BR" ? "pt-BR" : "en-US", { style: "currency", currency: value.currencyCode }).format(Number(value.amount));
 export const shortTitle = (title: string) => title.replace(/^Submission Saga\s*/, "");
-export const sizeOf = (variant: Variant) => variant.selectedOptions.find(option => option.name.toLowerCase() === "size")?.value || variant.title;
+export const sizeOf = (variant: Variant) => variant.selectedOptions.find(option => /^(size|tamanho)$/i.test(option.name))?.value || variant.title;
 
-export const colorOf = (variant: Variant) => variant.selectedOptions.find(option => /^(color|colour)$/i.test(option.name))?.value || "Black";
+/** Canonical media colors stay separate from translated display labels and raw options. */
+export const colorOf = (variant: Variant) => {
+  const value = variant.selectedOptions.find(option => /^(color|colour|cor)$/i.test(option.name))?.value || "Black";
+  return /^(preto|preta)$/i.test(value) ? "Black" : /^(branco|branca)$/i.test(value) ? "White" : value;
+};
 export const colorsOf = (product: Product) => Array.from(new Set(product.variants.nodes.map(colorOf)));
 
 /** Printful exports color and view in filenames; keep each color's media together. */
@@ -64,7 +68,7 @@ export async function request<T>(config: StorefrontConfig, query: string, variab
   return result.data as T;
 }
 
-export const catalogQuery = `query Catalog($ids: [ID!]!) { nodes(ids: $ids) { ... on Product {
+export const catalogQuery = `query Catalog($ids: [ID!]!, $language: LanguageCode = EN) @inContext(language: $language) { nodes(ids: $ids) { ... on Product {
   id title description descriptionHtml images(first: 30) { nodes { url altText } }
   variants(first: 50) { nodes { id title availableForSale image { url altText } price { amount currencyCode } selectedOptions { name value } } }
 } } }`;
@@ -72,10 +76,10 @@ export const cartFields = `id checkoutUrl totalQuantity cost { subtotalAmount { 
   lines(first: 100) { nodes { id quantity cost { totalAmount { amount currencyCode } }
   merchandise { ... on ProductVariant { id title availableForSale price { amount currencyCode }
   selectedOptions { name value } image { url altText } product { id title } } } } }`;
-export const cartQuery = `query Cart($id: ID!) { cart(id: $id) { ${cartFields} } }`;
+export const cartQuery = `query Cart($id: ID!, $language: LanguageCode = EN) @inContext(language: $language) { cart(id: $id) { ${cartFields} } }`;
 
 /** Mutations are serialized by the UI; Shopify validates quantities and availability. */
-export async function changeCart(config: StorefrontConfig, cart: Cart | null, change: { variantId: string } | { lineId: string; quantity: number }): Promise<{ cart: Cart; warning?: string }> {
+export async function changeCart(config: StorefrontConfig, cart: Cart | null, change: { variantId: string } | { lineId: string; quantity: number }, language: "EN" | "PT_BR" = "EN"): Promise<{ cart: Cart; warning?: string }> {
   const currentQuantity = cart?.totalQuantity || 0;
   const nextQuantity = "variantId" in change
     ? currentQuantity + 1
@@ -97,7 +101,7 @@ export async function changeCart(config: StorefrontConfig, cart: Cart | null, ch
     variables = change.quantity === 0 ? { cartId: cart.id, lineIds: [change.lineId] } : { cartId: cart.id, lines: [{ id: change.lineId, quantity: change.quantity }] };
   }
   const result = await request<Record<string, { cart: Cart | null; userErrors: { message: string }[]; warnings: { message: string }[] }>>(config,
-    `mutation Change(${args}) { ${name}(${invocation}) { cart { ${cartFields} } userErrors { message } warnings { message } } }`, variables);
+    `mutation Change(${args}, $language: LanguageCode!) @inContext(language: $language) { ${name}(${invocation}) { cart { ${cartFields} } userErrors { message } warnings { message } } }`, { ...variables, language });
   const payload = result[name];
   if (payload.userErrors.length) throw new Error(payload.userErrors.map(error => error.message).join(" "));
   if (!payload.cart) throw new Error("Your bag is no longer available. Refresh and try again.");

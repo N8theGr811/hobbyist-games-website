@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { DM_Serif_Display, Outfit, JetBrains_Mono, Press_Start_2P, VT323 } from "next/font/google";
 import { SITE_URL } from "@/lib/site";
 import { APP_STORE_ID } from "@/lib/stores";
-import "./globals.css";
+import "../globals.css";
+import { notFound } from "next/navigation";
+import { isLocale, LOCALES } from "@/lib/i18n";
+import LocaleProvider from "@/components/LocaleProvider";
 import MetaPixel from "@/components/MetaPixel";
 
 const dmSerif = DM_Serif_Display({
@@ -55,17 +58,25 @@ export const metadata: Metadata = {
   itunes: { appId: APP_STORE_ID },
 };
 
-export default function RootLayout({
+export function generateStaticParams() {
+  return LOCALES.map(locale => ({ locale }));
+}
+
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
+  const { locale } = await params;
+  if (!isLocale(locale)) notFound();
   return (
     <html
-      lang="en"
+      lang={locale}
       className={`${dmSerif.variable} ${outfit.variable} ${jetbrainsMono.variable} ${pixelFont.variable} ${vt323.variable}`}
     >
-      <body>{children}<MetaPixel /></body>
+      <body><LocaleProvider locale={locale}>{children}<MetaPixel /></LocaleProvider></body>
     </html>
   );
 }

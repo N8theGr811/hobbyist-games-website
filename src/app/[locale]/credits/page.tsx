@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import LanguageSwitch from "@/components/LanguageSwitch";
+import { getI18n, pageMetadata } from "@/lib/i18n";
+import translations from "@/lib/i18n/pages.pt-BR.json";
 
-export const metadata: Metadata = {
-  title: "Credits & Attribution — Hobbyist Games",
-  description: "Credits and attribution for Submission Saga assets, music, and tools.",
-  alternates: { canonical: "/credits" },
-};
+type Props = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const { t } = getI18n(locale, translations);
+  return pageMetadata(locale, "/credits", {
+    title: t("Credits & Attribution — Hobbyist Games"),
+    description: t("Credits and attribution for Submission Saga assets, music, and tools."),
+  });
+}
 
 interface Credit {
   name: string;
@@ -90,17 +98,20 @@ const SECTIONS: CreditSection[] = [
   },
 ];
 
-export default function CreditsPage() {
+export default async function CreditsPage({ params }: Props) {
+  const { locale } = await params;
+  const { t, path } = getI18n(locale, translations);
   return (
     <>
       {/* Header bar */}
-      <header className="bg-steam-navy border-b-2 border-steam-gold/40 px-6 py-4 md:px-12">
+      <header className="flex items-center justify-between gap-4 bg-steam-navy border-b-2 border-steam-gold/40 px-6 py-4 md:px-12">
         <Link
-          href="/"
+          href={path("/")}
           className="font-pixel text-pixel-xs tracking-[0.1em] uppercase text-cream/60 hover:text-steam-gold transition-colors"
         >
-          ← Back to Hobbyist Games
+          {t("← Back to Hobbyist Games")}
         </Link>
+        <LanguageSwitch />
       </header>
 
       <main className="bg-pixel-grid min-h-screen px-6 section-rhythm md:px-12">
@@ -108,13 +119,13 @@ export default function CreditsPage() {
           {/* Page heading */}
           <div className="text-center mb-16">
             <p className="font-pixel text-pixel-xs tracking-[0.2em] uppercase text-steam-gold mb-4">
-              Attribution
+              {t("Attribution")}
             </p>
             <h1 className="font-pixel text-2xl text-cream mb-4">
-              Credits
+              {t("Credits")}
             </h1>
             <p className="text-sm text-cream/55">
-              Submission Saga is made possible by these incredible creators and tools.
+              {t("Submission Saga is made possible by these incredible creators and tools.")}
             </p>
           </div>
 
@@ -123,10 +134,10 @@ export default function CreditsPage() {
             {SECTIONS.map((section) => (
               <div key={section.title}>
                 <p className="font-pixel text-pixel-xs tracking-[0.15em] uppercase text-steam-gold mb-2">
-                  {section.label}
+                  {t(section.label)}
                 </p>
                 <h2 className="font-pixel text-sm text-cream mb-4 tracking-wider">
-                  {section.title}
+                  {t(section.title)}
                 </h2>
 
                 <div className="space-y-1.5">
@@ -141,13 +152,13 @@ export default function CreditsPage() {
                             rel="noopener noreferrer"
                             className="text-sm text-cream hover:text-steam-gold transition-colors underline underline-offset-2 decoration-cream/20 hover:decoration-steam-gold"
                           >
-                            {entry.name}
+                            {t(entry.name)}
                           </a>
                         ) : (
-                          <span className="text-sm text-cream">{entry.name}</span>
+                          <span className="text-sm text-cream">{t(entry.name)}</span>
                         )}
                         {entry.role && (
-                          <span className="text-sm text-cream/55 ml-1.5">— {entry.role}</span>
+                          <span className="text-sm text-cream/55 ml-1.5">{locale === "pt-BR" ? ": " : "— "}{t(entry.role)}</span>
                         )}
                       </div>
                     </div>
@@ -155,7 +166,7 @@ export default function CreditsPage() {
                 </div>
 
                 {section.note && (
-                  <p className="text-xs text-cream/55 mt-2 ml-7 italic">{section.note}</p>
+                  <p className="text-xs text-cream/55 mt-2 ml-7 italic">{t(section.note)}</p>
                 )}
               </div>
             ))}
@@ -164,7 +175,7 @@ export default function CreditsPage() {
           {/* Licenses footer */}
           <div className="mt-16 pt-8 border-t border-steam-gold/15">
             <p className="font-pixel text-pixel-xs tracking-[0.15em] uppercase text-cream/55 mb-3">
-              Licenses
+              {t("Licenses")}
             </p>
             <div className="flex flex-wrap gap-2">
               {["CC-BY-SA 3.0", "OGA-BY 3.0", "GPL 3.0", "MIT"].map((license) => (
@@ -181,10 +192,10 @@ export default function CreditsPage() {
           {/* Back link */}
           <div className="mt-12 text-center">
             <Link
-              href="/"
+              href={path("/")}
               className="font-pixel text-pixel-xs tracking-[0.12em] uppercase text-cream/55 hover:text-steam-gold transition-colors"
             >
-              ← Back to Hobbyist Games
+              {t("← Back to Hobbyist Games")}
             </Link>
           </div>
         </div>
