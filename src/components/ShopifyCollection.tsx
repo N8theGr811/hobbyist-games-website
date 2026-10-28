@@ -100,7 +100,7 @@ function ProductPreview({ product, title, design, choices, chooseDesign, colors,
       <div className={styles.productInfo}>
         <p className={styles.eyebrow}>Submission Saga</p>
         <h2>{t(title)}</h2>
-        <p className={styles.productPrice}>{price ? money(price, locale) : t("Unavailable")} <span>{price?.currencyCode || "USD"} · {t("Shipping at checkout")}</span></p>
+        <p className={styles.productPrice}>{price ? money(price, locale) : t("Unavailable")} <span>{price?.currencyCode || "USD"} · {t("We ship to all 50 US states, including Alaska and Hawaii. Shipping costs are calculated at checkout.")}</span></p>
         <p className={styles.intro}>{t("Comfort Colors 1717. Heavyweight, garment-dyed cotton with a relaxed fit.")}</p>
         {choices.length > 1 && <label className={styles.designLabel}>{t("Design")}<DesignSelect value={design} choices={choices} disabled={busy} onChange={chooseDesign} /></label>}
         {colors.length > 1 && <ColorSelect colors={colors} value={color} onChange={chooseColor} disabled={busy} />}
@@ -110,7 +110,7 @@ function ProductPreview({ product, title, design, choices, chooseDesign, colors,
         {error && <p role="alert" className={styles.error}>{t(error)}</p>}
         <p className={styles.fulfillment}>{t("Made to order. Typically 2–5 business days to print, plus shipping.")}</p>
         <details className={styles.details}><summary>{t("Product details & care")}</summary><p>{translateDescription(product.description, t)}</p><p>{t("For adults. Wash inside out in cold water on a gentle cycle. Avoid fabric softener. Air-dry or tumble-dry on low. If ironing, use a cool iron inside out and avoid the print.")}</p></details>
-        <details className={styles.details}><summary>{t("Shipping & returns")}</summary><p>{t("Printful production typically takes 2–5 business days, excluding the order date, weekends, and holidays. Restocking and busy periods can extend this estimate. Shipping time is additional and varies by destination; customs may add time. These are estimates, not guaranteed delivery dates.")}</p><p>{t("Shipping is calculated at checkout. Please check the size guide before ordering. Your statutory cancellation and faulty-goods rights apply. For help with a return or an issue with your tee, email")} <a href="mailto:info@submissionsaga.com">info@submissionsaga.com</a>.</p></details>
+        <details className={styles.details}><summary>{t("Shipping & returns")}</summary><p>{t("Printful production typically takes 2–5 business days, excluding the order date, weekends, and holidays. Restocking and busy periods can extend this estimate. Shipping time is additional and varies by destination; customs may add time. These are estimates, not guaranteed delivery dates.")}</p><p>{t("Please check the size guide before ordering. Your statutory cancellation and faulty-goods rights apply. For help with a return or an issue with your tee, email")} <a href="mailto:info@submissionsaga.com">info@submissionsaga.com</a>.</p></details>
       </div>
     </div>
   </ShopDialog>;
