@@ -3,7 +3,8 @@
 /** A real link keeps the current page, query and anchor when changing languages. */
 import { usePathname } from "next/navigation";
 import { useSyncExternalStore } from "react";
-import { localePath } from "@/lib/i18n";
+import { LANGUAGE_QUERY, localePath } from "@/lib/locales";
+import { SITE_URL } from "@/lib/site";
 import { useI18n } from "./LocaleProvider";
 
 function subscribeLocation(callback: () => void): () => void {
@@ -21,8 +22,10 @@ export default function LanguageSwitch() {
   const suffix = useSyncExternalStore(subscribeLocation, () => window.location.search + window.location.hash, () => "");
   const target = locale === "en" ? "pt-BR" : "en";
   const label = target === "pt-BR" ? "Português (Brasil)" : "English";
+  const destination = new URL(localePath(pathname, target) + suffix, SITE_URL);
+  destination.searchParams.set(LANGUAGE_QUERY, target);
   return <a
-    href={localePath(pathname, target) + suffix}
+    href={destination.pathname + destination.search + destination.hash}
     hrefLang={target}
     lang={target}
     aria-label={label}

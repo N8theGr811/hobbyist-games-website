@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 /** Shown in the header and at the foot of the policy. */
-const LAST_UPDATED = "12 October 2026";
+const LAST_UPDATED = "28 October 2026";
 const CONTACT = "info@submissionsaga.com";
 
 /**
@@ -154,6 +154,15 @@ const SECTIONS: Section[] = [
       "For access, correction, deletion or other privacy requests relating to an apparel order, email {contact}. Some records must be retained for legal reasons. Deleting a game account does not delete shop orders, and a shop account is separate from your game account.",
     ],
     note: "The store privacy policy linked above provides further details about Shopify, international processing, retention and your rights. The game-specific sections below describe game data, not apparel orders.",
+  },
+  {
+    id: "website-language",
+    label: "Website",
+    title: "Website language",
+    body: [
+      "Vercel, our website host, uses the country associated with your IP address to choose the default website language: Brazilian Portuguese for Brazil and English elsewhere. You can change the language at any time. We do not request your device's precise location.",
+      "When you choose a language, we save that preference in a cookie in this browser for up to one year. This cookie stores only your language choice and is not used for advertising. Direct links to a Portuguese page stay in Portuguese.",
+    ],
   },
   {
     id: "website-advertising",

@@ -143,3 +143,31 @@ shipping charges are shown at checkout. Tracking is emailed when an order ships.
 Delivery dates are estimates, not guarantees. For a delayed or missing package,
 contact info@submissionsaga.com promptly with your order number. We currently
 ship to the United States.
+
+## Website languages
+
+English keeps the original URLs; Brazilian Portuguese uses `/pt-BR`.
+Both versions share the same static pages and publish canonical/hreflang links.
+On unprefixed page URLs, `src/proxy.ts` uses a saved manual language choice first,
+then Vercel's `x-vercel-ip-country` header: `BR` selects Portuguese and every other
+or missing country selects English. Browser language does not override country.
+Direct `/pt-BR` links remain Portuguese from any country.
+
+The language switch adds `lang=en` or `lang=pt-BR` to the target URL and preserves
+other query parameters and the anchor. A manual choice is remembered for up to
+one year in the `submission_saga_language` cookie. Keeping the explicit query
+makes the selected page work without JavaScript or cookies; persistence across
+other pages requires cookies. Automatic detection does not save a preference.
+Preference cookies are HttpOnly, SameSite=Lax, scoped to `/`, and Secure on HTTPS.
+Country-dependent responses and explicit choices are private and not cached.
+API routes, files and unknown pages bypass language detection.
+
+Local requests have no country header by default. After a production build and
+starting the local server, exercise countries and language overrides with:
+
+```sh
+python3 tools/check-language-routing.py --url http://127.0.0.1:3100
+python3 tools/check-localization.py --url http://127.0.0.1:3100
+```
+
+Host reference: [Vercel country headers](https://vercel.com/docs/headers/request-headers#x-vercel-ip-country).

@@ -41,7 +41,6 @@
   "Saddle (Cross Ashi)": "Saddle (Cross Ashi)",
   "More advanced and dominant leg entanglement position. Favors the attacker more heavily.": "Uma posição de leg entanglement mais avançada e dominante. Favorece ainda mais quem ataca.",
   "The Saddle position, blue and red figures.": "A posição de Saddle, com figuras azul e vermelha.",
-  "12 October 2026": "12 de outubro de 2026",
   "Your chosen username, and the time you last changed it": "O nome de usuário que você escolheu e quando o alterou pela última vez",
   "Your belt rank, ladder rating, division, and the two numbers the rating system uses to track how certain it is about you": "Sua faixa, sua pontuação no ranking, sua divisão e os dois números que o sistema de pontuação usa para acompanhar o grau de certeza que tem sobre você",
   "The highest division you reached at each belt, and the one-time division rewards you have been paid": "A divisão mais alta que você alcançou em cada faixa e as recompensas únicas de divisão que já recebeu",
@@ -237,5 +236,9 @@
   "You can delete your account from inside the game whenever you like.": "Você pode excluir sua conta dentro do jogo quando quiser.",
   "Signing in backs your single-player save up to our server, so you can restore it on another device by signing in with the same account from the same sign-in service. Accounts from {providers} are separate, and saves cannot be transferred between those services. We store it as one opaque string and never look inside it: the game's save format changes often, and a server that understood it would corrupt saves rather than merely fail to read them.": "Ao entrar, uma cópia de segurança do seu jogo salvo no modo para um jogador é enviada ao nosso servidor, para que você possa restaurá-lo em outro dispositivo entrando com a mesma conta do mesmo serviço de login. As contas dos serviços {providers} são separadas, e os jogos salvos não podem ser transferidos entre esses serviços. Armazenamos esse arquivo como uma única sequência de texto opaca e nunca examinamos seu conteúdo: o formato dos arquivos salvos muda com frequência, e um servidor que interpretasse esse formato corromperia os arquivos em vez de apenas deixar de conseguir lê-los.",
   "Steam, Apple and Google": "Steam, Apple e Google",
-  "Steam and Apple": "Steam e Apple"
+  "Steam and Apple": "Steam e Apple",
+  "28 October 2026": "28 de outubro de 2026",
+  "Website language": "Idioma do site",
+  "Vercel, our website host, uses the country associated with your IP address to choose the default website language: Brazilian Portuguese for Brazil and English elsewhere. You can change the language at any time. We do not request your device's precise location.": "A Vercel, que hospeda nosso site, usa o país associado ao seu endereço IP para definir o idioma padrão do site: português do Brasil para quem acessa do Brasil e inglês para os demais países. Você pode mudar o idioma a qualquer momento. Não solicitamos a localização precisa do seu dispositivo.",
+  "When you choose a language, we save that preference in a cookie in this browser for up to one year. This cookie stores only your language choice and is not used for advertising. Direct links to a Portuguese page stay in Portuguese.": "Quando você escolhe um idioma, salvamos essa preferência em um cookie neste navegador por até um ano. Esse cookie armazena apenas o idioma escolhido e não é usado para publicidade. Links diretos para páginas em português continuam em português."
 }

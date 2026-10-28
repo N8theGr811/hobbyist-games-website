@@ -3,22 +3,9 @@ import type { Metadata } from "next";
 import common from "./i18n/common.pt-BR.json";
 import { SITE_URL } from "./site";
 
-import { PAGE_PATHS, type Locale } from "./locales";
-export { LOCALES, PAGE_PATHS, type Locale } from "./locales";
+import { localePath, type Locale } from "./locales";
+export { LOCALES, PAGE_PATHS, isLocale, localePath, type Locale } from "./locales";
 export type Dictionary = Readonly<Record<string, string>>;
-
-export function isLocale(value: string): value is Locale {
-  return value === "en" || value === "pt-BR";
-}
-
-/** Only site pages have language variants. Media, APIs and community redirects do not. */
-export function localePath(href: string, locale: Locale): string {
-  const unprefixed = href.replace(/^\/(?:en|pt-BR)(?=\/|[?#]|$)/, "") || "/";
-  const base = unprefixed.split(/[?#]/)[0] || "/";
-  if (!PAGE_PATHS.includes(base)) return href;
-  const suffix = unprefixed.startsWith("/") ? unprefixed : `/${unprefixed}`;
-  return locale === "pt-BR" ? `/pt-BR${base === "/" ? suffix.slice(1) : suffix}` : suffix;
-}
 
 export function getI18n(value: string, dictionary: Dictionary = {}) {
   const locale: Locale = value === "pt-BR" ? "pt-BR" : "en";
