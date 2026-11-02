@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { DM_Serif_Display, Outfit, JetBrains_Mono, Press_Start_2P, VT323 } from "next/font/google";
 import { SITE_URL } from "@/lib/site";
 import { APP_STORE_ID } from "@/lib/stores";
@@ -6,7 +7,7 @@ import "../globals.css";
 import { notFound } from "next/navigation";
 import { isLocale, LOCALES } from "@/lib/i18n";
 import LocaleProvider from "@/components/LocaleProvider";
-import MetaPixel from "@/components/MetaPixel";
+import AdvertisingTracking from "@/components/AdvertisingTracking";
 
 const dmSerif = DM_Serif_Display({
   weight: "400",
@@ -76,7 +77,7 @@ export default async function RootLayout({
       lang={locale}
       className={`${dmSerif.variable} ${outfit.variable} ${jetbrainsMono.variable} ${pixelFont.variable} ${vt323.variable}`}
     >
-      <body><LocaleProvider locale={locale}>{children}<MetaPixel /></LocaleProvider></body>
+      <body><LocaleProvider locale={locale}>{children}<Suspense fallback={null}><AdvertisingTracking /></Suspense></LocaleProvider></body>
     </html>
   );
 }

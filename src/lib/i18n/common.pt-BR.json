@@ -101,7 +101,6 @@
   "Something went wrong. Please try again later.": "Algo deu errado. Tente novamente mais tarde.",
   "Network error. Please try again.": "Erro de conexão. Tente novamente.",
   "Advertising cookie choices": "Preferências de cookies de publicidade",
-  "Allow advertising cookies? We use Meta to measure visits and store clicks from our ads. ": "Permitir cookies de publicidade? Usamos a Meta para medir as visitas e os cliques nas lojas que vêm dos nossos anúncios. ",
   "Privacy details": "Detalhes de privacidade",
   "No thanks": "Não, obrigado",
   "Allow": "Permitir",
@@ -109,5 +108,6 @@
   "Submission Saga — Hobbyist Games": "Submission Saga | Hobbyist Games",
   "A pixel-art RPG where Brazilian Jiu-Jitsu meets adventure. Train, fight, and build your legacy. Out now on Steam and the App Store.": "Um RPG em pixel art que une jiu jitsu e aventura. Treine, lute e construa seu legado. Já disponível na Steam e na App Store.",
   "The Mount position, blue and red figures.": "A posição de Montada, representada por figuras em azul e vermelho.",
-  "Move card art for a flying triangle.": "Ilustração da carta de Triângulo Voador."
+  "Move card art for a flying triangle.": "Ilustração da carta de Triângulo Voador.",
+  "Allow advertising cookies? We use Meta and Reddit to measure visits and store clicks from our ads. ": "Permitir cookies de publicidade? Usamos a Meta e o Reddit para medir as visitas e os cliques nas lojas que vêm dos nossos anúncios. "
 }

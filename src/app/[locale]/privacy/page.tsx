@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 /** Shown in the header and at the foot of the policy. */
-const LAST_UPDATED = "28 October 2026";
+const LAST_UPDATED = "2 November 2026";
 const CONTACT = "info@submissionsaga.com";
 
 /**
@@ -169,11 +169,12 @@ const SECTIONS: Section[] = [
     label: "Website",
     title: "Advertising cookies",
     body: [
-      "If you choose Allow in the website's advertising cookie notice, we load Meta Pixel to measure page visits and clicks on our Steam, App Store and Google Play links. A store click does not tell us whether you installed or purchased the game.",
-      "Meta receives these events, the page URL, browser and device information, your IP address and advertising cookie identifiers. Meta can use this information to attribute visits to ads and match activity to Meta accounts. We do not send mailing-list email addresses, game account details or payment information through the Pixel, and automatic advanced matching is disabled.",
-      "Advertising tracking stays off until you opt in. You can decline or change your choice through Cookie settings on this website. We remember your choice in this browser and honor Global Privacy Control by keeping advertising tracking off. Withdrawing consent stops future events; it does not remove events already sent to Meta.",
+      "If you choose Allow in the website's advertising cookie notice, we load Meta Pixel and Reddit Pixel to measure page visits and clicks on our Steam, App Store and Google Play links. A store click does not tell us whether you installed or purchased the game.",
+      "Meta and Reddit receive these events, the page URL, browser and device information, your IP address and advertising cookie identifiers. They can use this information to attribute visits to ads and match activity to their accounts. We do not provide mailing-list email addresses, game account details or payment information to these pixels, and we do not enable advanced matching.",
+      "Advertising pixels stay off until you opt in. You can decline or change your choice through Cookie settings. We remember your choice in this browser and honor Global Privacy Control by keeping pixels and campaign forwarding off. Withdrawing consent clears the saved campaign and reloads the page if needed to stop the pixels. It does not remove events already sent.",
+      "Store links can include non-personal campaign labels from the current page's address so stores can report campaign results. We do not forward advertising click IDs or email addresses to stores. If you allow advertising cookies, we also remember these labels in this tab for up to 30 minutes to retain the source as you browse the site. Without consent, we do not save campaign labels.",
     ],
-    note: "This tracking applies to the website only. It is not installed inside the game. Meta handles the data it receives under its own privacy policy at https://www.facebook.com/privacy/policy/.",
+    note: "This tracking applies to the website only, not inside the game. Meta and Reddit handle the data they receive under their privacy policies at https://www.facebook.com/privacy/policy/ and https://www.reddit.com/policies/privacy-policy.",
   },
   {
     label: "What we collect",
