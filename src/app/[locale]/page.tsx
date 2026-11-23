@@ -1,10 +1,10 @@
 import { getI18n, pageMetadata } from "@/lib/i18n";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import FeatureHighlights from "@/components/FeatureHighlights";
-import ExploreTheRegion from "@/components/ExploreTheRegion";
+import TheGame from "@/components/TheGame";
+import GrapplersOnly from "@/components/GrapplersOnly";
+import Champion from "@/components/Champion";
 import Reel from "@/components/Reel";
-import GameInfo from "@/components/GameInfo";
 import LearnTheGame from "@/components/LearnTheGame";
 import Faq from "@/components/Faq";
 import EmailSignup from "@/components/EmailSignup";
@@ -31,13 +31,13 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <main>
         <Hero locale={locale} />
         <SectionBreak />
-        <FeatureHighlights locale={locale} />
+        <TheGame locale={locale} />
         <SectionBreak />
-        <ExploreTheRegion locale={locale} />
+        <GrapplersOnly locale={locale} />
+        <SectionBreak />
+        <Champion locale={locale} />
         <SectionBreak />
         <Reel locale={locale} />
-        <SectionBreak />
-        <GameInfo locale={locale} />
         <SectionBreak />
         <LearnTheGame locale={locale} />
         <SectionBreak />

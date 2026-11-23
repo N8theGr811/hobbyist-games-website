@@ -3,39 +3,27 @@ import { getI18n, type Locale } from "@/lib/i18n";
 export interface Moment {
   headline: string;
   line: string;
-  media:
-    | { kind: "image"; src: string; alt: string }
-    | { kind: "video"; src: string; label: string };
+  media: MomentMediaSpec;
 }
 
-/**
- * Alternating headline/media rows.
- *
- * Extracted when Beyond The Mat became a second set of these. The layout is
- * one idea, so it lives in one place rather than being pasted into the second
- * caller and left to drift.
- *
- * `startSide` exists because the zigzag has to survive a section boundary.
- * How It Plays ends on a left-media row, so Beyond The Mat has to open on a
- * right-media one or the alternation stutters exactly where the two meet —
- * which is the one place a reader is most likely to notice it.
- */
+export type MomentMediaSpec =
+  | { kind: "image"; src: string; alt: string }
+  | { kind: "video"; src: string; label: string };
+
+/** Alternating headline/media rows, media on the left first. */
 export default function MomentRows({
   moments,
   locale = "en",
-  startSide = "left",
 }: {
   moments: Moment[];
   locale?: Locale;
-  startSide?: "left" | "right";
 }) {
   const { t } = getI18n(locale);
-  const flip = startSide === "right";
 
   return (
     <div className="max-w-5xl mx-auto flex flex-col gap-16 md:gap-20">
       {moments.map((moment, i) => {
-        const mediaRight = (i % 2 === 1) !== flip;
+        const mediaRight = i % 2 === 1;
         return (
           <div
             key={t(moment.headline)}
@@ -60,7 +48,7 @@ export default function MomentRows({
 }
 
 /** Screenshot or looping clip, in the panel frame with a cream outline. */
-function MomentMedia({ media, locale }: { media: Moment["media"]; locale: Locale }) {
+export function MomentMedia({ media, locale }: { media: MomentMediaSpec; locale: Locale }) {
   const { t } = getI18n(locale);
   return (
     <div className="steam-panel border-cream relative aspect-video overflow-hidden">

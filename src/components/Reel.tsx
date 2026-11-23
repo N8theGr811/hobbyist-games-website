@@ -23,7 +23,7 @@ const INSTAGRAM = "https://www.instagram.com/submission_saga/";
 export default function Reel({ locale = "en" }: { locale?: Locale }) {
   const { t } = getI18n(locale);
   return (
-    <section className="relative isolate section-rhythm px-6 overflow-hidden bg-pixel-grid bg-pixel-grid-alt md:px-12">
+    <section className="relative isolate section-rhythm px-6 overflow-hidden bg-pixel-grid md:px-12">
       <Watermark name="doubleleg" className="-left-24 top-20 h-[380px] w-[500px]" />
       <Watermark name="underhookthrow" className="-right-20 bottom-12 h-[420px] w-[336px]" />
 
