@@ -12,7 +12,7 @@ import Watermark from "./Watermark";
 export default function Champion({ locale = "en" }: { locale?: Locale }) {
   const { t } = getI18n(locale);
   return (
-    <section className="relative isolate section-rhythm px-6 bg-pixel-grid bg-pixel-grid-alt overflow-hidden md:px-12">
+    <section className="relative isolate section-rhythm px-6 bg-pixel-grid overflow-hidden md:px-12">
       <Watermark name="openguard" className="-left-28 top-24 h-[400px] w-[520px] scale-x-[-1]" />
       <Watermark name="singlelegx" className="-right-24 bottom-16 h-[340px] w-[460px]" />
 

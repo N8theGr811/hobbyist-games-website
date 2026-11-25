@@ -36,7 +36,7 @@ const SHOTS: { src: string; alt: string }[] = [
 export default function GrapplersOnly({ locale = "en" }: { locale?: Locale }) {
   const { t } = getI18n(locale);
   return (
-    <section className="relative isolate section-rhythm px-6 bg-pixel-grid overflow-hidden md:px-12">
+    <section className="relative isolate section-rhythm px-6 bg-pixel-grid bg-pixel-grid-alt overflow-hidden md:px-12">
       <Watermark name="kimura" className="-left-24 top-24 h-[320px] w-[560px]" />
       <Watermark name="singleleg" className="-right-28 bottom-16 h-[320px] w-[440px]" />
 

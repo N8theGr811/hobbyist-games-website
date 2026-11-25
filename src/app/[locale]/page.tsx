@@ -4,7 +4,7 @@ import Hero from "@/components/Hero";
 import TheGame from "@/components/TheGame";
 import GrapplersOnly from "@/components/GrapplersOnly";
 import Champion from "@/components/Champion";
-import Reel from "@/components/Reel";
+import DevelopersNote from "@/components/DevelopersNote";
 import LearnTheGame from "@/components/LearnTheGame";
 import Faq from "@/components/Faq";
 import EmailSignup from "@/components/EmailSignup";
@@ -33,11 +33,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <SectionBreak />
         <TheGame locale={locale} />
         <SectionBreak />
-        <GrapplersOnly locale={locale} />
-        <SectionBreak />
         <Champion locale={locale} />
         <SectionBreak />
-        <Reel locale={locale} />
+        <GrapplersOnly locale={locale} />
+        <SectionBreak />
+        <DevelopersNote locale={locale} />
         <SectionBreak />
         <LearnTheGame locale={locale} />
         <SectionBreak />

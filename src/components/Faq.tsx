@@ -100,10 +100,6 @@ export default function FaqSection({ locale = "en" }: { locale?: Locale }) {
       q: "Are there microtransactions?",
       a: "Steam has three cosmetic DLC packs, and on iPhone, iPad and Android you can buy Gold, which is the currency the Pro Shop runs on. Neither one touches a fight. Gold is also paid out by belt promotions and trophies, so anything the Pro Shop sells can be earned instead of bought. The exception is each pack's exclusive kit, which on Steam is only in the pack.",
     },
-    {
-      q: "Who made it?",
-      a: "Nate Markham, under Hobbyist Games.",
-    },
   ];
 
   return (

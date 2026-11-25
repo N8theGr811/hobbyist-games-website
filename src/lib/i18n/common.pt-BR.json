@@ -48,10 +48,6 @@
   "Not for the single-player game. Online play and cloud backup use Steam, Sign in with Apple on iPhone and iPad, or Google on Android. Google Play Billing can send billing diagnostics to Google even without an online game account.": "Para jogar no modo individual, não. As partidas online e o backup na nuvem usam Steam, Iniciar sessão com a Apple no iPhone e no iPad, ou Google no Android. O Google Play Billing pode enviar dados de diagnóstico de cobrança ao Google mesmo sem uma conta para jogar online.",
   "Are there microtransactions?": "Há microtransações?",
   "Steam has three cosmetic DLC packs, and on iPhone, iPad and Android you can buy Gold, which is the currency the Pro Shop runs on. Neither one touches a fight. Gold is also paid out by belt promotions and trophies, so anything the Pro Shop sells can be earned instead of bought. The exception is each pack's exclusive kit, which on Steam is only in the pack.": "Na Steam, há três pacotes de DLC com itens visuais. No iPhone, no iPad e no Android, você pode comprar Ouro, a moeda usada na Pro Shop. Nenhuma dessas compras interfere nas lutas. Você também ganha Ouro ao subir de faixa e conquistar troféus, então pode obter tudo o que a Pro Shop vende jogando, sem pagar. A exceção é o conjunto exclusivo de cada pacote, que na Steam só está disponível no próprio pacote.",
-  "Who made it?": "Quem criou o jogo?",
-  "Nate Markham, under Hobbyist Games.": "Nate Markham, pela Hobbyist Games.",
-  "Watch": "Assista",
-  "What it is, why I made it, and where to play it.": "O que é, por que criei e onde jogar.",
   "Follow on Instagram": "Siga no Instagram",
   "Learn The Game": "Conheça o jogo",
   "The positions and terms the game uses, for anyone who has never trained.": "As posições e os termos usados no jogo, para quem nunca treinou.",
@@ -101,5 +97,9 @@
   "The B-Team Brew item card: +5 to all stats for the next fight and -40 Cardio. Two in a day brings a hangover.": "O card da Breja B-Team: +5 em todos os atributos na próxima luta e -40 de Cardio. Duas no mesmo dia dão ressaca.",
   "Become The Best In The World.": "Torne-se o melhor do mundo.",
   "The black belt World Championship podium: you in first as World Champion, Gunner second, Linus third, with $10,000 and 2,200 XP awarded": "O pódio do Mundial na faixa preta: você em primeiro como campeão mundial, Gunner em segundo e Linus em terceiro, com US$ 10.000 e 2.200 XP de prêmio",
-  "Move card art for a flying triangle.": "Ilustração da carta de Triângulo Voador."
+  "Move card art for a flying triangle.": "Ilustração da carta de Triângulo Voador.",
+  "Developer's Note": "Nota do desenvolvedor",
+  "Solo developed by Nate Markham": "Desenvolvido sozinho por Nate Markham",
+  "Nate's launch reel: what the game is, why he made it, and where to play it": "Vídeo de lançamento do Nate: o que é o jogo, por que ele o criou e onde jogar",
+  "Jiu jitsu is essentially a game. With Submission Saga, I wanted to create a simplified version of that game, celebrating all the weird and funny things we all love about the journey of jiu jitsu. I think these elements, and the ability to create your own style, make doing jiu jitsu a really unique and amazing experience.": "Jiu jitsu é, no fundo, um jogo. Com Submission Saga, eu quis criar uma versão simplificada desse jogo, celebrando todas as coisas estranhas e engraçadas que todos nós amamos na jornada do jiu jitsu. Acho que esses elementos, e a possibilidade de criar o seu próprio estilo, fazem do treino de jiu jitsu uma experiência única e incrível."
 }
